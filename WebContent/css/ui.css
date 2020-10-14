@@ -1,0 +1,128 @@
+
+  
+.ui-alert {
+	background-color: #F2DEDE;
+	padding: 20px;
+	border-radius: 5px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.ui-alert-title {
+	color: #AF4341;
+	font-weight: bold;
+	font-size: 24px;
+}
+
+.ui-alert-message {
+	color: #AF4341;
+}
+
+.ui-accordion-title {
+	border: 1px solid #CCCCCC;
+	cursor: pointer;
+	background: -moz-linear-gradient(top, #CCCCCC, #EEEEEE);
+	padding: 10px;
+	font-size: 16px;
+	font-weight: bold;
+	border-radius: 5px 5px 0px 0px;
+	margin-top: 10px;
+	text-align: left;
+}
+.ui-accordion-content {
+	border: 1px dashed #CCCCCC;
+	border-top: 0px;
+	border-radius: 0px 0px 5px 5px;
+	background-color: #FFFFFF;
+	padding: 10px;
+	margin-bottom: 10px;
+	font-size: 14px;
+	text-align: left;
+}
+© 2020 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+Skip to content
+Why GitHub? 
+Team
+Enterprise
+Explore 
+Marketplace
+Pricing 
+Search
+
+Sign in
+Sign up
+rodrigobranas
+/
+youtube
+163660499
+Code
+Issues
+10
+Pull requests
+27
+Actions
+Projects
+Security
+Insights
+Join GitHub today
+GitHub is home to over 50 million developers working together to host and review code, manage projects, and build software together.
+
+youtube/AngularJS_15_Interceptors/css/ui.css
+@rodrigobranas
+rodrigobranas Grunt
+Latest commit 88b4312 on 6 Mar 2016
+ History
+ 1 contributor
+39 lines (36 sloc)  698 Bytes
+  
+.ui-alert {
+	background-color: #F2DEDE;
+	padding: 20px;
+	border-radius: 5px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.ui-alert-title {
+	color: #AF4341;
+	font-weight: bold;
+	font-size: 24px;
+}
+
+.ui-alert-message {
+	color: #AF4341;
+}
+
+.ui-accordion-title {
+	border: 1px solid #CCCCCC;
+	cursor: pointer;
+	background: -moz-linear-gradient(top, #CCCCCC, #EEEEEE);
+	padding: 10px;
+	font-size: 16px;
+	font-weight: bold;
+	border-radius: 5px 5px 0px 0px;
+	margin-top: 10px;
+	text-align: left;
+}
+.ui-accordion-content {
+	border: 1px dashed #CCCCCC;
+	border-top: 0px;
+	border-radius: 0px 0px 5px 5px;
+	background-color: #FFFFFF;
+	padding: 10px;
+	margin-bottom: 10px;
+	font-size: 14px;
+	text-align: left;
+}
+

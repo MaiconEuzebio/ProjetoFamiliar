@@ -9,7 +9,10 @@ angular.module("listaTelefonica").config(function ($routeProvider){
 		controller: "marcaController",
 	});
 	
-	$routeProvider.otherwise({redirectTo: "/index.html"});
+	$routeProvider.when("/tamanho", {
+		templateUrl: "view/tamanho.html",
+		controller: "tamanhoController",
+	});
 	
 	$routeProvider.when("/tipoContato", {
 		templateUrl: "view/tipoContato.html",

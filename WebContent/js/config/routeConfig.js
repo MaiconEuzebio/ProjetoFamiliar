@@ -4,5 +4,10 @@ angular.module("listaTelefonica").config(function ($routeProvider){
 		controller: "corController",
 	});
 	
+	$routeProvider.when("/marca", {
+		templateUrl: "view/marca.html",
+		controller: "marcaController",
+	});
+	
 	$routeProvider.otherwise({redirectTo: "/index.html"});
 });

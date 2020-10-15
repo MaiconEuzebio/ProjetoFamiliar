@@ -17,4 +17,11 @@ angular.module("listaTelefonica").config(function ($routeProvider){
 	});
 	
 	$routeProvider.otherwise({redirectTo: "/index.html"});
+	
+	$routeProvider.when("/tipoEndereco", {
+		templateUrl: "view/tipoEndereco.html",
+		controller: "tipoEnderecoController",
+	});
+	
+	$routeProvider.otherwise({redirectTo: "/index.html"});
 });

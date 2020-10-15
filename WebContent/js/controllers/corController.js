@@ -42,7 +42,7 @@ app.controller("corController", function ($scope, requisicaoService, filterFilte
     $scope.btnEditar = function(){
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";
-    	$scope.mostrarAguarde = true;
+    	
     	
     	if (!$scope.objetoSelecionado) {
             $scope.mensagemModal   = "É necessário selecionar o registro que deseja editar!";
@@ -52,6 +52,7 @@ app.controller("corController", function ($scope, requisicaoService, filterFilte
     	var param = {
 			int1: $scope.objetoSelecionado.id
 		}
+    	$scope.mostrarAguarde = true;
     	//obter a cor
     	requisicaoService.requisitarPOST("cor/obterPorId", param , function(retorno) {
 			if (!retorno.isValid) {

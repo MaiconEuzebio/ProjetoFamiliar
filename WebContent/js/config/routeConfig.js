@@ -5,4 +5,11 @@ angular.module("listaTelefonica").config(function ($routeProvider){
 	});
 	
 	$routeProvider.otherwise({redirectTo: "/index.html"});
+	
+	$routeProvider.when("/tipoContato", {
+		templateUrl: "view/tipoContato.html",
+		controller: "tipoContatoController",
+	});
+	
+	$routeProvider.otherwise({redirectTo: "/index.html"});
 });

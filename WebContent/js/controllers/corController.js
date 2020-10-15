@@ -143,7 +143,7 @@ app.controller("corController", function ($scope, requisicaoService, filterFilte
 
     /*
     /////////////////////////////////////////////////////////////////
-	// PAGINAÇÃO E TABELA                                          //
+	//                                           //
     /////////////////////////////////////////////////////////////////
     */
     

@@ -1,5 +1,6 @@
 package br.com.erp.model;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -7,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -31,6 +33,12 @@ public class Pessoa {
 	
 	@Column(length = 1, name = "STATUS")
 	private Integer status;
+	
+	@OneToMany
+	private List<Contato> contatos;
+	
+	@OneToMany
+	private List<Endereco> enderecos;
 	
 	@Transient
 	private String descStatus;
@@ -73,6 +81,22 @@ public class Pessoa {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public List<Contato> getContatos() {
+		return contatos;
+	}
+
+	public void setContatos(List<Contato> contatos) {
+		this.contatos = contatos;
+	}
+
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
 	}
 
 	public String getDescStatus() {

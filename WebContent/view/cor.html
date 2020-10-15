@@ -13,6 +13,10 @@
 	</div>
 	<!-- /.container-fluid -->
 </div>
+<div class="text-center" ng-show="mostrarAguarde">
+    <img class="figura-aguarde" src="img/carregando.gif">
+    <label class="label-aguarde">{{buscarDicionario('Aguarde...')}}</label>
+</div>
 <div class="row" ng-show="!visualizaCadastro && !mostrarAguarde">
 	<!-- /.content-header -->
 	<div class="col-md-12">
@@ -84,29 +88,6 @@
 			<!-- /.card-body -->
 		</div>
 	</div>
-
-	<div class="modal fade" id="modal-sm">
-		<div class="modal-dialog modal-sm">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Small Modal</h4>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<p>One fine body&hellip;</p>
-				</div>
-				<div class="modal-footer justify-content-between">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
-				</div>
-			</div>
-			<!-- /.modal-content -->
-		</div>
-		<!-- /.modal-dialog -->
-	</div>
 </div>
 
 <div class="row" ng-show="visualizaCadastro && !mostrarAguarde">
@@ -114,6 +95,7 @@
 		<div class="card">
 			<div class="card-header">
 				<h3 class="card-title">Cadastro</h3>
+				<button type="button" class="btn btn-secondary pull-right" ng-click="voltar()">Voltar</button>
 			</div>
 			<!-- /.card-header -->
 			<div class="card-body">

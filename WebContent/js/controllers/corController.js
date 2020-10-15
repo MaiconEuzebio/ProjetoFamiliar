@@ -21,8 +21,8 @@ app.controller("corController", function ($scope, requisicaoService, filterFilte
 	// FUNÇÕES                                                     //
     /////////////////////////////////////////////////////////////////
     */
-    $scope.sair = function(){
-    	location.href = 'index.html';
+    $scope.voltar = function(){
+    	$scope.visualizaCadastro 	= false;
     }
 
     $scope.btnIncluir = function(){
@@ -46,8 +46,7 @@ app.controller("corController", function ($scope, requisicaoService, filterFilte
     	
     	if (!$scope.objetoSelecionado) {
             $scope.mensagemModal   = "É necessário selecionar o registro que deseja editar!";
-        	$scope.showModalAviso  = true;
-        	$scope.mostrarAguarde = false;
+        	$('#modalAtencao').modal();
     		return;
     	}
     	var param = {
@@ -161,19 +160,11 @@ app.controller("corController", function ($scope, requisicaoService, filterFilte
         		return;
     		}
 			$scope.cores = retorno.data;
-			//refaz dados da paginação
-			$scope.listagem          = [10, 50, 100, 200];
-		    $scope.objetoSelecionado = null;
-		    $scope.viewby       	 = 10;
-			$scope.currentPage  	 = 1;
-			$scope.itemsPerPage 	 = $scope.viewby;
-			$scope.maxSize 			 = 5; //Number of pager buttons to show
 			
 			$scope.pesquisar();
 			
 			$scope.mostrarAguarde = false;
 		});
-    	$scope.mostrarAguarde = false;
 	}
 	
 	$scope.pesquisar = function(){

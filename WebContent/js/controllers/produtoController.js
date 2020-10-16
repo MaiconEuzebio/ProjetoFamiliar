@@ -168,6 +168,7 @@ app.controller("produtoController", function ($scope, requisicaoService, filterF
     		$scope.mostrarAguarde = false;
     		return;
         }
+    	
 
     	requisicaoService.requisitarPOST("produto/salvar", pproduto, function(retorno){
     		if (!retorno.isValid) {

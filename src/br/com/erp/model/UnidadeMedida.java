@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = " UNIDADE_MEDIDA")
+@Table(name = "UNIDADE_MEDIDA")
 public class UnidadeMedida {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

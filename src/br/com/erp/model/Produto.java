@@ -37,6 +37,9 @@ public class Produto {
 	@ManyToOne
 	@JoinColumn(name = "ID_TAMANHO")
 	private Tamanho tamanho;
+	@ManyToOne
+	@JoinColumn(name = "ID_UNIDADE_MEDIDA")
+	private UnidadeMedida unidadeMedida;
 	@Column(length = 1, name = "STATUS")
 	private Integer status; 
 	@Transient
@@ -100,6 +103,12 @@ public class Produto {
 	}
 	public void setTamanho(Tamanho tamanho) {
 		this.tamanho = tamanho;
+	}
+	public UnidadeMedida getUnidadeMedida() {
+		return unidadeMedida;
+	}
+	public void setUnidadeMedida(UnidadeMedida unidadeMedida) {
+		this.unidadeMedida = unidadeMedida;
 	}
 	public Integer getStatus() {
 		return status;

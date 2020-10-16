@@ -70,7 +70,7 @@
 										class="glyphicon glyphicon-sort-by-attributes" /> <span
 										ng-show="campoOrdenacao == '-quantidadeMaxima'"
 										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="text" name="peso" ng-model="quantidadeMaximaFilter"
+								</a> <input type="number" name="peso" ng-model="quantidadeMaximaFilter"
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
 									
@@ -80,7 +80,7 @@
 										class="glyphicon glyphicon-sort-by-attributes" /> <span
 										ng-show="campoOrdenacao == '-quantidadeMinima'"
 										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="text" name="peso" ng-model="quantidadeMinimaFilter"
+								</a> <input type="number" name="peso" ng-model="quantidadeMinimaFilter"
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
 									
@@ -90,7 +90,7 @@
 										class="glyphicon glyphicon-sort-by-attributes" /> <span
 										ng-show="campoOrdenacao == '-quantidadeAtual'"
 										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="text" name="peso" ng-model="quantidadeAtualFilter"
+								</a> <input type="number" name="peso" ng-model="quantidadeAtualFilter"
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
 									
@@ -100,7 +100,7 @@
 										class="glyphicon glyphicon-sort-by-attributes" /> <span
 										ng-show="campoOrdenacao == '-precoCusto'"
 										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="text" name="peso" ng-model="precoCustoFilter"
+								</a> <input type="number" name="peso" ng-model="precoCustoFilter"
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
 									
@@ -110,7 +110,7 @@
 										class="glyphicon glyphicon-sort-by-attributes" /> <span
 										ng-show="campoOrdenacao == '-precoVenda'"
 										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="text" name="peso" ng-model="precoVendaFilter"
+								</a> <input type="number" name="peso" ng-model="precoVendaFilter"
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
 									
@@ -211,7 +211,7 @@
 					<div class="col-md-10">
 						<div class="form-group">
 							<label>* Descrição</label> <input id="cDescricao" type="text"
-								class="form-control" ng-model="produto.descricao" maxlength="60"
+								class="form-control" ng-model="produto.descricao" maxlength="100"
 								mask-maiusculas autofocus>
 						</div>
 					</div>
@@ -219,7 +219,7 @@
 					<!-- CAMPO QUANTIDADE MAXIMA -->
 					<div class="col-md-4">
 						<div class="form-group">
-							<label>* Quantidade Maxima</label> <input id="cQuantidadeMaxima" type="text"
+							<label>* Quantidade Maxima</label> <input id="cQuantidadeMaxima" type="number"
 								class="form-control" ng-model="produto.quantidadeMaxima" maxlength="60"
 								mask-maiusculas autofocus>
 						</div>
@@ -228,7 +228,7 @@
 					<!-- CAMPO QUANTIDADE MINIMA -->
 					<div class="col-md-4">
 						<div class="form-group">
-							<label>* Quantidade Minima</label> <input id="cQuantidadeMinima" type="text"
+							<label>* Quantidade Minima</label> <input id="cQuantidadeMinima" type="number"
 								class="form-control" ng-model="produto.quantidadeMinima" maxlength="60"
 								mask-maiusculas autofocus>
 						</div>
@@ -237,7 +237,7 @@
 					<!-- CAMPO QUANTIDADE ATUAL -->
 					<div class="col-md-4">
 						<div class="form-group">
-							<label>* Quantidade Atual</label> <input id="cQuantidadeAtual" type="text"
+							<label>* Quantidade Atual</label> <input id="cQuantidadeAtual" type="number"
 								class="form-control" ng-model="produto.quantidadeAtual" maxlength="60"
 								mask-maiusculas autofocus>
 						</div>
@@ -246,7 +246,7 @@
 					<!-- CAMPO PRECO CUSTO -->
 					<div class="col-md-6">
 						<div class="form-group">
-							<label>* Preco Custo</label> <input id="cPrecoCusto" type="text"
+							<label>* Preco Custo</label> <input id="cPrecoCusto" type="number"
 								class="form-control" ng-model="produto.precoCusto" maxlength="60"
 								mask-maiusculas autofocus>
 						</div>
@@ -255,7 +255,7 @@
 					<!-- CAMPO PRECO VENDA -->
 					<div class="col-md-6">
 						<div class="form-group">
-							<label>* Preco Venda</label> <input id="cPrecoVenda" type="text"
+							<label>* Preco Venda</label> <input id="cPrecoVenda" type="number"
 								class="form-control" ng-model="produto.precoVenda" maxlength="60"
 								mask-maiusculas autofocus>
 						</div>

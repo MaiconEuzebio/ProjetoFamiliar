@@ -10,27 +10,26 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import br.com.erp.json.ParamJson;
-import br.com.erp.model.Cor;
-import br.com.erp.model.Marca;
+import br.com.erp.model.UnidadeMedida;
 import br.com.erp.util.UnidadePersistencia;
 
-@Path("cor")
-public class CorImp {
+@Path("unidadeMedida")
+public class UnidadeMedidaImp {
 
 	@Path("salvar")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public Cor save(Cor cor) {
+	public UnidadeMedida save(UnidadeMedida unidadeMedida) {
 
 		EntityManager em = UnidadePersistencia.createEntityManager();
 
 		try {
 			em.getTransaction().begin();
-			if (cor.getId() == null) {
-				em.persist(cor);
+			if (unidadeMedida.getId() == null) {
+				em.persist(unidadeMedida);
 			} else {
-				em.merge(cor);
+				em.merge(unidadeMedida);
 			}
 			em.getTransaction().commit();
 
@@ -40,57 +39,57 @@ public class CorImp {
 		} finally {
 			em.close();
 		}
-		return cor;
+		return unidadeMedida;
 	}
 
 	@Path("obterPorId")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public Cor findByID(ParamJson paramJson) {
+	public UnidadeMedida findByID(ParamJson paramJson) {
 		EntityManager em = UnidadePersistencia.createEntityManager();
-		Cor cor = null;
+		UnidadeMedida unidadeMedida = null;
 		try {
-			cor = em.find(Cor.class, paramJson.getInt1());
+			unidadeMedida = em.find(UnidadeMedida.class, paramJson.getInt1());
 		} catch (Exception e) {
 			System.err.println(e);
 		} finally {
 			em.close();
 		}
-		return cor;
+		return unidadeMedida;
 	}
 
 	@Path("obterTodos")
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public List<Cor> obterTodos() {
+	public List<UnidadeMedida> obterTodos() {
 		EntityManager em = UnidadePersistencia.createEntityManager();
-		List<Cor> cores = null;
+		List<UnidadeMedida> unidadeMedidas = null;
 
 		try {
-			cores = em.createQuery("select a " 
-							     + "  from Cor a").getResultList();
+			unidadeMedidas = em.createQuery("select a " 
+							     + "  from UnidadeMedida a").getResultList();
 
 		} catch (Exception e) {
 
 		} finally {
 			em.close();
 		}
-		return cores;
+		return unidadeMedidas;
 	}
 
 	@Path("obterTodosAtivos")
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public List<Cor> obterTodosAtivos() {
+	public List<UnidadeMedida> obterTodosAtivos() {
 		EntityManager em = UnidadePersistencia.createEntityManager();
-		List<Cor> cores = null;
+		List<UnidadeMedida> unidadeMedidas = null;
 
 		try {
-			cores = em.createQuery("select a " 
-								 + "  from Cor a" 
+			unidadeMedidas = em.createQuery("select a " 
+								 + "  from UnidadeMedida a" 
 								 + " where a.status = 1").getResultList();
 
 		} catch (Exception e) {
@@ -98,7 +97,7 @@ public class CorImp {
 		} finally {
 			em.close();
 		}
-		return cores;
+		return unidadeMedidas;
 	}
 
 	@Path("removerPorId")
@@ -109,9 +108,9 @@ public class CorImp {
 		EntityManager em = UnidadePersistencia.createEntityManager();
 
 		try {
-			Cor cor = em.find(Cor.class, paramJson.getInt1());
+			UnidadeMedida unidadeMedida = em.find(UnidadeMedida.class, paramJson.getInt1());
 			em.getTransaction().begin();
-			em.remove(cor);
+			em.remove(unidadeMedida);
 			em.getTransaction().commit();
 
 		} catch (Exception e) {

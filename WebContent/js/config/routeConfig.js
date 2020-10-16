@@ -1,4 +1,10 @@
 angular.module("listaTelefonica").config(function ($routeProvider){
+	
+	$routeProvider.when("/produto", {
+		templateUrl: "view/produto.html",
+		controller: "produtoController",
+	});
+	
 	$routeProvider.when("/cor", {
 		templateUrl: "view/cor.html",
 		controller: "corController",
@@ -12,6 +18,10 @@ angular.module("listaTelefonica").config(function ($routeProvider){
 	$routeProvider.when("/tamanho", {
 		templateUrl: "view/tamanho.html",
 		controller: "tamanhoController",
+	});
+	$routeProvider.when("/unidadeMedida", {
+		templateUrl: "view/unidadeMedida.html",
+		controller: "unidadeMedidaController",
 	});
 	
 	$routeProvider.when("/tipoContato", {

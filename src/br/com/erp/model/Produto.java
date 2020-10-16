@@ -18,12 +18,12 @@ public class Produto {
 	private Integer id;
 	@Column(length = 100, name = "DESCRICAO")
 	private String descricao;
-	@Column(name = "QTD_MAX")
-	private Integer qtdMax;
-	@Column(name = "QTD_MIN")
-	private Integer qtdMin;
-	@Column(name = "QTD_ATUAL")
-	private Integer qtdAtual;
+	@Column(name = "QUANTIDADE_MAXIMA")
+	private Integer quantidadeMaxima;
+	@Column(name = "QUANTIDADE_MINIMA")
+	private Integer quantidadeMinima;
+	@Column(name = "QUANTIDADE_ATUAL")
+	private Integer quantidadeAtual;
 	@Column(name = "PRECO_CUSTO")
 	private Double precoCusto;
 	@Column(name = "PRECO_VENDA")
@@ -53,23 +53,23 @@ public class Produto {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public Integer getQtdMax() {
-		return qtdMax;
+	public Integer getQuantidadeMaxima() {
+		return quantidadeMaxima;
 	}
-	public void setQtdMax(Integer qtdMax) {
-		this.qtdMax = qtdMax;
+	public void setQuantidadeMaxima(Integer quantidadeMaxima) {
+		this.quantidadeMaxima = quantidadeMaxima;
 	}
-	public Integer getQtdMin() {
-		return qtdMin;
+	public Integer getQuantidadeMinima() {
+		return quantidadeMinima;
 	}
-	public void setQtdMin(Integer qtdMin) {
-		this.qtdMin = qtdMin;
+	public void setQuantidadeMinima(Integer quantidadeMinima) {
+		this.quantidadeMinima = quantidadeMinima;
 	}
-	public Integer getQtdAtual() {
-		return qtdAtual;
+	public Integer getQuantidadeAtual() {
+		return quantidadeAtual;
 	}
-	public void setQtdAtual(Integer qtdAtual) {
-		this.qtdAtual = qtdAtual;
+	public void setQuantidadeAtual(Integer quantidadeAtual) {
+		this.quantidadeAtual = quantidadeAtual;
 	}
 	public Double getPrecoCusto() {
 		return precoCusto;

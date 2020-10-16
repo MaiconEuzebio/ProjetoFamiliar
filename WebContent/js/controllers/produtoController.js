@@ -259,15 +259,16 @@ app.controller("produtoController", function ($scope, requisicaoService, filterF
 	$scope.pesquisar = function(){
 		$scope.produtosFiltradas = orderByFilter(filterFilter($scope.produtos,{id:$scope.idFilter,
 													                     descricao: $scope.descricaoFilter,
-													                     quantideMaxima: $scope.quantidadeMaximaFilter,
-													                     quantideMinima: $scope.quantidadeMinimaFilter,
-													                     quantideAtual: $scope.quantidadeAtualFilter,
+													                     quantidadeMaxima: $scope.quantidadeMaximaFilter,
+													                     quantidadeMinima: $scope.quantidadeMinimaFilter,
+													                     quantidadeAtual: $scope.quantidadeAtualFilter,
 													                     precoCusto: $scope.precoCustoFilter,
 													                     precoVenda: $scope.precoVendaFilter,
-													                     cor: $scope.corFilter,
-													                     marca: $scope.marcaFilter,
-													                     tamanho: $scope.tamanhoFilter,
-													                     unidadeMedida: $scope.unidadeMedidaFilter}), $scope.campoOrdenacao);
+													                     cor:{descricao:$scope.descricaoCorFilter},
+													                     marca:{descricao:$scope.descricaoMarcaFilter},
+													                     tamanho:{descricao:$scope.descricaoTamanhoFilter},
+													                     unidadeMedida:{descricao:$scope.descricaoUnidadeMedidaFilter},
+													                     descStatus:$scope.descStatusFilter}), $scope.campoOrdenacao);
 		
 	}
 	

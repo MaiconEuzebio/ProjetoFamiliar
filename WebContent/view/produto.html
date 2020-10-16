@@ -64,13 +64,13 @@
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
 									
-									<th><a href="" ng-click="ordenacao('quantidadeMaxima')"
+								<th><a href="" ng-click="ordenacao('quantidadeMaxima')"
 									title="Ordenar"> Quantidade Maxima <span
 										ng-show="campoOrdenacao == '+quantidadeMaxima'"
 										class="glyphicon glyphicon-sort-by-attributes" /> <span
 										ng-show="campoOrdenacao == '-quantidadeMaxima'"
 										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="number" name="peso" ng-model="quantidadeMaximaFilter"
+								</a> <input type="text" name="peso" ng-model="quantidadeMaximaFilter"
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
 									
@@ -80,7 +80,7 @@
 										class="glyphicon glyphicon-sort-by-attributes" /> <span
 										ng-show="campoOrdenacao == '-quantidadeMinima'"
 										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="number" name="peso" ng-model="quantidadeMinimaFilter"
+								</a> <input type="text" name="peso" ng-model="quantidadeMinimaFilter"
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
 									
@@ -90,7 +90,7 @@
 										class="glyphicon glyphicon-sort-by-attributes" /> <span
 										ng-show="campoOrdenacao == '-quantidadeAtual'"
 										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="number" name="peso" ng-model="quantidadeAtualFilter"
+								</a> <input type="text" name="peso" ng-model="quantidadeAtualFilter"
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
 									
@@ -100,7 +100,7 @@
 										class="glyphicon glyphicon-sort-by-attributes" /> <span
 										ng-show="campoOrdenacao == '-precoCusto'"
 										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="number" name="peso" ng-model="precoCustoFilter"
+								</a> <input type="text" name="peso" ng-model="precoCustoFilter"
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
 									
@@ -110,7 +110,7 @@
 										class="glyphicon glyphicon-sort-by-attributes" /> <span
 										ng-show="campoOrdenacao == '-precoVenda'"
 										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="number" name="peso" ng-model="precoVendaFilter"
+								</a> <input type="text" name="peso" ng-model="precoVendaFilter"
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
 									
@@ -120,7 +120,7 @@
 										class="glyphicon glyphicon-sort-by-attributes" /> <span
 										ng-show="campoOrdenacao == '-cor'"
 										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="text" name="peso" ng-model="corFilter"
+								</a> <input type="text" name="peso" ng-model="descricaoCorFilter"
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
 									
@@ -130,7 +130,7 @@
 										class="glyphicon glyphicon-sort-by-attributes" /> <span
 										ng-show="campoOrdenacao == '-marca'"
 										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="text" name="peso" ng-model="marcaFilter"
+								</a> <input type="text" name="peso" ng-model="descricaoMarcaFilter"
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
 									
@@ -140,7 +140,7 @@
 										class="glyphicon glyphicon-sort-by-attributes" /> <span
 										ng-show="campoOrdenacao == '-tamanho'"
 										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="text" name="peso" ng-model="tamanhoFilter"
+								</a> <input type="text" name="peso" ng-model="descricaoTamanhoFilter"
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
 									
@@ -150,7 +150,7 @@
 										class="glyphicon glyphicon-sort-by-attributes" /> <span
 										ng-show="campoOrdenacao == '-unidadeMedida'"
 										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="text" name="peso" ng-model="unidadeMedidaFilter"
+								</a> <input type="text" name="peso" ng-model="descricaoUnidadeMedidaFilter"
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
 									
@@ -160,7 +160,7 @@
 										class="glyphicon glyphicon-sort-by-attributes" /> <span
 										ng-show="campoOrdenacao == '-descricao'"
 										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="text" name="peso" ng-model="descricaoFilter"
+								</a> <input type="text" name="peso" ng-model="descStatusFilter"
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
 							</tr>

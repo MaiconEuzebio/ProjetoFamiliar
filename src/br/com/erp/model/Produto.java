@@ -18,15 +18,15 @@ public class Produto {
 	private Integer id;
 	@Column(length = 100, name = "DESCRICAO")
 	private String descricao;
-	@Column(name = "QUANTIDADE_MAXIMA")
-	private Integer quantidadeMaxima;
-	@Column(name = "QUANTIDADE_MINIMA")
-	private Integer quantidadeMinima;
-	@Column(name = "QUANTIDADE_ATUAL")
-	private Integer quantidadeAtual;
-	@Column(name = "PRECO_CUSTO")
+	@Column(length = 10, name = "QUANTIDADE_MAXIMA")
+	private Double quantidadeMaxima;
+	@Column(length = 10, name = "QUANTIDADE_MINIMA")
+	private Double quantidadeMinima;
+	@Column(length = 10, name = "QUANTIDADE_ATUAL")
+	private Double quantidadeAtual;
+	@Column(length = 10, name = "PRECO_CUSTO")
 	private Double precoCusto;
-	@Column(name = "PRECO_VENDA")
+	@Column(length = 10, name = "PRECO_VENDA")
 	private Double precoVenda;
 	@ManyToOne
 	@JoinColumn(name = "ID_COR")
@@ -56,22 +56,23 @@ public class Produto {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public Integer getQuantidadeMaxima() {
+
+	public Double getQuantidadeMaxima() {
 		return quantidadeMaxima;
 	}
-	public void setQuantidadeMaxima(Integer quantidadeMaxima) {
+	public void setQuantidadeMaxima(Double quantidadeMaxima) {
 		this.quantidadeMaxima = quantidadeMaxima;
 	}
-	public Integer getQuantidadeMinima() {
+	public Double getQuantidadeMinima() {
 		return quantidadeMinima;
 	}
-	public void setQuantidadeMinima(Integer quantidadeMinima) {
+	public void setQuantidadeMinima(Double quantidadeMinima) {
 		this.quantidadeMinima = quantidadeMinima;
 	}
-	public Integer getQuantidadeAtual() {
+	public Double getQuantidadeAtual() {
 		return quantidadeAtual;
 	}
-	public void setQuantidadeAtual(Integer quantidadeAtual) {
+	public void setQuantidadeAtual(Double quantidadeAtual) {
 		this.quantidadeAtual = quantidadeAtual;
 	}
 	public Double getPrecoCusto() {

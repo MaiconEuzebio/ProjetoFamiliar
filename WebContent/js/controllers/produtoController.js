@@ -126,45 +126,101 @@ app.controller("produtoController", function ($scope, requisicaoService, filterF
     	$scope.mensagemRodape = "";
     	$scope.mostrarAguarde = true;
     	
-    	if (!pproduto){
-    		$scope.mensagemRodape = "É necessário o preenchimento do campo Descrição!";
-    		document.getElementById("cDescricao").focus();
-    		$scope.mostrarAguarde = false;
-    		return;
-        }
+    	
     	if (!pproduto.descricao) {
         	$scope.mensagemRodape = "É necessário o preenchimento do campo Descrição!";
     		document.getElementById("cDescricao").focus();
     		$scope.mostrarAguarde = false;
     		return;
         }
-    	if (!pproduto.quantidadeMaxima) {
+    	if (pproduto.quantidadeMaxima < 1) {
         	$scope.mensagemRodape = "É necessário o preenchimento do campo Quantidade Maxima!";
     		document.getElementById("cQuantidadeMaxima").focus();
     		$scope.mostrarAguarde = false;
+    		return;	
+        }
+    	if (!pproduto.quantidadeMaxima) {
+        	$scope.mensagemRodape = "O campo Quantidade Maxima deve ter no maximo 10 caracteres!";
+    		document.getElementById("cQuantidadeMaxima").focus();
+    		$scope.mostrarAguarde = false; 
     		return;
         }
-    	if (!pproduto.quantidadeMinima) {
+    	
+    	
+    	if (pproduto.quantidadeMinima < 1) {
         	$scope.mensagemRodape = "É necessário o preenchimento do campo Quantidade Minima!";
     		document.getElementById("cQuantidadeMinima").focus();
     		$scope.mostrarAguarde = false;
     		return;
         }
-    	if (!pproduto.quantidadeAtual) {
+    	
+    	if (!pproduto.quantidadeMinima) {
+        	$scope.mensagemRodape = "O campo Quantidade Minima deve ter no maximo 10 caracteres!";
+    		document.getElementById("cQuantidadeMinima").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
+    	
+    	if (pproduto.quantidadeAtual < 1) {
         	$scope.mensagemRodape = "É necessário o preenchimento do campo Quantidade Atual!";
     		document.getElementById("cQuantidadeAtual").focus();
     		$scope.mostrarAguarde = false;
     		return;
         }
-    	if (!pproduto.precoCusto) {
+    	
+    	if (!pproduto.quantidadeAtual) {
+        	$scope.mensagemRodape = "O campo Quantidade Atual deve ter no maximo 10 caracteres!" ;
+    		document.getElementById("cQuantidadeAtual").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
+    	if (pproduto.precoCusto < 1 ) {
         	$scope.mensagemRodape = "É necessário o preenchimento do campo Preco Custo!";
     		document.getElementById("cPrecoCusto").focus();
     		$scope.mostrarAguarde = false;
     		return;
         }
-    	if (!pproduto.precoVenda) {
+    	if (!pproduto.precoCusto) {
+        	$scope.mensagemRodape = "O campo Preco Custo deve ter no maximo 10 caracteres!" ;
+    		document.getElementById("cPrecoCusto").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
+    	
+    	if (pproduto.precoVenda < 1 ) {
         	$scope.mensagemRodape = "É necessário o preenchimento do campo Preco Venda!";
     		document.getElementById("cPrecoVenda").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
+    	if (!pproduto.precoVenda) {
+        	$scope.mensagemRodape = "O campo Preco Venda deve ter no maximo 10 caracteres!" ;
+    		document.getElementById("cPrecoVenda").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
+    	
+    	if (!pproduto.cor) {
+        	$scope.mensagemRodape = "É necessário o preenchimento do campo Cor!";
+    		document.getElementById("cCor");
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
+    	if (!pproduto.marca) {
+        	$scope.mensagemRodape = "É necessário o preenchimento do campo Marca!";
+    		document.getElementById("cMarca");
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
+    	if (!pproduto.tamanho) {
+        	$scope.mensagemRodape = "É necessário o preenchimento do campo Tamanho!";
+    		document.getElementById("cTamanho");
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
+    	if (!pproduto.unidadeMedida) {
+        	$scope.mensagemRodape = "É necessário o preenchimento do campo Unidade de Medida!";
+    		document.getElementById("cUnidadeMedida");
     		$scope.mostrarAguarde = false;
     		return;
         }

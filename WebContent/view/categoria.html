@@ -1,10 +1,8 @@
-<!-- Comentário apenas para testar o commit -->
 
 <!-- Content Header (Page header) -->
 <div class="content-header">
 	<div class="container-fluid">
 		<div class="row">
-		
 			<div class="col-sm-12">
 				<h1 class="m-0 text-dark">{{tela}}</h1>
 			</div>
@@ -55,7 +53,6 @@
 								</a> <input type="text" name="id" ng-model="idFilter"
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
-									
 								<th><a href="" ng-click="ordenacao('descricao')"
 									title="Ordenar"> Descrição <span
 										ng-show="campoOrdenacao == '+descricao'"
@@ -65,17 +62,6 @@
 								</a> <input type="text" name="peso" ng-model="descricaoFilter"
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
-									
-									<th><a href="" ng-click="ordenacao('sigla')"
-									title="Ordenar"> Sigla <span
-										ng-show="campoOrdenacao == '+sigla'"
-										class="glyphicon glyphicon-sort-by-attributes" /> <span
-										ng-show="campoOrdenacao == '-sigla'"
-										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="text" name="peso" ng-model="siglaFilter"
-									class="form-control" placeholder="Pesquisar..."
-									ng-change="pesquisar()" mask-maiusculas></th>
-									
 								<th width="100px"><a href=""
 									ng-click="ordenacao('descStatus')" title="Ordenar"> Status <span
 										ng-show="campoOrdenacao == '+descricao'"
@@ -88,11 +74,10 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="g in unidadeMedidasFiltradas" ng-click="selecionarLinha(g)"
+							<tr ng-repeat="g in categoriasFiltradas" ng-click="selecionarLinha(g)"
 								ng-class="{linhaSelecionada : g == objetoSelecionado}">
 								<td>{{g.id}}</td>
 								<td>{{g.descricao}}</td>
-								<td>{{g.sigla}}</td>
 								<td>{{g.descStatus}}</td>
 							</tr>
 						</tbody>
@@ -117,24 +102,15 @@
 					<div class="col-md-2">
 						<div class="form-group">
 							<label>Código</label> <input type="text" class="form-control"
-								ng-model="unidadeMedida.id" readonly>
+								ng-model="categoria.id" readonly>
 						</div>
 					</div>
 
 					<!-- CAMPO DESCRICAO -->
-					<div class="col-md-8">
+					<div class="col-md-10">
 						<div class="form-group">
 							<label>* Descrição</label> <input id="cDescricao" type="text"
-								class="form-control" ng-model="unidadeMedida.descricao" maxlength="60"
-								mask-maiusculas autofocus>
-						</div>
-					</div>
-					
-					<!-- CAMPO UNIDADE MEDIDA -->
-					<div class="col-md-2">
-						<div class="form-group">
-							<label>Sigla</label> <input id="cDescricao" type="text"
-								class="form-control" ng-model="unidadeMedida.sigla" maxlength="60"
+								class="form-control" ng-model="categoria.descricao" maxlength="60"
 								mask-maiusculas autofocus>
 						</div>
 					</div>
@@ -144,7 +120,7 @@
 						<div class="form-group">
 							<div class="checkbox">
 								<label> <input type="checkbox" class="checkbox"
-									ng-model="unidadeMedida.status" ng-true-value="1" ng-false-value="0">
+									ng-model="categoria.status" ng-true-value="1" ng-false-value="0">
 									Ativo
 								</label>
 							</div>
@@ -159,7 +135,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<button type="button" class="btn bg-primary btn-lg pull-right"
-							ng-click="btnSalvar(unidadeMedida)">Salvar</button>
+							ng-click="btnSalvar(categoria)">Salvar</button>
 					</div>
 				</div>
 			</div>
@@ -206,11 +182,8 @@
 				<button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancelar</button>
 				<button type="button" class="btn btn-primary pull-right" ng-click="confirmaExcluir()">Confirmar</button>
 			</div>
-			
 		</div>
 		<!-- /.modal-content -->
 	</div>
 	<!-- /.modal-dialog -->
 </div>
-
-

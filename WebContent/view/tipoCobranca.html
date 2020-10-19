@@ -4,7 +4,6 @@
 <div class="content-header">
 	<div class="container-fluid">
 		<div class="row">
-		
 			<div class="col-sm-12">
 				<h1 class="m-0 text-dark">{{tela}}</h1>
 			</div>
@@ -66,13 +65,13 @@
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
 									
-									<th><a href="" ng-click="ordenacao('sigla')"
-									title="Ordenar"> Sigla <span
-										ng-show="campoOrdenacao == '+sigla'"
+									<th><a href="" ng-click="ordenacao('tipo')"
+									title="Ordenar"> Tipo <span
+										ng-show="campoOrdenacao == '+tipo'"
 										class="glyphicon glyphicon-sort-by-attributes" /> <span
-										ng-show="campoOrdenacao == '-sigla'"
+										ng-show="campoOrdenacao == '-tipo'"
 										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="text" name="peso" ng-model="siglaFilter"
+								</a> <input type="text" name="peso" ng-model="tipoFilter"
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
 									
@@ -82,18 +81,19 @@
 										class="glyphicon glyphicon-sort-by-attributes" /> <span
 										ng-show="campoOrdenacao == '-descricao'"
 										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="text" name="peso" ng-model="descricaoFilter"
+								</a> <input type="text" name="peso" ng-model="descStatusFilter"
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="g in unidadeMedidasFiltradas" ng-click="selecionarLinha(g)"
+							<tr ng-repeat="g in tipoCobrancasFiltradas" ng-click="selecionarLinha(g)"
 								ng-class="{linhaSelecionada : g == objetoSelecionado}">
 								<td>{{g.id}}</td>
 								<td>{{g.descricao}}</td>
-								<td>{{g.sigla}}</td>
+								<td>{{g.tipo}}
 								<td>{{g.descStatus}}</td>
+								
 							</tr>
 						</tbody>
 					</table>
@@ -117,25 +117,27 @@
 					<div class="col-md-2">
 						<div class="form-group">
 							<label>Código</label> <input type="text" class="form-control"
-								ng-model="unidadeMedida.id" readonly>
+								ng-model="tipoCobranca.id" readonly>
 						</div>
 					</div>
 
 					<!-- CAMPO DESCRICAO -->
-					<div class="col-md-8">
+					<div class="col-md-7">
 						<div class="form-group">
 							<label>* Descrição</label> <input id="cDescricao" type="text"
-								class="form-control" ng-model="unidadeMedida.descricao" maxlength="60"
+								class="form-control" ng-model="tipoCobranca.descricao" maxlength="60"
 								mask-maiusculas autofocus>
 						</div>
 					</div>
 					
-					<!-- CAMPO UNIDADE MEDIDA -->
-					<div class="col-md-2">
+						<!-- CAMPO TIPO -->
+					<div class="col-md-3">
 						<div class="form-group">
-							<label>Sigla</label> <input id="cDescricao" type="text"
-								class="form-control" ng-model="unidadeMedida.sigla" maxlength="60"
-								mask-maiusculas autofocus>
+							<label>Tipo</label> <select id="cTipo" class="form-control" ng-model="tipoCobranca.tipo">
+			                 <option value="">Selecione um tipo</option>
+			                 <option>Credito</option>
+			                 <option>Debito</option>
+			                 <option>Dinheiro</option></select>
 						</div>
 					</div>
 
@@ -144,7 +146,7 @@
 						<div class="form-group">
 							<div class="checkbox">
 								<label> <input type="checkbox" class="checkbox"
-									ng-model="unidadeMedida.status" ng-true-value="1" ng-false-value="0">
+									ng-model="tipoCobranca.status" ng-true-value="1" ng-false-value="0">
 									Ativo
 								</label>
 							</div>
@@ -159,7 +161,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<button type="button" class="btn bg-primary btn-lg pull-right"
-							ng-click="btnSalvar(unidadeMedida)">Salvar</button>
+							ng-click="btnSalvar(tipoCobranca)">Salvar</button>
 					</div>
 				</div>
 			</div>
@@ -212,5 +214,3 @@
 	</div>
 	<!-- /.modal-dialog -->
 </div>
-
-

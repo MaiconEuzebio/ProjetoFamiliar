@@ -3,6 +3,7 @@ package br.com.erp.model;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,7 +16,6 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "PESSOA")
 public class Pessoa {
-	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,14 +34,21 @@ public class Pessoa {
 	@Column(length = 1, name = "STATUS")
 	private Integer status;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
 	private List<Contato> contatos;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
 	private List<Endereco> enderecos;
 	
 	@Transient
 	private String descStatus;
+	
+	
+	
+	
+	
+	
+	
 
 	public Integer getId() {
 		return id;

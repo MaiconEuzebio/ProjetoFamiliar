@@ -12,9 +12,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+
 @Entity
 @Table(name = "CONTATO")
 public class Contato {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
@@ -35,9 +37,19 @@ public class Contato {
 	@ManyToOne
 	@JoinColumn
 	private TipoContato tipoContato;
+	
+	@ManyToOne
+	@JoinColumn(name = "ID_PESSOA")
+	private Pessoa pessoa;
 
 	@Transient
 	private String descStatus;
+	
+	
+	
+	
+	
+	
 
 	public Integer getId() {
 		return id;
@@ -85,6 +97,15 @@ public class Contato {
 
 	public void setTipoContato(TipoContato tipoContato) {
 		this.tipoContato = tipoContato;
+	}
+	
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	public String getDescStatus() {

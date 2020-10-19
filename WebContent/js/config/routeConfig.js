@@ -24,5 +24,15 @@ angular.module("listaTelefonica").config(function ($routeProvider){
 		controller: "tipoEnderecoController",
 	});
 	
+	$routeProvider.when("/pessoa", {
+		templateUrl: "view/pessoa.html",
+		controller: "pessoaController",
+	});
+	
+	$routeProvider.when("/endereco", {
+		templateUrl: "view/endereco.html",
+		controller: "enderecoController",
+	});
+	
 	$routeProvider.otherwise({redirectTo: "/index.html"});
 });

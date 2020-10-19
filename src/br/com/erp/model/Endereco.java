@@ -42,9 +42,19 @@ public class Endereco {
 	@ManyToOne
 	@JoinColumn
 	private TipoEndereco tipoEndereco;
+	
+	@ManyToOne
+	@JoinColumn(name = "ID_PESSOA")
+	private Pessoa pessoa;
 
 	@Transient
 	private String descStatus;
+	
+	
+	
+	
+	
+	
 
 	public Integer getId() {
 		return id;
@@ -108,6 +118,15 @@ public class Endereco {
 
 	public void setTipoEndereco(TipoEndereco tipoEndereco) {
 		this.tipoEndereco = tipoEndereco;
+	}
+	
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	public String getDescStatus() {

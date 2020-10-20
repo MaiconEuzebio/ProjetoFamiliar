@@ -46,7 +46,7 @@ angular.module("listaTelefonica").config(function ($routeProvider){
 
 	});	
 
-	});
+	
 
 
 	$routeProvider.when("/categoria", {
@@ -75,3 +75,4 @@ angular.module("listaTelefonica").config(function ($routeProvider){
 	$routeProvider.otherwise({redirectTo: "/index.html"});
 	
 	
+});

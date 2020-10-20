@@ -166,11 +166,7 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     
     
     
-    
-    
-    
-    
-    
+  
     
     $scope.btnSalvarContato = function(ccontato){
     	$scope.mensagemRodape = "";

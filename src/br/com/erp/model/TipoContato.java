@@ -18,13 +18,17 @@ public class TipoContato {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
 	private Integer id;
+	
 	@Column(length = 100, name = "DESCRICAO")
 	private String descricao;
+	
 	@Column(length = 1, name = "STATUS")
 	private Integer status;
 	
 	@Transient
 	private String descStatus;
+	
+	
 	
 	
 	

@@ -13,18 +13,27 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "TIPO_ENDERECO")
 public class TipoEndereco {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
 	private Integer id;
+	
 	@Column(length = 100, name = "DESCRICAO")
 	private String descricao;
+	
 	@Column(length = 1, name = "STATUS")
 	private Integer status;
 	
 	@Transient
 	private String descStatus;
 
+	
+	
+	
+	
+	
+	
 	public Integer getId() {
 		return id;
 	}

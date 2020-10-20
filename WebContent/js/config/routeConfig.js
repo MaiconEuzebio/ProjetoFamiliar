@@ -19,6 +19,7 @@ angular.module("listaTelefonica").config(function ($routeProvider){
 		templateUrl: "view/tamanho.html",
 		controller: "tamanhoController",
 	});
+	
 	$routeProvider.when("/unidadeMedida", {
 		templateUrl: "view/unidadeMedida.html",
 		controller: "unidadeMedidaController",
@@ -33,7 +34,17 @@ angular.module("listaTelefonica").config(function ($routeProvider){
 		templateUrl: "view/tipoEndereco.html",
 		controller: "tipoEnderecoController",
 	});
+
+	$routeProvider.when("/pessoa", {
+		templateUrl: "view/pessoa.html",
+		controller: "pessoaController",
+	});
 	
+	$routeProvider.when("/endereco", {
+		templateUrl: "view/endereco.html",
+		controller: "enderecoController",
+	});
+
 	$routeProvider.when("/categoria", {
 		templateUrl: "view/categoria.html",
 		controller: "categoriaController",
@@ -49,7 +60,7 @@ angular.module("listaTelefonica").config(function ($routeProvider){
 		controller: "caixaController",
 	});
 	
-	$routeProvider.when("/caixaMovimentacao", {
+	 $routeProvider.when("/caixaMovimentacao", {
 		templateUrl: "view/caixaMovimentacao.html",
 		controller: "caixaMovimentacaoController",
 	});

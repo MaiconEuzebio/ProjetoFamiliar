@@ -1,10 +1,10 @@
-app.controller("caixaController", function ($scope, requisicaoService, filterFilter, orderByFilter) {
+app.controller("caixaMovimentacaoController", function ($scope, requisicaoService, filterFilter, orderByFilter) {
 		
 	$scope.vizualizarCadastro = false;
 	$scope.mostrarAguarde = false;
-	$scope.tela = "Caixa > Caixa"	
+	$scope.tela = "Caixa > Caixa Movimentacao"	
 	
-	$scope.caixas                = [];
+	$scope.caixaMovimentacoes                = [];
 	$scope.showModalConfirmacao = false;
 	$scope.showModalAviso       = false;
 	$scope.mostrarAguarde       = false;
@@ -30,14 +30,13 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	$scope.mensagemModal  = "";
     	$scope.mostrarAguarde = true;
     	
-    	$scope.caixa		       = {};
-    	$scope.caixa.id       = null;
-    	$scope.caixa.dataAbertura   = null;
-    	$scope.caixa.dataFechamento   = null;
-    	$scope.caixa.valorAbertura   = null;
-    	$scope.caixa.valorFechamento   = null;
-    	$scope.caixa.status	   = 1;
-    	
+    	$scope.caixaMovimentacao		       = {};
+    	$scope.caixaMovimentacao.id       = null;
+    	$scope.caixaMovimentacao.dataMovimentacao  = null;
+    	$scope.caixaMovimentacao.valorMovimentacao   = null;
+    	$scope.caixaMovimentacao.tipo   = null;
+    	$scope.caixaMovimentacao.observacao = null;
+    	$scope.caixaMovimentacao.status	   = 1;
     	
     	$scope.mostrarAguarde    = false;
     	$scope.visualizaCadastro = true;
@@ -57,8 +56,9 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
 			int1: $scope.objetoSelecionado.id
 		}
     	$scope.mostrarAguarde = true;
+    	
     	//obter a caixa
-    	requisicaoService.requisitarPOST("caixa/obterPorId", param , function(retorno) {
+    	requisicaoService.requisitarPOST("caixaMovimentacao/obterPorId", param , function(retorno) {
 			if (!retorno.isValid) {
     			$scope.mensagemModal  = retorno.msg;
     			$scope.showModalAviso = true;
@@ -66,9 +66,9 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
         		return;
     		}
 			
-			$scope.caixa			   = retorno.data;
-			$scope.caixa.dataAbertura  = new Date($scope.caixa.dataAbertura)
-			$scope.caixa.dataFechamento  = new Date($scope.caixa.dataFechamento)	
+			$scope.caixaMovimentacao			       = retorno.data;
+			$scope.caixaMovimentacao.dataMovimentacao  = new Date($scope.caixaMovimentacao.dataMovimentacao)
+
 	    	$scope.mostrarAguarde    = false;
 	        $scope.visualizaCadastro = true;
 		});
@@ -97,7 +97,7 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
 		}
 
     	//deletar
-    	requisicaoService.requisitarPOST("caixa/removerPorId", param, function(retorno){
+    	requisicaoService.requisitarPOST("caixaMovimentacao/removerPorId", param, function(retorno){
     		if (!retorno.isValid) {
     			$scope.mensagemModal  = retorno.msg;
     			$scope.showModalAviso = true;
@@ -116,36 +116,46 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	$scope.visualizaCadastro = false;
     }
 
-    $scope.btnSalvar = function(pcaixa){
+    $scope.btnSalvar = function(pcaixaMovimentacao){
     	$scope.mensagemRodape = "";
     	$scope.mostrarAguarde = true;
     	
-    	if (!pcaixa.dataAbertura) {
-        	$scope.mensagemRodape = "É necessário o preenchimento do campo Data de Abertura!";
-    		document.getElementById("cDataAbertura").focus();
-    		$scope.mostrarAguarde = false;
-    		return;
-        }
-    	if (!pcaixa.dataFechamento) {
-        	$scope.mensagemRodape = "É necessário o preenchimento do campo Data de Fechamento!";
-    		document.getElementById("cDataFechamento").focus();
-    		$scope.mostrarAguarde = false;
-    		return;
-        }
-    	if (!pcaixa.valorAbertura) {
-        	$scope.mensagemRodape = "É necessário o preenchimento do campo Valor de Abertura!";
-    		document.getElementById("cValorAbertura").focus();
-    		$scope.mostrarAguarde = false;
-    		return;
-        }
-    	if (!pcaixa.valorFechamento) {
-        	$scope.mensagemRodape = "É necessário o preenchimento do campo Valor de Fechamento!";
-    		document.getElementById("cValorFechamento").focus();
+    	if (!pcaixaMovimentacao.dataMovimentacao) {
+        	$scope.mensagemRodape = "É necessário o preenchimento do campo Data de Movimentacao!";
+    		document.getElementById("cDataMovimentacao").focus();
     		$scope.mostrarAguarde = false;
     		return;
         }
 
-    	requisicaoService.requisitarPOST("caixa/salvar", pcaixa, function(retorno){
+    	if (!pcaixaMovimentacao.valorMovimentacao) {
+        	$scope.mensagemRodape = "É necessário o preenchimento do campo Valor de Movimentacao!";
+    		document.getElementById("cValorMovimentacao").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
+    	
+    	if (!pcaixaMovimentacao.tipo) {
+        	$scope.mensagemRodape = "É necessário o preenchimento do campo Tipo!";
+    		document.getElementById("cTipo").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
+    	
+    	if (!pcaixaMovimentacao.observacao) {
+        	$scope.mensagemRodape = "É necessário o preenchimento do campo Observacao!";
+    		document.getElementById("cObservacao").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
+    	
+    	if (pcaixaMovimentacao.observacao > 300) {
+        	$scope.mensagemRodape = "O campo Observacao deve ter no maximo 300 caracteres!";
+    		document.getElementById("cObservacao").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
+
+    	requisicaoService.requisitarPOST("caixaMovimentacao/salvar", pcaixaMovimentacao, function(retorno){
     		if (!retorno.isValid) {
     			$scope.mensagemRodape = retorno.msg;
     			$scope.mostrarAguarde = false;
@@ -170,14 +180,14 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	$scope.mostrarAguarde = true;
     	
 		//obter todos os registros
-    	requisicaoService.requisitarGET("caixa/obterTodos", function(retorno) {
+    	requisicaoService.requisitarGET("caixaMovimentacao/obterTodos", function(retorno) {
     		if (!retorno.isValid) {
     			$scope.mensagemModal  = retorno.msg;
     			$scope.showModalAviso = true;
     			$scope.mostrarAguarde = false;
         		return;
     		}
-			$scope.caixas = retorno.data;
+			$scope.caixaMovimentacoes = retorno.data;
 			
 			$scope.pesquisar();
 			
@@ -186,11 +196,11 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
 	}
 	
 	$scope.pesquisar = function(){
-		$scope.caixasFiltradas = orderByFilter(filterFilter($scope.caixas,{id:$scope.idFilter,
-													                     dataAbertura: $scope.dataAberturaFilter,
-													                     dataFechamento: $scope.dataFechamentoFilter,
-													                     valorAbertura: $scope.valorAberturaFilter,
-													                     valorFechamento: $scope.valorFechamentoFilter,
+		$scope.caixaMovimentacoesFiltradas = orderByFilter(filterFilter($scope.caixaMovimentacoes,{id:$scope.idFilter,
+													                     dataMovimentacao: $scope.dataMovimentacaoFilter,
+													                     valorMovimentacao: $scope.valorMovimentacaoFilter,
+													                     tipo: $scope.tipoFilter,
+													                     observacao: $scope.observacaoFilter,
 													                     caixaStatus: $scope.caixaStatusFilter}), $scope.campoOrdenacao);
 		
 	}

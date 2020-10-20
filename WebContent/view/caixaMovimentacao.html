@@ -54,43 +54,43 @@
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
 									
-								<th><a href="" ng-click="ordenacao('dataAbertura')"
-									title="Ordenar"> Data de Abertura <span
-										ng-show="campoOrdenacao == '+dataAbertura'"
+								<th><a href="" ng-click="ordenacao('dataMovimentacao')"
+									title="Ordenar"> Data de Movimentacao <span
+										ng-show="campoOrdenacao == '+dataMovimentacao'"
 										class="glyphicon glyphicon-sort-by-attributes" /> <span
-										ng-show="campoOrdenacao == '-dataAbertura'"
+										ng-show="campoOrdenacao == '-dataMovimentacao'"
 										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="text" name="peso" ng-model="dataAberturaFilter"
+								</a> <input type="text" name="peso" ng-model="dataMovimentacaoFilter"
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
 									
-									<th><a href="" ng-click="ordenacao('dataFechamento')"
-									title="Ordenar"> Data de Fechamento <span
-										ng-show="campoOrdenacao == '+dataFechamento'"
+									<th><a href="" ng-click="ordenacao('valorMovimentacao')"
+									title="Ordenar"> Valor de Movimentacao <span
+										ng-show="campoOrdenacao == '+valorMovimentacao'"
 										class="glyphicon glyphicon-sort-by-attributes" /> <span
-										ng-show="campoOrdenacao == '-dataFechamento'"
+										ng-show="campoOrdenacao == '-valorMovimentacao'"
 										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="text" name="peso" ng-model="dataFechamentoFilter"
+								</a> <input type="text" name="peso" ng-model="valorMovimentacaoFilter"
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
 									
-									<th><a href="" ng-click="ordenacao('valorAbertura')"
-									title="Ordenar"> Valor de Abertura <span
-										ng-show="campoOrdenacao == '+valorAbertura'"
+									<th><a href="" ng-click="ordenacao('tipo')"
+									title="Ordenar"> Tipo <span
+										ng-show="campoOrdenacao == '+tipo'"
 										class="glyphicon glyphicon-sort-by-attributes" /> <span
-										ng-show="campoOrdenacao == '-valerAbertura'"
+										ng-show="campoOrdenacao == '-tipo'"
 										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="text" name="peso" ng-model="valorAberturaFilter"
+								</a> <input type="text" name="peso" ng-model="tipoFilter"
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
 									
-									<th><a href="" ng-click="ordenacao('valorFechamento')"
-									title="Ordenar"> Valor de Fechamento <span
-										ng-show="campoOrdenacao == '+valorFechamento'"
+									<th><a href="" ng-click="ordenacao('observacao')"
+									title="Ordenar"> Observacao <span
+										ng-show="campoOrdenacao == '+observacao'"
 										class="glyphicon glyphicon-sort-by-attributes" /> <span
-										ng-show="campoOrdenacao == '-valerFechamento'"
+										ng-show="campoOrdenacao == '-observacao'"
 										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="text" name="peso" ng-model="valorFechamentoFilter"
+								</a> <input type="text" name="peso" ng-model="observacaoFilter"
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
 									
@@ -106,13 +106,13 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="g in caixasFiltradas" ng-click="selecionarLinha(g)"
+							<tr ng-repeat="g in caixaMovimentacoesFiltradas" ng-click="selecionarLinha(g)"
 								ng-class="{linhaSelecionada : g == objetoSelecionado}">
 								<td>{{g.id}}</td>
-								<td>{{g.dataAbertura | date:'dd/MM/yyyy'}}</td>
-								<td>{{g.dataFechamento | date:'dd/MM/yyyy'}}</td>
-								<td>{{g.valorAbertura}}</td>
-								<td>{{g.valorFechamento}}</td>
+								<td>{{g.dataMovimentacao | date:'dd/MM/yyyy'}}</td>
+								<td>{{g.valorMovimentacao}}</td>
+								<td>{{g.tipo}}</td>
+								<td>{{g.observacao}}</td>
 								<td>{{g.caixaStatus}}</td>
 							</tr>
 						</tbody>
@@ -137,43 +137,43 @@
 					<div class="col-md-2">
 						<div class="form-group">
 							<label>Código</label> <input type="text" class="form-control"
-								ng-model="caixa.id" readonly>
+								ng-model="caixaMovimentacao.id" readonly>
 						</div>
 					</div>
 
-					<!-- CAMPO DATA ABERTURA -->
+					<!-- CAMPO DATA MOVIMENTACAO -->
 					<div class="col-md-2">
 						<div class="form-group">
-							<label>* Data de Abertura</label> <input id="cDataAbertura" type="date"
-								class="form-control" ng-model="caixa.dataAbertura" maxlength="60"
-								mask-maiusculas autofocus>
+							<label>* Data de Movimentacao</label> <input id="cDataMovimentacao" type="date"
+								class="form-control" ng-model="caixaMovimentacao.dataMovimentacao">
 						</div>
 					</div>
 					
-					<!-- CAMPO DATA FECHAMENTO -->
-					<div class="col-md-2">
-						<div class="form-group">
-							<label>* Data de Fechamento</label> <input id="cDataFechamento" type="date"
-								class="form-control" ng-model="caixa.dataFechamento" maxlength="60"
-								mask-maiusculas autofocus>
-						</div>
-					</div>
-					
-					<!-- CAMPO VALOR ABERTURA -->
+					<!-- CAMPO VALOR MOVIMENTACAO -->
 					<div class="col-md-3">
 						<div class="form-group">
-							<label>* Valor de Abertura</label> <input id="cValorAbertura" type="text"
-								class="form-control" ng-model="caixa.valorAbertura" maxlength="10"
+							<label>* Valor de Movimentacao</label> <input id="cValorMovimentacao" type="text"
+								class="form-control" ng-model="caixaMovimentacao.valorMovimentacao" maxlength="10"
 								mask-maiusculas autofocus>
 						</div>
 					</div>
 					
-					<!-- CAMPO VALOR FECHAMENTO -->
-					<div class="col-md-3">
+					<!-- CAMPO TIPO -->
+					<div class="col-md-5">
 						<div class="form-group">
-							<label>* Valor de Fechamento</label> <input id="cValorFechamento" type="text"
-								class="form-control" ng-model="caixa.valorFechamento" maxlength="10"
-								mask-maiusculas autofocus>
+							<label>Tipo</label> <select id="cTipo" class="form-control" ng-model="caixaMovimentacao.tipo">
+			                 <option value="">Selecione um tipo</option>
+			                 <option>Credito</option>
+			                 <option>Debito</option></select>
+						</div>
+					</div>
+					
+					<!-- CAMPO OBS -->
+					<div class="col-md-12">
+						<div class="form-group">
+							<label>* Observacao</label> <textarea id="cObservacao" type="text"
+								class="form-control" ng-model="caixaMovimentacao.observacao" maxlength="300"
+								mask-maiusculas autofocus></textarea>
 						</div>
 					</div>
 
@@ -182,7 +182,7 @@
 						<div class="form-group">
 							<div class="checkbox">
 								<label> <input type="checkbox" class="checkbox"
-									ng-model="caixa.status" ng-true-value="1" ng-false-value="0">
+									ng-model="caixaMovimentacao.status" ng-true-value="1" ng-false-value="0">
 									Ativo
 								</label>
 							</div>
@@ -197,7 +197,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<button type="button" class="btn bg-primary btn-lg pull-right"
-							ng-click="btnSalvar(caixa)">Salvar</button>
+							ng-click="btnSalvar(caixaMovimentacao)">Salvar</button>
 					</div>
 				</div>
 			</div>

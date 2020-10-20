@@ -109,8 +109,8 @@
 							<tr ng-repeat="g in caixasFiltradas" ng-click="selecionarLinha(g)"
 								ng-class="{linhaSelecionada : g == objetoSelecionado}">
 								<td>{{g.id}}</td>
-								<td>{{g.dataAbertura | date:'dd/MM/yyyy HH:mm'}}</td>
-								<td>{{g.dataFechamento | date:'dd/MM/yyyy HH:mm'}}</td>
+								<td>{{g.dataAbertura | date:'dd/MM/yyyy'}}</td>
+								<td>{{g.dataFechamento | date:'dd/MM/yyyy'}}</td>
 								<td>{{g.valorAbertura}}</td>
 								<td>{{g.valorFechamento}}</td>
 								<td>{{g.caixaStatus}}</td>
@@ -163,7 +163,7 @@
 					<div class="col-md-3">
 						<div class="form-group">
 							<label>* Valor de Abertura</label> <input id="cValorAbertura" type="text"
-								class="form-control" ng-model="caixa.valorAbertura" maxlength="60"
+								class="form-control" ng-model="caixa.valorAbertura" maxlength="10"
 								mask-maiusculas autofocus>
 						</div>
 					</div>
@@ -172,7 +172,7 @@
 					<div class="col-md-3">
 						<div class="form-group">
 							<label>* Valor de Fechamento</label> <input id="cValorFechamento" type="text"
-								class="form-control" ng-model="caixa.valorFechamento" maxlength="60"
+								class="form-control" ng-model="caixa.valorFechamento" maxlength="10"
 								mask-maiusculas autofocus>
 						</div>
 					</div>

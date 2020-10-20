@@ -264,7 +264,7 @@
 					<!-- CAMPO COR -->
 					<div class="col-md-3">
 						<div class="form-group">
-							<label>Cor</label> <select class="form-control" ng-model="produto.cor" 
+							<label>Cor</label> <select id="cCor" class="form-control" ng-model="produto.cor" 
 							ng-options="cor.descricao for cor in cores | orderBy:'nome' track by cor.id">
 			                 <option value="">Selecione uma cor</option></select>
 						</div>
@@ -273,7 +273,7 @@
 					<!-- CAMPO MARCA -->
 					<div class="col-md-3">
 						<div class="form-group">
-							<label>Marca</label> <select class="form-control" ng-model="produto.marca" 
+							<label>Marca</label> <select id="cMarca" class="form-control" ng-model="produto.marca" 
 							ng-options="marca.descricao for marca in marcas | orderBy:'nome' track by marca.id">
 			                 <option value="">Selecione uma marca</option></select>
 						</div>
@@ -282,7 +282,7 @@
 					<!-- CAMPO TAMANHO -->
 					<div class="col-md-3">
 						<div class="form-group">
-							<label>Tamanho</label> <select class="form-control" ng-model="produto.tamanho" 
+							<label>Tamanho</label> <select id="cTamanho" class="form-control" ng-model="produto.tamanho" 
 							ng-options="tamanho.descricao for tamanho in tamanhos | orderBy:'nome' track by tamanho.id">
 			                 <option value="">Selecione um tamanho</option></select>
 						</div>
@@ -291,7 +291,7 @@
 					<!-- CAMPO UNIDADE DE MEDIDA -->
 					<div class="col-md-3">
 						<div class="form-group">
-							<label>Unidade de Medida</label> <select class="form-control" ng-model="produto.unidadeMedida" 
+							<label>Unidade de Medida</label> <select id="cUnidadeMedida" class="form-control" ng-model="produto.unidadeMedida" 
 							ng-options="unidadeMedida.descricao for unidadeMedida in unidadeMedidas | orderBy:'nome' track by unidadeMedida.id">
 			                 <option value="">Selecione uma unidade de medida</option></select>
 						</div>

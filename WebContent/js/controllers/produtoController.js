@@ -202,25 +202,25 @@ app.controller("produtoController", function ($scope, requisicaoService, filterF
     	
     	if (!pproduto.cor) {
         	$scope.mensagemRodape = "É necessário o preenchimento do campo Cor!";
-    		document.getElementById("cCor");
+    		document.getElementById("cCor").focus();
     		$scope.mostrarAguarde = false;
     		return;
         }
     	if (!pproduto.marca) {
         	$scope.mensagemRodape = "É necessário o preenchimento do campo Marca!";
-    		document.getElementById("cMarca");
+    		document.getElementById("cMarca").focus();
     		$scope.mostrarAguarde = false;
     		return;
         }
     	if (!pproduto.tamanho) {
         	$scope.mensagemRodape = "É necessário o preenchimento do campo Tamanho!";
-    		document.getElementById("cTamanho");
+    		document.getElementById("cTamanho").focus();
     		$scope.mostrarAguarde = false;
     		return;
         }
     	if (!pproduto.unidadeMedida) {
         	$scope.mensagemRodape = "É necessário o preenchimento do campo Unidade de Medida!";
-    		document.getElementById("cUnidadeMedida");
+    		document.getElementById("cUnidadeMedida").focus();
     		$scope.mostrarAguarde = false;
     		return;
         }

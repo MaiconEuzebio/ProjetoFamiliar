@@ -36,7 +36,8 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	$scope.caixa.dataFechamento   = null;
     	$scope.caixa.valorAbertura   = null;
     	$scope.caixa.valorFechamento   = null;
-    	$scope.caixas.status	   = 1;
+    	$scope.caixa.status	   = 1;
+    	
     	
     	$scope.mostrarAguarde    = false;
     	$scope.visualizaCadastro = true;
@@ -66,7 +67,8 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     		}
 			
 			$scope.caixa			   = retorno.data;
-
+			$scope.caixa.dataAbertura  = new Date($scope.caixa.dataAbertura)
+			$scope.caixa.dataFechamento  = new Date($scope.caixa.dataFechamento)	
 	    	$scope.mostrarAguarde    = false;
 	        $scope.visualizaCadastro = true;
 		});

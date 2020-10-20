@@ -109,7 +109,7 @@
 							<tr ng-repeat="g in caixaMovimentacoesFiltradas" ng-click="selecionarLinha(g)"
 								ng-class="{linhaSelecionada : g == objetoSelecionado}">
 								<td>{{g.id}}</td>
-								<td>{{g.dataMovimentacao | date:'dd/MM/yyyy HH:mm'}}</td>
+								<td>{{g.dataMovimentacao | date:'dd/MM/yyyy'}}</td>
 								<td>{{g.valorMovimentacao}}</td>
 								<td>{{g.tipo}}</td>
 								<td>{{g.observacao}}</td>
@@ -145,8 +145,7 @@
 					<div class="col-md-2">
 						<div class="form-group">
 							<label>* Data de Movimentacao</label> <input id="cDataMovimentacao" type="date"
-								class="form-control" ng-model="caixaMovimentacao.dataMovimentacao" maxlength="60"
-								mask-maiusculas autofocus>
+								class="form-control" ng-model="caixaMovimentacao.dataMovimentacao">
 						</div>
 					</div>
 					
@@ -154,7 +153,7 @@
 					<div class="col-md-3">
 						<div class="form-group">
 							<label>* Valor de Movimentacao</label> <input id="cValorMovimentacao" type="text"
-								class="form-control" ng-model="caixaMovimentacao.valorMovimentacao" maxlength="60"
+								class="form-control" ng-model="caixaMovimentacao.valorMovimentacao" maxlength="10"
 								mask-maiusculas autofocus>
 						</div>
 					</div>
@@ -172,9 +171,9 @@
 					<!-- CAMPO OBS -->
 					<div class="col-md-12">
 						<div class="form-group">
-							<label>* Observacao</label> <input id="cObservacao" type="text"
+							<label>* Observacao</label> <textarea id="cObservacao" type="text"
 								class="form-control" ng-model="caixaMovimentacao.observacao" maxlength="300"
-								mask-maiusculas autofocus>
+								mask-maiusculas autofocus></textarea>
 						</div>
 					</div>
 

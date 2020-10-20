@@ -36,7 +36,7 @@ app.controller("caixaMovimentacaoController", function ($scope, requisicaoServic
     	$scope.caixaMovimentacao.valorMovimentacao   = null;
     	$scope.caixaMovimentacao.tipo   = null;
     	$scope.caixaMovimentacao.observacao = null;
-    	$scope.caixaMovimentacoes.status	   = 1;
+    	$scope.caixaMovimentacao.status	   = 1;
     	
     	$scope.mostrarAguarde    = false;
     	$scope.visualizaCadastro = true;
@@ -56,6 +56,7 @@ app.controller("caixaMovimentacaoController", function ($scope, requisicaoServic
 			int1: $scope.objetoSelecionado.id
 		}
     	$scope.mostrarAguarde = true;
+    	
     	//obter a caixa
     	requisicaoService.requisitarPOST("caixaMovimentacao/obterPorId", param , function(retorno) {
 			if (!retorno.isValid) {
@@ -65,7 +66,8 @@ app.controller("caixaMovimentacaoController", function ($scope, requisicaoServic
         		return;
     		}
 			
-			$scope.caixaMovimentacao			   = retorno.data;
+			$scope.caixaMovimentacao			       = retorno.data;
+			$scope.caixaMovimentacao.dataMovimentacao  = new Date($scope.caixaMovimentacao.dataMovimentacao)
 
 	    	$scope.mostrarAguarde    = false;
 	        $scope.visualizaCadastro = true;
@@ -131,6 +133,7 @@ app.controller("caixaMovimentacaoController", function ($scope, requisicaoServic
     		$scope.mostrarAguarde = false;
     		return;
         }
+    	
     	if (!pcaixaMovimentacao.tipo) {
         	$scope.mensagemRodape = "É necessário o preenchimento do campo Tipo!";
     		document.getElementById("cTipo").focus();
@@ -140,6 +143,13 @@ app.controller("caixaMovimentacaoController", function ($scope, requisicaoServic
     	
     	if (!pcaixaMovimentacao.observacao) {
         	$scope.mensagemRodape = "É necessário o preenchimento do campo Observacao!";
+    		document.getElementById("cObservacao").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
+    	
+    	if (pcaixaMovimentacao.observacao > 300) {
+        	$scope.mensagemRodape = "O campo Observacao deve ter no maximo 300 caracteres!";
     		document.getElementById("cObservacao").focus();
     		$scope.mostrarAguarde = false;
     		return;

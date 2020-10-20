@@ -34,6 +34,7 @@ angular.module("listaTelefonica").config(function ($routeProvider){
 		controller: "tipoEnderecoController",
 	});
 	
+<<<<<<< HEAD
 	$routeProvider.when("/pessoa", {
 		templateUrl: "view/pessoa.html",
 		controller: "pessoaController",
@@ -42,6 +43,21 @@ angular.module("listaTelefonica").config(function ($routeProvider){
 	$routeProvider.when("/endereco", {
 		templateUrl: "view/endereco.html",
 		controller: "enderecoController",
+=======
+	$routeProvider.when("/categoria", {
+		templateUrl: "view/categoria.html",
+		controller: "categoriaController",
+	});
+	
+	$routeProvider.when("/tipoCobranca", {
+		templateUrl: "view/tipoCobranca.html",
+		controller: "tipoCobrancaController",
+	});
+	
+	$routeProvider.when("/caixa", {
+		templateUrl: "view/caixa.html",
+		controller: "caixaController",
+>>>>>>> branch 'main' of https://github.com/Victor587412/projetoFL
 	});
 	
 	$routeProvider.otherwise({redirectTo: "/index.html"});

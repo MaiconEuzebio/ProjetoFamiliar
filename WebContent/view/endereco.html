@@ -1,0 +1,310 @@
+<!-- Content Header (Page header) -->
+<div class="content-header">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12">
+				<h1 class="m-0 text-dark">{{tela}}</h1>
+				
+			</div>
+			
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+	</div>
+	<!-- /.container-fluid -->
+</div>
+<div class="text-center" ng-show="mostrarAguarde">
+    <img class="figura-aguarde" src="img/carregando.gif">
+    <label class="label-aguarde">{{buscarDicionario('Aguarde...')}}</label>
+</div>
+<div class="row" ng-show="!visualizaCadastro && !mostrarAguarde">
+	<!-- /.content-header -->
+	<div class="col-md-12">
+
+		<div class="card">
+			<div class="card-header">
+				<h3 class="card-title">
+					<div class="col-md-4">
+						<button type="button" ng-click="btnIncluir()"
+							class="btn btn-block btn-outline-primary btn-lg">Incluir</button>
+					</div>
+					<div class="col-md-4">
+						<button type="button" ng-click="btnEditar()"
+							class="btn btn-block btn-outline-primary btn-lg">Editar</button>
+					</div>
+					<div class="col-md-4">
+						<button type="button" ng-click="btnExcluir()"
+							class="btn btn-block btn-outline-danger btn-lg">Excluir</button>
+					</div>
+				</h3>
+			</div>
+			<!-- /.card-header -->
+			<div class="card-body">
+				<div class="table-responsive table-pesquisa-fixa">
+					<table class="table table-bordered table-condensed">
+						<thead>
+							<tr>
+								<th width="80px"><a href=""
+									ng-click="ordenacao('id')"
+									title="{{buscarDicionario('Ordenar')}}"> Cód. <span
+										ng-show="campoOrdenacao == '+id'"
+										class="glyphicon glyphicon-sort-by-attributes" /> <span
+										ng-show="campoOrdenacao == '-id'"
+										class="glyphicon glyphicon-sort-by-attributes-alt" />
+								</a> <input type="text" name="id" ng-model="idFilter"
+									class="form-control" placeholder="Pesquisar..."
+									ng-change="pesquisar()" mask-maiusculas></th>
+									
+								<th><a href="" ng-click="ordenacao('rua')"
+									title="Ordenar"> Rua <span
+										ng-show="campoOrdenacao == '+rua'"
+										class="glyphicon glyphicon-sort-by-attributes" /> <span
+										ng-show="campoOrdenacao == '-rua'"
+										class="glyphicon glyphicon-sort-by-attributes-alt" />
+								</a> <input type="text" name="peso" ng-model="ruaFilter"
+									class="form-control" placeholder="Pesquisar..."
+									ng-change="pesquisar()" mask-maiusculas></th>
+									
+								<th><a href="" ng-click="ordenacao('cep')"
+									title="Ordenar"> Cep <span
+										ng-show="campoOrdenacao == '+cep'"
+										class="glyphicon glyphicon-sort-by-attributes" /> <span
+										ng-show="campoOrdenacao == '-cep'"
+										class="glyphicon glyphicon-sort-by-attributes-alt" />
+								</a> <input type="text" name="peso" ng-model="cep"
+									class="form-control" placeholder="Pesquisar..."
+									ng-change="pesquisar()" mask-maiusculas></th>
+								
+								<th><a href="" ng-click="ordenacao('numero')"
+									title="Ordenar"> Número <span
+										ng-show="campoOrdenacao == '+numero'"
+										class="glyphicon glyphicon-sort-by-attributes" /> <span
+										ng-show="campoOrdenacao == '-numero'"
+										class="glyphicon glyphicon-sort-by-attributes-alt" />
+								</a> <input type="text" name="peso" ng-model="numero"
+									class="form-control" placeholder="Pesquisar..."
+									ng-change="pesquisar()" mask-maiusculas></th>
+								
+								<th><a href="" ng-click="ordenacao('bairro')"
+									title="Ordenar"> Bairro <span
+										ng-show="campoOrdenacao == '+bairro'"
+										class="glyphicon glyphicon-sort-by-attributes" /> <span
+										ng-show="campoOrdenacao == '-bairro'"
+										class="glyphicon glyphicon-sort-by-attributes-alt" />
+								</a> <input type="text" name="peso" ng-model="bairro"
+									class="form-control" placeholder="Pesquisar..."
+									ng-change="pesquisar()" mask-maiusculas></th>
+									
+								<th><a href="" ng-click="ordenacao('complemento')"
+									title="Ordenar"> Complemento <span
+										ng-show="campoOrdenacao == '+complemento'"
+										class="glyphicon glyphicon-sort-by-attributes" /> <span
+										ng-show="campoOrdenacao == '-complemento'"
+										class="glyphicon glyphicon-sort-by-attributes-alt" />
+								</a> <input type="text" name="peso" ng-model="complemento"
+									class="form-control" placeholder="Pesquisar..."
+									ng-change="pesquisar()" mask-maiusculas></th>		
+									
+										
+								<th width="100px"><a href=""
+									ng-click="ordenacao('descStatus')" title="Ordenar"> Status <span
+										ng-show="campoOrdenacao == '+rua'"
+										class="glyphicon glyphicon-sort-by-attributes" /> <span
+										ng-show="campoOrdenacao == '-rua'"
+										class="glyphicon glyphicon-sort-by-attributes-alt" />
+								</a> <input type="text" name="peso" ng-model="rua"
+									class="form-control" placeholder="Pesquisar..."
+									ng-change="pesquisar()" mask-maiusculas></th>
+									
+								<!-------------------------------------------------------------------->
+								<!--	FALTA CHAMAR OS FILTROS DAS LISTAS DE CONTATOS E ENDEREÇOS	-->
+								<!-------------------------------------------------------------------->
+									
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="e in enderecosFiltradas" ng-click="selecionarLinha(e)"
+								ng-class="{linhaSelecionada : e == objetoSelecionado}">
+								<td>{{e.id}}</td>
+								<td>{{e.rua}}</td>
+								<td>{{e.cep}}</td>
+								<td>{{e.numero}}</td>
+								<td>{{e.bairro}}</td>
+								<td>{{e.complemento}}</td>
+								<td>{{e.status}}</td>
+								
+								
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!-- /.card-body -->
+		</div>
+	</div>
+</div>
+
+<div class="row" ng-show="visualizaCadastro && !mostrarAguarde">
+	
+	<div class="col-md-12">
+		<div class="card">
+			<div class="card-header">
+			
+				<h3 class="card-title">Cadastro
+					<ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
+                   	<li class="nav-item">
+						<a class="nav-link active" data-toggle="pill" ng-click="abaSelecionadaPessoa = 'pessoa'" >Pessoa</a>
+					</li>
+                   	<li class="nav-item">
+          				<a class="nav-link" data-toggle="pill" ng-click="abaSelecionadaEndereco = 'endereco'" >Endereço</a>
+       				</li>
+                  	<li class="nav-item">
+          				<a class="nav-link" data-toggle="pill" ng-click="abaSelecionadaContato = 'contato'" >Contato</a>
+       				</li>
+                </ul>
+				</h3>
+				<button type="button" class="btn btn-secondary pull-right" ng-click="voltar()">Voltar</button>
+			</div>
+			
+			<!-- /.card-header -->
+			
+			<div class="card-body">
+				<div class="row">
+					<div class="col-md-2">
+						<div class="form-group">
+							<label>Código</label> <input type="text" class="form-control"
+								ng-model="pessoa.id" readonly>
+						</div>
+					</div>
+
+					
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>* Rua</label> <input id="cRua" type="text"
+								class="form-control" ng-model="endereco.rua" maxlength="60"
+								mask-maiusculas autofocus>
+						</div>
+					</div>
+					
+				
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>* Cep</label> <input id="cCep" type="text"
+								class="form-control" ng-model="contato.cep" maxlength="60"
+								mask-maiusculas autofocus>
+						</div>
+					</div>
+					
+					<!-- CAMPO TIPO -->
+					
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>* Número</label> <input id="cNumero" type="text"
+								class="form-control" ng-model="endereco.numero" maxlength="60"
+								mask-maiusculas autofocus>
+						</div>
+					</div>
+					
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>* Beirro</label> <input id="cBairro" type="text"
+								class="form-control" ng-model="endereco.bairro" maxlength="60"
+								mask-maiusculas autofocus>
+						</div>
+					</div>
+					
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>* Complemento</label> <input id="cComplemento" type="text"
+								class="form-control" ng-model="endereco.complemento" maxlength="60"
+								mask-maiusculas autofocus>
+						</div>
+					</div>
+
+					<!-- CAMPO STATUS -->
+					<div class="col-md-12">
+						<div class="form-group">
+							<div class="checkbox">
+								<label> <input type="checkbox" class="checkbox"
+									ng-model="pessoa.status" ng-true-value="1" ng-false-value="0">
+									Ativo
+								</label>
+							</div>
+						</div>
+					</div>
+					
+					<!-------------------------------------------------------------------->
+					<!--	FALTA INSERIR OS INPUTS DAS LISTAS DE CONTATOS E ENDEREÇOS	-->
+					<!-------------------------------------------------------------------->
+					
+				</div>
+				<div class="row">
+					<div
+						class="alert alert-danger alert-dismissible col-md-12 text-center"
+						ng-show="mensagemRodape">{{mensagemRodape}}</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<button type="button" class="btn bg-primary btn-lg pull-right"
+							ng-click="btnSalvar(pessoa)">Salvar</button>
+					</div>
+				</div>
+			</div>
+			<!-- /.card-body -->
+			
+			
+			
+			
+		</div>
+	</div>
+</div>
+
+<div class="modal" id="modalAtencao">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Atenção</h4>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p>{{mensagemModal}}</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default pull-right" data-dismiss="modal">OK</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<div class="modal" id="modalExcluir">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Atenção</h4>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p>{{mensagemModal}}</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn btn-primary pull-right" ng-click="confirmaExcluir()">Confirmar</button>
+			</div>
+			
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+
+
+
+
+

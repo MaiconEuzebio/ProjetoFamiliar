@@ -9,28 +9,28 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
 import br.com.erp.json.ParamJson;
-import br.com.erp.model.Cor;
-import br.com.erp.model.Marca;
+import br.com.erp.model.Contato;
 import br.com.erp.util.UnidadePersistencia;
 
-@Path("cor")
-public class CorImp {
+@Path("contato")
+public class ContatoImp {
 
 	@Path("salvar")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public Cor save(Cor cor) {
+	public Contato save(Contato contato) {
 
 		EntityManager em = UnidadePersistencia.createEntityManager();
 
 		try {
 			em.getTransaction().begin();
-			if (cor.getId() == null) {
-				em.persist(cor);
+			if (contato.getId() == null) {
+				em.persist(contato);
 			} else {
-				em.merge(cor);
+				em.merge(contato);
 			}
 			em.getTransaction().commit();
 
@@ -40,57 +40,57 @@ public class CorImp {
 		} finally {
 			em.close();
 		}
-		return cor;
+		return contato;
 	}
 
 	@Path("obterPorId")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public Cor findByID(ParamJson paramJson) {
+	public Contato findByID(ParamJson paramJson) {
 		EntityManager em = UnidadePersistencia.createEntityManager();
-		Cor cor = null;
+		Contato contato = null;
 		try {
-			cor = em.find(Cor.class, paramJson.getInt1());
+			contato = em.find(Contato.class, paramJson.getInt1());
 		} catch (Exception e) {
 			System.err.println(e);
 		} finally {
 			em.close();
 		}
-		return cor;
+		return contato;
 	}
 
 	@Path("obterTodos")
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public List<Cor> obterTodos() {
+	public List<Contato> obterTodos() {
 		EntityManager em = UnidadePersistencia.createEntityManager();
-		List<Cor> cores = null;
+		List<Contato> contatos = null;
 
 		try {
-			cores = em.createQuery("select a " 
-							     + "  from Cor a").getResultList();
+			contatos = em.createQuery("select a " 
+							     + "  from Contato a").getResultList();
 
 		} catch (Exception e) {
 
 		} finally {
 			em.close();
 		}
-		return cores;
+		return contatos;
 	}
 
 	@Path("obterTodosAtivos")
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public List<Cor> obterTodosAtivos() {
+	public List<Contato> obterTodosAtivos() {
 		EntityManager em = UnidadePersistencia.createEntityManager();
-		List<Cor> cores = null;
+		List<Contato> contatos = null;
 
 		try {
-			cores = em.createQuery("select a " 
-								 + "  from Cor a" 
+			contatos = em.createQuery("select a " 
+								 + "  from Contato a" 
 								 + " where a.status = 1").getResultList();
 
 		} catch (Exception e) {
@@ -98,7 +98,7 @@ public class CorImp {
 		} finally {
 			em.close();
 		}
-		return cores;
+		return contatos;
 	}
 
 	@Path("removerPorId")
@@ -109,9 +109,9 @@ public class CorImp {
 		EntityManager em = UnidadePersistencia.createEntityManager();
 
 		try {
-			Cor cor = em.find(Cor.class, paramJson.getInt1());
+			Contato contato = em.find(Contato.class, paramJson.getInt1());
 			em.getTransaction().begin();
-			em.remove(cor);
+			em.remove(contato);
 			em.getTransaction().commit();
 
 		} catch (Exception e) {

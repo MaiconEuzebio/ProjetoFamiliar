@@ -9,28 +9,29 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
 import br.com.erp.json.ParamJson;
-import br.com.erp.model.Cor;
-import br.com.erp.model.Marca;
+import br.com.erp.model.Pessoa;
+import br.com.erp.model.Produto;
 import br.com.erp.util.UnidadePersistencia;
 
-@Path("cor")
-public class CorImp {
+@Path("pessoa")
+public class PessoaImp {
 
 	@Path("salvar")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public Cor save(Cor cor) {
+	public Pessoa save(Pessoa pessoa) {
 
 		EntityManager em = UnidadePersistencia.createEntityManager();
 
 		try {
 			em.getTransaction().begin();
-			if (cor.getId() == null) {
-				em.persist(cor);
+			if (pessoa.getId() == null) {
+				em.persist(pessoa);
 			} else {
-				em.merge(cor);
+				em.merge(pessoa);
 			}
 			em.getTransaction().commit();
 
@@ -40,57 +41,57 @@ public class CorImp {
 		} finally {
 			em.close();
 		}
-		return cor;
+		return pessoa;
 	}
 
 	@Path("obterPorId")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public Cor findByID(ParamJson paramJson) {
+	public Pessoa findByID(ParamJson paramJson) {
 		EntityManager em = UnidadePersistencia.createEntityManager();
-		Cor cor = null;
+		Pessoa pessoa = null;
 		try {
-			cor = em.find(Cor.class, paramJson.getInt1());
+			pessoa = em.find(Pessoa.class, paramJson.getInt1());
 		} catch (Exception e) {
 			System.err.println(e);
 		} finally {
 			em.close();
 		}
-		return cor;
+		return pessoa;
 	}
 
 	@Path("obterTodos")
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public List<Cor> obterTodos() {
+	public List<Pessoa> obterTodos() {
 		EntityManager em = UnidadePersistencia.createEntityManager();
-		List<Cor> cores = null;
+		List<Pessoa> pessoas = null;
 
 		try {
-			cores = em.createQuery("select a " 
-							     + "  from Cor a").getResultList();
+			pessoas = em.createQuery("select a " 
+							     + "  from Pessoa a").getResultList();
 
 		} catch (Exception e) {
 
 		} finally {
 			em.close();
 		}
-		return cores;
+		return pessoas;
 	}
 
 	@Path("obterTodosAtivos")
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public List<Cor> obterTodosAtivos() {
+	public List<Pessoa> obterTodosAtivos() {
 		EntityManager em = UnidadePersistencia.createEntityManager();
-		List<Cor> cores = null;
+		List<Pessoa> pessoas = null;
 
 		try {
-			cores = em.createQuery("select a " 
-								 + "  from Cor a" 
+			pessoas = em.createQuery("select a " 
+								 + "  from Pessoa a" 
 								 + " where a.status = 1").getResultList();
 
 		} catch (Exception e) {
@@ -98,7 +99,7 @@ public class CorImp {
 		} finally {
 			em.close();
 		}
-		return cores;
+		return pessoas;
 	}
 
 	@Path("removerPorId")
@@ -109,9 +110,9 @@ public class CorImp {
 		EntityManager em = UnidadePersistencia.createEntityManager();
 
 		try {
-			Cor cor = em.find(Cor.class, paramJson.getInt1());
+			Pessoa pessoa = em.find(Pessoa.class, paramJson.getInt1());
 			em.getTransaction().begin();
-			em.remove(cor);
+			em.remove(pessoa);
 			em.getTransaction().commit();
 
 		} catch (Exception e) {

@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "ENDERECO")
 public class Endereco {
@@ -120,7 +122,7 @@ public class Endereco {
 		this.tipoEndereco = tipoEndereco;
 	}
 	
-
+	@JsonBackReference
 	public Pessoa getPessoa() {
 		return pessoa;
 	}

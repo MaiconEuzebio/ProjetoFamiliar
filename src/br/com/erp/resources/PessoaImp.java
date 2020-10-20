@@ -11,6 +11,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import br.com.erp.json.ParamJson;
+import br.com.erp.model.Contato;
+import br.com.erp.model.Endereco;
 import br.com.erp.model.Pessoa;
 import br.com.erp.model.Produto;
 import br.com.erp.util.UnidadePersistencia;
@@ -27,17 +29,25 @@ public class PessoaImp {
 		EntityManager em = UnidadePersistencia.createEntityManager();
 
 		try {
+			pessoa.atualizarContatos();
+			pessoa.atualizarEnderecos();
 			em.getTransaction().begin();
+			em.persist(pessoa);
+			
 			if (pessoa.getId() == null) {
 				em.persist(pessoa);
 			} else {
 				em.merge(pessoa);
 			}
 			em.getTransaction().commit();
-
+			System.out.println("Pessoa inclu�da com sucesso");
 		} catch (Exception e) {
+			if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
 			e.printStackTrace();
 			em.getTransaction().rollback();
+			System.out.println("Não foi poss�vel incluir a pessoa");
 		} finally {
 			em.close();
 		}

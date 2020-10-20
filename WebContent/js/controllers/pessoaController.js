@@ -19,7 +19,7 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 	$scope.mensagemRodape 	 	= '';
 	$scope.mostrarAguarde 		= true;
 	$scope.campoOrdenacao 		= 'descricao';
-
+	
 						
 						
 						
@@ -48,6 +48,7 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     	$scope.pessoa.status	   = 1;
     	$scope.pessoa.contatos	=[];
     	$scope.pessoa.enderecos		=[];
+    	
     	
     	$scope.mostrarAguarde    = false;
     	$scope.visualizaCadastro = true;
@@ -165,6 +166,17 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     	});
     }
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     $scope.btnSalvarContato = function(ccontato){
     	$scope.mensagemRodape = "";
     	$scope.mostrarAguarde = true;
@@ -233,9 +245,7 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
         		return;
     		}
 			$scope.pessoas = retorno.data;
-			
 			$scope.pesquisar();
-			
 			$scope.mostrarAguarde = false;
 		});
 	}
@@ -303,17 +313,26 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     }
     
     $scope.btnIncluirEndereco = function(){
+    	$scope.endereco = {};
+    	$scope.endereco.status = 1;
     	$('#modalEndereco').modal();
     }
     
      $scope.btnIncluirContato = function(){
-    	$('#modalContato').modal();
+     	$scope.contato = {};
+     	$scope.contato.status = 1;
+     	$('#modalContato').modal();
+     	
     }
-
+	
+	// dado push na lista enderecos no controller 
+	
 	$scope.btnSalvarEndereco = function(endereco){
 		$scope.pessoa.enderecos.push(endereco);
 		$('#modalEndereco').modal('hide');
 	}    
+	
+	// dado push na lista contatos no controller 
 	
 	$scope.btnSalvarContato = function(contato){
 		$scope.pessoa.contatos.push(contato);

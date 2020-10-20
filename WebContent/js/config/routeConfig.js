@@ -49,5 +49,10 @@ angular.module("listaTelefonica").config(function ($routeProvider){
 		controller: "caixaController",
 	});
 	
+	$routeProvider.when("/caixaMovimentacao", {
+		templateUrl: "view/caixaMovimentacao.html",
+		controller: "caixaMovimentacaoController",
+	});
+	
 	$routeProvider.otherwise({redirectTo: "/index.html"});
 });

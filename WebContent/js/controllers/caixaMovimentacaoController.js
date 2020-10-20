@@ -190,7 +190,8 @@ app.controller("caixaMovimentacaoController", function ($scope, requisicaoServic
 													                     dataMovimentacao: $scope.dataMovimentacaoFilter,
 													                     valorMovimentacao: $scope.valorMovimentacaoFilter,
 													                     tipo: $scope.tipoFilter,
-													                     observacao: $scope.observacao}), $scope.campoOrdenacao);
+													                     observacao: $scope.observacaoFilter,
+													                     caixaStatus: $scope.caixaStatusFilter}), $scope.campoOrdenacao);
 		
 	}
 	

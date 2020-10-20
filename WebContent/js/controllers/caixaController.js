@@ -188,7 +188,8 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
 													                     dataAbertura: $scope.dataAberturaFilter,
 													                     dataFechamento: $scope.dataFechamentoFilter,
 													                     valorAbertura: $scope.valorAberturaFilter,
-													                     valorFechamento: $scope.valorFechamentoFilter}), $scope.campoOrdenacao);
+													                     valorFechamento: $scope.valorFechamentoFilter,
+													                     caixaStatus: $scope.caixaStatusFilter}), $scope.campoOrdenacao);
 		
 	}
 	

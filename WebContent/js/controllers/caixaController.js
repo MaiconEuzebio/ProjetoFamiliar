@@ -195,7 +195,6 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
 		
 	}
 	
-	
     $scope.selecionarLinha = function(objeto) {
        $scope.objetoSelecionado = objeto;
     }
@@ -214,6 +213,7 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	}
     	
     	$scope.pesquisar();
+    	
     }
 		
 });

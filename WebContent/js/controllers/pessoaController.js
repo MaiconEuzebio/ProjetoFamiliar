@@ -140,12 +140,7 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     	$scope.mensagemRodape = "";
     	$scope.mostrarAguarde = true;
     	
-    	if (!ppessoa){
-    		$scope.mensagemRodape = "É necessário o preenchimento do campo Descrição!";
-    		document.getElementById("cDescricao").focus();
-    		$scope.mostrarAguarde = false;
-    		return;
-        }
+    	
     	if (!ppessoa.nomeRzSocial) {
         	$scope.mensagemRodape = "É necessário o preenchimento do campo Nome/Razão social!";
     		document.getElementById("cnomeRzSocial").focus();
@@ -171,11 +166,7 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     
     
     
-    
-    
-    
-    
-    
+  
     
     $scope.btnSalvarContato = function(ccontato){
     	$scope.mensagemRodape = "";
@@ -208,6 +199,7 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     	if (!eendereco){
     		$scope.mensagemRodape = "É necessário o preenchimento do campo Rua!";
     		document.getElementById("erua").focus();
+    		$scope.mensagemRodape = retorno.msg;
     		$scope.mostrarAguarde = false;
     		return;
         }

@@ -203,6 +203,12 @@
 								</label>
 							</div>
 						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<button type="button" class="btn bg-primary btn-lg pull-right"
+								ng-click="btnSalvarPessoa(pessoa)">Salvar</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -420,12 +426,6 @@
 					class="alert alert-danger alert-dismissible col-md-12 text-center"
 					ng-show="mensagemRodape">{{mensagemRodape}}</div>
 			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<button type="button" class="btn bg-primary btn-lg pull-right"
-						ng-click="btnSalvarPessoa(pessoa)">Salvar</button>
-				</div>
-			</div>
 		</div>
 	</div>
 </div>
@@ -469,7 +469,7 @@
 
 					<div class="col-md-2">
 						<div class="form-group">
-							<label>* Rua</label> <input id="erua" type="text"
+							<label>* Rua</label> <input id="erua" type="text"<!--  -->
 								class="form-control" ng-model="endereco.rua" maxlength="60"
 								mask-maiusculas autofocus>
 						</div>

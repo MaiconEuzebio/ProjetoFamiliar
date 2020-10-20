@@ -66,5 +66,6 @@ angular.module("listaTelefonica").config(function ($routeProvider){
 	});
 	
 	$routeProvider.otherwise({redirectTo: "/index.html"});
-	
+
 });
+

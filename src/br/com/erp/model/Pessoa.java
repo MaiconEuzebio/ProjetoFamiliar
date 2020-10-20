@@ -121,6 +121,18 @@ public class Pessoa {
 		this.descStatus = descStatus;
 	}
 	
+	public void atualizarContatos() {
+		for(Contato contato : contatos) {
+			contato.setPessoa(this);
+		}
+	}
+	
+	public void atualizarEnderecos() {
+		for(Endereco endereco : enderecos) {
+			endereco.setPessoa(this);
+		}
+	}
+	
 	
 	
 }

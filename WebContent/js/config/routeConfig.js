@@ -43,7 +43,11 @@ angular.module("listaTelefonica").config(function ($routeProvider){
 	$routeProvider.when("/endereco", {
 		templateUrl: "view/endereco.html",
 		controller: "enderecoController",
+
+	});	
+
 	});
+
 
 	$routeProvider.when("/categoria", {
 		templateUrl: "view/categoria.html",
@@ -57,13 +61,17 @@ angular.module("listaTelefonica").config(function ($routeProvider){
 	
 	$routeProvider.when("/caixa", {
 		templateUrl: "view/caixa.html",
+
+		controller: "caixaController",
 		controller: "caixaController",
 	});
 	
 	 $routeProvider.when("/caixaMovimentacao", {
 		templateUrl: "view/caixaMovimentacao.html",
 		controller: "caixaMovimentacaoController",
+
 	});
 	
 	$routeProvider.otherwise({redirectTo: "/index.html"});
-});
+	
+	

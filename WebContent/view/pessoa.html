@@ -119,6 +119,18 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 <!-------------------------------------------------------------------------------->
 <!--					INPUTS DA TELA DE CADASTRO DE PESSOA 					-->
 <!-------------------------------------------------------------------------------->
@@ -194,9 +206,18 @@
 					</div>
 				</div>
 			</div>
+	<!-------------------------------------------------------------------------------->
+	<!--				FIM DOS INPUTS DA TELA DE CADASTRO DE PESSOA 				-->
+	<!-------------------------------------------------------------------------------->	
 			
 			
-			
+	
+	
+	
+	
+	
+	
+	
 			
 			
 			
@@ -226,56 +247,56 @@
 								<table class="table table-bordered table-condensed">
 									<thead>
 										<tr>
-			
-											<th><a href="" ng-click="ordenacao('rua')" title="Ordenar">
-													Rua <span ng-show="campoOrdenacao == '+rua'"
-													class="glyphicon glyphicon-sort-by-attributes" /> <span
-													ng-show="campoOrdenacao == '-rua'"
-													class="glyphicon glyphicon-sort-by-attributes-alt" />
-											</a> <input type="text" name="peso" ng-model="rua"
-												class="form-control" placeholder="Pesquisar..."
-												ng-change="pesquisar()" mask-maiusculas></th>
-			
+												
+												<th>
+													<a href="" ng-click="ordenacao('rua')"
+														title="Ordenar"> Rua <span
+															ng-show="campoOrdenacao == '+rua'"
+															class="glyphicon glyphicon-sort-by-attributes" /> <span
+															ng-show="campoOrdenacao == '-rua'"
+															class="glyphicon glyphicon-sort-by-attributes-alt" />
+														</a>
+													</th>
+												
+											<th>
+												<a href="" ng-click="ordenacao('cep')"
+													title="Ordenar"> Cep <span
+														ng-show="campoOrdenacao == '+cep'"
+														class="glyphicon glyphicon-sort-by-attributes" /> <span
+														ng-show="campoOrdenacao == '-cep'"
+														class="glyphicon glyphicon-sort-by-attributes-alt" />
+													</a>
+												</th>
+												
 											<th><a href="" ng-click="ordenacao('numero')"
-												title="Ordenar"> Numero <span
-													ng-show="campoOrdenacao == '+numero'"
-													class="glyphicon glyphicon-sort-by-attributes" /> <span
-													ng-show="campoOrdenacao == '-numero'"
-													class="glyphicon glyphicon-sort-by-attributes-alt" />
-											</a> <input type="text" name="peso" ng-model="numero"
-												class="form-control" placeholder="Pesquisar..."
-												ng-change="pesquisar()" mask-maiusculas></th>
-			
-											<th><a href="" ng-click="ordenacao('bairro')"
-												title="Ordenar"> Bairro <span
-													ng-show="campoOrdenacao == '+bairro'"
-													class="glyphicon glyphicon-sort-by-attributes" /> <span
-													ng-show="campoOrdenacao == '-bairro'"
-													class="glyphicon glyphicon-sort-by-attributes-alt" />
-											</a> <input type="text" name="peso" ng-model="bairro"
-												class="form-control" placeholder="Pesquisar..."
-												ng-change="pesquisar()" mask-maiusculas></th>
-			
-											<th><a href="" ng-click="ordenacao('complemento')"
-												title="Ordenar"> Complemento <span
-													ng-show="campoOrdenacao == '+complemento'"
-													class="glyphicon glyphicon-sort-by-attributes" /> <span
-													ng-show="campoOrdenacao == '-complemento'"
-													class="glyphicon glyphicon-sort-by-attributes-alt" />
-											</a> <input type="text" name="peso" ng-model="complemento"
-												class="form-control" placeholder="Pesquisar..."
-												ng-change="pesquisar()" mask-maiusculas></th>
-			
-											<th><a href="" ng-click="ordenacao('tipo')" title="Ordenar">
-													Tipo <span ng-show="campoOrdenacao == '+tipo'"
-													class="glyphicon glyphicon-sort-by-attributes" /> <span
-													ng-show="campoOrdenacao == '-tipo'"
-													class="glyphicon glyphicon-sort-by-attributes-alt" />
-											</a> <input type="text" name="peso" ng-model="tipo"
-												class="form-control" placeholder="Pesquisar..."
-												ng-change="pesquisar()" mask-maiusculas></th>
-			
+													title="Ordenar"> Numero <span
+														ng-show="campoOrdenacao == '+numero'"
+														class="glyphicon glyphicon-sort-by-attributes" /> <span
+														ng-show="campoOrdenacao == '-numero'"
+														class="glyphicon glyphicon-sort-by-attributes-alt" />
+													</a>
+												</th>
+												
+												<th><a href="" ng-click="ordenacao('bairro')"
+														title="Ordenar"> Bairro <span
+															ng-show="campoOrdenacao == '+bairro'"
+															class="glyphicon glyphicon-sort-by-attributes" /> <span
+															ng-show="campoOrdenacao == '-bairro'"
+															class="glyphicon glyphicon-sort-by-attributes-alt" />
+														</a> 
+													</th>
+												
+												<th><a href="" ng-click="ordenacao('complemento')"
+														title="Ordenar"> Complemento <span
+															ng-show="campoOrdenacao == '+complemento'"
+															class="glyphicon glyphicon-sort-by-attributes" /> <span
+															ng-show="campoOrdenacao == '-complemento'"
+															class="glyphicon glyphicon-sort-by-attributes-alt" />
+														</a>
+													</th>
+														
 										</tr>
+										
 									</thead>
 			
 									<!-------------------------------------------------------------------------------->
@@ -286,6 +307,7 @@
 											ng-click="selecionarLinha(e)"
 											ng-class="{linhaSelecionada : e == objetoSelecionado}">
 											<td>{{e.rua}}</td>
+											<td>{{e.cep}}</td>
 											<td>{{e.numero}}</td>
 											<td>{{e.bairro}}</td>
 											<td>{{e.complemento}}</td>
@@ -296,7 +318,96 @@
 									<!--	FIM DO CORPO DA TABELA	-->
 									<!-------------------------------->
 								</table>
+								
 			
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!---------------------------------------------------------------------------->
+			<!--						DIV COM PAINEL CONTATOS							-->
+			<!---------------------------------------------------------------------------->
+			
+			<div class="card-body" ng-show="abaSelecionada == 'contato'">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h3 class="card-title">
+								<div class="col-md-4">
+									<button type="button" ng-click="btnIncluirContato()" class="btn btn-block btn-outline-primary btn-lg">Incluir</button>
+								</div>
+								<div class="col-md-4">
+									<button type="button" ng-click="btnEditar()"
+										class="btn btn-block btn-outline-primary btn-lg">Editar</button>
+								</div>
+								<div class="col-md-4">
+									<button type="button" ng-click="btnExcluir()"
+										class="btn btn-block btn-outline-danger btn-lg">Excluir</button>
+								</div>
+							</h3>
+						</div>
+			
+						<div class="card-body">
+							<div class="table-responsive table-pesquisa-fixa">
+								<table class="table table-bordered table-condensed">
+									<thead>
+										<tr>
+												
+												<th>
+													<a href="" ng-click="ordenacao('nome')"
+														title="Ordenar"> Nome <span
+															ng-show="campoOrdenacao == '+nome'"
+															class="glyphicon glyphicon-sort-by-attributes" /> <span
+															ng-show="campoOrdenacao == '-nome'"
+															class="glyphicon glyphicon-sort-by-attributes-alt" />
+														</a>
+													</th>
+												
+											<th>
+												<a href="" ng-click="ordenacao('email')"
+													title="Ordenar"> Email <span
+														ng-show="campoOrdenacao == '+email'"
+														class="glyphicon glyphicon-sort-by-attributes" /> <span
+														ng-show="campoOrdenacao == '-email'"
+														class="glyphicon glyphicon-sort-by-attributes-alt" />
+													</a>
+												</th>
+												
+											<th><a href="" ng-click="ordenacao('telefone')"
+													title="Ordenar"> Telefone <span
+														ng-show="campoOrdenacao == '+telefone'"
+														class="glyphicon glyphicon-sort-by-attributes" /> <span
+														ng-show="campoOrdenacao == '-telefone'"
+														class="glyphicon glyphicon-sort-by-attributes-alt" />
+													</a>
+												</th>
+		
+										</tr>
+										
+									</thead>
+			
+									<!-------------------------------------------------------------------------------->
+									<!--	CORPO DE TABELA QUE CONTEM OS ATRIBUTOS DA TABELA QUE TRARÁ A BUSCA 	-->
+									<!-------------------------------------------------------------------------------->
+									<tbody>
+										<!-- dado push na lista contatos no controller -->
+										<tr ng-repeat="c in pessoa.contatos"
+											ng-click="selecionarLinha(c)"
+											ng-class="{linhaSelecionada : c == objetoSelecionado}">
+											
+											<td>{{c.nome}}</td>
+											<td>{{c.email}}</td>
+											<td>{{c.telefone}}</td>
+											
+											
+										</tr>
+									</tbody>
+									<!-------------------------------->
+									<!--	FIM DO CORPO DA TABELA	-->
+									<!-------------------------------->
+								</table>
 			
 							</div>
 						</div>
@@ -320,9 +431,19 @@
 </div>
 
 
-<!---------------------------------------------------------------------------->
-<!--						DIV COM PAINEL ENDEREÇOS						-->
-<!---------------------------------------------------------------------------->
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <!-------------------------------------------------------------------------------->
@@ -346,10 +467,18 @@
 						</div>
 					</div>
 
-					<div class="col-md-3">
+					<div class="col-md-2">
 						<div class="form-group">
 							<label>* Rua</label> <input id="erua" type="text"
 								class="form-control" ng-model="endereco.rua" maxlength="60"
+								mask-maiusculas autofocus>
+						</div>
+					</div>
+					
+					<div class="col-md-2">
+						<div class="form-group">
+							<label>* Cep</label> <input id="ecep" type="text"
+								class="form-control" ng-model="endereco.cep" maxlength="60"
 								mask-maiusculas autofocus>
 						</div>
 					</div>
@@ -370,7 +499,7 @@
 						</div>
 					</div>
 
-					<div class="col-md-3">
+					<div class="col-md-2">
 						<div class="form-group">
 							<label>* Complemento</label> <input id="ecomplemento" type="text"
 								class="form-control" ng-model="endereco.complemento"
@@ -389,6 +518,8 @@
 					</div>
 
 					<!-- CAMPO STATUS -->
+					
+					
 					<div class="col-md-12">
 						<div class="form-group">
 							<div class="checkbox">
@@ -401,11 +532,6 @@
 					</div>
 				</div>
 				<div class="row">
-					<div
-						class="alert alert-danger alert-dismissible col-md-12 text-center"
-						ng-show="mensagemRodape">{{mensagemRodape}}</div>
-				</div>
-				<div class="row">
 					<div class="col-md-12">
 						<button type="button" class="btn bg-primary btn-lg pull-right"
 							ng-click="btnSalvarEndereco(endereco)">Salvar</button>
@@ -416,124 +542,34 @@
 		</div>
 	</div>
 </div>
+<!-------------------------------------------------------------------------------->
+<!--			FIM DOS INPUTS DA TELA DE CADASTRO DE ENDERECO 					-->
+<!-------------------------------------------------------------------------------->
 
 
 
-<!---------------------------------------------------------------------------->
-<!--						DIV COM PAINEL CONTATOS							-->
-<!---------------------------------------------------------------------------->
 
-<!-- -------------------------------------------------------------------------------------------------------------------------------------- -->
-<div class="card-body" ng-show="abaSelecionada == 'contato'">
-	<div class="col-md-12">
-		<div class="card">
-			<div class="card-header">
-				<h3 class="card-title">
-					<div class="col-md-4">
-						<button type="button" ng-click="btnIncluirContato()" class="btn btn-block btn-outline-primary btn-lg">Incluir</button>
-					</div>
-					<div class="col-md-4">
-						<button type="button" ng-click="btnEditar()"
-							class="btn btn-block btn-outline-primary btn-lg">Editar</button>
-					</div>
-					<div class="col-md-4">
-						<button type="button" ng-click="btnExcluir()"
-							class="btn btn-block btn-outline-danger btn-lg">Excluir</button>
-					</div>
-				</h3>
-			</div>
 
-			<div class="card-body">
-				<div class="table-responsive table-pesquisa-fixa">
-					<table class="table table-bordered table-condensed">
-						<thead>
-							<tr>
-								<th width="80px"><a href="" ng-click="ordenacao('id')"
-									title="{{buscarDicionario('Ordenar')}}"> Cód. <span
-										ng-show="campoOrdenacao == '+id'"
-										class="glyphicon glyphicon-sort-by-attributes" /> <span
-										ng-show="campoOrdenacao == '-id'"
-										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="text" name="id" ng-model="idFilter"
-									class="form-control" placeholder="Pesquisar..."
-									ng-change="pesquisar()" mask-maiusculas></th>
 
-								<th><a href="" ng-click="ordenacao('nome')" title="Ordenar">
-										Nome <span ng-show="campoOrdenacao == '+nome'"
-										class="glyphicon glyphicon-sort-by-attributes" /> <span
-										ng-show="campoOrdenacao == '-nome'"
-										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="text" name="peso" ng-model="nome"
-									class="form-control" placeholder="Pesquisar..."
-									ng-change="pesquisar()" mask-maiusculas></th>
 
-								<th><a href="" ng-click="ordenacao('email')"
-									title="Ordenar"> Email <span
-										ng-show="campoOrdenacao == '+email'"
-										class="glyphicon glyphicon-sort-by-attributes" /> <span
-										ng-show="campoOrdenacao == '-email'"
-										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="text" name="peso" ng-model="email"
-									class="form-control" placeholder="Pesquisar..."
-									ng-change="pesquisar()" mask-maiusculas></th>
 
-								<th><a href="" ng-click="ordenacao('telefone')"
-									title="Ordenar"> Telefone <span
-										ng-show="campoOrdenacao == '+telefone'"
-										class="glyphicon glyphicon-sort-by-attributes" /> <span
-										ng-show="campoOrdenacao == '-telefone'"
-										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="text" name="peso" ng-model="telefone"
-									class="form-control" placeholder="Pesquisar..."
-									ng-change="pesquisar()" mask-maiusculas></th>
 
-								<th><a href="" ng-click="ordenacao('tipo')" title="Ordenar">
-										Tipo <span ng-show="campoOrdenacao == '+tipo'"
-										class="glyphicon glyphicon-sort-by-attributes" /> <span
-										ng-show="campoOrdenacao == '-tipo'"
-										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="text" name="peso" ng-model="tipo"
-									class="form-control" placeholder="Pesquisar..."
-									ng-change="pesquisar()" mask-maiusculas></th>
 
-								<th width="100px"><a href=""
-									ng-click="ordenacao('descStatus')" title="Ordenar"> Status
-										<span ng-show="campoOrdenacao == '+nome'"
-										class="glyphicon glyphicon-sort-by-attributes" /> <span
-										ng-show="campoOrdenacao == '-nome'"
-										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="text" name="peso" ng-model="nomeFilter"
-									class="form-control" placeholder="Pesquisar..."
-									ng-change="pesquisar()" mask-maiusculas></th>
 
-							</tr>
-						</thead>
 
-						<!-------------------------------------------------------------------------------->
-						<!--	CORPO DE TABELA QUE CONTEM OS ATRIBUTOS DA TABELA QUE TRARÁ A BUSCA 	-->
-						<!-------------------------------------------------------------------------------->
-						<tbody>
-							<tr ng-repeat="c in contatosFiltradas"
-								ng-click="selecionarLinha(c)"
-								ng-class="{linhaSelecionada : c == objetoSelecionado}">
-								<td>{{c.id}}</td>
-								<td>{{c.nome}}</td>
-								<td>{{c.email}}</td>
-								<td>{{c.telefone}}</td>
-								<td>{{c.tipo}}</td>
-								<td>{{c.descStatus}}</td>
-							</tr>
-						</tbody>
-						<!-------------------------------->
-						<!--	FIM DO CORPO DA TABELA	-->
-						<!-------------------------------->
-					</table>
 
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-------------------------------------------------------------------------------->
 <!--					INPUTS DA TELA DE CADASTRO DE CONTATO 					-->
@@ -582,10 +618,10 @@
 
 					<div class="col-md-2">
 						<div class="form-group">
-							<label>* Tipo</label> 
-							<select class="form-control" ng-model="pessoa.tipo" ng-change="changeTipoPessoa()">
-								<option value="F">Fisica</option>
-								<option value="J">Juridica</option>
+							<label>Tipo</label> <select class="form-control"
+								ng-model="contato.tipoContato"
+								ng-options="c.descricao for c in tiposContato | orderBy:'descricao' track by c.id">
+								<option value="">Selecione um tipo de contato</option>
 							</select>
 						</div>
 					</div>
@@ -618,6 +654,34 @@
 		</div>
 	</div>
 </div>
+
+<!-------------------------------------------------------------------------------->
+<!--			FIM DOS INPUTS DA TELA DE CADASTRO DE CONTATO 					-->
+<!-------------------------------------------------------------------------------->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <div class="modal" id="modalAtencao">
 	<div class="modal-dialog">

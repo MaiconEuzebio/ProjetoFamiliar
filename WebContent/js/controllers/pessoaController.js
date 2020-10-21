@@ -163,59 +163,9 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     
     
     
+ 
     
-    
-    
-  
-    
-    $scope.btnSalvarContato = function(ccontato){
-    	$scope.mensagemRodape = "";
-    	$scope.mostrarAguarde = true;
-    	
-    	if (!ccontato){
-    		$scope.mensagemRodape = "É necessário o preenchimento do campo Nome!";
-    		document.getElementById("cnome").focus();
-    		$scope.mostrarAguarde = false;
-    		return;
-        }
-
-    	requisicaoService.requisitarPOST("contato/salvar", ccontato, function(retorno){
-    		if (!retorno.isValid) {
-    			$scope.mensagemRodape = retorno.msg;
-    			$scope.mostrarAguarde = false;
-        		return;
-    		}
-    		
-    		$scope.mostrarAguarde    = false;
-    		$scope.visualizaCadastro = false;
-    		atualizarTela();
-    	});
-    }
-    
-     $scope.btnSalvarEndereco = function(eendereco){
-    	$scope.mensagemRodape = "";
-    	$scope.mostrarAguarde = true;
-    	
-    	if (!eendereco){
-    		$scope.mensagemRodape = "É necessário o preenchimento do campo Rua!";
-    		document.getElementById("erua").focus();
-    		$scope.mensagemRodape = retorno.msg;
-    		$scope.mostrarAguarde = false;
-    		return;
-        }
-
-    	requisicaoService.requisitarPOST("endereco/salvar", eendereco, function(retorno){
-    		if (!retorno.isValid) {
-    			$scope.mensagemRodape = retorno.msg;
-    			$scope.mostrarAguarde = false;
-        		return;
-    		}
-    		
-    		$scope.mostrarAguarde    = false;
-    		$scope.visualizaCadastro = false;
-    		atualizarTela();
-    	});
-    }
+   
 
     /*
      //////////////////////////////////////////////////////////////////
@@ -320,6 +270,18 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 	// dado push na lista enderecos no controller 
 	
 	$scope.btnSalvarEndereco = function(endereco){
+		$scope.mensagemRodape = "";
+    	
+    	
+    	if (!endereco.rua){
+    		$scope.mensagemRodape = "É necessário o preenchimento do campo Rua!";
+    		document.getElementById("eRua").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
+        
+        
+        
 		$scope.pessoa.enderecos.push(endereco);
 		$('#modalEndereco').modal('hide');
 	}    
@@ -327,6 +289,18 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 	// dado push na lista contatos no controller 
 	
 	$scope.btnSalvarContato = function(contato){
+		$scope.mensagemRodape = "";
+		
+    	
+    	if (!contato.nome){
+    		$scope.mensagemRodape = "É necessário o preenchimento do campo Nome!";
+    		document.getElementById("cNome").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
+       
+        
+        
 		$scope.pessoa.contatos.push(contato);
 		$('#modalContato').modal('hide');
 	} 

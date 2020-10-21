@@ -325,11 +325,11 @@
 									<!-------------------------------->
 								</table>
 								
-			
 							</div>
 						</div>
 					</div>
 				</div>
+								
 			</div>
 			
 			<!---------------------------------------------------------------------------->
@@ -414,7 +414,6 @@
 									<!--	FIM DO CORPO DA TABELA	-->
 									<!-------------------------------->
 								</table>
-			
 							</div>
 						</div>
 					</div>
@@ -425,8 +424,8 @@
 				<div
 					class="alert alert-danger alert-dismissible col-md-12 text-center"
 					ng-show="mensagemRodape">{{mensagemRodape}}</div>
+				</div>
 			</div>
-		</div>
 	</div>
 </div>
 
@@ -453,7 +452,7 @@
 	<div class="col-md-12">
 		<div class="card">
 			<div class="card-header">
-				<h3 class="card-title">Cadastro</h3>
+				<h1 class="card-title"><h4>Pessoa > Incluir endereço</h4></h1>
 				<button type="button" class="btn btn-secondary pull-right"
 					ng-click="fecharModalEndereco()">Voltar</button>
 			</div>
@@ -469,7 +468,7 @@
 
 					<div class="col-md-2">
 						<div class="form-group">
-							<label>* Rua</label> <input id="erua" type="text"<!--  -->
+							<label>* Rua</label> <input id="eRua" type="text"
 								class="form-control" ng-model="endereco.rua" maxlength="60"
 								mask-maiusculas autofocus>
 						</div>
@@ -477,7 +476,7 @@
 					
 					<div class="col-md-2">
 						<div class="form-group">
-							<label>* Cep</label> <input id="ecep" type="text"
+							<label>* Cep</label> <input id="eCep" type="text"
 								class="form-control" ng-model="endereco.cep" maxlength="60"
 								mask-maiusculas autofocus>
 						</div>
@@ -485,7 +484,7 @@
 
 					<div class="col-md-1">
 						<div class="form-group">
-							<label>*Numero</label> <input id="enumero" type="text"
+							<label>*Numero</label> <input id="eNumero" type="text"
 								class="form-control" ng-model="endereco.numero" maxlength="60"
 								mask-maiusculas autofocus>
 						</div>
@@ -493,7 +492,7 @@
 
 					<div class="col-md-2">
 						<div class="form-group">
-							<label>*Bairro</label> <input id="ebairro" type="text"
+							<label>*Bairro</label> <input id="eBairro" type="text"
 								class="form-control" ng-model="endereco.bairro" maxlength="60"
 								mask-maiusculas autofocus>
 						</div>
@@ -501,7 +500,7 @@
 
 					<div class="col-md-2">
 						<div class="form-group">
-							<label>* Complemento</label> <input id="ecomplemento" type="text"
+							<label>* Complemento</label> <input id="eComplemento" type="text"
 								class="form-control" ng-model="endereco.complemento"
 								maxlength="60" mask-maiusculas autofocus>
 						</div>
@@ -531,10 +530,19 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<button type="button" class="btn bg-primary btn-lg pull-right"
+						<div class="row">
+							<div
+							class="alert alert-danger alert-dismissible col-md-12 text-center"
+							 ng-show="mensagemRodape">{{mensagemRodape}}</div>
+							
+						</div>
+					
+				
+					<div class="row">
+						<div class="col-md-12">
+							<button type="button" class="btn bg-primary btn-lg pull-right"
 							ng-click="btnSalvarEndereco(endereco)">Salvar</button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -578,7 +586,7 @@
 	<div class="col-md-12">
 		<div class="card">
 			<div class="card-header">
-				<h3 class="card-title">Cadastro</h3>
+				<h3 class="card-title"><h4>Pessoa > Incluir contato</h4></h3>
 				<button type="button" class="btn btn-secondary pull-right"
 					ng-click="fecharModalContato()">Voltar</button>
 			</div>
@@ -594,7 +602,7 @@
 
 					<div class="col-md-3">
 						<div class="form-group">
-							<label>* Nome</label> <input id="cnome" type="text"
+							<label>* Nome</label> <input id="cNome" type="text"
 								class="form-control" ng-model="contato.nome" maxlength="60"
 								mask-maiusculas autofocus>
 						</div>
@@ -602,7 +610,7 @@
 
 					<div class="col-md-3">
 						<div class="form-group">
-							<label>* Email</label> <input id="cemail" type="text"
+							<label>* Email</label> <input id="cEmail" type="text"
 								class="form-control" ng-model="contato.email" maxlength="60"
 								mask-maiusculas autofocus>
 						</div>
@@ -610,7 +618,7 @@
 
 					<div class="col-md-3">
 						<div class="form-group">
-							<label>* Telefone</label> <input id="ctelefone" type="text"
+							<label>* Telefone</label> <input id="cTelefone" type="text"
 								class="form-control" ng-model="contato.telefone" maxlength="60"
 								mask-maiusculas autofocus>
 						</div>
@@ -640,9 +648,9 @@
 				</div>
 				<div class="row">
 					<div
-						class="alert alert-danger alert-dismissible col-md-12 text-center"
-						ng-show="mensagemRodape">{{mensagemRodape}}</div>
+						class="alert alert-danger alert-dismissible col-md-12 text-center" ng-show="mensagemRodape">{{mensagemRodape}}</div>
 				</div>
+				
 				<div class="row">
 					<div class="col-md-12">
 						<button type="button" class="btn bg-primary btn-lg pull-right"

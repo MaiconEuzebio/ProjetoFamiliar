@@ -4,6 +4,7 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
 	$scope.mostrarAguarde = false;
 	$scope.tela = "Caixa > Caixa"	
 	
+    $scope.caixaMovimentacoes = [];
 	$scope.caixas                = [];
 	$scope.showModalConfirmacao = false;
 	$scope.showModalAviso       = false;
@@ -37,6 +38,7 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	$scope.caixa.valorAbertura   = null;
     	$scope.caixa.valorFechamento   = null;
     	$scope.caixa.status	   = 1;
+    	$scope.caixa.caixaMovimentacoes = [];
     	
     	
     	$scope.mostrarAguarde    = false;
@@ -72,6 +74,10 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
 	    	$scope.mostrarAguarde    = false;
 	        $scope.visualizaCadastro = true;
 		});
+    }
+    
+    $scope.fecharModalCaixaMovimentacao = function(){
+    	$('#modalCaixaMovimentacao').modal('hide');
     }
 
     $scope.btnExcluir = function(){
@@ -157,6 +163,58 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     		atualizarTela();
     	});
     }
+    
+    $scope.btnSalvarCaixaMovimentacao = function(pcaixaMovimentacao){
+    	$scope.mensagemRodape = "";
+    	$scope.mostrarAguarde = true;
+    	
+    	if (!pcaixaMovimentacao.dataMovimentacao) {
+        	$scope.mensagemRodape = "É necessário o preenchimento do campo Data de Movimentacao!";
+    		document.getElementById("cDataMovimentacao").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
+
+    	if (!pcaixaMovimentacao.valorMovimentacao) {
+        	$scope.mensagemRodape = "É necessário o preenchimento do campo Valor de Movimentacao!";
+    		document.getElementById("cValorMovimentacao").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
+    	
+    	if (!pcaixaMovimentacao.tipo) {
+        	$scope.mensagemRodape = "É necessário o preenchimento do campo Tipo!";
+    		document.getElementById("cTipo").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
+    	
+    	if (!pcaixaMovimentacao.observacao) {
+        	$scope.mensagemRodape = "É necessário o preenchimento do campo Observacao!";
+    		document.getElementById("cObservacao").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
+    	
+    	if (pcaixaMovimentacao.observacao > 300) {
+        	$scope.mensagemRodape = "O campo Observacao deve ter no maximo 300 caracteres!";
+    		document.getElementById("cObservacao").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
+
+    	requisicaoService.requisitarPOST("caixaMovimentacao/salvar", pcaixaMovimentacao, function(retorno){
+    		if (!retorno.isValid) {
+    			$scope.mensagemRodape = retorno.msg;
+    			$scope.mostrarAguarde = false;
+        		return;
+    		}
+    		
+    		$scope.mostrarAguarde    = false;
+    		$scope.visualizaCadastro = false;
+    		atualizarTela();
+    	});
+    }
 
     /*
     /////////////////////////////////////////////////////////////////
@@ -178,6 +236,20 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
         		return;
     		}
 			$scope.caixas = retorno.data;
+			
+			$scope.pesquisar();
+			
+			$scope.mostrarAguarde = false;
+		});
+    	
+    	requisicaoService.requisitarGET("caixaMovimentacao/obterTodosAtivos", function(retorno) {
+    		if (!retorno.isValid) {
+    			$scope.mensagemModal  = retorno.msg;
+    			$scope.showModalAviso = true;
+    			$scope.mostrarAguarde = false;
+        		return;
+    		}
+			$scope.caixaMovimentacoes = retorno.data;
 			
 			$scope.pesquisar();
 			
@@ -215,5 +287,15 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	$scope.pesquisar();
     	
     }
+	
+	 $scope.btnIncluirCaixaMovimentacao = function(){
+	    	$scope.caixaMovimentacao = {};
+	    	$('#modalCaixaMovimenatcao').modal();
+	    }
+	 
+	 $scope.btnSalvarCaixaMovimentacao = function(caixaMovimentacao){
+			$scope.caixa.caixaMovimentacoes.push(caixaMovimentacao);
+			$('#modalCaixaMovimentacao').modal('hide');
+		}  
 		
 });

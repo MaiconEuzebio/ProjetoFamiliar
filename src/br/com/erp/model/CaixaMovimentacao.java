@@ -7,8 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "CAIXA_MOVIMENTACAO")
@@ -25,10 +27,10 @@ public class CaixaMovimentacao {
 	private String tipo;
 	@Column(length = 300, name = "OBSERVACAO")
 	private String observacao;
-	@Column(length = 1, name = "STATUS")
-	private Integer status;
-	@Transient
-	private String caixaStatus;
+	@ManyToOne
+	@JoinColumn(name = "ID_CAIXA_MOVIMENTACAO")
+	private CaixaMovimentacao caixaMovimentacao;
+
 	public Integer getId() {
 		return id;
 	}
@@ -59,24 +61,12 @@ public class CaixaMovimentacao {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-	public Integer getStatus() {
-		return status;
+	@JsonBackReference
+	public CaixaMovimentacao getCaixaMovimentacao() {
+		return caixaMovimentacao;
 	}
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-	public String getCaixaStatus() {
-		if(Objects.nonNull(status)) {
-			if(status.equals(0)) {
-				return "INATIVO";
-			}else {
-				return "ATIVO";
-			}
-		}
-		return caixaStatus;
-	}
-	public void setCaixaStatus(String caixaStatus) {
-		this.caixaStatus = caixaStatus;
+	public void setCaixaMovimentacao(CaixaMovimentacao caixaMovimentacao) {
+		this.caixaMovimentacao = caixaMovimentacao;
 	}
 
 }

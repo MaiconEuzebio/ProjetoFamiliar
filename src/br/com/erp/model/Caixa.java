@@ -1,13 +1,15 @@
 package br.com.erp.model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Caixa {
@@ -24,10 +26,9 @@ public class Caixa {
 	private Double valorAbertura;
 	@Column(length = 10, name = "VALOR_FECHAMENTO")
 	private Double valorFechamento;
-	@Column(length = 1, name = "STATUS")
-	private Integer status;
-	@Transient
-	private String caixaStatus;
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<CaixaMovimentacao> caixaMovimentacoes;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -58,23 +59,11 @@ public class Caixa {
 	public void setValorFechamento(Double valorFechamento) {
 		this.valorFechamento = valorFechamento;
 	}
-	public Integer getStatus() {
-		return status;
+	public List<CaixaMovimentacao> getCaixaMovimentacoes() {
+		return caixaMovimentacoes;
 	}
-	public void setStatus(Integer status) {
-		this.status = status;
+	public void setCaixaMovimentacoes(List<CaixaMovimentacao> caixaMovimentacoes) {
+		this.caixaMovimentacoes = caixaMovimentacoes;
 	}
-	public String getCaixaStatus() {
-		if(Objects.nonNull(status)) {
-			if(status.equals(0)) {
-				return "INATIVO";
-			}else {
-				return "ATIVO";
-			}
-		}
-		return caixaStatus;
-	}
-	public void setCaixaStatus(String caixaStatus) {
-		this.caixaStatus = caixaStatus;
-	}
+	
 }

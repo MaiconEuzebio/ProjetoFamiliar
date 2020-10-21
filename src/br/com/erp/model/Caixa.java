@@ -26,7 +26,7 @@ public class Caixa {
 	private Double valorAbertura;
 	@Column(length = 10, name = "VALOR_FECHAMENTO")
 	private Double valorFechamento;
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "caixa", cascade = CascadeType.ALL)
 	private List<CaixaMovimentacao> caixaMovimentacoes;
 	
 	public Integer getId() {
@@ -64,6 +64,14 @@ public class Caixa {
 	}
 	public void setCaixaMovimentacoes(List<CaixaMovimentacao> caixaMovimentacoes) {
 		this.caixaMovimentacoes = caixaMovimentacoes;
+	}
+	
+	public void atualizarMovimentacao() {
+		if (this.caixaMovimentacoes != null) {
+			for (CaixaMovimentacao caixaMovimentacao : this.caixaMovimentacoes) {
+				caixaMovimentacao.setCaixaMovimentacao(this);
+			}
+		}
 	}
 	
 }

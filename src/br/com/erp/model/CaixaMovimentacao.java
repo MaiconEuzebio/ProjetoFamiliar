@@ -28,8 +28,8 @@ public class CaixaMovimentacao {
 	@Column(length = 300, name = "OBSERVACAO")
 	private String observacao;
 	@ManyToOne
-	@JoinColumn(name = "ID_CAIXA_MOVIMENTACAO")
-	private CaixaMovimentacao caixaMovimentacao;
+	@JoinColumn(name = "ID_CAIXA")
+	private Caixa caixa;
 
 	public Integer getId() {
 		return id;
@@ -62,11 +62,11 @@ public class CaixaMovimentacao {
 		this.observacao = observacao;
 	}
 	@JsonBackReference
-	public CaixaMovimentacao getCaixaMovimentacao() {
-		return caixaMovimentacao;
+	public Caixa getCaixa() {
+		return caixa;
 	}
-	public void setCaixaMovimentacao(CaixaMovimentacao caixaMovimentacao) {
-		this.caixaMovimentacao = caixaMovimentacao;
+	public void setCaixaMovimentacao(Caixa caixa) {
+		this.caixa = caixa;
 	}
 
 }

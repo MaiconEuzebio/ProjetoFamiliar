@@ -26,6 +26,9 @@ public class CaixaImp {
 
 		try {
 			em.getTransaction().begin();
+			
+			caixa.atualizarMovimentacao();
+			
 			if (caixa.getId() == null) {
 				em.persist(caixa);
 			} else {

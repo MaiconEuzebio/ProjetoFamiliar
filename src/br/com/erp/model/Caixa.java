@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 @Entity
 public class Caixa {
@@ -26,6 +27,10 @@ public class Caixa {
 	private Double valorAbertura;
 	@Column(length = 10, name = "VALOR_FECHAMENTO")
 	private Double valorFechamento;
+	@Column(length = 1, name = "STATUS")
+	private Integer status;
+	@Transient
+	private String descStatus;
 	@OneToMany(mappedBy = "caixa", cascade = CascadeType.ALL)
 	private List<CaixaMovimentacao> caixaMovimentacoes;
 	
@@ -58,6 +63,27 @@ public class Caixa {
 	}
 	public void setValorFechamento(Double valorFechamento) {
 		this.valorFechamento = valorFechamento;
+	}
+	public Integer getStatus() {
+		return status;
+	}
+	
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+	
+	public String getDescStatus() {
+		if(Objects.nonNull(status)) {
+			if(status.equals(0)) {
+				return "FECHADO";
+			}else {
+				return "ABERTO";
+			}
+		}
+		return descStatus;
+	}
+	public void setDescStatus(String descStatus) {
+		this.descStatus = descStatus;
 	}
 	public List<CaixaMovimentacao> getCaixaMovimentacoes() {
 		return caixaMovimentacoes;

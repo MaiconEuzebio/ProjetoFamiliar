@@ -97,6 +97,16 @@
 								</a> <input type="text" name="peso" ng-model="valorFechamentoFilter"
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
+									
+									<th width="100px"><a href=""
+									ng-click="ordenacao('descStatus')" title="Ordenar"> Status <span
+										ng-show="campoOrdenacao == '+descricao'"
+										class="glyphicon glyphicon-sort-by-attributes" /> <span
+										ng-show="campoOrdenacao == '-descricao'"
+										class="glyphicon glyphicon-sort-by-attributes-alt" />
+								</a> <input type="text" name="peso" ng-model="descStatusFilter"
+									class="form-control" placeholder="Pesquisar..."
+									ng-change="pesquisar()" mask-maiusculas></th>
 							</tr>
 						</thead>
 						
@@ -108,6 +118,7 @@
 								<td>{{g.dataFechamento | date:'dd/MM/yyyy'}}</td>
 								<td>{{g.valorAbertura}}</td>
 								<td>{{g.valorFechamento}}</td>
+								<td>{{g.descStatus}}</td>
 							</tr>
 						</tbody>
 					</table>
@@ -181,6 +192,19 @@
 								mask-maiusculas autofocus>
 						</div>
 					</div>
+					
+					<!-- CAMPO STATUS -->
+					<div class="col-md-12">
+						<div class="form-group">
+							<div class="checkbox">
+								<label> <input type="checkbox" class="checkbox"
+									ng-model="caixa.status" ng-true-value="1" ng-false-value="0">
+									Aberto
+								</label>
+							</div>
+						</div>
+					</div>	
+					
 				</div>
 				<div class="row">
 					<div

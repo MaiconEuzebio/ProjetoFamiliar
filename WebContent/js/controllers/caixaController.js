@@ -37,8 +37,8 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	$scope.caixa.dataFechamento   = null;
     	$scope.caixa.valorAbertura   = null;
     	$scope.caixa.valorFechamento   = null;
+    	$scope.caixa.status = 1;
     	$scope.caixa.caixaMovimentacoes = [];
-    	
     	
     	$scope.visualizaCadastro = true;
     }
@@ -54,7 +54,6 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	$scope.caixaMovimentacao.valorMovimentacao   = null;
     	$scope.caixaMovimentacao.tipo   = null;
     	$scope.caixaMovimentacao.observacao = null;
-    	$scope.caixaMovimentacao.status	   = 1;
     	$('#modalCaixaMovimentacao').modal();
     	
     	$scope.mostrarAguarde    = false;
@@ -64,6 +63,7 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     $scope.btnEditar = function(){
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";
+    	$scope.abaSelecionada = 'caixa'
     	
     	
     	if (!$scope.objetoSelecionado) {
@@ -75,6 +75,7 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
 			int1: $scope.objetoSelecionado.id
 		}
     	$scope.mostrarAguarde = true;
+    	
     	//obter a caixa
     	requisicaoService.requisitarPOST("caixa/obterPorId", param , function(retorno) {
 			if (!retorno.isValid) {

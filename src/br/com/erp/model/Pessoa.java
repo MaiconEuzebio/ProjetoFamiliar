@@ -124,7 +124,7 @@ public class Pessoa {
 	public void atualizarContatos() {
 		for(Contato contato : contatos) {
 			contato.setPessoa(this);
-		}
+		}	
 	}
 	
 	public void atualizarEnderecos() {

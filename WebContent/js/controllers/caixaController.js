@@ -4,6 +4,7 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
 	$scope.mostrarAguarde = false;
 	$scope.tela = "Caixa > Caixa"	
 	
+    $scope.caixaMovimentacoes = [];
 	$scope.caixas                = [];
 	$scope.showModalConfirmacao = false;
 	$scope.showModalAviso       = false;
@@ -28,7 +29,7 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     $scope.btnIncluir = function(){
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";
-    	$scope.mostrarAguarde = true;
+    	$scope.abaSelecionada = 'caixa'
     	
     	$scope.caixa		       = {};
     	$scope.caixa.id       = null;
@@ -36,8 +37,24 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	$scope.caixa.dataFechamento   = null;
     	$scope.caixa.valorAbertura   = null;
     	$scope.caixa.valorFechamento   = null;
-    	$scope.caixa.status	   = 1;
+    	$scope.caixa.status = 1;
+    	$scope.caixa.caixaMovimentacoes = [];
     	
+    	$scope.visualizaCadastro = true;
+    }
+    
+    $scope.btnIncluirCaixaMovimentacao = function(){
+    	$scope.mensagemRodape = "";
+    	$scope.mensagemModal  = "";
+    	$scope.mostrarAguarde = true;
+    	
+    	$scope.caixaMovimentacao		       = {};
+    	$scope.caixaMovimentacao.id       = null;
+    	$scope.caixaMovimentacao.dataMovimentacao  = null;
+    	$scope.caixaMovimentacao.valorMovimentacao   = null;
+    	$scope.caixaMovimentacao.tipo   = null;
+    	$scope.caixaMovimentacao.observacao = null;
+    	$('#modalCaixaMovimentacao').modal();
     	
     	$scope.mostrarAguarde    = false;
     	$scope.visualizaCadastro = true;
@@ -46,6 +63,7 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     $scope.btnEditar = function(){
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";
+    	$scope.abaSelecionada = 'caixa'
     	
     	
     	if (!$scope.objetoSelecionado) {
@@ -57,6 +75,7 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
 			int1: $scope.objetoSelecionado.id
 		}
     	$scope.mostrarAguarde = true;
+    	
     	//obter a caixa
     	requisicaoService.requisitarPOST("caixa/obterPorId", param , function(retorno) {
 			if (!retorno.isValid) {
@@ -72,6 +91,10 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
 	    	$scope.mostrarAguarde    = false;
 	        $scope.visualizaCadastro = true;
 		});
+    }
+    
+    $scope.fecharModalCaixaMovimentacao = function(){
+    	$('#modalCaixaMovimentacao').modal('hide');
     }
 
     $scope.btnExcluir = function(){
@@ -157,6 +180,43 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     		atualizarTela();
     	});
     }
+    
+    $scope.btnSalvarCaixaMovimentacao = function(pcaixaMovimentacao){
+    	$scope.mensagemRodape = "";
+    	
+    	if (!pcaixaMovimentacao.dataMovimentacao) {
+        	$scope.mensagemRodape = "É necessário o preenchimento do campo Data de Movimentacao!";
+    		document.getElementById("cDataMovimentacao").focus();
+    		return;
+        }
+
+    	if (!pcaixaMovimentacao.valorMovimentacao) {
+        	$scope.mensagemRodape = "É necessário o preenchimento do campo Valor de Movimentacao!";
+    		document.getElementById("cValorMovimentacao").focus();
+    		return;
+        }
+    	
+    	if (!pcaixaMovimentacao.tipo) {
+        	$scope.mensagemRodape = "É necessário o preenchimento do campo Tipo!";
+    		document.getElementById("cTipo").focus();
+    		return;
+        }
+    	
+    	if (!pcaixaMovimentacao.observacao) {
+        	$scope.mensagemRodape = "É necessário o preenchimento do campo Observacao!";
+    		document.getElementById("cObservacao").focus();
+    		return;
+        }
+    	
+    	if (pcaixaMovimentacao.observacao > 300) {
+        	$scope.mensagemRodape = "O campo Observacao deve ter no maximo 300 caracteres!";
+    		document.getElementById("cObservacao").focus();
+    		return;
+        }
+
+    	$scope.caixa.caixaMovimentacoes.push(pcaixaMovimentacao);
+		$('#modalCaixaMovimentacao').modal('hide');
+    }
 
     /*
     /////////////////////////////////////////////////////////////////
@@ -183,6 +243,20 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
 			
 			$scope.mostrarAguarde = false;
 		});
+    	
+    	requisicaoService.requisitarGET("caixaMovimentacao/obterTodos", function(retorno) {
+    		if (!retorno.isValid) {
+    			$scope.mensagemModal  = retorno.msg;
+    			$scope.showModalAviso = true;
+    			$scope.mostrarAguarde = false;
+        		return;
+    		}
+			$scope.caixaMovimentacoes = retorno.data;
+			
+			$scope.pesquisar();
+			
+			$scope.mostrarAguarde = false;
+		});
 	}
 	
 	$scope.pesquisar = function(){
@@ -193,6 +267,12 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
 													                     valorFechamento: $scope.valorFechamentoFilter,
 													                     caixaStatus: $scope.caixaStatusFilter}), $scope.campoOrdenacao);
 		
+		$scope.caixaMovimentacoesFiltradas = orderByFilter(filterFilter($scope.caixaMovimentacoes,{id:$scope.idFilter,
+																         dataMovimentacao: $scope.dataMovimentacaoFilter,
+																         valorMovimentacao: $scope.valorMovimentacaoFilter,
+																         tipo: $scope.tipoFilter,
+																         observacao: $scope.observacaoFilter,
+																         caixaStatus: $scope.caixaStatusFilter}), $scope.campoOrdenacao);
 	}
 	
     $scope.selecionarLinha = function(objeto) {
@@ -214,6 +294,6 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	
     	$scope.pesquisar();
     	
-    }
+    } 
 		
 });

@@ -12,7 +12,7 @@
 	<!-- /.container-fluid -->
 </div>
 <div class="text-center" ng-show="mostrarAguarde">
-    <img class="figura-aguarde" src="img/carregando.gif">
+    <img class="figura-aguarde" src="img/carregandoGoogle.gif">
     <label class="label-aguarde">{{buscarDicionario('Aguarde...')}}</label>
 </div>
 <div class="row" ng-show="!visualizaCadastro && !mostrarAguarde">
@@ -22,17 +22,13 @@
 		<div class="card">
 			<div class="card-header">
 				<h3 class="card-title">
-					<div class="col-md-4">
+					<div class="col-md-6">
 						<button type="button" ng-click="btnIncluir()"
 							class="btn btn-block btn-outline-primary btn-lg">Incluir</button>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-6">
 						<button type="button" ng-click="btnEditar()"
 							class="btn btn-block btn-outline-primary btn-lg">Editar</button>
-					</div>
-					<div class="col-md-4">
-						<button type="button" ng-click="btnExcluir()"
-							class="btn btn-block btn-outline-danger btn-lg">Excluir</button>
 					</div>
 				</h3>
 			</div>

@@ -8,9 +8,10 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 	$scope.descricaoNomeRzSocial = 'Nome';
 	$scope.descricaoCnpjCpf = 'CPF';
 	
-	$scope.tiposContato = [];
-	$scope.tiposEndereco = [];
-	$scope.pessoas                = [];
+	
+	$scope.tiposContato 		= 	[];
+	$scope.tiposEndereco 		= 	[];
+	$scope.pessoas              =	[];
 	$scope.showModalConfirmacao = false;
 	$scope.showModalAviso       = false;
 	$scope.mostrarAguarde       = false;
@@ -53,6 +54,8 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     	$scope.mostrarAguarde    = false;
     	$scope.visualizaCadastro = true;
     }
+    
+    
 
     $scope.btnEditar = function(){
     	$scope.mensagemRodape = "";
@@ -77,16 +80,66 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
         		return;
     		}
 			
-			$scope.pessoa			   = retorno.data;
+			$scope.pessoa = retorno.data;
 
 	    	$scope.mostrarAguarde    = false;
 	        $scope.visualizaCadastro = true;
 		});
     }
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//VARIÁVEL RECEBE UMA FUNÇÃO VAZIA. VARIÁVEL POSIÇÃO DO VETOR, RECEBE INDEX DA POSIÇÃO DA LISTA DE ENDEREÇOS DE PESSOA//
+ 	// SPLICE DÁ UM CORTE EM LISTA DE ENDEREÇOS DA PESSOA (NA POSIÇÃO VARIÁVEL POSIÇÃO DO VETOR, 1 VEZ)					  //  
+   	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+     $scope.apagarEndereco = function(){
+     	var posicaoDoElementoNoArray = $scope.pessoa.enderecos.indexOf($scope.objetoSelecionadoEndereco);
+		$scope.pessoa.enderecos.splice(posicaoDoElementoNoArray,1);
+	};
+    
+   
+	
+	$scope.apagarContato = function(){
+     	var posicaoDoElementoNoArray = $scope.pessoa.contatos.indexOf($scope.objetoSelecionadoContato);
+		$scope.pessoa.contatos.splice(posicaoDoElementoNoArray,1);
+	};
+	
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//VARIÁVEL RECEBE UMA FUNÇÃO VAZIA. VARIÁVEL POSIÇÃO DO VETOR, RECEBE INDEX DA POSIÇÃO DA LISTA DE ENDEREÇOS DE PESSOA//
+ 	// SPLICE DÁ UM CORTE EM LISTA DE ENDEREÇOS DA PESSOA (NA POSIÇÃO VARIÁVEL POSIÇÃO DO VETOR, 1 VEZ)					  //  
+   	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     $scope.fecharModalEndereco = function(){
     	$('#modalEndereco').modal('hide');
     }
+    
+    
     
      $scope.fecharModalContato = function(){
     	$('#modalContato').modal('hide');
@@ -223,9 +276,49 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 	}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
     $scope.selecionarLinha = function(objeto) {
        $scope.objetoSelecionado = objeto;
     }
+    
+   	 ///////////////////////////////////////////////////////////////////////////////////////////////////////
+	//		FUNÇÃO CHAMADA NO NG-CLICK QUE FAZ COM QUE UMA LINHA CLICADA SEJA UMA LINHA SELECIONADA		 //
+   ///////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    $scope.selecionarLinhaEndereco = function(endereco){
+    	$scope.objetoSelecionadoEndereco = endereco;
+    }
+    
+    $scope.selecionarLinhaContato = function(contato){
+    	$scope.objetoSelecionadoContato = contato;
+    }
+    
+     ///////////////////////////////////////////////////////////////////////////////////////////////////////
+	//	variavel que recebe uma funcao que recebe um endereco, esse endereco recebe um objeto selecionado//
+   ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
 
 	$scope.ordenacao = function (pcampo) {
 		if ($scope.campoOrdenacao == '+'+pcampo || $scope.campoOrdenacao == '-'+pcampo) {
@@ -255,12 +348,14 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     }
     
     $scope.btnIncluirEndereco = function(){
+   		$scope.mensagemRodape = "";
     	$scope.endereco = {};
     	$scope.endereco.status = 1;
     	$('#modalEndereco').modal();
     }
     
      $scope.btnIncluirContato = function(){
+     	$scope.mensagemRodape = "";
      	$scope.contato = {};
      	$scope.contato.status = 1;
      	$('#modalContato').modal();

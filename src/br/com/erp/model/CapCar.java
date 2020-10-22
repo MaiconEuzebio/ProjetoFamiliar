@@ -21,7 +21,7 @@ public class CapCar {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
-	@Column(name = "TIPO")
+	@Column(length = 1, name = "TIPO")
 	private String tipo;
 	
 	@Column(name = "DATA_INICIAL")
@@ -31,14 +31,14 @@ public class CapCar {
 	private Date dataVencimento;
 	
 	@Column(name = "DATA_PAGAMENTO")
-	
 	private Date dataPagamento;
+	
+	@Column(name = "VALOR_LIQUIDO")
+	private Double valorLiquido;
 	
 	@Column(name = "VALOR_TOTAL")
 	private Double valorTotal;
 	
-	@Column(name = "VALOR_LIQUIDO")
-	private Double valorLiquido;
 	
 	@Column(length = 1, name = "STATUS")
 	private Integer status;

@@ -60,6 +60,11 @@ angular.module("listaTelefonica").config(function ($routeProvider){
 		controller: "caixaController",
 	});
 	
+	$routeProvider.when("/capCar/:tipo", {
+		templateUrl: "view/capCar.html",
+		controller: "capCarController",
+	});
+	
 	$routeProvider.otherwise({redirectTo: "/index.html"});
 
 });

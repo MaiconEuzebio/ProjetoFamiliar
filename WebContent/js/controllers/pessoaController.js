@@ -1,58 +1,78 @@
 app.controller("pessoaController", function ($scope, requisicaoService, filterFilter, orderByFilter) {
 	
-	$scope.vizualizarCadastro = false;
-	$scope.mostrarAguarde = false;
-	$scope.tela = "Pessoa"
-	$scope.abaSelecionada = 'pessoa'
-	
-	$scope.descricaoNomeRzSocial = 'Nome';
-	$scope.descricaoCnpjCpf = 'CPF';
-	
-	
-	$scope.tiposContato 		= 	[];
-	$scope.tiposEndereco 		= 	[];
-	$scope.pessoas              =	[];
-	$scope.showModalConfirmacao = false;
-	$scope.showModalAviso       = false;
-	$scope.mostrarAguarde       = false;
-	$scope.visualizaCadastro 	= false;
-	$scope.mensagemModal 	 	= '';
-	$scope.mensagemRodape 	 	= '';
-	$scope.mostrarAguarde 		= true;
-	$scope.campoOrdenacao 		= 'descricao';
+	$scope.vizualizarCadastro = false;				//VARIÁVEL vizualizarCadastro		INICIADA COMO false		
+	$scope.mostrarAguarde = false;					//VARIÁVEL mostrarAguarde			INICIADA COMO false
+	$scope.tela = "Pessoa"							//VARIÁVEL tela 					INICIADA COMO String 'Pessoa'
+	$scope.abaSelecionada = 'pessoa'				//VARIÁVEL abaSelecionada 			INICIADA COMO String 'pessoa'
+	$scope.descricaoNomeRzSocial = 'Nome';			//VARIÁVEL descricaoNomeRzSocial 	INICIADA COMO String 'Nome'
+	$scope.descricaoCnpjCpf = 'CPF';				//VARIÁVEL descricaoCnpjCpf 		INICIADA COMO String 'CPF'
+	$scope.tiposContato 		= 	[];				//LISTA tiposContato 				INICIADA
+	$scope.tiposEndereco 		= 	[];				//LISTA tiposEndereco 				INICIADA
+	$scope.pessoas              =	[];				//LISTA pessoas 					INICIADA
+	$scope.showModalConfirmacao = false;			//VARIÁVEL showModalConfirmacao 	INICIADA COMO false
+	$scope.showModalAviso       = false;			//VARIÁVEL showModalAviso  			INICIADA COMO false
+	$scope.mostrarAguarde       = false;			//VARIÁVEL mostrarAguarde  			INICIADA COMO false
+	$scope.visualizaCadastro 	= false;			//VARIÁVEL visualizaCadastro 		INICIADA COMO false
+	$scope.mensagemModal 	 	= '';				//VARIÁVEL mensagemModal 			INICIADA
+	$scope.mensagemRodape 	 	= '';				//VARIÁVEL mensagemRodape 			INICIADA
+	$scope.mostrarAguarde 		= true;				//VARIÁVEL mostrarAguarde 			INICIADA COMO true
+	$scope.campoOrdenacao 		= 'descricao';		//VARIÁVEL campoOrdenacao 			INICIADA COMO String 'descricao'
 	
 						
 						
 						
 	
 	
-	atualizarTela();	
+		atualizarTela();							//CHAMADA DA FUNÇÃO ATUALIZAR TELA ANTES DE TODO O SCRIPT
 	
-	/*
+	
      /////////////////////////////////////////////////////////////////
 	// 							FUNÇÕES						       //
    /////////////////////////////////////////////////////////////////
-    */
-    $scope.voltar = function(){
+   
+   
+   
+   
+   
+   
+   
+   
+   	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   // VARIÁVEL voltar RECEBE UMA FUNÇÃO SEM PARÂMETRO QUE CONTÉM A VARIÁVEL visualizaCadastro INICIALMENTE true AGORA COMO false//
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    	$scope.voltar = function(){					
     	$scope.visualizaCadastro 	= false;
     }
+  	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   // VARIÁVEL voltar RECEBE UMA FUNÇÃO SEM PARÂMETRO QUE CONTÉM A VARIÁVEL visualizaCadastro INICIALMENTE true AGORA COMO false//
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     $scope.btnIncluir = function(){
-    	$scope.mensagemRodape = "";
-    	$scope.mensagemModal  = "";
-    	$scope.mostrarAguarde = true;
+    	$scope.mensagemRodape = 		"";
+    	$scope.mensagemModal  =		 	"";
+    	$scope.mostrarAguarde = 		true;
     	
-    	$scope.pessoa		       = {};
-    	$scope.pessoa.id       = null;
-    	$scope.pessoa.nomeRzSocial   = null;
-    	$scope.pessoa.cnpjCpf   = null;
-    	$scope.pessoa.status	   = 1;
-    	$scope.pessoa.contatos	=[];
-    	$scope.pessoa.enderecos		=[];
+    	$scope.pessoa = 				{};
+    	$scope.pessoa.id = 				null;
+    	$scope.pessoa.nomeRzSocial = 	null;
+    	$scope.pessoa.cnpjCpf = 		null;
+    	$scope.pessoa.status = 			1;
+    	$scope.pessoa.contatos =		[];
+    	$scope.pessoa.enderecos =		[];
     	
     	
-    	$scope.mostrarAguarde    = false;
-    	$scope.visualizaCadastro = true;
+    	$scope.mostrarAguarde = 		false;
+    	$scope.visualizaCadastro = 		true;
     }
     
     
@@ -131,8 +151,9 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     
     
     
-    
-    
+     /////////////////////////////////////////////////////////////////////////////////
+	// FUNÇÃO VAZIA QUE TEM COMO PARÂMETRO $(#nomeDoModal) O MÉTODO .modal('hide');//
+   /////////////////////////////////////////////////////////////////////////////////
     
     
     $scope.fecharModalEndereco = function(){
@@ -145,7 +166,17 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     	$('#modalContato').modal('hide');
     }
     
+     /////////////////////////////////////////////////////////////////////////////////
+	// FUNÇÃO VAZIA QUE TEM COMO PARÂMETRO $(#nomeDoModal) O MÉTODO .modal('hide');//
+   /////////////////////////////////////////////////////////////////////////////////
     
+    
+
+
+
+
+
+
 
     $scope.btnExcluir = function(){
     	$scope.mensagemRodape = "";
@@ -220,11 +251,10 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     
    
 
-    /*
+   
      //////////////////////////////////////////////////////////////////
 	//           			FUNÇÃO ATUALIZAR TELA          			//
    //////////////////////////////////////////////////////////////////
-    */
     
     function atualizarTela(){
     	$scope.mensagemRodape = "";
@@ -361,43 +391,45 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
      	$('#modalContato').modal();
      	
     }
+    
+    
+    
 	
-	// dado push na lista enderecos no controller 
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// VARIÁVEL QUE RECEBE UMA FUNÇÃO QUE RECEBE UM ENDEREÇO. SE NÃO endereco.rua, DÁ-SE UM FOCO NO CAMPO 'Rua'E PARA O FLUXO		//
+	// SE TUDO ESTIVER CORRETO, VARIÁVEL pessoa.enderecos (QUE É UMA LISTA EM PESSOA), DÁ UM push E ENDEREÇO E O INSERE NA LISTA   //
+	// MÉTODO .modal('hide') QUE TEM COMO PARÂMETRO $(#nomeDoModal)																  //
+   	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	$scope.btnSalvarEndereco = function(endereco){
 		$scope.mensagemRodape = "";
-    	
-    	
     	if (!endereco.rua){
     		$scope.mensagemRodape = "É necessário o preenchimento do campo Rua!";
     		document.getElementById("eRua").focus();
     		$scope.mostrarAguarde = false;
     		return;
         }
-        
-        
-        
-		$scope.pessoa.enderecos.push(endereco);
+        $scope.pessoa.enderecos.push(endereco);
 		$('#modalEndereco').modal('hide');
-	}    
-	
-	// dado push na lista contatos no controller 
-	
+	}   
+		
+		
 	$scope.btnSalvarContato = function(contato){
 		$scope.mensagemRodape = "";
-		
-    	
-    	if (!contato.nome){
+		if (!contato.nome){
     		$scope.mensagemRodape = "É necessário o preenchimento do campo Nome!";
     		document.getElementById("cNome").focus();
     		$scope.mostrarAguarde = false;
     		return;
         }
-       
-        
-        
-		$scope.pessoa.contatos.push(contato);
+       	$scope.pessoa.contatos.push(contato);
 		$('#modalContato').modal('hide');
 	} 
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// VARIÁVEL QUE RECEBE UMA FUNÇÃO QUE RECEBE UM ENDEREÇO. SE NÃO endereco.rua, DÁ-SE UM FOCO NO CAMPO 'Rua'E PARA O FLUXO		//
+	// SE TUDO ESTIVER CORRETO, VARIÁVEL pessoa.enderecos (QUE É UMA LISTA EM PESSOA), DÁ UM push E ENDEREÇO E O INSERE NA LISTA   //
+	// MÉTODO .modal('hide') QUE TEM COMO PARÂMETRO $(#nomeDoModal)																  //
+   	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
 });

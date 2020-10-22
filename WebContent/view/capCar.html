@@ -1,0 +1,363 @@
+<!-- DIV COM HEADER DA PÁGINA -->
+<div class="content-header">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12">
+				<h1 class="m-0 text-dark">{{tela}}</h1>
+			</div>
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+	</div>
+	<!-- /.container-fluid -->
+</div>
+<!-- FIM DA DIV COM HEADER DA PÁGINA -->
+
+
+
+<!-- DIV QUE CONTÉM A IMAGEM DE CARREGANDO DA PÁGINA -->
+<div class="text-center" ng-show="mostrarAguarde">
+	<img class="figura-aguarde" src="img/carregandoGoogle.gif"> <label
+		class="label-aguarde">{{buscarDicionario('Aguarde...')}}</label>
+</div>
+<!-- FIM DA DIV QUE CONTÉM A IMAGEM DE CARREGANDO DA PÁGINA -->
+
+
+
+<!-- DIV QUE NÃO VISUALIZA CADASTRO E NÃO MOSTRA O GIF AGUARDE >> DIV COM COLUNA TAMANHO 12 >> DIV QUE CONTÉM UM CARD -->
+<div class="row" ng-show="!visualizaCadastro && !mostrarAguarde">
+	<div class="col-md-12">
+		<div class="card">
+		
+		
+		
+			<!-- DIV QUE CONTÉM OS BOTÕES DE INCLUIR EDITAR E EXCLUIR -->
+			<div class="card-header">
+				<h3 class="card-title">
+					<h3 class="card-title">
+					
+						<div class="col-md-4">
+							<button type="button" ng-click="btnIncluir()"
+								class="btn btn-block btn-outline-primary btn-lg">Incluir</button>
+						</div>
+						
+						<div class="col-md-4">
+							<button type="button" ng-click="btnEditar()"
+								class="btn btn-block btn-outline-primary btn-lg">Editar</button>
+						</div>
+						
+						<div class="col-md-4">
+							<button type="button" ng-click="btnExcluir()"
+								class="btn btn-block btn-outline-danger btn-lg">Excluir</button>
+						</div>
+						
+					</h3>
+				</h3>
+			</div>
+			<!--FIM DA DIV QUE CONTÉM OS BOTÕES DE INCLUIR EDITAR E EXCLUIR -->
+			
+			
+			
+				<!-- DIV QUE CONTÉM A TABELA COM OS NOMES DAS COLUNAS DOS DADOS E COM OS LINKS PARA ORDENAÇÃO -->
+				<div class="card-body">
+					<div class="table-responsive table-pesquisa-fixa">
+					
+					
+					
+						<!-- TABLE HEADER QUE CONTÉM A CABEÇA DA TABELA ONDE SERÁ MOSTRADA NOMES DAS COLUNAS E CAMPOS DE ORDENAÇÃO -->
+						<table class="table table-bordered table-condensed">
+							<thead>
+								<tr>
+									<th width="80px"><a href=""
+										ng-click="ordenacao('id')"
+										title="{{buscarDicionario('Ordenar')}}"> Cód. <span
+										ng-show="campoOrdenacao == '+id'"
+										class="glyphicon glyphicon-sort-by-attributes" /> <span
+										ng-show="campoOrdenacao == '-id'"
+										class="glyphicon glyphicon-sort-by-attributes-alt" />
+										</a>
+											<input type="text" name="id" ng-model="idFilter"
+												class="form-control" placeholder="Pesquisar..."
+												ng-change="pesquisar()" mask-maiusculas>
+									</th>
+									
+									<th><a href="" ng-click="ordenacao('tipo')"
+											title="Ordenar"> Tipo <span
+											ng-show="campoOrdenacao == '+tipo'"
+											class="glyphicon glyphicon-sort-by-attributes" /> <span
+											ng-show="campoOrdenacao == '-tipo'"
+											class="glyphicon glyphicon-sort-by-attributes-alt" />
+										</a><input type="text" name="peso" ng-model="tipoFilter"
+												class="form-control" placeholder="Pesquisar..."
+												ng-change="pesquisar()" mask-maiusculas></th>
+											
+									</th>
+									
+									<th><a href="" ng-click="ordenacao('dataInicial')"
+											title="Ordenar"> Data de Abertura <span
+											ng-show="campoOrdenacao == '+dataInicial'"
+											class="glyphicon glyphicon-sort-by-attributes" /> <span
+											ng-show="campoOrdenacao == '-dataInicial'"
+											class="glyphicon glyphicon-sort-by-attributes-alt" />
+										</a> <input type="text" name="peso" ng-model="dataInicialFilter"
+												class="form-control" placeholder="Pesquisar..."
+												ng-change="pesquisar()" mask-maiusculas>
+									</th>
+									
+									<th><a href="" ng-click="ordenacao('dataVencimento')"
+											title="Ordenar"> Data de Vencimento <span
+											ng-show="campoOrdenacao == '+dataVencimento'"
+											class="glyphicon glyphicon-sort-by-attributes" /> <span
+											ng-show="campoOrdenacao == '-dataVencimento'"
+											class="glyphicon glyphicon-sort-by-attributes-alt" />
+										</a> <input type="text" name="peso" ng-model="dataVencimentoFilter"
+												class="form-control" placeholder="Pesquisar..."
+												ng-change="pesquisar()" mask-maiusculas>
+									</th>
+									
+									<th><a href="" ng-click="ordenacao('dataPagamento')"
+											title="Ordenar"> Data de Pagamento <span
+											ng-show="campoOrdenacao == '+dataPagamento'"
+											class="glyphicon glyphicon-sort-by-attributes" /> <span
+											ng-show="campoOrdenacao == '-dataPagamento'"
+											class="glyphicon glyphicon-sort-by-attributes-alt" />
+										</a> <input type="text" name="peso" ng-model="dataPagamentoFilter"
+												class="form-control" placeholder="Pesquisar..."
+												ng-change="pesquisar()" mask-maiusculas>
+									</th>
+									
+									<th><a href="" ng-click="ordenacao('valorLiquido')"
+											title="Ordenar"> Valor liquido <span
+											ng-show="campoOrdenacao == '+valorLiquido'"
+											class="glyphicon glyphicon-sort-by-attributes" /> <span
+											ng-show="campoOrdenacao == '-valorLiquido'"
+											class="glyphicon glyphicon-sort-by-attributes-alt" />
+										</a><input type="text" name="peso" ng-model="valorLiquidoFilter"
+												class="form-control" placeholder="Pesquisar..."
+												ng-change="pesquisar()" mask-maiusculas>
+									</th>
+									
+									<th><a href="" ng-click="ordenacao('valorTotal')"
+											title="Ordenar"> Valor total <span
+											ng-show="campoOrdenacao == '+valorTotal'"
+											class="glyphicon glyphicon-sort-by-attributes" /> <span
+											ng-show="campoOrdenacao == '-valorTotal'"
+											class="glyphicon glyphicon-sort-by-attributes-alt" />
+										</a><input type="text" name="peso" ng-model="valorTotalFilter"
+												class="form-control" placeholder="Pesquisar..."
+												ng-change="pesquisar()" mask-maiusculas>
+									</th>
+									
+									<th width="100px"><a href=""
+									ng-click="ordenacao('descStatus')" title="Ordenar"> Status <span
+											ng-show="campoOrdenacao == '+descricaoStatus'"
+											class="glyphicon glyphicon-sort-by-attributes" /> <span
+											ng-show="campoOrdenacao == '-descricaoStatus'"
+											class="glyphicon glyphicon-sort-by-attributes-alt" />
+										</a> <input type="text" name="peso" ng-model="descricaoStatusFilter"
+												class="form-control" placeholder="Pesquisar..."
+												ng-change="pesquisar()" mask-maiusculas></th>
+									
+	
+								</tr>
+							</thead>
+							<!-- FIM DA TABLE HEADER QUE CONTÉM A CABEÇA DA TABELA ONDE SERÁ MOSTRADA NOMES DAS COLUNAS E CAMPOS DE ORDENAÇÃO -->
+							
+							
+							
+								<tbody>
+									<tr ng-repeat="conta in capCarS"
+										ng-click="selecionarLinha(conta)"
+										ng-class="{linhaSelecionada : conta == objetoSelecionado}">
+										
+										<td>{{conta.id}}</td>
+										<td>{{conta.tipo}}</td>
+										<td>{{conta.dataInicial | date:'dd/MM/yyyy'}}</td>
+										<td>{{conta.dataVencimento | date:'dd/MM/yyyy'}}</td>
+										<td>{{conta.dataPagamento | date:'dd/MM/yyyy'}}</td>
+										<td>{{conta.valorLiquido}}</td>
+										<td>{{conta.valorTotal}}</td>
+										<td>{{conta.descStatus}}</td>
+						
+									</tr>	
+								</tbody>
+						</table>
+						<!-- FIM DA DIV QUE CONTÉM A TABELA ONDE SERÁ MOSTRADA NOMES DAS COLUNAS E CAMPOS DE ORDENAÇÃO -->
+						
+						
+						
+					</div>
+				</div>
+				<!-- FIM DA DIV QUE CONTÉM A TABELA COM OS NOMES DAS COLUNAS DOS DADOS E COM OS LINKS PARA ORDENAÇÃO -->
+				
+			
+				
+		</div>
+	</div>
+</div>
+<!--FIM DA DIV QUE NÃO VISUALIZA CADASTRO E NÃO MOSTRA O GIF AGUARDE >> DIV COM COLUNA TAMANHO 12 >> DIV QUE CONTÉM UM CARD -->
+
+
+
+<!-- DIV COM INPUTS DA TELA DE CADASTRO DE CONTAS A RECEBER -->
+<div class="row" ng-show="visualizaCadastro && !mostrarAguarde">
+	<div class="col-md-12">
+		<div class="card">
+			<div class="card-header">
+				<h3 class="card-title">Cadastro</h3>
+				<button type="button" class="btn btn-secondary pull-right" ng-click="voltar()">Voltar</button>		
+			</div>
+			
+			
+		<div class="card-body">
+			<!-- DIV COM LINHA CONTENDO INPUTS DA TELA DE CADASTRO DE CONTAS A RECEBER -->
+			<div class="row">
+				
+				<!-- CAMPO CÓDIGO (INDEDITÁVEL) -->
+				<div class="col-md-1">
+					<div class="form-group">
+						<label>Código</label> <input type="text" class="form-control"
+							ng-model="capCar.id" readonly>
+					</div>	
+				</div>
+				
+				<!-- CAMPO DATA DE ABERTURA -->
+				<div class="col-md-2">
+					<div class="form-group">
+						<label>* Data de abertura</label> <input id="cDataInicial" type="date"
+								class="form-control" ng-model="capCar.dataInicial" maxlength="60"
+								mask-maiusculas autofocus>
+					</div>
+				</div>
+				
+				<!-- CAMPO DATA DE VENCIMENTO-->
+				<div class="col-md-2">
+					<div class="form-group">
+						<label>* Data de vencimento</label> <input id="cDataVencimento" type="date"
+								class="form-control" ng-model="capCar.dataVencimento" maxlength="60"
+								mask-maiusculas autofocus>
+					</div>
+				</div>
+				
+				<!-- CAMPO TIPO DATA DE PAGAMENTO-->
+				<div class="col-md-2">
+					<div class="form-group">
+						<label>* Data de pagamento</label> <input id="cDataPagamento" type="date"
+								class="form-control" ng-model="capCar.dataPagamento" maxlength="60"
+								mask-maiusculas autofocus>
+					</div>
+				</div>
+				
+				<!-- CAMPO VALOR LIQUIDO -->
+				<div class="col-md-1">
+					<div class="form-group">
+						<label>* Valor liquido</label> <input id="cValorLiquido" type="text"
+							class="form-control" ng-model="capCar.valorLiquido" maxlength="10"
+							mask-maiusculas autofocus>
+					</div>
+				</div>
+				
+				<!-- CAMPO VALOR TOTAL -->
+				<div class="col-md-1">
+					<div class="form-group">
+						<label>* Valor total</label> <input id="cValorTotal" type="text"
+							class="form-control" ng-model="capCar.valorTotal" maxlength="10"
+							mask-maiusculas autofocus>
+					</div>
+				</div>
+				
+				
+				
+				<!-- CHECKBOX DE STATUS (ATIVA POR DAFAULT) -->
+				<div class="col-md-12">
+					<div class="form-group">
+						<div class="checkbox">
+							<label> 
+								<input type="checkbox" class="checkbox"
+									ng-model="capCar.status" ng-true-value="1" ng-false-value="0">
+									Ativo
+							</label>
+						</div>
+					</div>
+				
+					
+					
+					<!-- DIV COM LINHA CONTENDO O BOTÃO DE SALVAR OS DADOS -->
+					<div class="row">
+						<div class="col-md-12">
+							<button type="button" class="btn bg-primary btn-lg pull-right" ng-click="btnSalvar(capCar)">Salvar</button>
+						</div>
+					</div>
+					<!-- FIM DA DIV COM LINHA CONTENDO O BOTÃO DE SALVAR OS DADOS -->
+				
+				
+				
+				</div>		
+			</div>
+		</div>	
+			<!-- FIM DA DIV COM LINHA CONTENDO INPUTS DA TELA DE CADASTRO DE CONTAS A RECEBER -->
+			
+			
+			
+			<!-- DIV COM LINHA CONTENDO O ALERTA DE PREENCHIMENTO CORRETO DOS CAMPOS -->
+			<div class="row">
+				<div class="alert alert-danger alert-dismissible col-md-12 text-center" ng-show="mensagemRodape">{{mensagemRodape}}</div>
+			</div>
+			<!-- FIM DA DIV COM LINHA CONTENDO O ALERTA DE PREENCHIMENTO CORRETO DOS CAMPOS -->
+			
+			
+			
+		</div>
+	</div>
+</div>
+<!-- FIM DA DIV COM INPUTS DA TELA DE CADASTRO DE CONTAS A RECEBER -->
+
+
+
+<!-- DIV COM MODAL ALERTANDO PARA CAMPOS SELECIONADOS -->
+<div class="modal" id="modalAtencao">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Atenção</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+			</div>
+			
+			<div class="modal-body">
+				<p>{{mensagemModal}}</p>
+			</div>
+			
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default pull-right" data-dismiss="modal">OK</button>
+			</div>
+			
+		</div>
+	</div>
+</div>
+<!-- FIM DA DIV COM MODAL ALERTANDO PARA CAMPOS SELECIONADOS -->
+
+
+
+<!-- DIV COM MODAL ALERTANDO PARA CAMPOS A SEREM EXCLUIDOS -->
+<div class="modal" id="modalExcluir">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Atenção</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn btn-primary pull-right" ng-click="confirmaExcluir()">Confirmar</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+<!-- FIM DA DIV COM MODAL ALERTANDO PARA CAMPOS A SEREM EXCLUIDOS -->

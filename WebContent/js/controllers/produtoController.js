@@ -117,10 +117,16 @@ app.controller("produtoController", function ($scope, requisicaoService, filterF
     		atualizarTela();
     	});
     }
+    
+    
+    
 
     $scope.retornarPesquisa = function (){
     	$scope.visualizaCadastro = false;
     }
+
+
+
 
     $scope.btnSalvar = function(pproduto){
     	$scope.mensagemRodape = "";

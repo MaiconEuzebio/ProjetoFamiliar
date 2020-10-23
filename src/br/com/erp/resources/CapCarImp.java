@@ -27,8 +27,6 @@ public class CapCarImp {
 
 		try {
 			em.getTransaction().begin();
-			em.persist(capCar);
-			
 			if (capCar.getId() == null) {
 				em.persist(capCar);
 			} else {
@@ -41,7 +39,6 @@ public class CapCarImp {
 				em.getTransaction().rollback();
 			}
 			e.printStackTrace();
-			em.getTransaction().rollback();
 			System.out.println("Não foi poss�vel incluir a capCar");
 		} finally {
 			em.close();

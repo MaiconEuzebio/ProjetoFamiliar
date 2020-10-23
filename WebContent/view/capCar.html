@@ -3,7 +3,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12">
-				<h1 class="m-0 text-dark">{{tela}}</h1>
+				<h1 class="m-0 text-dark">{{telaReceber}}</h1>
 			</div>
 			<!-- /.col -->
 		</div>
@@ -81,17 +81,32 @@
 												ng-change="pesquisar()" mask-maiusculas>
 									</th>
 									
-									<th><a href="" ng-click="ordenacao('tipo')"
-											title="Ordenar"> Tipo <span
-											ng-show="campoOrdenacao == '+tipo'"
-											class="glyphicon glyphicon-sort-by-attributes" /> <span
-											ng-show="campoOrdenacao == '-tipo'"
-											class="glyphicon glyphicon-sort-by-attributes-alt" />
-										</a><input type="text" name="peso" ng-model="tipoFilter"
+									<th width="80px"><a href=""
+										ng-click="ordenacao('categoria')"
+										title="{{buscarDicionario('Ordenar')}}"> Categoria Pagamento. <span
+										ng-show="campoOrdenacao == '+categoria'"
+										class="glyphicon glyphicon-sort-by-attributes" /> <span
+										ng-show="campoOrdenacao == '-categoria'"
+										class="glyphicon glyphicon-sort-by-attributes-alt" />
+										</a>
+											<input type="text" name="cliente" ng-model="descricaoCategoriaFilter"
 												class="form-control" placeholder="Pesquisar..."
-												ng-change="pesquisar()" mask-maiusculas></th>
-											
+												ng-change="pesquisar()" mask-maiusculas>
 									</th>
+									
+									<th width="80px"><a href=""
+										ng-click="ordenacao('cliente')"
+										title="{{buscarDicionario('Ordenar')}}"> Cliente. <span
+										ng-show="campoOrdenacao == '+cliente'"
+										class="glyphicon glyphicon-sort-by-attributes" /> <span
+										ng-show="campoOrdenacao == '-cliente'"
+										class="glyphicon glyphicon-sort-by-attributes-alt" />
+										</a>
+											<input type="text" name="cliente" ng-model="descricaoClienteFilter"
+												class="form-control" placeholder="Pesquisar..."
+												ng-change="pesquisar()" mask-maiusculas>
+									</th>
+									
 									
 									<th><a href="" ng-click="ordenacao('dataInicial')"
 											title="Ordenar"> Data de Abertura <span
@@ -147,18 +162,6 @@
 												class="form-control" placeholder="Pesquisar..."
 												ng-change="pesquisar()" mask-maiusculas>
 									</th>
-									
-									<th width="100px"><a href=""
-									ng-click="ordenacao('descStatus')" title="Ordenar"> Status <span
-											ng-show="campoOrdenacao == '+descricaoStatus'"
-											class="glyphicon glyphicon-sort-by-attributes" /> <span
-											ng-show="campoOrdenacao == '-descricaoStatus'"
-											class="glyphicon glyphicon-sort-by-attributes-alt" />
-										</a> <input type="text" name="peso" ng-model="descricaoStatusFilter"
-												class="form-control" placeholder="Pesquisar..."
-												ng-change="pesquisar()" mask-maiusculas></th>
-									
-	
 								</tr>
 							</thead>
 							<!-- FIM DA TABLE HEADER QUE CONTÉM A CABEÇA DA TABELA ONDE SERÁ MOSTRADA NOMES DAS COLUNAS E CAMPOS DE ORDENAÇÃO -->
@@ -171,13 +174,13 @@
 										ng-class="{linhaSelecionada : conta == objetoSelecionado}">
 										
 										<td>{{conta.id}}</td>
-										<td>{{conta.tipo}}</td>
+										<td>{{conta.categoria.descricao}}</td>
+										<td>{{conta.cliente.nomeRzSocial}}</td>
 										<td>{{conta.dataInicial | date:'dd/MM/yyyy'}}</td>
 										<td>{{conta.dataVencimento | date:'dd/MM/yyyy'}}</td>
 										<td>{{conta.dataPagamento | date:'dd/MM/yyyy'}}</td>
 										<td>{{conta.valorLiquido}}</td>
 										<td>{{conta.valorTotal}}</td>
-										<td>{{conta.descStatus}}</td>
 						
 									</tr>	
 								</tbody>
@@ -212,7 +215,7 @@
 		<div class="card-body">
 			<!-- DIV COM LINHA CONTENDO INPUTS DA TELA DE CADASTRO DE CONTAS A RECEBER -->
 			<div class="row">
-				
+					
 				<!-- CAMPO CÓDIGO (INDEDITÁVEL) -->
 				<div class="col-md-1">
 					<div class="form-group">
@@ -220,13 +223,12 @@
 							ng-model="capCar.id" readonly>
 					</div>	
 				</div>
-				
+					
 				<!-- CAMPO DATA DE ABERTURA -->
 				<div class="col-md-2">
 					<div class="form-group">
-						<label>* Data de abertura</label> <input id="cDataInicial" type="date"
-								class="form-control" ng-model="capCar.dataInicial" maxlength="60"
-								mask-maiusculas autofocus>
+						<label>* Data de abertura</label> <input type="date" class="form-control"
+							ng-model="capCar.dataInicial" readonly>
 					</div>
 				</div>
 				
@@ -248,10 +250,28 @@
 					</div>
 				</div>
 				
+				<!-- CAMPO CLIENTE -->
+				<div class="col-md-5">
+					<div class="form-group">
+						<label>Cliente</label> <select id="cCliente" class="form-control" ng-model="capCar.cliente" 
+							ng-options="pessoa.nomeRzSocial for pessoa in pessoas | orderBy:'nomeRzSocial' track by pessoa.id">
+			               	<option value="">Selecione um cliente</option></select>
+					</div>
+				</div>
+				
+				<!-- CAMPO CATEGORIA -->
+				<div class="col-md-3">
+					<div class="form-group">
+						<label>Categoria</label> <select id="cCategoria" class="form-control" ng-model="capCar.categoria" 
+							ng-options="categoria.descricao for categoria in categorias | orderBy:'nome' track by categoria.id">
+			               	<option value="">Selecione uma categoria de pagamento</option></select>
+					</div>
+				</div>
+				
 				<!-- CAMPO VALOR LIQUIDO -->
 				<div class="col-md-1">
 					<div class="form-group">
-						<label>* Valor liquido</label> <input id="cValorLiquido" type="text"
+						<label>* Valor liquido</label> <input id="cValorLiquido" type="text" placeholder ="R$ 0.00"
 							class="form-control" ng-model="capCar.valorLiquido" maxlength="10"
 							mask-maiusculas autofocus>
 					</div>
@@ -260,13 +280,11 @@
 				<!-- CAMPO VALOR TOTAL -->
 				<div class="col-md-1">
 					<div class="form-group">
-						<label>* Valor total</label> <input id="cValorTotal" type="text"
+						<label>* Valor total</label> <input id="cValorTotal" type="text" placeholder ="R$ 0.00"
 							class="form-control" ng-model="capCar.valorTotal" maxlength="10"
 							mask-maiusculas autofocus>
 					</div>
 				</div>
-				
-				
 				
 				<!-- CHECKBOX DE STATUS (ATIVA POR DAFAULT) -->
 				<div class="col-md-12">
@@ -351,7 +369,17 @@
 						<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-
+			
+			
+			
+			<!-- DIV COM MENSAGEM PARA CAMPOS A SEREM EXCLUIDOS -->
+			<div class="modal-body">
+				<p>{{mensagemModal}}</p>
+			</div>
+			<!-- FIM DA DIV COM MENSAGEM PARA CAMPOS A SEREM EXCLUIDOS -->
+			
+			
+			
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancelar</button>
 				<button type="button" class="btn btn-primary pull-right" ng-click="confirmaExcluir()">Confirmar</button>

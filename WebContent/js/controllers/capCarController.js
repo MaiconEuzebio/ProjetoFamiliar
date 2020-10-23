@@ -162,6 +162,11 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 	
 	
 	
+	
+	
+	
+	
+	
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 	// FUNÇÃO BTN EXCLUIR ------> CASO NÃO HAJA REGISTRO SELECIONADO EMITE MENSAGEM ABRINDO O MODAL//
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -192,9 +197,9 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 	
 	
 	
-	/////////////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////////////
 	// FUNÇÃO BTN EXCLUIR ------> EXCLUSÃO DOS DADOS E EXECUTA SCRIPT DE EXCLUSÃO  						//
-    /////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	
 	$scope.btnExcluir = function(){
@@ -374,18 +379,18 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
    // VARIÁVEL PESQUISAR QUE RECEBE UMA FUNÇÃO QUE RECEBE UMA VARIÁVEL capCarSFiltradas E ORDENA PELOS FILTROS DECLARADOS NO HTML capCar//
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   $scope.pesquisar = function(){
-		$scope.capCarSFiltradas = orderByFilter(filterFilter($scope.capCarS,{id:$scope.idFilter,
-													                     	dataInicial: $scope.dataInicialFilter,
-													                     	dataVencimento: $scope.dataVencimentoFilter,
-													                     	dataPagamento: $scope.dataPagamentoFilter,
-													                     	dataValorLiquido: $scope.valorLiquidoFilter,
-													                     	dataValorTotal: $scope.valorTotalFilter,
-													                     	cliente: $scope.descricaoClienteFilter,
-													                     	categoria: $scope.descricaoCategoriaFilter}), $scope.campoOrdenacao);
-	
+		$scope.capCarSFiltradas = orderByFilter(filterFilter($scope.capCarS,{
+																			id:$scope.idFilter,
+																			cliente:{nomeRzSocial:$scope.nomeRzSocialFilter},
+																			categoria:{descricao:$scope.descricaoCategoriaFilter},
+																			valorLiquido:$scope.valorLiquidoFilter,
+																			valorTotal:$scope.valorTotalFilter}), $scope.campoOrdenacao);				
+																			
 												              			}
 												              			
-		
+		$scope.selecionarLinha = function(objeto) {
+       		$scope.objetoSelecionado = objeto;
+    	}
 		
 		
 	////////////////////////////////////////////////////////////////////											              			

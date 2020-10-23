@@ -35,7 +35,7 @@
 			<div class="card-header">
 				<h3 class="card-title">
 					<h3 class="card-title">
-					
+						
 						<div class="col-md-4">
 							<button type="button" ng-click="btnIncluir()"
 								class="btn btn-block btn-outline-primary btn-lg">Incluir</button>
@@ -102,7 +102,7 @@
 										ng-show="campoOrdenacao == '-cliente'"
 										class="glyphicon glyphicon-sort-by-attributes-alt" />
 										</a>
-											<input type="text" name="cliente" ng-model="descricaoClienteFilter"
+											<input type="text" name="cliente" ng-model="nomeRzSocialFilter"
 												class="form-control" placeholder="Pesquisar..."
 												ng-change="pesquisar()" mask-maiusculas>
 									</th>
@@ -169,7 +169,7 @@
 							
 							
 								<tbody>
-									<tr ng-repeat="conta in capCarS"
+									<tr ng-repeat="conta in capCarSFiltradas"
 										ng-click="selecionarLinha(conta)"
 										ng-class="{linhaSelecionada : conta == objetoSelecionado}">
 										

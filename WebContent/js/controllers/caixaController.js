@@ -33,7 +33,7 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	
     	$scope.caixa		       = {};
     	$scope.caixa.id       = null;
-    	$scope.caixa.dataAbertura   = null;
+    	$scope.caixa.dataAbertura    = new Date();
     	$scope.caixa.dataFechamento   = null;
     	$scope.caixa.valorAbertura   = null;
     	$scope.caixa.valorFechamento   = null;
@@ -50,7 +50,7 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	
     	$scope.caixaMovimentacao		       = {};
     	$scope.caixaMovimentacao.id       = null;
-    	$scope.caixaMovimentacao.dataMovimentacao  = null;
+    	$scope.caixaMovimentacao.dataMovimentacao  = new Date();
     	$scope.caixaMovimentacao.valorMovimentacao   = null;
     	$scope.caixaMovimentacao.tipo   = null;
     	$scope.caixaMovimentacao.observacao = null;
@@ -58,6 +58,31 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	
     	$scope.mostrarAguarde    = false;
     	$scope.visualizaCadastro = true;
+    }
+    
+    $scope.btnFecharCaixa = function(){
+    	$scope.caixa = $scope.objetoSelecionado;
+		$scope.caixa.dataFechamento  = new Date($scope.caixa.dataFechamento);
+
+    	if (!$scope.objetoSelecionado) {
+            $scope.mensagemModal  = "É necessário selecionar o caixa que deseja fechar!";
+        	$('#modalAtencao').modal();
+    		return;
+    	}
+    	
+    	$scope.valorTotalCaixa = $scope.objetoSelecionado.valorAbertura;
+    	for(i in $scope.caixa.caixaMovimentacoes){
+    		//valorTotalCaixa += $scope.objetoSelecionado.caixaMovimentacoes[i].valorMovimentacao;
+
+    		if ($scope.caixa.caixaMovimentacoes[i].tipo == "C"){
+	    		$scope.valorTotalCaixa += $scope.caixa.caixaMovimentacoes[i].valorMovimentacao;
+	    	} else if ($scope.caixa.caixaMovimentacoes[i].tipo == "D"){
+	    		$scope.valorTotalCaixa -= $scope.caixa.caixaMovimentacoes[i].valorMovimentacao;
+	    	}
+    	}
+    	$scope.valorTotalCaixa = $scope.valorTotalCaixa; 
+    	
+    	$('#modalCaixaFechamento').modal();
     }
 
     $scope.btnEditar = function(){
@@ -71,6 +96,7 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
         	$('#modalAtencao').modal();
     		return;
     	}
+    	
     	var param = {
 			int1: $scope.objetoSelecionado.id
 		}
@@ -95,6 +121,10 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     
     $scope.fecharModalCaixaMovimentacao = function(){
     	$('#modalCaixaMovimentacao').modal('hide');
+    }
+    
+    $scope.fecharModalCaixaFechamento = function(){
+    	$('#modalCaixaFechamento').modal('hide');
     }
 
     $scope.btnExcluir = function(){
@@ -149,21 +179,10 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     		$scope.mostrarAguarde = false;
     		return;
         }
-    	if (!pcaixa.dataFechamento) {
-        	$scope.mensagemRodape = "É necessário o preenchimento do campo Data de Fechamento!";
-    		document.getElementById("cDataFechamento").focus();
-    		$scope.mostrarAguarde = false;
-    		return;
-        }
+  
     	if (!pcaixa.valorAbertura) {
         	$scope.mensagemRodape = "É necessário o preenchimento do campo Valor de Abertura!";
     		document.getElementById("cValorAbertura").focus();
-    		$scope.mostrarAguarde = false;
-    		return;
-        }
-    	if (!pcaixa.valorFechamento) {
-        	$scope.mensagemRodape = "É necessário o preenchimento do campo Valor de Fechamento!";
-    		document.getElementById("cValorFechamento").focus();
     		$scope.mostrarAguarde = false;
     		return;
         }
@@ -217,7 +236,24 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	$scope.caixa.caixaMovimentacoes.push(pcaixaMovimentacao);
 		$('#modalCaixaMovimentacao').modal('hide');
     }
-
+    
+    $scope.btnSalvarFechamento = function(pcaixa){
+    	$scope.mensagemRodape = "";
+    	$scope.mostrarAguarde = true;
+    	
+    	requisicaoService.requisitarPOST("caixa/salvar", pcaixa, function(retorno){
+    		if (!retorno.isValid) {
+    			$scope.mensagemRodape = retorno.msg;
+    			$scope.mostrarAguarde = false;
+        		return;
+    		}
+    		
+    		$scope.mostrarAguarde    = false;
+    		$scope.visualizaCadastro = false;
+    		atualizarTela();
+    	});
+    }
+    	
     /*
     /////////////////////////////////////////////////////////////////
 	// PAGINAÇÃO E TABELA                                          //
@@ -238,6 +274,12 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
         		return;
     		}
 			$scope.caixas = retorno.data;
+			
+			for(i in $scope.caixas){
+				$scope.caixas[i].dataAberturaStr = dateTimeToStr(new Date($scope.caixas[i].dataAbertura));
+			}
+			
+			console.log($scope.caixas);
 			
 			$scope.pesquisar();
 			
@@ -261,18 +303,18 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
 	
 	$scope.pesquisar = function(){
 		$scope.caixasFiltradas = orderByFilter(filterFilter($scope.caixas,{id:$scope.idFilter,
-													                     dataAbertura: $scope.dataAberturaFilter,
+													                     dataAberturaStr: $scope.dataAberturaFilter,
 													                     dataFechamento: $scope.dataFechamentoFilter,
 													                     valorAbertura: $scope.valorAberturaFilter,
 													                     valorFechamento: $scope.valorFechamentoFilter,
 													                     caixaStatus: $scope.caixaStatusFilter}), $scope.campoOrdenacao);
-		
+		/*
 		$scope.caixaMovimentacoesFiltradas = orderByFilter(filterFilter($scope.caixaMovimentacoes,{id:$scope.idFilter,
 																         dataMovimentacao: $scope.dataMovimentacaoFilter,
 																         valorMovimentacao: $scope.valorMovimentacaoFilter,
 																         tipo: $scope.tipoFilter,
 																         observacao: $scope.observacaoFilter,
-																         caixaStatus: $scope.caixaStatusFilter}), $scope.campoOrdenacao);
+																         caixaStatus: $scope.caixaStatusFilter}), $scope.campoOrdenacao);*/
 	}
 	
     $scope.selecionarLinha = function(objeto) {

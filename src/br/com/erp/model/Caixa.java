@@ -25,8 +25,12 @@ public class Caixa {
 	private Date dataFechamento;
 	@Column(length = 10, name = "VALOR_ABERTURA")
 	private Double valorAbertura;
+	@Column(length = 10, name = "VALOR_ATUAL")
+	private Double valorAtual;
 	@Column(length = 10, name = "VALOR_FECHAMENTO")
 	private Double valorFechamento;
+	@Column(length = 10, name = "VALOR_TOTAL_CAIXA")
+	private Double valorTotalCaixa;
 	@Column(length = 1, name = "STATUS")
 	private Integer status;
 	@Transient
@@ -58,11 +62,23 @@ public class Caixa {
 	public void setValorAbertura(Double valorAbertura) {
 		this.valorAbertura = valorAbertura;
 	}
+	public Double getValorAtual() {
+		return valorAtual;
+	}
+	public void setValorAtual(Double valorAtual) {
+		this.valorAtual = valorAtual;
+	}
 	public Double getValorFechamento() {
 		return valorFechamento;
 	}
 	public void setValorFechamento(Double valorFechamento) {
 		this.valorFechamento = valorFechamento;
+	}
+	public Double getValorTotalCaixa() {
+		return valorTotalCaixa;
+	}
+	public void setValorTotalCaixa(Double valorTotalCaixa) {
+		this.valorTotalCaixa = valorTotalCaixa;
 	}
 	public Integer getStatus() {
 		return status;

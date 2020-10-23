@@ -23,22 +23,17 @@
 
 		<div class="card">
 			<div class="card-header">
-				<h3 class="card-title">
-					<div class="col-md-4">
-						<button type="button" ng-click="btnIncluir()"
-							class="btn btn-block btn-outline-primary btn-lg">Incluir</button>
-					</div>
-					
-					<div class="col-md-4">
-						<button type="button" ng-click="btnEditar()"
-							class="btn btn-block btn-outline-primary btn-lg">Editar</button>
-					</div>
-					
-					<div class="col-md-4">
-						<button type="button" ng-click="btnExcluir()"
-							class="btn btn-block btn-outline-danger btn-lg">Excluir</button>
-					</div>
-				</h3>
+					<button type="button" ng-click="btnIncluir()"
+						class="btn btn-outline-primary btn-lg">Abrir Caixa</button>
+				
+					<button type="button" ng-click="btnEditar()"
+						class="btn btn-outline-primary btn-lg">Editar</button>
+				
+					<button type="button" ng-click="btnExcluir()"
+						class="btn btn-outline-danger btn-lg">Excluir</button>
+				
+					<button type="button" ng-click="btnFecharCaixa()"
+						class="btn btn-outline-primary btn-lg">Fechar Caixa</button>
 			</div>
 			
 			<!-- /.card-header -->
@@ -68,16 +63,6 @@
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
 									
-									<th><a href="" ng-click="ordenacao('dataFechamento')"
-									title="Ordenar"> Data de Fechamento <span
-										ng-show="campoOrdenacao == '+dataFechamento'"
-										class="glyphicon glyphicon-sort-by-attributes" /> <span
-										ng-show="campoOrdenacao == '-dataFechamento'"
-										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="text" name="peso" ng-model="dataFechamentoFilter"
-									class="form-control" placeholder="Pesquisar..."
-									ng-change="pesquisar()" mask-maiusculas></th>
-									
 									<th><a href="" ng-click="ordenacao('valorAbertura')"
 									title="Ordenar"> Valor de Abertura <span
 										ng-show="campoOrdenacao == '+valorAbertura'"
@@ -85,6 +70,26 @@
 										ng-show="campoOrdenacao == '-valerAbertura'"
 										class="glyphicon glyphicon-sort-by-attributes-alt" />
 								</a> <input type="text" name="peso" ng-model="valorAberturaFilter"
+									class="form-control" placeholder="Pesquisar..."
+									ng-change="pesquisar()" mask-maiusculas></th>
+									
+									<th><a href="" ng-click="ordenacao('valorAtual')"
+									title="Ordenar"> Valor Atual <span
+										ng-show="campoOrdenacao == '+valorAtual'"
+										class="glyphicon glyphicon-sort-by-attributes" /> <span
+										ng-show="campoOrdenacao == '-valerAtual'"
+										class="glyphicon glyphicon-sort-by-attributes-alt" />
+								</a> <input type="text" name="peso" ng-model="valorAtualFilter"
+									class="form-control" placeholder="Pesquisar..."
+									ng-change="pesquisar()" mask-maiusculas></th>
+										
+									<th><a href="" ng-click="ordenacao('dataFechamento')"
+									title="Ordenar"> Data de Fechamento <span
+										ng-show="campoOrdenacao == '+dataFechamento'"
+										class="glyphicon glyphicon-sort-by-attributes" /> <span
+										ng-show="campoOrdenacao == '-dataFechamento'"
+										class="glyphicon glyphicon-sort-by-attributes-alt" />
+								</a> <input type="text" name="peso" ng-model="dataFechamentoFilter"
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
 									
@@ -114,9 +119,10 @@
 							<tr ng-repeat="g in caixasFiltradas" ng-click="selecionarLinha(g)"
 								ng-class="{linhaSelecionada : g == objetoSelecionado}">
 								<td>{{g.id}}</td>
-								<td>{{g.dataAbertura | date:'dd/MM/yyyy'}}</td>
-								<td>{{g.dataFechamento | date:'dd/MM/yyyy'}}</td>
+								<td>{{g.dataAberturaStr}}</td>
 								<td>{{g.valorAbertura}}</td>
+								<td>{{g.valorAtual}}</td>
+							    <td>{{g.dataFechamento | date:'dd/MM/yyyy'}}</td>
 								<td>{{g.valorFechamento}}</td>
 								<td>{{g.descStatus}}</td>
 							</tr>
@@ -136,6 +142,7 @@
 				<h3 class="card-title">Cadastro</h3>
 				<button type="button" class="btn btn-secondary pull-right" ng-click="voltar()">Voltar</button>
 			</div>
+			
 			<!-- /.card-header -->
 			
 			<ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
@@ -161,22 +168,13 @@
 					<div class="col-md-2">
 						<div class="form-group">
 							<label>* Data de Abertura</label> <input id="cDataAbertura" type="date"
-								class="form-control" ng-model="caixa.dataAbertura" maxlength="60"
-								mask-maiusculas autofocus>
-						</div>
-					</div>
-					
-					<!-- CAMPO DATA FECHAMENTO -->
-					<div class="col-md-2">
-						<div class="form-group">
-							<label>* Data de Fechamento</label> <input id="cDataFechamento" type="date"
-								class="form-control" ng-model="caixa.dataFechamento" maxlength="60"
+								class="form-control" ng-model="caixa.dataAbertura" maxlength="60" readonly
 								mask-maiusculas autofocus>
 						</div>
 					</div>
 					
 					<!-- CAMPO VALOR ABERTURA -->
-					<div class="col-md-3">
+					<div class="col-md-2">
 						<div class="form-group">
 							<label>* Valor de Abertura</label> <input id="cValorAbertura" type="text"
 								class="form-control" ng-model="caixa.valorAbertura" maxlength="10"
@@ -184,11 +182,29 @@
 						</div>
 					</div>
 					
-					<!-- CAMPO VALOR FECHAMENTO -->
-					<div class="col-md-3">
+					<!-- CAMPO VALOR ATUAL -->
+					<div class="col-md-2">
 						<div class="form-group">
-							<label>* Valor de Fechamento</label> <input id="cValorFechamento" type="text"
-								class="form-control" ng-model="caixa.valorFechamento" maxlength="10"
+							<label>* Valor Atual</label> <input id="cValorAtual" type="text"
+								class="form-control" ng-model="caixa.valorAtual" maxlength="10"
+								mask-maiusculas autofocus>
+						</div>
+					</div>
+					
+					<!-- CAMPO DATA FECHAMENTO -->
+					<div class="col-md-2">
+						<div class="form-group">
+							<label>Data de Fechamento</label> <input id="cDataFechamento" type="date"
+								class="form-control" ng-model="caixa.dataFechamento" readonly
+								mask-maiusculas autofocus>
+						</div>
+					</div>
+					
+					<!-- CAMPO VALOR FECHAMENTO -->
+					<div class="col-md-2">
+						<div class="form-group">
+							<label>Valor de Fechamento</label> <input id="cValorFechamento" type="text"
+								class="form-control" ng-model="caixa.valorFechamento" maxlength="10" readonly
 								mask-maiusculas autofocus>
 						</div>
 					</div>
@@ -333,7 +349,7 @@
 					<div class="col-md-3">
 						<div class="form-group">
 							<label>* Data de Movimentacao</label> <input id="cDataMovimentacao" type="date"
-								class="form-control" ng-model="caixaMovimentacao.dataMovimentacao">
+								class="form-control" ng-model="caixaMovimentacao.dataMovimentacao" readonly>
 						</div>
 					</div>
 					
@@ -351,8 +367,8 @@
 						<div class="form-group">
 							<label>Tipo</label> <select id="cTipo" class="form-control" ng-model="caixaMovimentacao.tipo">
 			                 <option value="">Selecione um tipo</option>
-			                 <option>Credito</option>
-			                 <option>Debito</option></select>
+			                 <option value="C">Credito</option>
+			                 <option value="D">Debito</option></select>
 						</div>
 					</div>
 					
@@ -383,6 +399,60 @@
 	</div>
 </div>
 
+<div class="modal" id="modalCaixaFechamento">
+	<div class="col-md-12">
+		<div class="card">
+			<div class="card-header">
+				<h3 class="card-title">Fechamento</h3>
+				<button type="button" class="btn btn-secondary pull-right" ng-click="fecharModalCaixaFechamento()">Voltar</button>
+			</div>
+			<!-- /.card-header -->
+			<div class="card-body">
+				<div class="row">
+
+					<!-- CAMPO DATA FECHAMENTO -->
+					<div class="col-md-4">
+						<div class="form-group">
+							<label>Data de Fechamento</label> <input id="cDataFechamento" type="date"
+								class="form-control" ng-model="caixa.dataFechamento" readonly>
+						</div>
+					</div>
+					
+					<!-- CAMPO VALOR TOTAL CAIXA -->
+					<div class="col-md-4">
+						<div class="form-group">
+							<label>Valor Total</label> <input id="cValorTotalCaixa" type="text"
+								class="form-control" ng-model="valorTotalCaixa" maxlength="10"
+								mask-maiusculas autofocus readonly>
+						</div>
+					</div>
+					
+					<!-- CAMPO VALOR FECHAMENTO -->
+					<div class="col-md-4">
+						<div class="form-group">
+							<label>Valor de Fechamento</label> <input id="cValorFechamento" type="text"
+								class="form-control" ng-model="caixa.valorFechamento" maxlength="10"
+								mask-maiusculas autofocus>
+						</div>
+					</div>
+					
+				</div>
+				<div class="row">
+					<div
+						class="alert alert-danger alert-dismissible col-md-12 text-center"
+						ng-show="mensagemRodape">{{mensagemRodape}}</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<button type="button" class="btn bg-primary btn-lg pull-right"
+							ng-click=btnSalvarFechamento(caixa)>Salvar</button>
+					</div>
+				</div>
+			</div>
+			<!-- /.card-body -->
+		</div>
+	</div>
+</div>
 
 <div class="modal" id="modalAtencao">
 	<div class="modal-dialog">

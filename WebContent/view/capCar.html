@@ -3,7 +3,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12">
-				<h1 class="m-0 text-dark">{{telaReceber}}</h1>
+				<h1 class="m-0 text-dark">{{tela}}</h1>
 			</div>
 			<!-- /.col -->
 		</div>
@@ -89,7 +89,7 @@
 										ng-show="campoOrdenacao == '-categoria'"
 										class="glyphicon glyphicon-sort-by-attributes-alt" />
 										</a>
-											<input type="text" name="cliente" ng-model="descricaoCategoriaFilter"
+											<input type="text" name="cliente" ng-model="descricaoFilter"
 												class="form-control" placeholder="Pesquisar..."
 												ng-change="pesquisar()" mask-maiusculas>
 									</th>
@@ -176,9 +176,9 @@
 										<td>{{conta.id}}</td>
 										<td>{{conta.categoria.descricao}}</td>
 										<td>{{conta.cliente.nomeRzSocial}}</td>
-										<td>{{conta.dataInicial | date:'dd/MM/yyyy'}}</td>
-										<td>{{conta.dataVencimento | date:'dd/MM/yyyy'}}</td>
-										<td>{{conta.dataPagamento | date:'dd/MM/yyyy'}}</td>
+										<td>{{conta.dataInicialStr}}</td>
+										<td>{{conta.dataVencimentoStr}}</td>
+										<td>{{conta.dataPagamentoStr}}</td>
 										<td>{{conta.valorLiquido}}</td>
 										<td>{{conta.valorTotal}}</td>
 						

@@ -64,16 +64,19 @@ public class CapCarImp {
 	}
 
 	@Path("obterTodos")
-	@GET
+	@POST
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public List<CapCar> obterTodos() {
+	public List<CapCar> obterTodos(ParamJson param) {
 		EntityManager em = UnidadePersistencia.createEntityManager();
 		List<CapCar> capCarS = null;
 
 		try {
 			capCarS = em.createQuery("select a " 
-							     + "  from CapCar a").getResultList();
+							     + "  from CapCar a"
+							     + " where a.tipo = :qualTela")
+						.setParameter("qualTela", param.getStr1())
+						.getResultList();
 
 		} catch (Exception e) {
 

@@ -1,7 +1,8 @@
 app.controller("capCarController", function ($scope, $routeParams, requisicaoService, filterFilter, orderByFilter) {
 	
 	//VARIÁVEIS
-	$scope.qualTela 			= $routeParams.tipo
+	$scope.qualTela 			= $routeParams.tipo //CRIADO VARIÁVEL $scope.qualTela QUE RECEBE $routeParams.tipo (BIBLIOTECA DO ANGULAR)
+	console.log($routeParams.tipo);
 	$scope.showModalConfirmacao = false;
 	$scope.showModalAviso       = false;
 	$scope.mostrarAguarde       = false;
@@ -12,7 +13,9 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 	$scope.campoOrdenacao 		= 'descricao';
 	$scope.vizualizarCadastro 	= false;
 	$scope.mostrarAguarde 		= false;
-	$scope.telaReceber 			= "Financeiro > Contas a receber"
+	$scope.tela 			    = ""
+	
+	
 	
 	
 	
@@ -22,18 +25,37 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 	function atualizarTela(){
 	
     	$scope.mensagemRodape = "";
-    	$scope.mensagemModal  = "";
+    	$scope.mensagemModal  = "";											//AO INICIAR TELA...
     	$scope.mostrarAguarde = true;
     	
+		var tipo;														//CRIADA VARIAVEL tipo QUE NÃO RECEBE NADA.
+		if($routeParams.tipo == 'cap'){									//SE, $routeParams.tipo LA DE CIMA FOR cap NA MUDANÇA DE TELA
+			tipo = 'P';													//VARIAVEL CRIADA VAZIA tipo RECEBE STRING 'P'.
+			$scope.tela 			    = "Financeiro > Contas a Receber"
+		}else if($routeParams.tipo == 'car'){							//ENTÃO SE,  $routeParams.tipo LA DE CIMA FOR car NA MUDANÇA DE TELA
+			$scope.tela 			    = "Financeiro > Contas a Pagar"	//VARIAVEL CRIADA VAZIA tipo RECEBE STRING 'R'.
+		}
 		
-    	requisicaoService.requisitarGET("capCar/obterTodos", function(retorno) {
+		var param = {str1:tipo};					//param QUE É UMA VARIÁVEL OBJETO RECEBE ATRIBUTO str1 QUE RECEBE tipo 'R' OU 'P'.		
+				
+			
+		console.log(param)
+    	requisicaoService.requisitarPOST("capCar/obterTodos", param , function(retorno) {
     		if (!retorno.isValid) {
     			$scope.mensagemModal  = retorno.msg;
     			$scope.showModalAviso = true;
     			$scope.mostrarAguarde = false;
         		return;
     		}
+				
     			$scope.capCarS = retorno.data;
+
+				for(i in $scope.capCarS){
+					$scope.capCarS[i].dataInicialStr = dateToStr(new Date($scope.capCarS[i].dataInicial));
+					$scope.capCarS[i].dataVencimentoStr = dateToStr(new Date($scope.capCarS[i].dataVencimento));
+					$scope.capCarS[i].dataPagamentoStr = dateToStr(new Date($scope.capCarS[i].dataPagamento));
+				}
+
 				$scope.pesquisar();
 				$scope.mostrarAguarde = false;
 		});
@@ -95,6 +117,7 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
     	$scope.mensagemModal  =		 	"";
     	$scope.mostrarAguarde = 		true;
     	
+	
     	$scope.capCar = 				{};
     	$scope.capCar.id = 				null;
     	$scope.capCar.dataInicial = 	new Date();
@@ -103,6 +126,12 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
     	$scope.capCar.valorLiquido = 	null;
     	$scope.capCar.valorTotal = 		null;
     	$scope.capCar.status =			1;
+		if($routeParams.tipo == 'cap'){
+			$scope.capCar.tipo = 'P';
+		}
+		else if($routeParams.tipo == 'car'){
+			$scope.capCar.tipo = "R";
+		}
     	
     	$scope.mostrarAguarde = 		false;
     	$scope.visualizaCadastro = 		true;
@@ -382,7 +411,10 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 		$scope.capCarSFiltradas = orderByFilter(filterFilter($scope.capCarS,{
 																			id:$scope.idFilter,
 																			cliente:{nomeRzSocial:$scope.nomeRzSocialFilter},
-																			categoria:{descricao:$scope.descricaoCategoriaFilter},
+																			categoria:{descricao:$scope.descricaoFilter},
+																			dataInicialStr:$scope.dataInicialFilter,
+																			dataVencimentoStr:$scope.dataVencimentoFilter,
+																			dataPagamentoStr:$scope.dataPagamentoFilter,
 																			valorLiquido:$scope.valorLiquidoFilter,
 																			valorTotal:$scope.valorTotalFilter}), $scope.campoOrdenacao);				
 																			

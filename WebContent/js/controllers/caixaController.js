@@ -35,7 +35,6 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	$scope.caixa.id       = null;
     	$scope.caixa.dataAbertura    = new Date();
     	$scope.caixa.dataFechamento   = null;
-    	$scope.caixa.valorAbertura   = null;
     	$scope.caixa.valorFechamento   = null;
     	$scope.caixa.status = 1;
     	$scope.caixa.caixaMovimentacoes = [];
@@ -61,28 +60,39 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     }
     
     $scope.btnFecharCaixa = function(){
-    	$scope.caixa = $scope.objetoSelecionado;
-		$scope.caixa.dataFechamento  = new Date($scope.caixa.dataFechamento);
 
+    	$scope.caixa = $scope.objetoSelecionado;
+    	
     	if (!$scope.objetoSelecionado) {
             $scope.mensagemModal  = "É necessário selecionar o caixa que deseja fechar!";
         	$('#modalAtencao').modal();
     		return;
     	}
     	
-    	$scope.valorTotalCaixa = $scope.objetoSelecionado.valorAbertura;
+    	if ($scope.objetoSelecionado.status == 0) {
+            $scope.mensagemModal  = "Caixa Fechado!";
+        	$('#modalAtencao').modal();
+    		return;
+    	}
+    	$scope.caixa.dataFechamento = new Date();
+
+    	$scope.valorFechamento = $scope.objetoSelecionado.valorAbertura;
     	for(i in $scope.caixa.caixaMovimentacoes){
     		//valorTotalCaixa += $scope.objetoSelecionado.caixaMovimentacoes[i].valorMovimentacao;
 
     		if ($scope.caixa.caixaMovimentacoes[i].tipo == "C"){
-	    		$scope.valorTotalCaixa += $scope.caixa.caixaMovimentacoes[i].valorMovimentacao;
+	    		$scope.valorFechamento += $scope.caixa.caixaMovimentacoes[i].valorMovimentacao;
 	    	} else if ($scope.caixa.caixaMovimentacoes[i].tipo == "D"){
-	    		$scope.valorTotalCaixa -= $scope.caixa.caixaMovimentacoes[i].valorMovimentacao;
+	    		$scope.valorFechamento -= $scope.caixa.caixaMovimentacoes[i].valorMovimentacao;
 	    	}
     	}
-    	$scope.valorTotalCaixa = $scope.valorTotalCaixa; 
+    	$scope.valorFechamento = $scope.valorFechamento; 
     	
-    	$('#modalCaixaFechamento').modal();
+    	$('#modalCaixaFechamento').modal();	
+    	
+		$scope.caixa.dataFechamento  = new Date($scope.caixa.dataFechamento);
+    	$scope.mostrarAguarde    = false;
+        $scope.visualizaCadastro = true;
     }
 
     $scope.btnEditar = function(){
@@ -112,8 +122,9 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     		}
 			
 			$scope.caixa			   = retorno.data;
-			$scope.caixa.dataAbertura  = new Date($scope.caixa.dataAbertura)
-			$scope.caixa.dataFechamento  = new Date($scope.caixa.dataFechamento)	
+			$scope.caixa.dataAbertura  = new Date($scope.caixa.dataAbertura);
+			$scope.caixa.dataFechamento  = new Date($scope.caixa.dataFechamento);
+			$scope.caixa.valorFechamento = $scope.caixa.valorFechamento;
 	    	$scope.mostrarAguarde    = false;
 	        $scope.visualizaCadastro = true;
 		});
@@ -237,9 +248,12 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
 		$('#modalCaixaMovimentacao').modal('hide');
     }
     
-    $scope.btnSalvarFechamento = function(pcaixa){
+    $scope.btnConfirmarFechamento = function(pcaixa){
     	$scope.mensagemRodape = "";
     	$scope.mostrarAguarde = true;
+    	$scope.caixa.dataFechamento = new Date();
+    	$scope.caixa.valorFechamento = $scope.valorFechamento;
+    	$scope.caixa.status = 0;
     	
     	requisicaoService.requisitarPOST("caixa/salvar", pcaixa, function(retorno){
     		if (!retorno.isValid) {
@@ -247,11 +261,13 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     			$scope.mostrarAguarde = false;
         		return;
     		}
-    		
+        	$('#modalCaixaFechamento').modal('hide');
+   
     		$scope.mostrarAguarde    = false;
     		$scope.visualizaCadastro = false;
     		atualizarTela();
     	});
+    	
     }
     	
     /*
@@ -276,13 +292,11 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
 			$scope.caixas = retorno.data;
 			
 			for(i in $scope.caixas){
-				$scope.caixas[i].dataAberturaStr = dateTimeToStr(new Date($scope.caixas[i].dataAbertura));
+				$scope.caixas[i].dataAberturaStr = dateToStr(new Date($scope.caixas[i].dataAbertura));
+				$scope.caixas[i].dataFechamentoStr = dateToStr(new Date($scope.caixas[i].dataFechamento));
 			}
 			
-			console.log($scope.caixas);
-			
 			$scope.pesquisar();
-			
 			$scope.mostrarAguarde = false;
 		});
     	
@@ -304,7 +318,7 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
 	$scope.pesquisar = function(){
 		$scope.caixasFiltradas = orderByFilter(filterFilter($scope.caixas,{id:$scope.idFilter,
 													                     dataAberturaStr: $scope.dataAberturaFilter,
-													                     dataFechamento: $scope.dataFechamentoFilter,
+													                     dataFechamentoStr: $scope.dataFechamentoFilter,
 													                     valorAbertura: $scope.valorAberturaFilter,
 													                     valorFechamento: $scope.valorFechamentoFilter,
 													                     caixaStatus: $scope.caixaStatusFilter}), $scope.campoOrdenacao);

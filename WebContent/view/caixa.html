@@ -122,7 +122,7 @@
 								<td>{{g.dataAberturaStr}}</td>
 								<td>{{g.valorAbertura}}</td>
 								<td>{{g.valorAtual}}</td>
-							    <td>{{g.dataFechamento | date:'dd/MM/yyyy'}}</td>
+							    <td>{{g.dataFechamentoStr}}</td>
 								<td>{{g.valorFechamento}}</td>
 								<td>{{g.descStatus}}</td>
 							</tr>
@@ -185,7 +185,7 @@
 					<!-- CAMPO VALOR ATUAL -->
 					<div class="col-md-2">
 						<div class="form-group">
-							<label>* Valor Atual</label> <input id="cValorAtual" type="text"
+							<label>Valor Atual</label> <input id="cValorAtual" type="text"
 								class="form-control" ng-model="caixa.valorAtual" maxlength="10"
 								mask-maiusculas autofocus>
 						</div>
@@ -204,22 +204,10 @@
 					<div class="col-md-2">
 						<div class="form-group">
 							<label>Valor de Fechamento</label> <input id="cValorFechamento" type="text"
-								class="form-control" ng-model="caixa.valorFechamento" maxlength="10" readonly
+								class="form-control" ng-model="valorFechamento" maxlength="10" readonly
 								mask-maiusculas autofocus>
 						</div>
 					</div>
-					
-					<!-- CAMPO STATUS -->
-					<div class="col-md-12">
-						<div class="form-group">
-							<div class="checkbox">
-								<label> <input type="checkbox" class="checkbox"
-									ng-model="caixa.status" ng-true-value="1" ng-false-value="0">
-									Aberto
-								</label>
-							</div>
-						</div>
-					</div>	
 					
 				</div>
 				<div class="row">
@@ -238,24 +226,15 @@
 			<!-- /.card-body -->
 			<div class="card-body" ng-show="abaSelecionada == 'caixaMovimentacao'">
 				<div class="col-md-12">
-
 					<div class="card">
-						<div class="card-header">
-							<h3 class="card-title">
-								<div class="col-md-4">
-									<button type="button" ng-click="btnIncluirCaixaMovimentacao()"
-										class="btn btn-block btn-outline-primary btn-lg">Incluir</button>
-								</div>
-								<div class="col-md-4">
-									<button type="button" ng-click="btnEditar()"
-										class="btn btn-block btn-outline-primary btn-lg">Editar</button>
-								</div>
-								<div class="col-md-4">
-									<button type="button" ng-click="btnExcluir()"
-										class="btn btn-block btn-outline-danger btn-lg">Excluir</button>
-								</div>
-							</h3>
-						</div>
+			<div class="card-header">
+						<button type="button" ng-click="btnIncluirCaixaMovimentacao()"
+							class="btn  btn-outline-primary btn-lg">Incluir</button>
+						<button type="button" ng-click="btnEditar()"
+							class="btn  btn-outline-primary btn-lg">Editar</button>
+						<button type="button" ng-click="btnExcluir()"
+							class="btn  btn-outline-danger btn-lg">Excluir</button>
+			</div>
 						<!-- /.card-header -->
 							<div class="card-body">
 								<div class="table-responsive table-pesquisa-fixa">
@@ -400,7 +379,7 @@
 </div>
 
 <div class="modal" id="modalCaixaFechamento">
-	<div class="col-md-12">
+	<div class="col-md-4" >
 		<div class="card">
 			<div class="card-header">
 				<h3 class="card-title">Fechamento</h3>
@@ -411,28 +390,19 @@
 				<div class="row">
 
 					<!-- CAMPO DATA FECHAMENTO -->
-					<div class="col-md-4">
+					<div class="col-md-6">
 						<div class="form-group">
 							<label>Data de Fechamento</label> <input id="cDataFechamento" type="date"
 								class="form-control" ng-model="caixa.dataFechamento" readonly>
 						</div>
 					</div>
 					
-					<!-- CAMPO VALOR TOTAL CAIXA -->
-					<div class="col-md-4">
-						<div class="form-group">
-							<label>Valor Total</label> <input id="cValorTotalCaixa" type="text"
-								class="form-control" ng-model="valorTotalCaixa" maxlength="10"
-								mask-maiusculas autofocus readonly>
-						</div>
-					</div>
-					
 					<!-- CAMPO VALOR FECHAMENTO -->
-					<div class="col-md-4">
+					<div class="col-md-6">
 						<div class="form-group">
 							<label>Valor de Fechamento</label> <input id="cValorFechamento" type="text"
-								class="form-control" ng-model="caixa.valorFechamento" maxlength="10"
-								mask-maiusculas autofocus>
+								class="form-control" ng-model="valorFechamento" maxlength="10"
+								mask-maiusculas autofocus readonly>
 						</div>
 					</div>
 					
@@ -445,11 +415,11 @@
 				<div class="row">
 					<div class="col-md-12">
 						<button type="button" class="btn bg-primary btn-lg pull-right"
-							ng-click=btnSalvarFechamento(caixa)>Salvar</button>
+							ng-click=btnConfirmarFechamento(caixa)>Confirmar
 					</div>
-				</div>
-			</div>
 			<!-- /.card-body -->
+		       </div>
+			</div>
 		</div>
 	</div>
 </div>

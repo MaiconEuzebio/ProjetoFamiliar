@@ -110,18 +110,27 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 
 	
 		
-		
+
+
+
+
+	 //////////////////////////////////////////////////////////////////
+	// FUNÇÃO  CALCULAR O PERCENTUAL DE DESCONTO OU ACRÉSCIMO		//
+   //////////////////////////////////////////////////////////////////		
 		$scope.opcaoBtnCalcular = function(){
+			
+			if($scope.capCar.acrescimo != 0||$scope.capCar.desconto == 0){
 				
-			if($scope.ac != 0||$scope.desc == 0){
-				$scope.valor = $scope.ac;
+				$scope.valor = $scope.capCar.acrescimo;
 				$scope.porcentagem = ($scope.valor)*0.01;
 				$scope.resultado = ($scope.capCar.valorLiquido * $scope.porcentagem);
 				$scope.resultadoAcrecimo = parseInt($scope.capCar.valorLiquido) + parseInt($scope.resultado);
 				$scope.capCar.valorTotal = parseInt($scope.resultadoAcrecimo);
 				console.log($scope.resultadoAcrecimo);
-			}else if($scope.desc != 0||$scope.ac == 0){
-				$scope.valor = $scope.desc;
+			}
+			else if($scope.capCar.desconto != 0||$scope.capCar.acrescimo == 0){
+				
+				$scope.valor = $scope.capCar.desconto;
 				$scope.porcentagem = ($scope.valor)*0.01;
 				$scope.resultado = ($scope.capCar.valorLiquido * $scope.porcentagem);
 				$scope.resultadoDesconto = parseInt($scope.capCar.valorLiquido) - parseInt($scope.resultado);
@@ -132,12 +141,23 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 				$scope.mensagemRodape = "Não é possível dar desconto e acréscimo ao mesmo tempo!";
 				return;
 			}
+		
 			
 		}
+     //////////////////////////////////////////////////////////////////
+	// FIM DA FUNÇÃO  CALCULAR O PERCENTUAL DE DESCONTO OU ACRÉSCIMO//
+   //////////////////////////////////////////////////////////////////
     
-    
+
+
+
+
+
 	
 	atualizarTela();	//CHAMADA DA FUNÇÃO ATUALIZAR TELA
+
+
+
 	
 	
 	
@@ -146,6 +166,7 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 	// FUNÇÃO BTN INCLUIR ------>CHAMA A TELA COM OS IMPUTS DE INCLUSÃO DE DADOS   //
    /////////////////////////////////////////////////////////////////////////////////
 	$scope.btnIncluir = function(){
+
     	$scope.mensagemRodape = 		"";
     	$scope.mensagemModal  =		 	"";
     	$scope.mostrarAguarde = 		true;
@@ -158,6 +179,9 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
     	$scope.capCar.dataPagamento = 	null;
     	$scope.capCar.valorLiquido = 	null;
     	$scope.capCar.valorTotal = 		null;
+		
+		$scope.capCar.desconto	=		0
+		$scope.capCar.acrescimo	=		0
     	$scope.capCar.status =			1;
 		if($routeParams.tipo == 'cap'){
 			$scope.capCar.tipo = 'P';
@@ -448,6 +472,8 @@ $scope.selecionarLinha = function(objeto) {
 																			dataInicialStr:$scope.dataInicialFilter,
 																			dataVencimentoStr:$scope.dataVencimentoFilter,
 																			dataPagamentoStr:$scope.dataPagamentoFilter,
+																			desconto:$scope.descontoFilter,
+																			acrescimo:$scope.acrescimoFilter,
 																			valorLiquido:$scope.valorLiquidoFilter,
 																			valorTotal:$scope.valorTotalFilter}), $scope.campoOrdenacao);				
 																			

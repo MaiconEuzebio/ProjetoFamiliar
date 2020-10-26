@@ -53,7 +53,7 @@
 						
 					</h3>
 				</h3>
-			</div>z
+			</div>
 			<!--FIM DA DIV QUE CONTÉM OS BOTÕES DE INCLUIR EDITAR E EXCLUIR -->
 			
 			
@@ -152,6 +152,28 @@
 												ng-change="pesquisar()" mask-maiusculas>
 									</th>
 									
+									<th><a href="" ng-click="ordenacao('desconto')"
+											title="Ordenar">Desconto %<span
+											ng-show="campoOrdenacao == '+desconto'"
+											class="glyphicon glyphicon-sort-by-attributes" /> <span
+											ng-show="campoOrdenacao == '-desconto'"
+											class="glyphicon glyphicon-sort-by-attributes-alt" />
+										</a><input type="text" name="peso" ng-model="descontoFilter"
+												class="form-control" placeholder="Pesquisar..."
+												ng-change="pesquisar()" mask-maiusculas>
+									</th>
+									
+									<th><a href="" ng-click="ordenacao('desconto')"
+											title="Ordenar">Acréscimo %<span
+											ng-show="campoOrdenacao == '+acrescimo'"
+											class="glyphicon glyphicon-sort-by-attributes" /> <span
+											ng-show="campoOrdenacao == '-acrescimo'"
+											class="glyphicon glyphicon-sort-by-attributes-alt" />
+										</a><input type="text" name="peso" ng-model="acrescimoFilter"
+												class="form-control" placeholder="Pesquisar..."
+												ng-change="pesquisar()" mask-maiusculas>
+									</th>
+									
 									<th><a href="" ng-click="ordenacao('valorTotal')"
 											title="Ordenar"> Valor total <span
 											ng-show="campoOrdenacao == '+valorTotal'"
@@ -180,6 +202,8 @@
 										<td>{{conta.dataVencimentoStr}}</td>
 										<td>{{conta.dataPagamentoStr}}</td>
 										<td>{{conta.valorLiquido}}</td>
+										<td>{{conta.desconto}}</td>
+										<td>{{conta.acrescimo}}</td>
 										<td>{{conta.valorTotal}}</td>
 						
 									</tr>	
@@ -280,7 +304,7 @@
 				<!-- CAMPO DESCONTO -->
 				<div class="col-md-1">
 					<div class="form-group">
-						<label>Desconto</label> <input id="cDesconto" type="text" ng-model="desc" placeholder ="0%"  
+						<label>Desconto %</label> <input id="cDesconto" type="text" ng-model="capCar.desconto" ng-change="opcaoBtnCalcular()" placeholder ="0"  
 							class="form-control"  maxlength="10"	
 							mask-maiusculas autofocus>	<!-- ng-model="capCar.valorTotal" -->
 					</div>
@@ -289,7 +313,7 @@
 				<!-- CAMPO ACRÉSCIMO -->
 				<div class="col-md-1">
 					<div class="form-group">
-						<label>Acréscimo</label> <input id="cAcrescimo" ng-model="ac" type="text" placeholder ="0%" 
+						<label>Acréscimo %</label> <input id="cAcrescimo" ng-model="capCar.acrescimo" ng-change="opcaoBtnCalcular()" type="text" placeholder ="0" 
 							class="form-control"  maxlength="10"	
 							mask-maiusculas autofocus>	<!-- ng-model="capCar.valorTotal" -->
 					</div>
@@ -309,7 +333,7 @@
 				<div class="col-md-2">
 					<div class="form-group">
 						<label><h2>Valor total</h2></label> <input id="cValorTotal" type="text" placeholder ="R$ 0.00" 
-							class="form-control" ng-model="capCar.valorTotal" maxlength="10"
+							class="form-control" ng-model="capCar.valorTotal"  maxlength="10"
 							mask-maiusculas autofocus>
 					</div>
 					

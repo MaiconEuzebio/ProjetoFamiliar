@@ -39,6 +39,11 @@ public class CapCar {
 	@Column(name = "VALOR_TOTAL")
 	private Double valorTotal;
 	
+	@Column(name = "DESCONTO")
+	private Double desconto;
+	
+	@Column(name = "ACRESCIMO")
+	private Double acrescimo;
 	
 	@Column(length = 1, name = "STATUS")
 	private Integer status;
@@ -87,6 +92,24 @@ public class CapCar {
 	}
 	public void setValorTotal(Double valorTotal) {
 		this.valorTotal = valorTotal;
+	}
+	public String getTipo() {
+		return tipo;
+	}
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+	public Double getDesconto() {
+		return desconto;
+	}
+	public void setDesconto(Double desconto) {
+		this.desconto = desconto;
+	}
+	public Double getAcrescimo() {
+		return acrescimo;
+	}
+	public void setAcrescimo(Double acrescimo) {
+		this.acrescimo = acrescimo;
 	}
 	public Double getValorLiquido() {
 		return valorLiquido;

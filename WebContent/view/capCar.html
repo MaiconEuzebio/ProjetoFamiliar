@@ -271,19 +271,48 @@
 				<!-- CAMPO VALOR LIQUIDO -->
 				<div class="col-md-1">
 					<div class="form-group">
-						<label>* Valor liquido</label> <input id="cValorLiquido" type="text" placeholder ="R$ 0.00"
+						<label>* Valor liquido</label> <input id="cValorLiquido" type="text" placeholder ="R$ 0.00" 
 							class="form-control" ng-model="capCar.valorLiquido" maxlength="10"
 							mask-maiusculas autofocus>
 					</div>
 				</div>
 				
-				<!-- CAMPO VALOR TOTAL -->
+				<!-- CAMPO DESCONTO -->
 				<div class="col-md-1">
 					<div class="form-group">
-						<label>* Valor total</label> <input id="cValorTotal" type="text" placeholder ="R$ 0.00"
+						<label>Desconto</label> <input id="cDesconto" type="text" ng-model="desc" placeholder ="0%"  
+							class="form-control"  maxlength="10"	
+							mask-maiusculas autofocus>	<!-- ng-model="capCar.valorTotal" -->
+					</div>
+				</div>
+				
+				<!-- CAMPO ACRÉSCIMO -->
+				<div class="col-md-1">
+					<div class="form-group">
+						<label>Acréscimo</label> <input id="cAcrescimo" ng-model="ac" type="text" placeholder ="0%" 
+							class="form-control"  maxlength="10"	
+							mask-maiusculas autofocus>	<!-- ng-model="capCar.valorTotal" -->
+					</div>
+				</div>
+				
+				<div class="col-md-1">
+					<div class="form-group">
+						<label>Totalizar</label>
+						<button type="button" class="btn bg-primary" ng-click="opcaoBtnCalcular()">Calcular</button>
+					</div>
+				</div>
+				
+				<div class="col-md-3">
+				</div>
+				
+				<!-- CAMPO VALOR TOTAL -->
+				<div class="col-md-2">
+					<div class="form-group">
+						<label><h2>Valor total</h2></label> <input id="cValorTotal" type="text" placeholder ="R$ 0.00" 
 							class="form-control" ng-model="capCar.valorTotal" maxlength="10"
 							mask-maiusculas autofocus>
 					</div>
+					
 				</div>
 				
 				<!-- CHECKBOX DE STATUS (ATIVA POR DAFAULT) -->

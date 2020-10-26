@@ -14,9 +14,12 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 	$scope.vizualizarCadastro 	= false;
 	$scope.mostrarAguarde 		= false;
 	$scope.tela 			    = ""
-	
-	
-	
+	$scope.ac					= 0;
+	$scope.desc					= 0;
+	$scope.porcentagem			= null;
+	$scope.resultado			= null;
+	$scope.resultadoAcrecimo 	= null;
+	$scope.resultadoDesconto	= null;
 	
 	
 	 //////////////////////////////////////////////////////////////////
@@ -34,11 +37,11 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 			$scope.tela 			    = "Financeiro > Contas a Pagar"
 		}
 		else if($routeParams.tipo == 'car'){
-				tipo = 'R';												//ENTÃO SE,  $routeParams.tipo LA DE CIMA FOR car NA MUDANÇA DE TELA
+			tipo = 'R';												//ENTÃO SE,  $routeParams.tipo LA DE CIMA FOR car NA MUDANÇA DE TELA
 			$scope.tela 			    = "Financeiro > Contas a Receber"	//VARIAVEL CRIADA VAZIA tipo RECEBE STRING 'R'.
 		}
 		
-		var param = {str1:tipo};					//param QUE É UMA VARIÁVEL OBJETO RECEBE ATRIBUTO str1 QUE RECEBE tipo 'R' OU 'P'.		
+		var param = {str1:tipo};								//param QUE É UMA VARIÁVEL OBJETO RECEBE ATRIBUTO str1 QUE RECEBE tipo 'R' OU 'P'.		
 				
 			
 		console.log(param)
@@ -103,6 +106,34 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 	// FIM DA FUNÇÃO ATUALIZAR TELA 									//
    //////////////////////////////////////////////////////////////////////
     
+
+
+	
+		
+		
+		$scope.opcaoBtnCalcular = function(){
+				
+			if($scope.ac != 0||$scope.desc == 0){
+				$scope.valor = $scope.ac;
+				$scope.porcentagem = ($scope.valor)*0.01;
+				$scope.resultado = ($scope.capCar.valorLiquido * $scope.porcentagem);
+				$scope.resultadoAcrecimo = parseInt($scope.capCar.valorLiquido) + parseInt($scope.resultado);
+				$scope.capCar.valorTotal = parseInt($scope.resultadoAcrecimo);
+				console.log($scope.resultadoAcrecimo);
+			}else if($scope.desc != 0||$scope.ac == 0){
+				$scope.valor = $scope.desc;
+				$scope.porcentagem = ($scope.valor)*0.01;
+				$scope.resultado = ($scope.capCar.valorLiquido * $scope.porcentagem);
+				$scope.resultadoDesconto = parseInt($scope.capCar.valorLiquido) - parseInt($scope.resultado);
+				$scope.capCar.valorTotal = parseInt($scope.resultadoDesconto);
+				console.log($scope.resultadoDesconto);
+			}else{
+				console.log("teste");
+				$scope.mensagemRodape = "Não é possível dar desconto e acréscimo ao mesmo tempo!";
+				return;
+			}
+			
+		}
     
     
 	

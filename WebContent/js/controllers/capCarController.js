@@ -279,6 +279,74 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 	
 	
 	
+	 /////////////////////////////////////////////////////////////////////////////////////////
+	//MODAL DE PAGAMENTO ----> O BOTÃO DESTE MODAL É QUE CHAMA A FUNÇÃO CONFIRMAR PAGAMENTO//
+   /////////////////////////////////////////////////////////////////////////////////////////	
+	$scope.btnPagamento = function(){
+    	$scope.mensagemRodape = "";
+    	$scope.mensagemModal  = "";
+    	
+    	
+    	if (!$scope.objetoSelecionado) {
+            $scope.mensagemModal   = "É necessário selecionar o registro que deseja efetuar o pagamento!";
+        	$('#modalAtencao').modal();
+    		return;
+    	}
+		
+		var param = {
+			int1: $scope.objetoSelecionado.id
+		}
+		
+		$scope.mensagemModal        = 'Deseja realmente efetuar o pagamento?';
+		$('#modalPagamento').modal();
+	
+    }
+	 /////////////////////////////////////
+	// FIM DO MODAL					   //
+   /////////////////////////////////////
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	 //////////////////////////////////////
+	//FUNÇÃO DE CONFIRMAÇÃO DO PAGAMENTO// 
+   //////////////////////////////////////	
+	$scope.confirmaPagamento = function(){
+			$scope.mensagemRodape = "";
+    		$scope.mostrarAguarde = true;
+			$scope.objetoSelecionado.status = 0;
+			$scope.objetoSelecionado.dataPagamento = new Date();
+			/*console.log($scope.objetoSelecionado.cliente);
+			console.log($scope.objetoSelecionado.status);
+			console.log($scope.objetoSelecionado.dataPagamento);*/
+		
+			requisicaoService.requisitarPOST("capCar/salvar",$scope.objetoSelecionado, function(retorno){
+				if (!retorno.isValid) {
+    				$scope.mensagemRodape = retorno.msg;
+    				$scope.mostrarAguarde = false;
+        			return;
+    			}
+    			$('#modalPagamento').modal('hide');
+				
+    			$scope.mostrarAguarde    = false;
+    			$scope.visualizaCadastro = false;
+    			atualizarTela();
+			});
+		}
+ 	 /////////////////////////////////////////////
+	//FIM DA FUNÇÃO DE CONFIRMAÇÃO DO PAGAMENTO// 
+   /////////////////////////////////////////////
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -289,7 +357,7 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 	
 	
 	$scope.btnExcluir = function(){
-	$scope.mensagemRodape = "";
+		$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";
     	if (!$scope.objetoSelecionado) {
             $scope.mensagemModal  = "É necessário selecionar o registro que deseja excluir!";
@@ -404,10 +472,7 @@ $scope.selecionarLinha = function(objeto) {
     		return;
         }
         if (!ccapCar.dataPagamento) {
-        	$scope.mensagemRodape = "É necessário o preenchimento do campo Data de Pagamento!";
-    		document.getElementById("cDataPagamento").focus();
-    		$scope.mostrarAguarde = false;
-    		return;
+			$scope.capCar.dataPagamento 	= null;
         }
         if (!ccapCar.cliente) {
         	$scope.mensagemRodape = "É necessário o preenchimento do campo Cliente!";
@@ -471,7 +536,6 @@ $scope.selecionarLinha = function(objeto) {
 																			categoria:{descricao:$scope.descricaoFilter},
 																			dataInicialStr:$scope.dataInicialFilter,
 																			dataVencimentoStr:$scope.dataVencimentoFilter,
-																			dataPagamentoStr:$scope.dataPagamentoFilter,
 																			desconto:$scope.descontoFilter,
 																			acrescimo:$scope.acrescimoFilter,
 																			valorLiquido:$scope.valorLiquidoFilter,

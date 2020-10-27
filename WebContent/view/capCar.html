@@ -28,31 +28,22 @@
 <div class="row" ng-show="!visualizaCadastro && !mostrarAguarde">
 	<div class="col-md-12">
 		<div class="card">
-		
-		
-		
+	
 			<!-- DIV QUE CONTÉM OS BOTÕES DE INCLUIR EDITAR E EXCLUIR -->
 			<div class="card-header">
-				<h3 class="card-title">
-					<h3 class="card-title">
+				
+				<button type="button" ng-click="btnIncluir()"
+					class="btn btn-outline-primary btn-lg">Incluir</button>
+											
+				<button type="button" ng-click="btnEditar()"
+					class="btn btn-outline-primary btn-lg">Editar</button>
+							
+				<button type="button" ng-click="btnExcluir()"
+					class="btn btn-outline-danger btn-lg">Excluir</button>
+					
+				<button type="button" ng-click="btnPagamento()"
+					class="btn btn-outline-success btn-lg">Efetuar Pagamento</button>
 						
-						<div class="col-md-4">
-							<button type="button" ng-click="btnIncluir()"
-								class="btn btn-block btn-outline-primary btn-lg">Incluir</button>
-						</div>
-						
-						<div class="col-md-4">
-							<button type="button" ng-click="btnEditar()"
-								class="btn btn-block btn-outline-primary btn-lg">Editar</button>
-						</div>
-						
-						<div class="col-md-4">
-							<button type="button" ng-click="btnExcluir()"
-								class="btn btn-block btn-outline-danger btn-lg">Excluir</button>
-						</div>
-						
-					</h3>
-				</h3>
 			</div>
 			<!--FIM DA DIV QUE CONTÉM OS BOTÕES DE INCLUIR EDITAR E EXCLUIR -->
 			
@@ -130,17 +121,6 @@
 												ng-change="pesquisar()" mask-maiusculas>
 									</th>
 									
-									<th><a href="" ng-click="ordenacao('dataPagamento')"
-											title="Ordenar"> Data de Pagamento <span
-											ng-show="campoOrdenacao == '+dataPagamento'"
-											class="glyphicon glyphicon-sort-by-attributes" /> <span
-											ng-show="campoOrdenacao == '-dataPagamento'"
-											class="glyphicon glyphicon-sort-by-attributes-alt" />
-										</a> <input type="text" name="peso" ng-model="dataPagamentoFilter"
-												class="form-control" placeholder="Pesquisar..."
-												ng-change="pesquisar()" mask-maiusculas>
-									</th>
-									
 									<th><a href="" ng-click="ordenacao('valorLiquido')"
 											title="Ordenar"> Valor liquido <span
 											ng-show="campoOrdenacao == '+valorLiquido'"
@@ -200,7 +180,6 @@
 										<td>{{conta.cliente.nomeRzSocial}}</td>
 										<td>{{conta.dataInicialStr}}</td>
 										<td>{{conta.dataVencimentoStr}}</td>
-										<td>{{conta.dataPagamentoStr}}</td>
 										<td>{{conta.valorLiquido}}</td>
 										<td>{{conta.desconto}}</td>
 										<td>{{conta.acrescimo}}</td>
@@ -268,9 +247,8 @@
 				<!-- CAMPO TIPO DATA DE PAGAMENTO-->
 				<div class="col-md-2">
 					<div class="form-group">
-						<label>* Data de pagamento</label> <input id="cDataPagamento" type="date"
-								class="form-control" ng-model="capCar.dataPagamento" maxlength="60"
-								mask-maiusculas autofocus>
+						<label>* Data de Pagamento</label> <input type="date" class="form-control"
+							ng-model="capCar.dataPagamento" readonly>
 					</div>
 				</div>
 				
@@ -319,14 +297,7 @@
 					</div>
 				</div>
 				
-				<div class="col-md-1">
-					<div class="form-group">
-						<label>Totalizar</label>
-						<button type="button" class="btn bg-primary" ng-click="opcaoBtnCalcular()">Calcular</button>
-					</div>
-				</div>
-				
-				<div class="col-md-3">
+				<div class="col-md-4">
 				</div>
 				
 				<!-- CAMPO VALOR TOTAL -->
@@ -346,7 +317,7 @@
 							<label> 
 								<input type="checkbox" class="checkbox"
 									ng-model="capCar.status" ng-true-value="1" ng-false-value="0">
-									Ativo
+									Ativo (em aberto)
 							</label>
 						</div>
 					</div>
@@ -442,3 +413,37 @@
 	</div>
 </div>
 <!-- FIM DA DIV COM MODAL ALERTANDO PARA CAMPOS A SEREM EXCLUIDOS -->
+
+
+
+<!-- DIV COM MODAL DE CONFIRMAÇÃO DE PAGAMENTO -->
+<div class="modal" id="modalPagamento">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Atenção</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			
+			
+			
+			<!-- DIV COM MENSAGEM PARA CONFIRMAÇÃO DO PAGAMENTO-->
+			<div class="modal-body">
+				<p>{{mensagemModal}}</p>
+			</div>
+			<!-- FIM DA DIV COM MENSAGEM PARA CONFIRMAÇÃO DO PAGAMENTO -->
+			
+			
+			
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn btn-primary pull-right" ng-click="confirmaPagamento()">Confirmar</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+<!-- FIM DA DIV COM MODAL DE CONFIRMAÇÃO DE PAGAMENTO -->

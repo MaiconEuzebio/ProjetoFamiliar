@@ -74,8 +74,11 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     	$scope.mostrarAguarde = 		false;
     	$scope.visualizaCadastro = 		true;
     }
-    
-    
+
+
+
+
+
 
     $scope.btnEditar = function(){
     	$scope.mensagemRodape = "";
@@ -109,13 +112,7 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     
     
     
-    
-    
-    
-    
-    
-    
-    
+
     
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//VARIÁVEL RECEBE UMA FUNÇÃO VAZIA. VARIÁVEL POSIÇÃO DO VETOR, RECEBE INDEX DA POSIÇÃO DA LISTA DE ENDEREÇOS DE PESSOA//

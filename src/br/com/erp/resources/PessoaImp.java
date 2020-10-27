@@ -32,8 +32,6 @@ public class PessoaImp {
 			pessoa.atualizarContatos();
 			pessoa.atualizarEnderecos();
 			em.getTransaction().begin();
-			em.persist(pessoa);
-			
 			if (pessoa.getId() == null) {
 				em.persist(pessoa);
 			} else {

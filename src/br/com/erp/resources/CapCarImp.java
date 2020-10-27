@@ -86,6 +86,35 @@ public class CapCarImp {
 		return capCarS;
 	}
 	
+	
+	
+	@Path("exibirTodosAtivos")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public List<CapCar> exibirTodosAtivos(ParamJson param) {
+		EntityManager em = UnidadePersistencia.createEntityManager();
+		List<CapCar> capCarS = null;
+
+		try {
+			capCarS = em.createQuery("select a " 
+							     + "  from CapCar a"
+							     + " where a.tipo = :qualTela"
+							     + " and status = 1")
+						.setParameter("qualTela", param.getStr1())
+						.getResultList();
+
+		} catch (Exception e) {
+
+		} finally {
+			em.close();
+		}
+		return capCarS;
+	}
+	
+	
+	
+	
 	@Path("obterTodosAtivos")
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")

@@ -45,7 +45,9 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 				
 			
 		console.log(param)
-    	requisicaoService.requisitarPOST("capCar/obterTodos", param , function(retorno) {
+		
+		//tras todos os atributos de capCar descritos em capCar.html
+    	requisicaoService.requisitarPOST("capCar/exibirTodosAtivos", param , function(retorno) {
     		if (!retorno.isValid) {
     			$scope.mensagemModal  = retorno.msg;
     			$scope.showModalAviso = true;
@@ -55,6 +57,7 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 				
     			$scope.capCarS = retorno.data;
 
+				//preciso para formatar a data e se quiser, a hora no formato correto para ser entendido pela BD
 				for(i in $scope.capCarS){
 					$scope.capCarS[i].dataInicialStr = dateToStr(new Date($scope.capCarS[i].dataInicial));
 					$scope.capCarS[i].dataVencimentoStr = dateToStr(new Date($scope.capCarS[i].dataVencimento));
@@ -183,6 +186,7 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 		$scope.capCar.desconto	=		0
 		$scope.capCar.acrescimo	=		0
     	$scope.capCar.status =			1;
+
 		if($routeParams.tipo == 'cap'){
 			$scope.capCar.tipo = 'P';
 		}
@@ -352,7 +356,7 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 	
 	
 	 //////////////////////////////////////////////////////////////////////////////////////////////////////
-	// FUNÇÃO BTN EXCLUIR ------> EXCLUSÃO DOS DADOS E EXECUTA SCRIPT DE EXCLUSÃO  						//
+	// FUNÇÃO BTN EXCLUIR ------> CHAMA MODAL COM TELA DE CONFIRMAÇÃO DE EXCLUSÃO  						//
    //////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	
@@ -368,6 +372,19 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
     	$scope.mensagemModal        = 'Deseja realmente excluir o registro?';
 		$('#modalExcluir').modal();
     }
+	 //////////////////////////////////////////////////////
+	// FIM DA FUNÇÃO BTN EXCLUIR 						//
+   //////////////////////////////////////////////////////
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+	///////////////////////////////////////////////////////////////////////////////////////////////////
+   // FUNÇÃO CONFIRMA EXCLUIR ------> FUNÇÃO QUE EFETIVAMENTE CONFIRMAÇÃO DE EXCLUSÃO  				//
+  ///////////////////////////////////////////////////////////////////////////////////////////////////
 	$scope.confirmaExcluir = function(){
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";
@@ -394,9 +411,12 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
     	});
     }
 	
-	 /////////////////////////////////////
-	// FIM DA FUNÇÃO FUNÇÃO BTN EXCLUIR//
-   /////////////////////////////////////
+	 //////////////////////////////////////////
+	// FIM DA FUNÇÃO FUNÇÃO CONFIRMA EXCLUIR//
+   //////////////////////////////////////////
+	
+	
+	
 	
 	
 	
@@ -404,6 +424,7 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 	$scope.retornarPesquisa = function (){
     	$scope.visualizaCadastro = false;
     }
+	
 	
 	
 	

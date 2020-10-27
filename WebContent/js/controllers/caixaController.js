@@ -35,6 +35,8 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	$scope.caixa.id       = null;
     	$scope.caixa.dataAbertura    = new Date();
     	$scope.caixa.dataFechamento   = null;
+    	$scope.caixa.valorAbertura = null;
+    	$scope.caixa.valorAtual = null;
     	$scope.caixa.valorFechamento   = null;
     	$scope.caixa.status = 1;
     	$scope.caixa.caixaMovimentacoes = [];
@@ -103,6 +105,12 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	
     	if (!$scope.objetoSelecionado) {
             $scope.mensagemModal   = "É necessário selecionar o registro que deseja editar!";
+        	$('#modalAtencao').modal();
+    		return;
+    	}
+    	
+    	if ($scope.objetoSelecionado.status == 0) {
+            $scope.mensagemModal  = "Caixa Fechado!";
         	$('#modalAtencao').modal();
     		return;
     	}
@@ -181,6 +189,7 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     }
 
     $scope.btnSalvar = function(pcaixa){
+    	$scope.caixa.dataFechamento = null;
     	$scope.mensagemRodape = "";
     	$scope.mostrarAguarde = true;
     	
@@ -212,7 +221,7 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     }
     
     $scope.btnSalvarCaixaMovimentacao = function(pcaixaMovimentacao){
-    	$scope.mensagemRodape = "";
+    	$scope.mensagemRodape = ""; 
     	
     	if (!pcaixaMovimentacao.dataMovimentacao) {
         	$scope.mensagemRodape = "É necessário o preenchimento do campo Data de Movimentacao!";
@@ -243,9 +252,10 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     		document.getElementById("cObservacao").focus();
     		return;
         }
-
+        
     	$scope.caixa.caixaMovimentacoes.push(pcaixaMovimentacao);
-		$('#modalCaixaMovimentacao').modal('hide');
+		$('#modalCaixaMovimentacao').modal('hide');	
+		$scope.atualizarValor();
     }
     
     $scope.btnConfirmarFechamento = function(pcaixa){
@@ -269,7 +279,19 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	});
     	
     }
-    	
+    
+    $scope.atualizarValor = function (){
+    	$scope.caixa.valorAtual = parseFloat($scope.caixa.valorAbertura);
+    	for(i in $scope.caixa.caixaMovimentacoes){
+
+    		if ($scope.caixa.caixaMovimentacoes[i].tipo == "C"){
+	    		$scope.caixa.valorAtual += parseFloat($scope.caixa.caixaMovimentacoes[i].valorMovimentacao);
+	    	} else if ($scope.caixa.caixaMovimentacoes[i].tipo == "D"){
+	    		$scope.caixa.valorAtual -= parseFloat($scope.caixa.caixaMovimentacoes[i].valorMovimentacao);
+	    	}
+    	}
+    }; 
+    
     /*
     /////////////////////////////////////////////////////////////////
 	// PAGINAÇÃO E TABELA                                          //

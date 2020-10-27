@@ -177,7 +177,7 @@
 					<div class="col-md-2">
 						<div class="form-group">
 							<label>* Valor de Abertura</label> <input id="cValorAbertura" type="text"
-								class="form-control" ng-model="caixa.valorAbertura" maxlength="10"
+								class="form-control" ng-model="caixa.valorAbertura" ng-change="atualizarValor()"  maxlength="10"
 								mask-maiusculas autofocus>
 						</div>
 					</div>
@@ -187,7 +187,7 @@
 						<div class="form-group">
 							<label>Valor Atual</label> <input id="cValorAtual" type="text"
 								class="form-control" ng-model="caixa.valorAtual" maxlength="10"
-								mask-maiusculas autofocus>
+								mask-maiusculas autofocus readonly>
 						</div>
 					</div>
 					
@@ -336,7 +336,7 @@
 					<div class="col-md-3">
 						<div class="form-group">
 							<label>* Valor de Movimentacao</label> <input id="cValorMovimentacao" type="text"
-								class="form-control" ng-model="caixaMovimentacao.valorMovimentacao" maxlength="10"
+								class="form-control" ng-model="caixaMovimentacao.valorMovimentacao" ng-change="atualizarValor()"  maxlength="10"
 								mask-maiusculas autofocus>
 						</div>
 					</div>
@@ -369,7 +369,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<button type="button" class="btn bg-primary btn-lg pull-right"
-							ng-click="btnSalvarCaixaMovimentacao(caixaMovimentacao)"  >Salvar</button>
+							ng-click="btnSalvarCaixaMovimentacao(caixaMovimentacao)">Salvar</button>
 					</div>
 				</div>
 			</div>
@@ -379,7 +379,7 @@
 </div>
 
 <div class="modal" id="modalCaixaFechamento">
-	<div class="col-md-4" >
+	<div class="col-md-4 " >
 		<div class="card">
 			<div class="card-header">
 				<h3 class="card-title">Fechamento</h3>

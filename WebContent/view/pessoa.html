@@ -215,24 +215,22 @@
 	<!-- /.card-body -->
 			<div class="card-body" ng-show="abaSelecionada == 'endereco'">
 				<div class="col-md-12">
+				
 					<div class="card">
+						<!-- DIV QUE CONTÉM OS BOTÕES DE INCLUIR EDITAR E EXCLUIR -->
 						<div class="card-header">
-							<h3 class="card-title">
-								<div class="col-md-4">
-									<button type="button" ng-click="btnIncluirEndereco()"
-										class="btn btn-block btn-outline-primary btn-lg">Incluir</button>
-								</div>
-								<div class="col-md-4">
-									<button type="button" ng-click="btnEditarEndereco()"
-										class="btn btn-block btn-outline-primary btn-lg">Editar</button>
-								</div>
-								<div class="col-md-4">
-									<button type="button" ng-click="btnExcluir()"
-										class="btn btn-block btn-outline-danger btn-lg">Excluir</button>
-								</div>
-							</h3>
+				
+							<button type="button" ng-click="btnIncluirEndereco()"
+								class="btn btn-outline-primary btn-lg">Incluir</button>
+								
+							<button type="button" ng-click="btnEditarEndereco()"
+								class="btn btn-outline-primary btn-lg">Editar</button>
+								
+							<button type="button" ng-click="btnExcluir()"
+								class="btn btn-outline-danger btn-lg">Excluir</button>
+								
 						</div>
-						
+						<!--FIM DA DIV QUE CONTÉM OS BOTÕES DE INCLUIR EDITAR E EXCLUIR -->
 						
 						<!-------------------------------------------------------------------------------->
 						<!--	HEADER DA TABELA QUE CONTÉM OS LINKS DE ORDENAÇÃO E NOME DAS COLUNAS  	-->
@@ -347,20 +345,16 @@
 				<div class="col-md-12">
 					<div class="card">
 						<div class="card-header">
-							<h3 class="card-title">
-								<div class="col-md-4">
-									<button type="button" ng-click="btnIncluirContato()" 
-										class="btn btn-block btn-outline-primary btn-lg">Incluir</button>
-								</div>
-								<div class="col-md-4">
-									<button type="button" ng-click="btnEditarContato()"
-										class="btn btn-block btn-outline-primary btn-lg">Editar</button>
-								</div>
-								<div class="col-md-4">
-									<button type="button" ng-click="btnExcluir(pessoa)"
-										class="btn btn-block btn-outline-danger btn-lg">Excluir</button>
-								</div>
-							</h3>
+						
+							<button type="button" ng-click="btnIncluirContato()" 
+									class="btn btn-outline-primary btn-lg">Incluir</button>
+								
+							<button type="button" ng-click="btnEditarContato()"
+									class="btn btn-outline-primary btn-lg">Editar</button>
+								
+							<button type="button" ng-click="btnExcluir(pessoa)"
+									class="btn btn-outline-danger btn-lg">Excluir</button>
+								
 						</div>
 			
 						<div class="card-body">

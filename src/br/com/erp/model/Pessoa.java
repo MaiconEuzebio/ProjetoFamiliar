@@ -34,10 +34,10 @@ public class Pessoa {
 	@Column(length = 1, name = "STATUS")
 	private Integer status;
 	
-	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Contato> contatos;
 	
-	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Endereco> enderecos;
 	
 	@Transient

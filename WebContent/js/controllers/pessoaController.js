@@ -62,6 +62,8 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     	$scope.mensagemModal  =		 	"";
     	$scope.mostrarAguarde = 		true;
     	
+		$scope.endereco = 				{};
+		$scope.contato =				{};
     	$scope.pessoa = 				{};
     	$scope.pessoa.id = 				null;
     	$scope.pessoa.nomeRzSocial = 	null;
@@ -81,36 +83,84 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 
 
     $scope.btnEditar = function(){
+		
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";
+		$scope.abaSelecionada = 'pessoa';
     	
-    	
-    	if (!$scope.objetoSelecionado) {
-            $scope.mensagemModal   = "É necessário selecionar o registro que deseja editar!";
-        	$('#modalAtencao').modal();
-    		return;
-    	}
-    	var param = {
-			int1: $scope.objetoSelecionado.id
-		}
-    	$scope.mostrarAguarde = true;
-    	//obter a pessoa
-    	requisicaoService.requisitarPOST("pessoa/obterPorId", param , function(retorno) {
-			if (!retorno.isValid) {
-    			$scope.mensagemModal  = retorno.msg;
-    			$scope.showModalAviso = true;
-    			$scope.mostrarAguarde = false;
-        		return;
+    		if (!$scope.objetoSelecionado) {
+           		$scope.mensagemModal   = "É necessário selecionar o registro que deseja editar!";
+        		$('#modalAtencao').modal();
+    			return;
     		}
+    		var param = {int1: $scope.objetoSelecionado.id}
+    			$scope.mostrarAguarde = true;
+    			//obter a pessoa
+    		requisicaoService.requisitarPOST("pessoa/obterPorId", param , function(retorno) {
+				if (!retorno.isValid) {
+    				$scope.mensagemModal  = retorno.msg;
+    				$scope.showModalAviso = true;
+    				$scope.mostrarAguarde = false;
+        			return;
+    			}
 			
-			$scope.pessoa = retorno.data;
-
-	    	$scope.mostrarAguarde    = false;
-	        $scope.visualizaCadastro = true;
-		});
+					$scope.pessoa = retorno.data;
+	    			$scope.mostrarAguarde    = false;
+	        		$scope.visualizaCadastro = true;
+			});
+					
 	
-    }
+   }
+
+	$scope.btnEditarEndereco = function(){
+			console.log('TESTE ENDERECO')
+				$scope.mensagemRodape = "";
+    			$scope.mensagemModal  = "";
+    			$scope.abaSelecionada = 'endereco';
+
+			if (!$scope.objetoSelecionadoEndereco) {
+           		$scope.mensagemModal   = "É necessário selecionar o registro que deseja editar!";
+        		$('#modalAtencao').modal();
+    			return;
+    		}	
+				$scope.endereco = $scope.objetoSelecionadoEndereco;
+				$scope.mostrarAguarde    = false;
+       			$scope.visualizaCadastro = true;
+			
+	};
+	
+	
+	$scope.btnEditarContato = function(){
+			console.log('TESTE CONTATO')
+				$scope.mensagemRodape = "";
+    			$scope.mensagemModal  = "";
+    			$scope.abaSelecionada = 'contato';
+
+			if (!$scope.objetoSelecionadoContato) {
+           		$scope.mensagemModal   = "É necessário selecionar o registro que deseja editar!";
+        		$('#modalAtencao').modal();
+    			return;
+    		}	
+				$scope.contato = $scope.objetoSelecionadoContato;
+				$scope.mostrarAguarde    = false;
+       			$scope.visualizaCadastro = true;
+	};
     
+
+
+
+
+
+
+	$scope.apagarEnderecoOuContato = function(){
+		if($scope.objetoSelecionadoEndereco){
+			var posicaoDoElementoNoArray = $scope.pessoa.enderecos.indexOf($scope.objetoSelecionadoEndereco);
+			$scope.pessoa.enderecos.splice(posicaoDoElementoNoArray,1);
+		}else if($scope.objetoSelecionadoContato){
+			var posicaoDoElementoNoArray = $scope.pessoa.contatos.indexOf($scope.objetoSelecionadoContato);
+			$scope.pessoa.contatos.splice(posicaoDoElementoNoArray,1);
+		}
+	};
     
     
 
@@ -187,16 +237,15 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     }
 
 
-
-
-    $scope.confirmaExcluir = function(){
+	$scope.confirmaExcluir = function(){
     	$scope.mensagemRodape = "";
-    	$scope.mensagemModal        = 'Deseja realmente excluir o registro?';
+    	$scope.mensagemModal  = "";
     	$scope.mostrarAguarde = true;
     	
 		var param = {
-			int1: $scope.objetoSelecionadoEndereco.id
+			int1: $scope.objetoSelecionado.id
 		}
+			
 
     	//deletar
     	requisicaoService.requisitarPOST("pessoa/removerPorId", param, function(retorno){
@@ -213,6 +262,34 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     		atualizarTela();
     	});
     }
+
+
+
+	/*
+    $scope.confirmaExcluir = function(){
+    	$scope.mensagemRodape = "";
+    	$scope.mensagemModal        = 'Deseja realmente excluir o registro?';
+    	$scope.mostrarAguarde = true;
+    	
+		var param = {
+			int1: $scope.objetoSelecionado.id
+		}
+
+    	//deletar
+    	requisicaoService.requisitarPOST("pessoa/removerPorId", param, function(retorno){
+    		if (!retorno.isValid) {
+    			$scope.mensagemModal  = retorno.msg;
+    			$scope.showModalAviso = true;
+    			$scope.mostrarAguarde = false;
+        		return;
+    		}
+    		
+    		$scope.mostrarAguarde       = false;
+    		$scope.showModalConfirmacao = false;
+			$('#modalExcluir').modal('hide');
+    		atualizarTela();
+    	});
+    }*/
 
 
 

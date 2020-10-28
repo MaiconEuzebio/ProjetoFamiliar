@@ -412,8 +412,8 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 	//		FUNÇÃO CHAMADA NO NG-CLICK QUE FAZ COM QUE UMA LINHA CLICADA SEJA UMA LINHA SELECIONADA		 //
    ///////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    $scope.selecionarLinhaEndereco = function(endereco){
-    	$scope.objetoSelecionadoEndereco = endereco;
+    $scope.selecionarLinhaEndereco = function(objeto){
+    	$scope.objetoSelecionadoEndereco = objeto;
     }
     
     $scope.selecionarLinhaContato = function(contato){
@@ -494,7 +494,12 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     		$scope.mostrarAguarde = false;
     		return;
         }
-        $scope.pessoa.enderecos.push(endereco);
+    	if($scope.objetoSelecionadoEndereco){
+    		var posicao = $scope.pessoa.enderecos.indexOf($scope.objetoSelecionadoEndereco);
+    		$scope.pessoa.enderecos[posicao] = endereco;
+    	} else {
+    		$scope.pessoa.enderecos.push(endereco);
+    	}
 		$('#modalEndereco').modal('hide');
 	}   
 		

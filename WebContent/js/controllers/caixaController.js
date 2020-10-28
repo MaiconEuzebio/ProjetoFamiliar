@@ -149,26 +149,12 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
         	$('#modalAtencao').modal();
     		return;
     	}
-    	
-    	var param = {
-    			int1: $scope.objetoSelecionadoMovimentacao.id
-    		}
-        	$scope.mostrarAguarde = true;
-    	
-    	requisicaoService.requisitarPOST("caixaMovimentacao/obterPorId", param , function(retorno) {
-			if (!retorno.isValid) {
-    			$scope.mensagemModal  = retorno.msg;
-    			$scope.showModalAviso = true;
-    			$scope.mostrarAguarde = false;
-        		return;
-    		}
-
+    
     	    $scope.caixaMovimentacao = $scope.objetoSelecionadoMovimentacao;
     	    $scope.caixaMovimentacao.dataMovimentacao = new Date($scope.caixaMovimentacao.dataMovimentacao);
 		    $scope.mostrarAguarde    = false;
 		    $scope.visualizaCadastro = true;
-    	});
-    	$('#modalCaixaMovimentacao').modal();
+		    $('#modalCaixaMovimentacao').modal();
     }
 
     $scope.btnExcluir = function(){

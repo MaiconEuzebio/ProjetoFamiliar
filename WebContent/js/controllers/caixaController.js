@@ -93,6 +93,7 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	$('#modalCaixaFechamento').modal();	
     	
 		$scope.caixa.dataFechamento  = new Date($scope.caixa.dataFechamento);
+		$scope.caixa.dataAbertura = new Date($scope.caixa.dataAbertura);
     	$scope.mostrarAguarde    = false;
         $scope.visualizaCadastro = true;
     }
@@ -141,8 +142,7 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     $scope.btnEditarMovimentacao = function(){
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";
-    	$scope.abaSelecionada = 'caixaMovimentacao'
-    	
+    	$scope.abaSelecionada = "caixaMovimentacao"
     	
     	if (!$scope.objetoSelecionadoMovimentacao) {
             $scope.mensagemModal   = "É necessário selecionar o registro que deseja editar!";
@@ -150,15 +150,25 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     		return;
     	}
     	
-    	//console.log($scope.objetoSelecionadoMovimentacao);
+    	var param = {
+    			int1: $scope.objetoSelecionadoMovimentacao.id
+    		}
+        	$scope.mostrarAguarde = true;
     	
-    	$scope.caixaMovimentacao = $scope.objetoSelecionadoMovimentacao;
-    	$scope.caixaMovimentacao.dataMovimentacao = new Date($scope.caixaMovimentacao.dataMovimentacao);
-    	$scope.mostrarAguarde    = false;
-        $scope.visualizaCadastro = true;
-    	
-    	
-    
+    	requisicaoService.requisitarPOST("caixaMovimentacao/obterPorId", param , function(retorno) {
+			if (!retorno.isValid) {
+    			$scope.mensagemModal  = retorno.msg;
+    			$scope.showModalAviso = true;
+    			$scope.mostrarAguarde = false;
+        		return;
+    		}
+
+    	    $scope.caixaMovimentacao = $scope.objetoSelecionadoMovimentacao;
+    	    $scope.caixaMovimentacao.dataMovimentacao = new Date($scope.caixaMovimentacao.dataMovimentacao);
+		    $scope.mostrarAguarde    = false;
+		    $scope.visualizaCadastro = true;
+    	});
+    	$('#modalCaixaMovimentacao').modal();
     }
 
     $scope.btnExcluir = function(){
@@ -200,7 +210,12 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     }
     
     $scope.btnExcluirMovimentacao = function(){
-    	
+    	if (!$scope.objetoSelecionadoMovimentacao) {
+            $scope.mensagemModal  = "É necessário selecionar o registro que deseja excluir!";
+        	$('#modalAtencao').modal();
+    		return;
+    	}
+    	    	
     	var posicao = $scope.caixa.caixaMovimentacoes.indexOf($scope.objetoSelecionadoMovimentacao);
     	$scope.caixa.caixaMovimentacoes.splice(posicao,1);
     	$scope.atualizarValor();
@@ -412,7 +427,5 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	}
     	
     	$scope.pesquisar();
-    	
     } 
-		
 });

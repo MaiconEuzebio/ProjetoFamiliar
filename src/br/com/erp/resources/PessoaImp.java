@@ -29,9 +29,10 @@ public class PessoaImp {
 		EntityManager em = UnidadePersistencia.createEntityManager();
 
 		try {
+			em.getTransaction().begin();
 			pessoa.atualizarContatos();
 			pessoa.atualizarEnderecos();
-			em.getTransaction().begin();
+			
 			if (pessoa.getId() == null) {
 				em.persist(pessoa);
 			} else {
@@ -132,4 +133,5 @@ public class PessoaImp {
 		}
 
 	}
+
 }

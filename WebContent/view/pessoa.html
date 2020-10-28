@@ -227,7 +227,7 @@
 										class="btn btn-block btn-outline-primary btn-lg">Editar</button>
 								</div>
 								<div class="col-md-4">
-									<button type="button" ng-click="apagarEndereco(pessoa.contatos)"
+									<button type="button" ng-click="btnExcluir()"
 										class="btn btn-block btn-outline-danger btn-lg">Excluir</button>
 								</div>
 							</h3>
@@ -350,7 +350,7 @@
 										class="btn btn-block btn-outline-primary btn-lg">Editar</button>
 								</div>
 								<div class="col-md-4">
-									<button type="button" ng-click="apagarContato(pessoa.contatos)"
+									<button type="button" ng-click="btnExcluir(pessoa)"
 										class="btn btn-block btn-outline-danger btn-lg">Excluir</button>
 								</div>
 							</h3>
@@ -717,27 +717,35 @@
 </div>						
 
 
+<!-- DIV COM MODAL ALERTANDO PARA CAMPOS A SEREM EXCLUIDOS -->
 <div class="modal" id="modalExcluir">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title">Atenção</h4>
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-
+			
+			
+			
+			<!-- DIV COM MENSAGEM PARA CAMPOS A SEREM EXCLUIDOS -->
+			<div class="modal-body">
+				<p>{{mensagemModal}}</p>
+			</div>
+			<!-- FIM DA DIV COM MENSAGEM PARA CAMPOS A SEREM EXCLUIDOS -->
+			
+			
+			
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default pull-right"
-					data-dismiss="modal">Cancelar</button>
-				<button type="button" class="btn btn-primary pull-right"
-					ng-click="confirmaExcluir()">Confirmar</button>
+				<button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn btn-primary pull-right" ng-click="confirmaExcluir()">Confirmar</button>
 			</div>
 
 		</div>
-		<!-- /.modal-content -->
 	</div>
-	<!-- /.modal-dialog -->
 </div>
+<!-- FIM DA DIV COM MODAL ALERTANDO PARA CAMPOS A SEREM EXCLUIDOS -->
 

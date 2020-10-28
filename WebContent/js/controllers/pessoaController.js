@@ -108,6 +108,7 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 	    	$scope.mostrarAguarde    = false;
 	        $scope.visualizaCadastro = true;
 		});
+	
     }
     
     
@@ -166,10 +167,7 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
      /////////////////////////////////////////////////////////////////////////////////
 	// FUNÇÃO VAZIA QUE TEM COMO PARÂMETRO $(#nomeDoModal) O MÉTODO .modal('hide');//
    /////////////////////////////////////////////////////////////////////////////////
-    
-    
-
-
+  
 
 
 
@@ -188,13 +186,16 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 		$('#modalExcluir').modal();
     }
 
+
+
+
     $scope.confirmaExcluir = function(){
     	$scope.mensagemRodape = "";
-    	$scope.mensagemModal  = "";
+    	$scope.mensagemModal        = 'Deseja realmente excluir o registro?';
     	$scope.mostrarAguarde = true;
     	
 		var param = {
-			int1: $scope.objetoSelecionado.id
+			int1: $scope.objetoSelecionadoEndereco.id
 		}
 
     	//deletar
@@ -213,9 +214,18 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     	});
     }
 
+
+
+
+
     $scope.retornarPesquisa = function (){
     	$scope.visualizaCadastro = false;
     }
+
+
+
+
+
 
     $scope.btnSalvarPessoa = function(ppessoa){
     	$scope.mensagemRodape = "";

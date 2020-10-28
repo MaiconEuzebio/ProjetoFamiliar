@@ -230,9 +230,9 @@
 			<div class="card-header">
 						<button type="button" ng-click="btnIncluirCaixaMovimentacao()"
 							class="btn  btn-outline-primary btn-lg">Incluir</button>
-						<button type="button" ng-click="btnEditar()"
+						<button type="button" ng-click="btnEditarMovimentacao()"
 							class="btn  btn-outline-primary btn-lg">Editar</button>
-						<button type="button" ng-click="btnExcluir()"
+						<button type="button" ng-click="btnExcluirMovimentacao()"
 							class="btn  btn-outline-danger btn-lg">Excluir</button>
 			</div>
 						<!-- /.card-header -->
@@ -283,8 +283,8 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr ng-repeat="g in caixa.caixaMovimentacoes" ng-click="selecionarLinha(g)"
-												ng-class="{linhaSelecionada : g == objetoSelecionado}">
+											<tr ng-repeat="g in caixa.caixaMovimentacoes" ng-click="selecionarLinhaMovimentacao(g)"
+												ng-class="{linhaSelecionada : g == objetoSelecionadoMovimentacao}">
 												<td>{{g.dataMovimentacao | date:'dd/MM/yyyy'}}</td>
 												<td>{{g.valorMovimentacao}}</td>
 												<td>{{g.tipo}}</td>
@@ -379,7 +379,7 @@
 </div>
 
 <div class="modal" id="modalCaixaFechamento">
-	<div class="col-md-4 " >
+	<div class="col-md-4 col-md-offset-4" >
 		<div class="card">
 			<div class="card-header">
 				<h3 class="card-title">Fechamento</h3>

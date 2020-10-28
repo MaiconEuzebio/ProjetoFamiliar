@@ -35,7 +35,7 @@ public class Caixa {
 	private Integer status;
 	@Transient
 	private String descStatus;
-	@OneToMany(mappedBy = "caixa", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "caixa", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<CaixaMovimentacao> caixaMovimentacoes;
 	
 	public Integer getId() {

@@ -126,7 +126,7 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 				$scope.endereco = $scope.objetoSelecionadoEndereco;
 				$scope.mostrarAguarde    = false;
        			$scope.visualizaCadastro = true;
-			
+				$('#modalEndereco').modal();
 	};
 	
 	
@@ -141,9 +141,10 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
         		$('#modalAtencao').modal();
     			return;
     		}	
-				$scope.contato = $scope.objetoSelecionadoContato;
+				$scope.pessoa.contato = $scope.objetoSelecionadoContato;
 				$scope.mostrarAguarde    = false;
        			$scope.visualizaCadastro = true;
+				$('#modalEndereco').modal();
 	};
     
 

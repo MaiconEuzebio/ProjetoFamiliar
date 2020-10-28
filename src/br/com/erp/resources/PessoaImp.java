@@ -29,9 +29,11 @@ public class PessoaImp {
 		EntityManager em = UnidadePersistencia.createEntityManager();
 
 		try {
-			em.getTransaction().begin();
-			pessoa.atualizarContatos();
 			pessoa.atualizarEnderecos();
+			pessoa.atualizarContatos();
+			em.getTransaction().begin();
+			
+			
 			
 			if (pessoa.getId() == null) {
 				em.persist(pessoa);

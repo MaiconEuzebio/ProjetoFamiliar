@@ -392,7 +392,11 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 	
 	$scope.pesquisar = function(){
 		$scope.pessoasFiltradas = orderByFilter(filterFilter($scope.pessoas,{id:$scope.idFilter,
-													                     nomeRzSocial: $scope.nomeRzSocialFilter}), $scope.campoOrdenacao);
+													                     nomeRzSocial: $scope.nomeRzSocialFilter,
+																		 cnpjCpf: $scope.cnpjCpfFilter,
+																		 tipo: $scope.tipoFilter,
+																		 descStatus: $scope.descStatusFilter		
+																												}), $scope.campoOrdenacao);
 		
 	}
 	

@@ -141,10 +141,10 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
         		$('#modalAtencao').modal();
     			return;
     		}	
-				$scope.pessoa.contato = $scope.objetoSelecionadoContato;
+				$scope.pessoa.contatos = $scope.objetoSelecionadoContato;
 				$scope.mostrarAguarde    = false;
        			$scope.visualizaCadastro = true;
-				$('#modalEndereco').modal();
+				$('#modalContato').modal();
 	};
     
 

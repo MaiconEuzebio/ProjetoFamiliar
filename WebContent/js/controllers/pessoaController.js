@@ -130,6 +130,7 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 	};
 	
 	
+	
 	$scope.btnEditarContato = function(){
 			console.log('TESTE CONTATO')
 				$scope.mensagemRodape = "";
@@ -141,11 +142,16 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
         		$('#modalAtencao').modal();
     			return;
     		}	
-				$scope.pessoa.contatos = $scope.objetoSelecionadoContato;
+				$scope.contato = $scope.objetoSelecionadoContato;
 				$scope.mostrarAguarde    = false;
        			$scope.visualizaCadastro = true;
 				$('#modalContato').modal();
 	};
+	
+	
+	
+	
+
     
 
 
@@ -416,8 +422,8 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     	$scope.objetoSelecionadoEndereco = objeto;
     }
     
-    $scope.selecionarLinhaContato = function(contato){
-    	$scope.objetoSelecionadoContato = contato;
+    $scope.selecionarLinhaContato = function(objeto){
+    	$scope.objetoSelecionadoContato = objeto;
     }
     
      ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -512,7 +518,12 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     		$scope.mostrarAguarde = false;
     		return;
         }
-       	$scope.pessoa.contatos.push(contato);
+		if($scope.objetoSelecionadoContato){
+    		var posicao = $scope.pessoa.contatos.indexOf($scope.objetoSelecionadoContato);
+    		$scope.pessoa.contatos[posicao] = contato;
+    	} else {
+    		$scope.pessoa.contatos.push(contato);
+    	}
 		$('#modalContato').modal('hide');
 	} 
 	

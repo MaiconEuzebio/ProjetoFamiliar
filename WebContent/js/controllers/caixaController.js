@@ -30,7 +30,7 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";
     	$scope.abaSelecionada = 'caixa'
-    	
+    		
     	$scope.caixa		       = {};
     	$scope.caixa.id       = null;
     	$scope.caixa.dataAbertura    = new Date();
@@ -41,6 +41,12 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	$scope.caixa.status = 1;
     	$scope.caixa.caixaMovimentacoes = [];
     	
+    	if ($scope.caixa.status == 1) {
+            $scope.mensagemModal  = "Ja existe um caixa em aberto!";
+        	$('#modalAtencao').modal();
+    		return;
+    	}
+	
     	$scope.visualizaCadastro = true;
     }
     
@@ -324,7 +330,7 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	$scope.caixa = $scope.objetoSelecionado;
     	$scope.caixa.dataAbertura = new Date($scope.caixa.dataAbertura);
     	$scope.caixa.dataFechamento = new Date($scope.caixa.dataFechamento);
-    	$scope.pesquisarMovimentacao;
+    	$scope.pesquisarCaixaMovimentacao();
 	    $('#modalPesquisarMovimentacao').modal();
     }
     
@@ -351,12 +357,6 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
 	    	}
     	}
     }; 
-    
-    /*
-    /////////////////////////////////////////////////////////////////
-	// PAGINAÇÃO E TABELA                                          //
-    /////////////////////////////////////////////////////////////////
-    */
     
     function atualizarTela(){
     	$scope.mensagemRodape = "";

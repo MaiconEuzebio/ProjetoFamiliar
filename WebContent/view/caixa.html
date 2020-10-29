@@ -34,6 +34,8 @@
 				
 					<button type="button" ng-click="btnFecharCaixa()"
 						class="btn btn-outline-primary btn-lg">Fechar Caixa</button>
+					<button type="button" ng-click="btnCaixaMovimentacao()"
+						class="btn btn-outline-primary btn-lg">Movimentações</button>
 			</div>
 			
 			<!-- /.card-header -->
@@ -235,6 +237,7 @@
 						<button type="button" ng-click="btnExcluirMovimentacao()"
 							class="btn  btn-outline-danger btn-lg">Excluir</button>
 			</div>
+			
 						<!-- /.card-header -->
 							<div class="card-body">
 								<div class="table-responsive table-pesquisa-fixa">
@@ -467,4 +470,78 @@
 		<!-- /.modal-content -->
 	</div>
 	<!-- /.modal-dialog -->
+</div>
+
+<div class="modal" id="modalPesquisarMovimentacao">
+	<div class="row" ng-show="!visualizaCadastro && !mostrarAguarde">
+	<!-- /.content-header -->
+	<div class="card-body">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header">
+					<button type="button" class="btn btn-secondary pull-right" ng-click="fecharModalPesquisarMovimentacao()">Voltar</button>
+			    </div>
+				<div class="card-body">
+					<div class="table-responsive table-pesquisa-fixa">
+						<table class="table table-bordered table-condensed">
+							<thead>
+								<tr>
+									<th><a href="" ng-click="ordenacao('dataMovimentacao')"
+											title="Ordenar"> Data de Movimentacao <span
+											ng-show="campoOrdenacao == '+dataMovimentacao'"
+											class="glyphicon glyphicon-sort-by-attributes" /> <span
+											ng-show="campoOrdenacao == '-dataMovimentacao'"
+											class="glyphicon glyphicon-sort-by-attributes-alt" />
+										</a> <input type="text" name="peso" ng-model="dataMovimentacaoFilter"
+											class="form-control" placeholder="Pesquisar..."
+											ng-change="pesquisar()" mask-maiusculas></th>
+													
+									<th><a href="" ng-click="ordenacao('valorMovimentacao')"
+											title="Ordenar"> Valor de Movimentacao <span
+											ng-show="campoOrdenacao == '+valorMovimentacao'"
+											class="glyphicon glyphicon-sort-by-attributes" /> <span
+											ng-show="campoOrdenacao == '-valorMovimentacao'"
+											class="glyphicon glyphicon-sort-by-attributes-alt" />
+										</a> <input type="text" name="peso" ng-model="valorMovimentacaoFilter"
+											class="form-control" placeholder="Pesquisar..."
+											ng-change="pesquisar()" mask-maiusculas></th>
+													
+									<th><a href="" ng-click="ordenacao('tipo')"
+											title="Ordenar"> Tipo <span
+											ng-show="campoOrdenacao == '+tipo'"
+											class="glyphicon glyphicon-sort-by-attributes" /> <span
+											ng-show="campoOrdenacao == '-tipo'"
+											class="glyphicon glyphicon-sort-by-attributes-alt" />
+										</a> <input type="text" name="peso" ng-model="tipoFilter"
+											class="form-control" placeholder="Pesquisar..."
+											ng-change="pesquisar()" mask-maiusculas></th>
+													
+									<th><a href="" ng-click="ordenacao('observacao')"
+											title="Ordenar"> Observacao <span
+											ng-show="campoOrdenacao == '+observacao'"
+											class="glyphicon glyphicon-sort-by-attributes" /> <span
+											ng-show="campoOrdenacao == '-observacao'"
+											class="glyphicon glyphicon-sort-by-attributes-alt" />
+										</a> <input type="text" name="peso" ng-model="observacaoFilter"
+											class="form-control" placeholder="Pesquisar..."
+											ng-change="pesquisar()" mask-maiusculas></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="g in caixa.caixaMovimentacoes" ng-click="selecionarLinhaMovimentacao(g)"
+									ng-class="{linhaSelecionada : g == objetoSelecionadoMovimentacao}">
+									<td>{{g.dataMovimentacao | date:'dd/MM/yyyy'}}</td>
+									<td>{{g.valorMovimentacao}}</td>
+									<td>{{g.tipo}}</td>
+									<td>{{g.observacao}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- /.card-body -->
+			</div>
+		</div>
+		</div>
+	</div>
 </div>

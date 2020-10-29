@@ -311,12 +311,33 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	
     }
     
+    $scope.btnCaixaMovimentacao = function(){
+    	$scope.mensagemRodape = "";
+    	$scope.mensagemModal  = "";
+    	
+    	if (!$scope.objetoSelecionado) {
+            $scope.mensagemModal  = "É necessário selecionar o caixa que deseja visualizar as Movimentações!";
+            $('#modalAtencao').modal();
+	        return;
+	    }
+    	
+    	$scope.caixa = $scope.objetoSelecionado;
+    	$scope.caixa.dataAbertura = new Date($scope.caixa.dataAbertura);
+    	$scope.caixa.dataFechamento = new Date($scope.caixa.dataFechamento);
+    	$scope.pesquisarMovimentacao;
+	    $('#modalPesquisarMovimentacao').modal();
+    }
+    
     $scope.fecharModalCaixaMovimentacao = function(){
     	$('#modalCaixaMovimentacao').modal('hide');
     }
     
     $scope.fecharModalCaixaFechamento = function(){
     	$('#modalCaixaFechamento').modal('hide');
+    }
+    
+    $scope.fecharModalPesquisarMovimentacao = function(){
+    	$('#modalPesquisarMovimentacao').modal('hide');
     }
     
     $scope.atualizarValor = function (){
@@ -339,8 +360,8 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     
     function atualizarTela(){
     	$scope.mensagemRodape = "";
-    	$scope.mensagemModal  = "";
-    	$scope.mostrarAguarde = true;
+    	$scope.mensagemModal  ="";
+    	$scope.mostrarAguarde = true; 
     	
 		//obter todos os registros
     	requisicaoService.requisitarGET("caixa/obterTodos", function(retorno) {
@@ -382,13 +403,15 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
 													                     valorAtual: $scope.valorAtualFilter,
 													                     valorFechamento: $scope.valorFechamentoFilter,
 													                     caixaStatus: $scope.caixaStatusFilter}), $scope.campoOrdenacao);
-		/*
+
+	}
+	$scope.pesquisarCaixaMovimentacao = function(){
 		$scope.caixaMovimentacoesFiltradas = orderByFilter(filterFilter($scope.caixaMovimentacoes,{id:$scope.idFilter,
 																         dataMovimentacao: $scope.dataMovimentacaoFilter,
 																         valorMovimentacao: $scope.valorMovimentacaoFilter,
 																         tipo: $scope.tipoFilter,
 																         observacao: $scope.observacaoFilter,
-																         caixaStatus: $scope.caixaStatusFilter}), $scope.campoOrdenacao);*/
+																         caixaStatus: $scope.caixaStatusFilter}), $scope.campoOrdenacao);
 	}
 	
     $scope.selecionarLinha = function(objeto) {

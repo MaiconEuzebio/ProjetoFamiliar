@@ -11,6 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import br.com.erp.json.ParamJson;
 import br.com.erp.model.Caixa;
+import br.com.erp.model.CaixaMovimentacao;
 import br.com.erp.util.UnidadePersistencia;
 
 @Path("caixa")
@@ -44,6 +45,27 @@ public class CaixaImp {
 		}
 		return caixa;
 	}
+	
+	public Caixa obterCaixaAberto () {
+		EntityManager em = UnidadePersistencia.createEntityManager();
+		
+		Caixa caixa = null;
+		try {
+			caixa = (Caixa) em.createQuery("select a " 
+				     + "  from Caixa a "
+				     + "where a.status = 1"
+					).getSingleResult();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			em.getTransaction().rollback();
+		} finally {
+			em.close();
+		}
+	
+		return caixa;
+	}
+
 
 	@Path("obterPorId")
 	@POST

@@ -178,7 +178,8 @@ app.controller("tipoCobrancaController", function ($scope, requisicaoService, fi
 	$scope.pesquisar = function(){
 		$scope.tipoCobrancasFiltradas = orderByFilter(filterFilter($scope.tipoCobrancas,{id:$scope.idFilter,
 													                     descricao: $scope.descricaoFilter,
-													                     tipo: $scope.tipoFilter}), $scope.campoOrdenacao);
+													                     tipo: $scope.tipoFilter,
+													                     descStatus: $scope.descStatusFilter}), $scope.campoOrdenacao);
 		
 	}
 	

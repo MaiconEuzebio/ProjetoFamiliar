@@ -1,5 +1,6 @@
 package br.com.erp.resources;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,6 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import br.com.erp.json.ParamJson;
+import br.com.erp.model.CaixaMovimentacao;
 import br.com.erp.model.CapCar;
 import br.com.erp.util.UnidadePersistencia;
 
@@ -22,13 +24,14 @@ public class CapCarImp {
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public  CapCar save(CapCar capCar) {
-
+	
 		EntityManager em = UnidadePersistencia.createEntityManager();
 
 		try {
 			em.getTransaction().begin();
 			if (capCar.getId() == null) {
 				em.persist(capCar);
+			
 			} else {
 				em.merge(capCar);
 			}
@@ -43,6 +46,20 @@ public class CapCarImp {
 		} finally {
 			em.close();
 		}
+		return capCar;
+	}
+	
+	public CapCar gerarMovimentacao(CapCar capCar) {
+		CaixaMovimentacao c = new CaixaMovimentacao();
+		c.setDataMovimentacao(new Date());
+		c.setObservacao("Movimentação gerada a partir da conta "+capCar.getId());
+		if(capCar.getTipo().equals("P")) {
+			c.setTipo("D");
+		}
+		else if(capCar.getTipo().equals("R")) {
+			c.setTipo("C");
+		}
+		c.setValorMovimentacao(capCar.getValorTotal());
 		return capCar;
 	}
 	

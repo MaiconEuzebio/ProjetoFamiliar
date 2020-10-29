@@ -170,7 +170,8 @@ app.controller("marcaController", function ($scope, requisicaoService, filterFil
 	
 	$scope.pesquisar = function(){
 		$scope.marcasFiltradas = orderByFilter(filterFilter($scope.marcas,{id:$scope.idFilter,
-													                     descricao: $scope.descricaoFilter}), $scope.campoOrdenacao);
+													                     descricao: $scope.descricaoFilter,
+																		descStatus: $scope.descStatusFilter}), $scope.campoOrdenacao);
 		
 	}
 	

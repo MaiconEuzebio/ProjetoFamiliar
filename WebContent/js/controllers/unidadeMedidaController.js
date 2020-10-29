@@ -172,7 +172,8 @@ app.controller("unidadeMedidaController", function ($scope, requisicaoService, f
 	$scope.pesquisar = function(){
 		$scope.unidadeMedidasFiltradas = orderByFilter(filterFilter($scope.unidadeMedidas,{id:$scope.idFilter,
 													                     descricao: $scope.descricaoFilter,
-													                     sigla: $scope.siglaFilter}), $scope.campoOrdenacao);
+													                     sigla: $scope.siglaFilter,
+																		descStatus: $scope.descStatusFilter}), $scope.campoOrdenacao);
 		
 	}
 	

@@ -170,7 +170,8 @@ app.controller("corController", function ($scope, requisicaoService, filterFilte
 	
 	$scope.pesquisar = function(){
 		$scope.coresFiltradas = orderByFilter(filterFilter($scope.cores,{id:$scope.idFilter,
-													                     descricao: $scope.descricaoFilter}), $scope.campoOrdenacao);
+													                    descricao: $scope.descricaoFilter,
+																		descStatus:$scope.descStatusFilter}), $scope.campoOrdenacao);
 		
 	}
 	

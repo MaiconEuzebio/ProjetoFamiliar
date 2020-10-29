@@ -10,6 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import br.com.erp.json.ParamJson;
 import br.com.erp.model.CaixaMovimentacao;
+import br.com.erp.model.CapCar;
 import br.com.erp.util.UnidadePersistencia;
 
 @Path("caixaMovimentacao")
@@ -20,18 +21,19 @@ public class CaixaMovimentacaoImp {
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public CaixaMovimentacao save(CaixaMovimentacao caixaMovimentacao ) {
-
+		double valor = 1;
 		EntityManager em = UnidadePersistencia.createEntityManager();
 
 		try {
 			em.getTransaction().begin();
-			if (caixaMovimentacao .getId() == null) {
+			if (caixaMovimentacao.getId() == null) {
 				em.persist(caixaMovimentacao );
 			} else {
 				em.merge(caixaMovimentacao);
+				
 			}
 			em.getTransaction().commit();
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			em.getTransaction().rollback();
@@ -40,6 +42,8 @@ public class CaixaMovimentacaoImp {
 		}
 		return caixaMovimentacao;
 	}
+	
+	
 
 	@Path("obterPorId")
 	@POST

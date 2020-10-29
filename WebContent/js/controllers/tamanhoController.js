@@ -170,7 +170,8 @@ app.controller("tamanhoController", function ($scope, requisicaoService, filterF
 	
 	$scope.pesquisar = function(){
 		$scope.tamanhosFiltradas = orderByFilter(filterFilter($scope.tamanhos,{id:$scope.idFilter,
-													                     descricao: $scope.descricaoFilter}), $scope.campoOrdenacao);
+													                     descricao: $scope.descricaoFilter,
+																		descStatus: $scope.descStatusFilter}), $scope.campoOrdenacao);
 		
 	}
 	

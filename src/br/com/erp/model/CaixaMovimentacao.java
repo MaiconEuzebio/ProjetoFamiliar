@@ -61,11 +61,12 @@ public class CaixaMovimentacao {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
+
 	@JsonBackReference
 	public Caixa getCaixa() {
 		return caixa;
 	}
-	public void setCaixaMovimentacao(Caixa caixa) {
+	public void setCaixa(Caixa caixa) {
 		this.caixa = caixa;
 	}
 

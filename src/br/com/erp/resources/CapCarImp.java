@@ -12,6 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import br.com.erp.json.ParamJson;
+import br.com.erp.model.Caixa;
 import br.com.erp.model.CaixaMovimentacao;
 import br.com.erp.model.CapCar;
 import br.com.erp.util.UnidadePersistencia;
@@ -50,8 +51,13 @@ public class CapCarImp {
 	}
 	
 	public CapCar gerarMovimentacao(CapCar capCar) {
+		EntityManager em = UnidadePersistencia.createEntityManager();
+		
+		CaixaImp caixaImp = new CaixaImp();
+		Caixa caixa = caixaImp.obterCaixaAberto();
 		CaixaMovimentacao c = new CaixaMovimentacao();
 		c.setDataMovimentacao(new Date());
+		c.setCaixa(caixa);
 		c.setObservacao("Movimentação gerada a partir da conta "+capCar.getId());
 		if(capCar.getTipo().equals("P")) {
 			c.setTipo("D");
@@ -60,6 +66,27 @@ public class CapCarImp {
 			c.setTipo("C");
 		}
 		c.setValorMovimentacao(capCar.getValorTotal());
+		
+		try {
+			em.getTransaction().begin();
+			if (capCar.getId() == null) {
+				em.persist(capCar);
+			
+			} else {
+				em.merge(capCar);
+			}
+			em.getTransaction().commit();
+			System.out.println("CapCar inclu�da com sucesso");
+		} catch (Exception e) {
+			if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
+			e.printStackTrace();
+			System.out.println("Não foi poss�vel incluir a capCar");
+		} finally {
+			em.close();
+		}
+		
 		return capCar;
 	}
 	

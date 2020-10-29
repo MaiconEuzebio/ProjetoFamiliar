@@ -65,6 +65,11 @@ angular.module("listaTelefonica").config(function ($routeProvider){
 		controller: "capCarController",
 	});
 	
+	$routeProvider.when("/contaPaga", {
+		templateUrl: "view/contaPaga.html",
+		controller: "contaPagaController",
+	});
+	
 	$routeProvider.otherwise({redirectTo: "/index.html"});
 
 });

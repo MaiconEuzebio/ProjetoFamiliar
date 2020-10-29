@@ -1,6 +1,4 @@
-
-
-<!-- Content Header (Page header) -->
+<!-- DIV COM HEADER DA PÁGINA -->
 <div class="content-header">
 	<div class="container-fluid">
 		<div class="row">
@@ -13,30 +11,42 @@
 	</div>
 	<!-- /.container-fluid -->
 </div>
+<!-- FIM DA DIV COM HEADER DA PÁGINA -->
+
+
+
+<!-- DIV QUE CONTÉM A IMAGEM DE CARREGANDO DA PÁGINA -->
 <div class="text-center" ng-show="mostrarAguarde">
 	<img class="figura-aguarde" src="img/carregandoGoogle.gif"> <label
 		class="label-aguarde">{{buscarDicionario('Aguarde...')}}</label>
 </div>
+<!-- FIM DA DIV QUE CONTÉM A IMAGEM DE CARREGANDO DA PÁGINA -->
 
 
+
+<!-- DIV QUE NÃO VISUALIZA CADASTRO E NÃO MOSTRA O GIF AGUARDE >> DIV COM COLUNA TAMANHO 12 >> DIV QUE CONTÉM UM CARD -->
 <div class="row" ng-show="!visualizaCadastro && !mostrarAguarde">
-	<!-- /.content-header -->
 	<div class="col-md-12">
 		<div class="card">
+		
+		
 
-			<div class="card-header">
-						<button type="button" ng-click="btnIncluir()"
-							class="btn  btn-outline-primary btn-lg">Incluir</button>
-						<button type="button" ng-click="btnEditar()"
-							class="btn  btn-outline-primary btn-lg">Editar</button>
-						<button type="button" ng-click="btnExcluir()"
-							class="btn  btn-outline-danger btn-lg">Excluir</button>
-			</div>
+					<div class="card-header">
+						<button type="button" ng-click="btnIncluir()" class="btn  btn-outline-primary btn-lg">Incluir</button>
+						
+						<button type="button" ng-click="btnEditar()" class="btn  btn-outline-primary btn-lg">Editar</button>
+						
+						<button type="button" ng-click="btnExcluir()"class="btn  btn-outline-danger btn-lg">Excluir</button>
+					</div>
 
 
-			<!-- /.card-header -->
+			<!-- DIV QUE CONTÉM A TABELA COM OS NOMES DAS COLUNAS DOS DADOS E COM OS LINKS PARA ORDENAÇÃO -->
 			<div class="card-body">
 				<div class="table-responsive table-pesquisa-fixa">
+				
+				
+				
+					<!-- TABLE HEADER QUE CONTÉM A CABEÇA DA TABELA ONDE SERÁ MOSTRADA NOMES DAS COLUNAS E CAMPOS DE ORDENAÇÃO -->
 					<table class="table table-bordered table-condensed">
 						<thead>
 							<tr>
@@ -90,9 +100,13 @@
 									ng-change="pesquisar()" mask-maiusculas></th>
 
 
-							</tr>
-						</thead>
-						<tbody>
+							</th>
+						</tr>
+					</thead>
+					<!-- FIM DA TABLE HEADER QUE CONTÉM A CABEÇA DA TABELA ONDE SERÁ MOSTRADA NOMES DAS COLUNAS E CAMPOS DE ORDENAÇÃO -->
+					
+					
+					
 							<tr ng-repeat="p in pessoasFiltradas"
 								ng-click="selecionarLinha(p)"
 								ng-class="{linhaSelecionada : p == objetoSelecionado}">
@@ -101,65 +115,78 @@
 								<td>{{p.cnpjCpf}}</td>
 								<td>{{p.tipo}}</td>
 								<td>{{p.descStatus}}</td>
-							</tr>
+							</tr>	
 						</tbody>
 					</table>
+					<!-- FIM DA DIV QUE CONTÉM A TABELA ONDE SERÁ MOSTRADA NOMES DAS COLUNAS E CAMPOS DE ORDENAÇÃO -->
+					
+					
+					
 				</div>
 			</div>
-			<!-- /.card-body -->
+			<!-- FIM DA DIV QUE CONTÉM A TABELA COM OS NOMES DAS COLUNAS DOS DADOS E COM OS LINKS PARA ORDENAÇÃO -->
+			
+			
+			
 		</div>
 	</div>
 </div>
+<!--FIM DA DIV QUE NÃO VISUALIZA CADASTRO E NÃO MOSTRA O GIF AGUARDE >> DIV COM COLUNA TAMANHO 12 >> DIV QUE CONTÉM UM CARD -->
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-<!-------------------------------------------------------------------------------->
-<!--					INPUTS DA TELA DE CADASTRO DE PESSOA 					-->
-<!-------------------------------------------------------------------------------->
-
+<!-- DIV COM INPUTS DA TELA DE CADASTRO DE PESSOA -->
 <div class="row" ng-show="visualizaCadastro && !mostrarAguarde">
 	<div class="col-md-12">
-
 		<div class="card">
+		
 			<div class="card-header">
 				<h3 class="card-title">Cadastro</h3>
-				<button type="button" class="btn btn-secondary pull-right" ng-click="voltar()">Voltar</button>
-					
+				<button type="button" class="btn btn-secondary pull-right" ng-click="voltar()">Voltar</button>		
 			</div>
-			<!-- /.card-header -->
-			<ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
-                <li class="nav-item">
-					<a class="nav-link active" data-toggle="pill" ng-click="abaSelecionada = 'pessoa'" >Pessoa</a>
-				</li>
-                <li class="nav-item">
-          			<a class="nav-link" data-toggle="pill" ng-click="abaSelecionada = 'endereco'" >Endereço</a>
-       			</li>
-                 <li class="nav-item">
-          			<a class="nav-link" data-toggle="pill" ng-click="abaSelecionada = 'contato'" >Contato</a>
-       			</li>
-            </ul>
+			
+			
+			
+				<!-- UL COM AS ABAS PARA SELECIONAR A PESSOA, ENDEREÇO E CONTATO-->
+				<ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
+				
+                	<li class="nav-item">
+						<a class="nav-link active" data-toggle="pill" ng-click="abaSelecionada = 'pessoa'" >Pessoa</a>
+					</li>
+					
+               		 <li class="nav-item">
+          				<a class="nav-link" data-toggle="pill" ng-click="abaSelecionada = 'endereco'" >Endereço</a>
+       				</li>
+       				
+                	 <li class="nav-item">
+          				<a class="nav-link" data-toggle="pill" ng-click="abaSelecionada = 'contato'" >Contato</a>
+       				</li>
+       				
+            	</ul>
+            	<!-- FIM DA UL COM AS ABAS PARA SELECIONAR A PESSOA, ENDEREÇO E CONTATO-->
+            
+            
+            
+            <!-- ESTRUTURA DA ABA SELECIONADA PESSOA COM SEUS INPUTS------------------------------------------------------------------>	
 			<div class="card-body" ng-show="abaSelecionada == 'pessoa'">
+			
+			
+			
+				<!-- DIV LINHA CONTENDO OS INPUTS-->
 				<div class="row">
+				
+					<!-- DIV COM COLUNA OCUPANDO 2 ESPAÇOS COM CAMPO id-->
 					<div class="col-md-2">
 						<div class="form-group">
 							<label>Código</label> <input type="text" class="form-control"
 								ng-model="pessoa.id" readonly>
 						</div>
 					</div>
+					<!--FIM DA DIV COM COLUNA OCUPANDO 2 ESPAÇOS COM CAMPO id-->
 
-					<!-- CAMPO DESCRICAO -->
+
+
+					<!-- DIV COM COLUNA OCUPANDO 5 ESPAÇOS COM CAMPO nomeRzSocial-->
 					<div class="col-md-5">
 						<div class="form-group">
 							<label>* {{descricaoNomeRzSocial}}</label> <input
@@ -168,7 +195,11 @@
 								autofocus>
 						</div>
 					</div>
-
+					<!--FIM DA DIV COM COLUNA OCUPANDO 5 ESPAÇOS COM CAMPO nomeRzSocial-->
+					
+					
+					
+					<!-- DIV COM COLUNA OCUPANDO 3 ESPAÇOS COM CAMPO CnpjCpf-->
 					<div class="col-md-3">
 						<div class="form-group">
 							<label>* {{descricaoCnpjCpf}}</label> <input id="ccnpjCpf"
@@ -176,7 +207,11 @@
 								maxlength="60" mask-maiusculas autofocus>
 						</div>
 					</div>
-
+					<!-- FIM DA DIV COM COLUNA OCUPANDO 3 ESPAÇOS COM CAMPO cnpjCpf -->
+					
+					
+					
+					<!-- DIV COM COLUNA OCUPANDO 2 ESPAÇOS COM CAMPO TIPO -->
 					<div class="col-md-2">
 						<div class="form-group">
 							<label>* Tipo</label> 
@@ -186,8 +221,11 @@
 							</select>
 						</div>
 					</div>
+					<!-- FIM DA DIV COM COLUNA OCUPANDO 2 ESPAÇOS COM CAMPO TIPO -->
 
-					<!-- CAMPO STATUS -->
+
+
+					<!-- DIV COM COLUNA OCUPANDO 12 ESPAÇOS COM CAMPO STATUS -->
 					<div class="col-md-12">
 						<div class="form-group">
 							<div class="checkbox">
@@ -204,19 +242,29 @@
 							</div>
 						</div>
 					</div>
+					<!-- FIM DA DIV COM COLUNA OCUPANDO 12 ESPAÇOS COM CAMPO STATUS -->
+					
 				</div>
+				<!-- DIV LINHA CONTENDO OS INPUTS-->
+				
+				
+				
 			</div>
-	<!-------------------------------------------------------------------------------->
-	<!--				FIM DOS INPUTS DA TELA DE CADASTRO DE PESSOA 				-->
-	<!-------------------------------------------------------------------------------->	
+			<!--FIM DA ESTRUTURA DA ABA SELECIONADA PESSOA COM SEUS INPUTS----------------------------------------------------------->
 			
 			
 	
-	<!-- /.card-body -->
+			<!-- ESTRUTURA DA ABA SELECIONADA ENDEREÇO COM SEUS INPUTS E BOTÕES DE SELEÇÃO------------------------------------------->
 			<div class="card-body" ng-show="abaSelecionada == 'endereco'">
 				<div class="col-md-12">
 				
+				
+				
+					<!-- DIV CONTENDO CARD QUE CONTÉM TODA A ABA DE ENDEREÇOS -->
 					<div class="card">
+					
+					
+					
 						<!-- DIV QUE CONTÉM OS BOTÕES DE INCLUIR EDITAR E EXCLUIR -->
 						<div class="card-header">
 				
@@ -232,10 +280,8 @@
 						</div>
 						<!--FIM DA DIV QUE CONTÉM OS BOTÕES DE INCLUIR EDITAR E EXCLUIR -->
 						
-						<!-------------------------------------------------------------------------------->
-						<!--	HEADER DA TABELA QUE CONTÉM OS LINKS DE ORDENAÇÃO E NOME DAS COLUNAS  	-->
-						<!-------------------------------------------------------------------------------->
-			
+
+									
 						<div class="card-body">
 							<div class="table-responsive table-pesquisa-fixa">
 								<table class="table table-bordered table-condensed">
@@ -333,6 +379,9 @@
 							</div>
 						</div>
 					</div>
+					<!-- FIM DA DIV CONTENDO CARD QUE CONTÉM TODA A ABA DE ENDEREÇOS -->
+					
+					
 				</div>
 								
 			</div>
@@ -700,28 +749,29 @@
 
 
 
+<!-- DIV COM MODAL ALERTANDO PARA CAMPOS SELECIONADOS -->
 <div class="modal" id="modalAtencao">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title">Atenção</h4>
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 			</div>
+			
 			<div class="modal-body">
 				<p>{{mensagemModal}}</p>
 			</div>
+			
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default pull-right"
-					data-dismiss="modal">OK</button>
+				<button type="button" class="btn btn-default pull-right" data-dismiss="modal">OK</button>
 			</div>
+			
 		</div>
-		<!-- /.modal-content -->
 	</div>
-	<!-- /.modal-dialog -->
-</div>						
+</div>
+<!-- FIM DA DIV COM MODAL ALERTANDO PARA CAMPOS SELECIONADOS -->						
 
 
 <!-- DIV COM MODAL ALERTANDO PARA CAMPOS A SEREM EXCLUIDOS -->

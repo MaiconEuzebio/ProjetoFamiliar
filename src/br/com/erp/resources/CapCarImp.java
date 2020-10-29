@@ -136,6 +136,51 @@ public class CapCarImp {
 		return capCarS;
 	}
 	
+	
+	@Path("exibirTodosInativos")
+	@GET
+	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public List<CapCar> exibirTodosInativos() {
+		EntityManager em = UnidadePersistencia.createEntityManager();
+		List<CapCar> capCarS = null;
+
+		try {
+			capCarS = em.createQuery("select a " 
+							     + "  from CapCar a"
+							     + " where a.status = 0").getResultList();
+
+		} catch (Exception e) {
+
+		} finally {
+			em.close();
+		}
+		return capCarS;
+	}
+	
+	
+	@Path("obterTodosInativos")
+	@GET
+	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public List<CapCar> obterTodosInativos() {
+		EntityManager em = UnidadePersistencia.createEntityManager();
+		List<CapCar> capCarS = null;
+
+		try {
+			capCarS = em.createQuery("select a " 
+								 + "  from CapCar a" 
+								 + " where a.status = 0").getResultList();
+
+		} catch (Exception e) {
+
+		} finally {
+			em.close();
+		}
+		return capCarS;
+	}
+	
+	
 	@Path("removerPorId")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")

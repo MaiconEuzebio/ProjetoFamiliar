@@ -143,19 +143,36 @@
 					</li>
 					<ul class="nav nav-pills nav-sidebar flex-column"
 					data-widget="treeview" role="menu" data-accordion="false">
-					<li class="nav-item has-treeview"><a href="#" class="nav-link">
+						<li class="nav-item has-treeview"><a href="#" class="nav-link">
 							<i class="nav-icon fas fa-donate"></i>
+							<p>Caixa <i class="fas fa-angle-left right"></i></p>
+								</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item"><a href="#!/caixa"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>Caixa</p>
+								</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					
+					<!-- MAICON MEXENDO AKI -->
+					<li class="nav-item has-treeview"><a href="#" class="nav-link">
+							<i class="nav-icon fa fa-search-plus"></i>
 							<p>
-								Caixa <i class="fas fa-angle-left right"></i>
+								Consulta <i class="fas fa-angle-left right"></i>
 							</p>
 					</a>
 						<ul class="nav nav-treeview">
-							<li class="nav-item"><a href="#!/caixa"
+							<li class="nav-item"><a href="#!/contaPaga"
 								class="nav-link"> <i class="far fa-circle nav-icon"></i>
-									<p>Caixa</p>
+									<p>Contas Pagas</p>
 							</a></li>
-						</ul></li>
-					</ul>
+						</ul>
+					</li>
+					<!-- MAICON MEXENDO AKI -->
+					
 				</ul>
 			</nav>
 			<!-- /.sidebar-menu -->
@@ -207,6 +224,7 @@
 
 	<!-- DECLARAÇÃO DOS CONTROLLERS -->
 	
+	<script src="js/controllers/contaPagaController.js"></script>
 	<script src="js/funcoes/funcoes.js"></script>
 	<script src="js/controllers/capCarController.js"></script>
 	<script src="js/controllers/produtoController.js"></script>

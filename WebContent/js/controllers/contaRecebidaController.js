@@ -1,6 +1,5 @@
-app.controller("contaPagaController", function ($scope, $routeParams, requisicaoService, filterFilter, orderByFilter) {
-
-	$scope.tela 				= 'Consulta > Contas Pagas';
+app.controller("contaRecebidaController", function ($scope, $routeParams, requisicaoService, filterFilter, orderByFilter) {
+	$scope.tela = 'Consulta > Contas Recebidas'
 	$scope.showModalConfirmacao = false;
 	$scope.showModalAviso       = false;
 	$scope.mostrarAguarde       = false;
@@ -33,7 +32,7 @@ app.controller("contaPagaController", function ($scope, $routeParams, requisicao
     	
 		
 		//tras todos os atributos de capCar descritos em capCar.html
-    	requisicaoService.requisitarGET("capCar/exibirTodosInativosP", function(retorno) {
+    	requisicaoService.requisitarGET("capCar/exibirTodosInativosR", function(retorno) {
     		if (!retorno.isValid) {
     			$scope.mensagemModal  = retorno.msg;
     			$scope.showModalAviso = true;
@@ -53,7 +52,7 @@ app.controller("contaPagaController", function ($scope, $routeParams, requisicao
 				$scope.pesquisar();
 				$scope.mostrarAguarde = false;
 		});
-    	requisicaoService.requisitarGET("capCar/obterTodosInativosP", function(retorno) {
+    	requisicaoService.requisitarGET("capCar/obterTodosInativosR", function(retorno) {
     		if (!retorno.isValid) {
     			$scope.mensagemModal  = retorno.msg;
     			$scope.showModalAviso = true;
@@ -116,9 +115,10 @@ app.controller("contaPagaController", function ($scope, $routeParams, requisicao
 																			acrescimo:$scope.acrescimoFilter,
 																			valorLiquido:$scope.valorLiquidoFilter,
 																			valorTotal:$scope.valorTotalFilter}), $scope.campoOrdenacao);				
-																			}
+																			
+												              			}
 												              			
 		$scope.selecionarLinha = function(objeto) {
        		$scope.objetoSelecionado = objeto;
-    	}	
+    	}
 });

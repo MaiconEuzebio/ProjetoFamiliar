@@ -1,0 +1,194 @@
+<!-- DIV COM HEADER DA PÁGINA -->
+<div class="content-header">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12">
+				<h1 class="m-0 text-dark">{{tela}}</h1>
+			</div>
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+	</div>
+	<!-- /.container-fluid -->
+</div>
+<!-- FIM DA DIV COM HEADER DA PÁGINA -->
+
+
+
+<!-- DIV QUE CONTÉM A IMAGEM DE CARREGANDO DA PÁGINA -->
+<div class="text-center" ng-show="mostrarAguarde">
+	<img class="figura-aguarde" src="img/carregandoGoogle.gif"> <label
+		class="label-aguarde">{{buscarDicionario('Aguarde...')}}</label>
+</div>
+<!-- FIM DA DIV QUE CONTÉM A IMAGEM DE CARREGANDO DA PÁGINA -->
+
+
+
+<!-- DIV QUE NÃO VISUALIZA CADASTRO E NÃO MOSTRA O GIF AGUARDE >> DIV COM COLUNA TAMANHO 12 >> DIV QUE CONTÉM UM CARD -->
+<div class="row" ng-show="!visualizaCadastro && !mostrarAguarde">
+	<div class="col-md-12">
+		<div class="card">
+			
+			<!-- DIV QUE CONTÉM A TABELA COM OS NOMES DAS COLUNAS DOS DADOS E COM OS LINKS PARA ORDENAÇÃO -->
+				<div class="card-body">
+					<div class="table-responsive table-pesquisa-fixa">
+					
+					
+					
+						<!-- TABLE HEADER QUE CONTÉM A CABEÇA DA TABELA ONDE SERÁ MOSTRADA NOMES DAS COLUNAS E CAMPOS DE ORDENAÇÃO -->
+						<table class="table table-bordered table-condensed">
+							<thead>
+								<tr>
+									<th width="80px"><a href=""
+										ng-click="ordenacao('id')"
+										title="{{buscarDicionario('Ordenar')}}"> Cód. <span
+										ng-show="campoOrdenacao == '+id'"
+										class="glyphicon glyphicon-sort-by-attributes" /> <span
+										ng-show="campoOrdenacao == '-id'"
+										class="glyphicon glyphicon-sort-by-attributes-alt" />
+										</a>
+											<input type="text" name="id" ng-model="idFilter"
+												class="form-control" placeholder="Pesquisar..."
+												ng-change="pesquisar()" mask-maiusculas>
+									</th>
+									
+									<th width="80px"><a href=""
+										ng-click="ordenacao('categoria')"
+										title="{{buscarDicionario('Ordenar')}}"> Categoria Pagamento. <span
+										ng-show="campoOrdenacao == '+categoria'"
+										class="glyphicon glyphicon-sort-by-attributes" /> <span
+										ng-show="campoOrdenacao == '-categoria'"
+										class="glyphicon glyphicon-sort-by-attributes-alt" />
+										</a>
+											<input type="text" name="cliente" ng-model="descricaoFilter"
+												class="form-control" placeholder="Pesquisar..."
+												ng-change="pesquisar()" mask-maiusculas>
+									</th>
+									
+									<th width="80px"><a href=""
+										ng-click="ordenacao('cliente')"
+										title="{{buscarDicionario('Ordenar')}}"> Cliente. <span
+										ng-show="campoOrdenacao == '+cliente'"
+										class="glyphicon glyphicon-sort-by-attributes" /> <span
+										ng-show="campoOrdenacao == '-cliente'"
+										class="glyphicon glyphicon-sort-by-attributes-alt" />
+										</a>
+											<input type="text" name="cliente" ng-model="nomeRzSocialFilter"
+												class="form-control" placeholder="Pesquisar..."
+												ng-change="pesquisar()" mask-maiusculas>
+									</th>
+									
+									
+									<th><a href="" ng-click="ordenacao('dataInicial')"
+											title="Ordenar"> Data de Abertura <span
+											ng-show="campoOrdenacao == '+dataInicial'"
+											class="glyphicon glyphicon-sort-by-attributes" /> <span
+											ng-show="campoOrdenacao == '-dataInicial'"
+											class="glyphicon glyphicon-sort-by-attributes-alt" />
+										</a> <input type="text" name="peso" ng-model="dataInicialFilter"
+												class="form-control" placeholder="Pesquisar..."
+												ng-change="pesquisar()" mask-maiusculas>
+									</th>
+									
+									<th><a href="" ng-click="ordenacao('dataVencimento')"
+											title="Ordenar"> Data de Vencimento <span
+											ng-show="campoOrdenacao == '+dataVencimento'"
+											class="glyphicon glyphicon-sort-by-attributes" /> <span
+											ng-show="campoOrdenacao == '-dataVencimento'"
+											class="glyphicon glyphicon-sort-by-attributes-alt" />
+										</a> <input type="text" name="peso" ng-model="dataVencimentoFilter"
+												class="form-control" placeholder="Pesquisar..."
+												ng-change="pesquisar()" mask-maiusculas>
+									</th>
+									
+									<th><a href="" ng-click="ordenacao('dataPagamento')"
+											title="Ordenar"> Data do Pagamento <span
+											ng-show="campoOrdenacao == '+dataPagamento'"
+											class="glyphicon glyphicon-sort-by-attributes" /> <span
+											ng-show="campoOrdenacao == '-dataPagamento'"
+											class="glyphicon glyphicon-sort-by-attributes-alt" />
+										</a> <input type="text" name="peso" ng-model="dataPagamentoFilter"
+												class="form-control" placeholder="Pesquisar..."
+												ng-change="pesquisar()" mask-maiusculas>
+									</th>
+									
+									<th><a href="" ng-click="ordenacao('valorLiquido')"
+											title="Ordenar"> Valor liquido <span
+											ng-show="campoOrdenacao == '+valorLiquido'"
+											class="glyphicon glyphicon-sort-by-attributes" /> <span
+											ng-show="campoOrdenacao == '-valorLiquido'"
+											class="glyphicon glyphicon-sort-by-attributes-alt" />
+										</a><input type="text" name="peso" ng-model="valorLiquidoFilter"
+												class="form-control" placeholder="Pesquisar..."
+												ng-change="pesquisar()" mask-maiusculas>
+									</th>
+									
+									<th><a href="" ng-click="ordenacao('desconto')"
+											title="Ordenar">Desconto %<span
+											ng-show="campoOrdenacao == '+desconto'"
+											class="glyphicon glyphicon-sort-by-attributes" /> <span
+											ng-show="campoOrdenacao == '-desconto'"
+											class="glyphicon glyphicon-sort-by-attributes-alt" />
+										</a><input type="text" name="peso" ng-model="descontoFilter"
+												class="form-control" placeholder="Pesquisar..."
+												ng-change="pesquisar()" mask-maiusculas>
+									</th>
+									
+									<th><a href="" ng-click="ordenacao('desconto')"
+											title="Ordenar">Acréscimo %<span
+											ng-show="campoOrdenacao == '+acrescimo'"
+											class="glyphicon glyphicon-sort-by-attributes" /> <span
+											ng-show="campoOrdenacao == '-acrescimo'"
+											class="glyphicon glyphicon-sort-by-attributes-alt" />
+										</a><input type="text" name="peso" ng-model="acrescimoFilter"
+												class="form-control" placeholder="Pesquisar..."
+												ng-change="pesquisar()" mask-maiusculas>
+									</th>
+									
+									<th><a href="" ng-click="ordenacao('valorTotal')"
+											title="Ordenar"> Valor total <span
+											ng-show="campoOrdenacao == '+valorTotal'"
+											class="glyphicon glyphicon-sort-by-attributes" /> <span
+											ng-show="campoOrdenacao == '-valorTotal'"
+											class="glyphicon glyphicon-sort-by-attributes-alt" />
+										</a><input type="text" name="peso" ng-model="valorTotalFilter"
+												class="form-control" placeholder="Pesquisar..."
+												ng-change="pesquisar()" mask-maiusculas>
+									</th>
+								</tr>
+							</thead>
+							<!-- FIM DA TABLE HEADER QUE CONTÉM A CABEÇA DA TABELA ONDE SERÁ MOSTRADA NOMES DAS COLUNAS E CAMPOS DE ORDENAÇÃO -->
+							
+							
+							
+								<tbody>
+									<tr ng-repeat="conta in capCarSFiltradas"
+										ng-click="selecionarLinha(conta)"
+										ng-class="{linhaSelecionada : conta == objetoSelecionado}">
+										
+										<td>{{conta.id}}</td>
+										<td>{{conta.categoria.descricao}}</td>
+										<td>{{conta.cliente.nomeRzSocial}}</td>
+										<td>{{conta.dataInicialStr}}</td>
+										<td>{{conta.dataVencimentoStr}}</td>
+										<td>{{conta.dataPagamentoStr}}</td>
+										<td>{{conta.valorLiquido}}</td>
+										<td>{{conta.desconto}}</td>
+										<td>{{conta.acrescimo}}</td>
+										<td>{{conta.valorTotal}}</td>
+						
+									</tr>	
+								</tbody>
+						</table>
+						<!-- FIM DA DIV QUE CONTÉM A TABELA ONDE SERÁ MOSTRADA NOMES DAS COLUNAS E CAMPOS DE ORDENAÇÃO -->
+						
+						
+						
+					</div>
+				</div>
+				<!-- FIM DA DIV QUE CONTÉM A TABELA COM OS NOMES DAS COLUNAS DOS DADOS E COM OS LINKS PARA ORDENAÇÃO -->
+			
+		</div>
+	</div>
+</div>
+<!--FIM DA DIV QUE NÃO VISUALIZA CADASTRO E NÃO MOSTRA O GIF AGUARDE >> DIV COM COLUNA TAMANHO 12 >> DIV QUE CONTÉM UM CARD -->

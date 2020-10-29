@@ -70,6 +70,10 @@ angular.module("listaTelefonica").config(function ($routeProvider){
 		controller: "contaPagaController",
 	});
 	
+	$routeProvider.when("/contaRecebida", {
+		templateUrl: "view/contaRecebida.html",
+		controller: "contaRecebidaController",
+	});
 	$routeProvider.otherwise({redirectTo: "/index.html"});
 
 });

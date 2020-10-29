@@ -137,7 +137,7 @@ public class CapCarImp {
 	}
 	
 	
-	@Path("exibirTodosInativos")
+	@Path("exibirTodosInativosP")
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
@@ -148,7 +148,8 @@ public class CapCarImp {
 		try {
 			capCarS = em.createQuery("select a " 
 							     + "  from CapCar a"
-							     + " where a.status = 0").getResultList();
+							     + " where a.status = 0"
+							     + " and a.tipo = 'P'").getResultList();
 
 		} catch (Exception e) {
 
@@ -159,7 +160,7 @@ public class CapCarImp {
 	}
 	
 	
-	@Path("obterTodosInativos")
+	@Path("obterTodosInativosP")
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
@@ -170,8 +171,53 @@ public class CapCarImp {
 		try {
 			capCarS = em.createQuery("select a " 
 								 + "  from CapCar a" 
-								 + " where a.status = 0").getResultList();
+								 + " where a.status = 0"
+								 + " and a.tipo = 'P'").getResultList();
 
+		} catch (Exception e) {
+
+		} finally {
+			em.close();
+		}
+		return capCarS;
+	}
+	
+	@Path("exibirTodosInativosR")
+	@GET
+	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public List<CapCar> exibirTodosInativosR() {
+		EntityManager em = UnidadePersistencia.createEntityManager();
+		List<CapCar> capCarS = null;
+
+		try {
+			capCarS = em.createQuery("select a " 
+							     + "  from CapCar a"
+							     + " where a.status = 0"
+							     + " and a.tipo = 'R'").getResultList();
+
+		} catch (Exception e) {
+
+		} finally {
+			em.close();
+		}
+		return capCarS;
+	}
+	
+	@Path("obterTodosInativosR")
+	@GET
+	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public List<CapCar> obterTodosInativosR() {
+		EntityManager em = UnidadePersistencia.createEntityManager();
+		List<CapCar> capCarS = null;
+
+		try {
+			capCarS = em.createQuery("select a " 
+								 + "  from CapCar a" 
+								 + " where a.status = 0"
+								 + " and a.tipo = 'R'").getResultList();
+			
 		} catch (Exception e) {
 
 		} finally {

@@ -37,6 +37,11 @@ public class CapCarImp {
 				em.merge(capCar);
 			}
 			em.getTransaction().commit();
+			
+			if(capCar.getStatus().intValue() == 0) {
+				this.gerarMovimentacao(capCar);
+			}
+			
 			System.out.println("CapCar inclu�da com sucesso");
 		} catch (Exception e) {
 			if (em.getTransaction().isActive()) {
@@ -50,32 +55,34 @@ public class CapCarImp {
 		return capCar;
 	}
 	
-	public CapCar gerarMovimentacao(CapCar capCar) {
+	public void gerarMovimentacao(CapCar capCar) {
 		EntityManager em = UnidadePersistencia.createEntityManager();
 		
 		CaixaImp caixaImp = new CaixaImp();
-		Caixa caixa = caixaImp.obterCaixaAberto();
-		CaixaMovimentacao c = new CaixaMovimentacao();
-		c.setDataMovimentacao(new Date());
-		c.setCaixa(caixa);
-		c.setObservacao("Movimentação gerada a partir da conta "+capCar.getId());
-		if(capCar.getTipo().equals("P")) {
-			c.setTipo("D");
-		}
-		else if(capCar.getTipo().equals("R")) {
-			c.setTipo("C");
-		}
-		c.setValorMovimentacao(capCar.getValorTotal());
 		
 		try {
-			em.getTransaction().begin();
-			if (capCar.getId() == null) {
-				em.persist(capCar);
 			
-			} else {
-				em.merge(capCar);
+			Caixa caixa = caixaImp.obterCaixaAberto();
+			CaixaMovimentacao caixaMovimentacao = new CaixaMovimentacao();
+			caixaMovimentacao.setDataMovimentacao(new Date());
+			caixaMovimentacao.setCaixa(caixa);
+			caixaMovimentacao.setObservacao("Movimentação gerada a partir da conta "+capCar.getId());
+			if(capCar.getTipo().equals("P")) {
+				caixaMovimentacao.setTipo("D");
+				caixa.setValorAtual(caixa.getValorAtual() - capCar.getValorTotal());
 			}
+			else if(capCar.getTipo().equals("R")) {
+				caixa.setValorAtual(caixa.getValorAtual() + capCar.getValorTotal());
+				caixaMovimentacao.setTipo("C");
+			}
+			caixaMovimentacao.setValorMovimentacao(capCar.getValorTotal());
+			
+			em.getTransaction().begin();
+			em.persist(caixaMovimentacao);
 			em.getTransaction().commit();
+			
+			caixaImp.save(caixa);
+			
 			System.out.println("CapCar inclu�da com sucesso");
 		} catch (Exception e) {
 			if (em.getTransaction().isActive()) {
@@ -86,9 +93,8 @@ public class CapCarImp {
 		} finally {
 			em.close();
 		}
-		
-		return capCar;
 	}
+	
 	
 	@Path("obterPorId")
 	@POST

@@ -111,7 +111,7 @@ public class Caixa {
 	public void atualizarMovimentacao() {
 		if (this.caixaMovimentacoes != null) {
 			for (CaixaMovimentacao caixaMovimentacao : this.caixaMovimentacoes) {
-				caixaMovimentacao.setCaixaMovimentacao(this);
+				caixaMovimentacao.setCaixa(this);
 			}
 		}
 	}

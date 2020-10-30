@@ -127,18 +127,18 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 				$scope.valor = $scope.capCar.acrescimo;
 				$scope.porcentagem = ($scope.valor)*0.01;
 				$scope.resultado = ($scope.capCar.valorLiquido * $scope.porcentagem);
-				$scope.resultadoAcrecimo = parseInt($scope.capCar.valorLiquido) + parseInt($scope.resultado);
-				$scope.capCar.valorTotal = parseInt($scope.resultadoAcrecimo);
-				console.log($scope.resultadoAcrecimo);
+				$scope.resultadoAcrecimo = parseFloat($scope.capCar.valorLiquido) + parseFloat($scope.resultado);
+				$scope.capCar.valorTotal = parseFloat($scope.resultadoAcrecimo.toFixed(2));
+				console.log($scope.resultadoAcrecimo.toFixed(2));
 			}
 			else if($scope.capCar.desconto != 0||$scope.capCar.acrescimo == 0){
 				
 				$scope.valor = $scope.capCar.desconto;
 				$scope.porcentagem = ($scope.valor)*0.01;
 				$scope.resultado = ($scope.capCar.valorLiquido * $scope.porcentagem);
-				$scope.resultadoDesconto = parseInt($scope.capCar.valorLiquido) - parseInt($scope.resultado);
-				$scope.capCar.valorTotal = parseInt($scope.resultadoDesconto);
-				console.log($scope.resultadoDesconto);
+				$scope.resultadoDesconto = parseFloat($scope.capCar.valorLiquido) - parseFloat($scope.resultado);
+				$scope.capCar.valorTotal = parseFloat($scope.resultadoDesconto.toFixed(2));
+				console.log($scope.resultadoDesconto.toFixed(2));
 			}else{
 				console.log("teste");
 				$scope.mensagemRodape = "Não é possível dar desconto e acréscimo ao mesmo tempo!";

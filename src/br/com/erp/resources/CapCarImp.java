@@ -29,6 +29,11 @@ public class CapCarImp {
 		EntityManager em = UnidadePersistencia.createEntityManager();
 
 		try {
+			
+			if(capCar.getStatus().intValue() == 0) {
+				this.gerarMovimentacao(capCar);
+			}
+			
 			em.getTransaction().begin();
 			if (capCar.getId() == null) {
 				em.persist(capCar);
@@ -37,11 +42,7 @@ public class CapCarImp {
 				em.merge(capCar);
 			}
 			em.getTransaction().commit();
-			
-			if(capCar.getStatus().intValue() == 0) {
-				this.gerarMovimentacao(capCar);
-			}
-			
+
 			System.out.println("CapCar inclu�da com sucesso");
 		} catch (Exception e) {
 			if (em.getTransaction().isActive()) {
@@ -49,6 +50,7 @@ public class CapCarImp {
 			}
 			e.printStackTrace();
 			System.out.println("Não foi poss�vel incluir a capCar");
+			throw e;
 		} finally {
 			em.close();
 		}
@@ -68,6 +70,11 @@ public class CapCarImp {
 			caixaMovimentacao.setCaixa(caixa);
 			caixaMovimentacao.setObservacao("Movimentação gerada a partir da conta "+capCar.getId());
 			if(capCar.getTipo().equals("P")) {
+				
+				if(capCar.getValorTotal() > caixa.getValorAtual()) {
+					throw new RuntimeException("Valor da conta superior ao valor total do caixa");
+				}
+				
 				caixaMovimentacao.setTipo("D");
 				caixa.setValorAtual(caixa.getValorAtual() - capCar.getValorTotal());
 			}
@@ -90,6 +97,7 @@ public class CapCarImp {
 			}
 			e.printStackTrace();
 			System.out.println("Não foi poss�vel incluir a capCar");
+			throw e;
 		} finally {
 			em.close();
 		}

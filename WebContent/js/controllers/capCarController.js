@@ -173,8 +173,7 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
     	$scope.mensagemRodape = 		"";
     	$scope.mensagemModal  =		 	"";
     	$scope.mostrarAguarde = 		true;
-    	
-	
+
     	$scope.capCar = 				{};
     	$scope.capCar.id = 				null;
     	$scope.capCar.dataInicial = 	new Date();
@@ -182,7 +181,6 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
     	$scope.capCar.dataPagamento = 	null;
     	$scope.capCar.valorLiquido = 	null;
     	$scope.capCar.valorTotal = 		null;
-		
 		$scope.capCar.desconto	=		0
 		$scope.capCar.acrescimo	=		0
     	$scope.capCar.status =			1;
@@ -301,11 +299,8 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 			int1: $scope.objetoSelecionado.id
 		}
 		
-		$scope.mensagemModal        = 'Deseja realmente efetuar o pagamento?';
+		$scope.mensagemModal        = 'Deseja realmente efetuar a operação?';
 		$('#modalPagamento').modal();
-		
-	
-	
     }
 	 /////////////////////////////////////
 	// FIM DO MODAL					   //

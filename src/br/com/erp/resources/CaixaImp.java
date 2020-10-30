@@ -22,7 +22,6 @@ public class CaixaImp {
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public Caixa save(Caixa caixa) {
-
 		EntityManager em = UnidadePersistencia.createEntityManager();
 
 		try {
@@ -31,6 +30,13 @@ public class CaixaImp {
 			caixa.atualizarMovimentacao();
 			
 			if (caixa.getId() == null) {
+				
+				Caixa caixaAux = obterCaixaAberto();
+				
+				if(caixaAux != null) {
+					throw new RuntimeException("Já existe um caixa em aberto : " + caixaAux.getId());
+				}
+				
 				em.persist(caixa);
 			} else {
 				em.merge(caixa);
@@ -39,7 +45,10 @@ public class CaixaImp {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			em.getTransaction().rollback();
+			if(em.getTransaction().isActive()){
+				em.getTransaction().rollback();
+			}
+			throw e;
 		} finally {
 			em.close();
 		}
@@ -58,7 +67,6 @@ public class CaixaImp {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			em.getTransaction().rollback();
 		} finally {
 			em.close();
 		}

@@ -40,6 +40,14 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	$scope.caixa.valorFechamento   = null;
     	$scope.caixa.status = 1;
     	$scope.caixa.caixaMovimentacoes = [];
+    	
+    	/*if ($scope.caixa.status == 1) {
+			console.log("Teste: "+$scope.caixa.id)
+            $scope.mensagemModal  = "Ja existe um caixa em aberto!";
+        	$('#modalAtencao').modal();
+    		return;
+    	}*/
+
 	
     	$scope.visualizaCadastro = true;
     }

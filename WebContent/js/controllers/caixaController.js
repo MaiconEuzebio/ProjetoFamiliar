@@ -40,12 +40,6 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	$scope.caixa.valorFechamento   = null;
     	$scope.caixa.status = 1;
     	$scope.caixa.caixaMovimentacoes = [];
-    	
-    	if ($scope.caixa.status == 1) {
-            $scope.mensagemModal  = "Ja existe um caixa em aberto!";
-        	$('#modalAtencao').modal();
-    		return;
-    	}
 	
     	$scope.visualizaCadastro = true;
     }
@@ -95,13 +89,11 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
 	    	}
     	}
     	$scope.valorFechamento = $scope.valorFechamento; 
-    	
-    	$('#modalCaixaFechamento').modal();	
-    	
 		$scope.caixa.dataFechamento  = new Date($scope.caixa.dataFechamento);
 		$scope.caixa.dataAbertura = new Date($scope.caixa.dataAbertura);
     	$scope.mostrarAguarde    = false;
         $scope.visualizaCadastro = true;
+        $('#modalCaixaFechamento').modal();	
     }
     
     $scope.btnEditar = function(){
@@ -317,7 +309,7 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	
     }
     
-    $scope.btnCaixaMovimentacao = function(){
+    $scope.btnVisualizarMovimentacao = function(){
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";
     	

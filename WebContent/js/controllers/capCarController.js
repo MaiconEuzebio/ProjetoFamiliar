@@ -292,7 +292,7 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
     	
     	
     	if (!$scope.objetoSelecionado) {
-            $scope.mensagemModal   = "É necessário selecionar o registro que deseja efetuar o pagamento!";
+            $scope.mensagemModal   = "É necessário selecionar um registro para esta operação!";
         	$('#modalAtencao').modal();
     		return;
     	}
@@ -303,6 +303,8 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 		
 		$scope.mensagemModal        = 'Deseja realmente efetuar o pagamento?';
 		$('#modalPagamento').modal();
+		
+	
 	
     }
 	 /////////////////////////////////////

@@ -34,9 +34,9 @@
 					<div class="card-header">
 						<button type="button" ng-click="btnIncluir()" class="btn  btn-outline-primary btn-lg">Incluir</button>
 						
-						<button type="button" ng-click="btnEditar()" class="btn  btn-outline-primary btn-lg">Editar</button>
+						<button type="button" ng-click="btnEditarPessoa()" class="btn  btn-outline-primary btn-lg">Editar</button>
 						
-						<button type="button" ng-click="btnExcluir()"class="btn  btn-outline-danger btn-lg">Excluir</button>
+						<button type="button" ng-click="btnExcluirPessoa()"class="btn  btn-outline-danger btn-lg">Excluir</button>
 					</div>
 
 
@@ -274,7 +274,7 @@
 							<button type="button" ng-click="btnEditarEndereco()"
 								class="btn btn-outline-primary btn-lg">Editar</button>
 								
-							<button type="button" ng-click="btnExcluir()"
+							<button type="button" ng-click="btnExcluirEndereco()"
 								class="btn btn-outline-danger btn-lg">Excluir</button>
 								
 						</div>
@@ -401,7 +401,7 @@
 							<button type="button" ng-click="btnEditarContato()"
 									class="btn btn-outline-primary btn-lg">Editar</button>
 								
-							<button type="button" ng-click="btnExcluir(pessoa)"
+							<button type="button" ng-click="btnExcluirContato()"
 									class="btn btn-outline-danger btn-lg">Excluir</button>
 								
 						</div>
@@ -738,30 +738,19 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 <!-- DIV COM MODAL ALERTANDO PARA CAMPOS SELECIONADOS -->
 <div class="modal" id="modalAtencao">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Atenção</h4>
+				<h4 class="modal-title glyphicon glyphicon-exclamation-sign">  Atenção</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 			</div>
 			
 			<div class="modal-body">
-				<p>{{mensagemModal}}</p>
+				<p><h2>{{mensagemModal}}</h2></p>
 			</div>
 			
 			<div class="modal-footer">
@@ -774,8 +763,18 @@
 <!-- FIM DA DIV COM MODAL ALERTANDO PARA CAMPOS SELECIONADOS -->						
 
 
-<!-- DIV COM MODAL ALERTANDO PARA CAMPOS A SEREM EXCLUIDOS -->
-<div class="modal" id="modalExcluir">
+
+
+
+
+
+
+
+
+
+
+<!-- DIV COM MODAL PARA EXCLUSÃO DE PESSOA -->
+<div class="modal" id="modalExcluirPessoa">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -790,7 +789,7 @@
 			
 			<!-- DIV COM MENSAGEM PARA CAMPOS A SEREM EXCLUIDOS -->
 			<div class="modal-body">
-				<p>{{mensagemModal}}</p>
+				<p><h2>{{mensagemModal}}</h2></p>
 			</div>
 			<!-- FIM DA DIV COM MENSAGEM PARA CAMPOS A SEREM EXCLUIDOS -->
 			
@@ -798,11 +797,78 @@
 			
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancelar</button>
-				<button type="button" class="btn btn-primary pull-right" ng-click="apagarEnderecoOuContato()">Confirmar</button>
+				<button type="button" class="btn btn-primary pull-right" ng-click="confirmaExcluirPessoa()">Confirmar</button>
 			</div>
 
 		</div>
 	</div>
 </div>
-<!-- FIM DA DIV COM MODAL ALERTANDO PARA CAMPOS A SEREM EXCLUIDOS -->
+<!-- FIM DA DIV COM MODAL PARA EXCLUSÃO DE PESSOA -->
 
+
+
+<!-- DIV COM MODAL PARA EXCLUSÃO DE ENDERECO -->
+<div class="modal" id="modalExcluirEndereco">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Atenção</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			
+			
+			
+			<!-- DIV COM MENSAGEM PARA CAMPOS A SEREM EXCLUIDOS -->
+			<div class="modal-body">
+				<p><h2>{{mensagemModal}}</h2></p>
+			</div>
+			<!-- FIM DA DIV COM MENSAGEM PARA CAMPOS A SEREM EXCLUIDOS -->
+			
+			
+			
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn btn-primary pull-right" ng-click="apagarEndereco()">Confirmar</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+<!-- FIM DA DIV COM MODAL PARA EXCLUSÃO DE ENDERECO -->
+
+
+
+<!-- DIV COM MODAL PARA EXCLUSÃO DE CONTATO -->
+<div class="modal" id="modalExcluirContato">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Atenção</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			
+			
+			
+			<!-- DIV COM MENSAGEM PARA CAMPOS A SEREM EXCLUIDOS -->
+			<div class="modal-body">
+				<p><h2>{{mensagemModal}}</h2></p>
+			</div>
+			<!-- FIM DA DIV COM MENSAGEM PARA CAMPOS A SEREM EXCLUIDOS -->
+			
+			
+			
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn btn-primary pull-right" ng-click="apagarContato()">Confirmar</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+<!-- FIM DA DIV COM MODAL PARA EXCLUSÃO DE CONTATO -->

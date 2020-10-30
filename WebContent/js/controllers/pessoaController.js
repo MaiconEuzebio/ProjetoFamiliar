@@ -25,10 +25,6 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 	
 		atualizarTela();							//CHAMADA DA FUNÇÃO ATUALIZAR TELA ANTES DE TODO O SCRIPT
 	
-	
-     /////////////////////////////////////////////////////////////////
-	// 							FUNÇÕES						       //
-   /////////////////////////////////////////////////////////////////
    
    
    
@@ -61,7 +57,6 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     	$scope.mensagemRodape = 		"";
     	$scope.mensagemModal  =		 	"";
     	$scope.mostrarAguarde = 		true;
-    	
 		$scope.endereco = 				{};
 		$scope.contato =				{};
     	$scope.pessoa = 				{};
@@ -72,7 +67,6 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     	$scope.pessoa.contatos =		[];
     	$scope.pessoa.enderecos =		[];
     	
-    	
     	$scope.mostrarAguarde = 		false;
     	$scope.visualizaCadastro = 		true;
     }
@@ -82,7 +76,7 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 
 
 
-    $scope.btnEditar = function(){
+    $scope.btnEditarPessoa = function(){
 		
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";
@@ -112,6 +106,13 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 	
    }
 
+
+
+
+
+
+
+
 	$scope.btnEditarEndereco = function(){
 			console.log('TESTE ENDERECO')
 				$scope.mensagemRodape = "";
@@ -119,7 +120,7 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     			$scope.abaSelecionada = 'endereco';
 
 			if (!$scope.objetoSelecionadoEndereco) {
-           		$scope.mensagemModal   = "É necessário selecionar o registro que deseja editar!";
+           		$scope.mensagemModal   = "É necessário selecionar o endereço que deseja editar!";
         		$('#modalAtencao').modal();
     			return;
     		}	
@@ -131,6 +132,10 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 	
 	
 	
+	
+	
+	
+	
 	$scope.btnEditarContato = function(){
 			console.log('TESTE CONTATO')
 				$scope.mensagemRodape = "";
@@ -138,7 +143,7 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     			$scope.abaSelecionada = 'contato';
 
 			if (!$scope.objetoSelecionadoContato) {
-           		$scope.mensagemModal   = "É necessário selecionar o registro que deseja editar!";
+           		$scope.mensagemModal   = "É necessário selecionar o contato que deseja editar!";
         		$('#modalAtencao').modal();
     			return;
     		}	
@@ -159,15 +164,7 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 
 
 
-	$scope.apagarEnderecoOuContato = function(){
-		if($scope.objetoSelecionadoEndereco){
-			var posicaoDoElementoNoArray = $scope.pessoa.enderecos.indexOf($scope.objetoSelecionadoEndereco);
-			$scope.pessoa.enderecos.splice(posicaoDoElementoNoArray,1);
-		}else if($scope.objetoSelecionadoContato){
-			var posicaoDoElementoNoArray = $scope.pessoa.contatos.indexOf($scope.objetoSelecionadoContato);
-			$scope.pessoa.contatos.splice(posicaoDoElementoNoArray,1);
-		}
-	};
+	
     
     
 
@@ -230,7 +227,18 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 
 
 
-    $scope.btnExcluir = function(){
+
+
+
+
+
+
+
+   ////////////////////////////////////////////////////////////////////////////
+  //         FUNÇÃO ESPECIFICA QUE ABRE O MODAL DE EXCLUSÃO DE PESSOA       //
+ ////////////////////////////////////////////////////////////////////////////
+
+    $scope.btnExcluirPessoa = function(){
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";
     	if (!$scope.objetoSelecionado) {
@@ -240,11 +248,24 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     	}
 
     	$scope.mensagemModal        = 'Deseja realmente excluir o registro?';
-		$('#modalExcluir').modal();
+		$('#modalExcluirPessoa').modal();
     }
+     //////////////////////////////
+	//      FIM DA FUNÇÃO		//
+   //////////////////////////////
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   ////////////////////////////////////////////////////////////////////////////////////////
+  //         FUNÇÃO ESPECÍFICA USADA PARA MODAL PESSOA CHAMADA NO BOTÃO DO MODAL        //
+ ////////////////////////////////////////////////////////////////////////////////////////
 
-
-	$scope.confirmaExcluir = function(){
+	$scope.confirmaExcluirPessoa = function(){
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";
     	$scope.mostrarAguarde = true;
@@ -265,52 +286,129 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     		
     		$scope.mostrarAguarde       = false;
     		$scope.showModalConfirmacao = false;
-			$('#modalExcluir').modal('hide');
+			$('#modalExcluirPessoa').modal('hide');
     		atualizarTela();
     	});
     }
+     //////////////////////////////
+	//      FIM DA FUNÇÃO		//
+   //////////////////////////////
 
 
 
-	/*
-    $scope.confirmaExcluir = function(){
+
+
+
+
+
+
+   ////////////////////////////////////////////////////////////////////////////
+  //         FUNÇÃO ESPECIFICA QUE ABRE O MODAL DE EXCLUSÃO DE ENDERECO     //
+ ////////////////////////////////////////////////////////////////////////////
+
+    $scope.btnExcluirEndereco = function(){
     	$scope.mensagemRodape = "";
-    	$scope.mensagemModal        = 'Deseja realmente excluir o registro?';
-    	$scope.mostrarAguarde = true;
-    	
-		var param = {
-			int1: $scope.objetoSelecionado.id
-		}
+    	$scope.mensagemModal  = "";
+    	if (!$scope.objetoSelecionadoEndereco) {
+            $scope.mensagemModal  = "É necessário selecionar o endereço que deseja excluir!";
+        	$('#modalAtencao').modal();
+    		return;
+    	}
 
-    	//deletar
-    	requisicaoService.requisitarPOST("pessoa/removerPorId", param, function(retorno){
-    		if (!retorno.isValid) {
-    			$scope.mensagemModal  = retorno.msg;
-    			$scope.showModalAviso = true;
-    			$scope.mostrarAguarde = false;
-        		return;
-    		}
-    		
-    		$scope.mostrarAguarde       = false;
-    		$scope.showModalConfirmacao = false;
-			$('#modalExcluir').modal('hide');
-    		atualizarTela();
-    	});
-    }*/
-
-
-
-
-
-    $scope.retornarPesquisa = function (){
-    	$scope.visualizaCadastro = false;
+    	$scope.mensagemModal        = 'Deseja realmente excluir o endereço?';
+		$('#modalExcluirEndereco').modal();
     }
+     //////////////////////////////
+	//      FIM DA FUNÇÃO		//
+   //////////////////////////////
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+  //         FUNÇÃO USADA PARA MODAL ENDERECO CHAMADA NO BOTÃO DO MODAL        //
+ ///////////////////////////////////////////////////////////////////////////////
+		$scope.apagarEndereco = function(){
+     		var posicaoDoElementoNoArray = $scope.pessoa.enderecos.indexOf($scope.objetoSelecionadoEndereco);
+			$scope.pessoa.enderecos.splice(posicaoDoElementoNoArray,1);
+			$('#modalExcluirEndereco').modal('hide');
+    		atualizarTela();
+		};
+     //////////////////////////////
+	//      FIM DA FUNÇÃO		//
+   //////////////////////////////
 
 
 
 
 
 
+
+   ////////////////////////////////////////////////////////////////////////////
+  //         FUNÇÃO ESPECIFICA QUE ABRE O MODAL DE EXCLUSÃO DE CONTATO      //
+ ////////////////////////////////////////////////////////////////////////////
+
+    $scope.btnExcluirContato = function(){
+    	$scope.mensagemRodape = "";
+    	$scope.mensagemModal  = "";
+    	if (!$scope.objetoSelecionadoContato) {
+            $scope.mensagemModal  = "É necessário selecionar o contato que deseja excluir!";
+        	$('#modalAtencao').modal();
+    		return;
+    	}
+
+    	$scope.mensagemModal        = 'Deseja realmente excluir o contato?';
+		$('#modalExcluirContato').modal();
+    }
+     //////////////////////////////
+	//      FIM DA FUNÇÃO		//
+   //////////////////////////////
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   ////////////////////////////////////////////////////////////////////////////////////////
+  //         FUNÇÃO USADA PARA MODAL CONTATO CHAMADA NO BOTÃO DO MODAL      //
+ ////////////////////////////////////////////////////////////////////////////////////////
+
+	$scope.apagarContato = function(){
+     	var posicaoDoElementoNoArray = $scope.pessoa.contatos.indexOf($scope.objetoSelecionadoContato);
+		$scope.pessoa.contatos.splice(posicaoDoElementoNoArray,1);
+		$('#modalExcluirContato').modal('hide');
+		atualizarTela();
+	};
+     //////////////////////////////
+	//      FIM DA FUNÇÃO		//
+   //////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+     //////////////////////////////////////////////////////////////////
+	//           			FUNÇÃO SALVAR PESSOA           			//
+   //////////////////////////////////////////////////////////////////
     $scope.btnSalvarPessoa = function(ppessoa){
     	$scope.mensagemRodape = "";
     	$scope.mostrarAguarde = true;
@@ -335,12 +433,20 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     		atualizarTela();
     	});
     }
-    
+     //////////////////////////////
+	//      FIM DA FUNÇÃO		//
+   ////////////////////////////// 
     
     
  
     
    
+
+
+
+
+
+
 
    
      //////////////////////////////////////////////////////////////////
@@ -365,6 +471,17 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 			$scope.mostrarAguarde = false;
 		});
 	}
+     //////////////////////////////
+	//      FIM DA FUNÇÃO		//
+   ////////////////////////////// 	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	requisicaoService.requisitarGET("tipoEndereco/obterTodosAtivos", function(retorno) {
     		if (!retorno.isValid) {
@@ -378,6 +495,10 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 				$scope.mostrarAguarde = false;
 		});
 		
+		
+		
+		
+		
 		requisicaoService.requisitarGET("tipoContato/obterTodosAtivos", function(retorno) {
     		if (!retorno.isValid) {
     			$scope.mensagemModal  = retorno.msg;
@@ -389,62 +510,24 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 				$scope.pesquisar();
 				$scope.mostrarAguarde = false;
 		});
-	
-	$scope.pesquisar = function(){
-		$scope.pessoasFiltradas = orderByFilter(filterFilter($scope.pessoas,{id:$scope.idFilter,
-													                     nomeRzSocial: $scope.nomeRzSocialFilter,
-																		 cnpjCpf: $scope.cnpjCpfFilter,
-																		 tipo: $scope.tipoFilter,
-																		 descStatus: $scope.descStatusFilter		
-																												}), $scope.campoOrdenacao);
 		
-	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-    $scope.selecionarLinha = function(objeto) {
-       $scope.objetoSelecionado = objeto;
+	 ///////////////////////////////////////////////////////////////////////////////////
+	//		FUNÇÃO PARA ORDENAR OS CAMPOS CONFORME OS CRITÉRIOS DE ORDENAÇÃO		 //
+   ///////////////////////////////////////////////////////////////////////////////////	
+	$scope.retornarPesquisa = function (){
+    	$scope.visualizaCadastro = false;
     }
-    
-   	 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-	//		FUNÇÃO CHAMADA NO NG-CLICK QUE FAZ COM QUE UMA LINHA CLICADA SEJA UMA LINHA SELECIONADA		 //
-   ///////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    $scope.selecionarLinhaEndereco = function(objeto){
-    	$scope.objetoSelecionadoEndereco = objeto;
-    }
-    
-    $scope.selecionarLinhaContato = function(objeto){
-    	$scope.objetoSelecionadoContato = objeto;
-    }
-    
-     ///////////////////////////////////////////////////////////////////////////////////////////////////////
-	//	variavel que recebe uma funcao que recebe um endereco, esse endereco recebe um objeto selecionado//
-   ///////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
+	 //////////////////////////////
+	//      FIM DA FUNÇÃO		//
+   ////////////////////////////// 
+		
+		
+		
+	 ///////////////////////////////////////////////////////////////////////////////////
+	//		FUNÇÃO PARA ORDENAR OS CAMPOS CONFORME OS CRITÉRIOS DE ORDENAÇÃO		 //
+   ///////////////////////////////////////////////////////////////////////////////////	
 	$scope.ordenacao = function (pcampo) {
 		if ($scope.campoOrdenacao == '+'+pcampo || $scope.campoOrdenacao == '-'+pcampo) {
     		$scope.reverseOrdenacao = !$scope.reverseOrdenacao;
@@ -460,7 +543,42 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     	
     	$scope.pesquisar();
     }
-    
+     //////////////////////////////
+	//      FIM DA FUNÇÃO		//
+   //////////////////////////////  
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //		FUNÇÃO PARA ORDENAR OS CAMPOS CONFORME OS CRITÉRIOS E TAMBÉM PARA EXIBIÇÃO DOS DADOS NA TELA	   //
+ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	$scope.pesquisar = function(){
+		$scope.pessoasFiltradas = orderByFilter(filterFilter($scope.pessoas,{id:$scope.idFilter,
+													                     	nomeRzSocial: $scope.nomeRzSocialFilter,
+																		 	cnpjCpf: $scope.cnpjCpfFilter,
+																			tipo: $scope.tipoFilter,
+																			descStatus: $scope.descStatusFilter}), $scope.campoOrdenacao);	
+	}
+	 //////////////////////////////
+	//      FIM DA FUNÇÃO		//
+   //////////////////////////////
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	 ///////////////////////////////////////////////////////////////////////////
+	//		FUNÇÃO PARA MUDAR O TIPO DA PESSOA PARA FISICA OU JURIDICA		 //
+   ///////////////////////////////////////////////////////////////////////////	
     $scope.changeTipoPessoa = function(){
     	if($scope.pessoa.tipo == 'F'){
 			$scope.descricaoNomeRzSocial = 'Nome';
@@ -471,31 +589,64 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     	}
     	
     }
-    
+     //////////////////////////////
+	//      FIM DA FUNÇÃO		//
+   ////////////////////////////// 
+	
+	
+	
+	
+	
+	
+	
+	
+   	 ///////////////////////////////////////////////////////////////////////////////////////////////////////
+	//		FUNÇÃO CHAMADA NO NG-CLICK QUE FAZ COM QUE UMA LINHA CLICADA SEJA UMA LINHA SELECIONADA		 //
+   ///////////////////////////////////////////////////////////////////////////////////////////////////////	
+	//SELECIONAR LINHA DE PESSOA
+    $scope.selecionarLinha = function(objeto) {
+       $scope.objetoSelecionado = objeto;
+    }
+	//SELECIONAR LINHA DE ENDERECO
+    $scope.selecionarLinhaEndereco = function(objeto){
+    	$scope.objetoSelecionadoEndereco = objeto;
+    }
+    //SELECIONAR LINHA DE CONTATO
+    $scope.selecionarLinhaContato = function(objeto){
+    	$scope.objetoSelecionadoContato = objeto;
+    }
+     //////////////////////////////
+	//      FIM DA FUNÇÃO		//
+   ////////////////////////////// 
+  
+
+
+
+
+
+
+   ////////////////////////////////////////////////////////////////////////////
+  //         FUNÇÃO ESPECIFICA QUE ABRE O MODAL DE INCLUSÃO DE ENDERECO     //
+ ////////////////////////////////////////////////////////////////////////////
     $scope.btnIncluirEndereco = function(){
    		$scope.mensagemRodape = "";
     	$scope.endereco = {};
     	$scope.endereco.status = 1;
     	$('#modalEndereco').modal();
     }
-    
-     $scope.btnIncluirContato = function(){
-     	$scope.mensagemRodape = "";
-     	$scope.contato = {};
-     	$scope.contato.status = 1;
-     	$('#modalContato').modal();
-     	
-    }
-    
-    
-    
-	
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// VARIÁVEL QUE RECEBE UMA FUNÇÃO QUE RECEBE UM ENDEREÇO. SE NÃO endereco.rua, DÁ-SE UM FOCO NO CAMPO 'Rua'E PARA O FLUXO		//
-	// SE TUDO ESTIVER CORRETO, VARIÁVEL pessoa.enderecos (QUE É UMA LISTA EM PESSOA), DÁ UM push E ENDEREÇO E O INSERE NA LISTA   //
-	// MÉTODO .modal('hide') QUE TEM COMO PARÂMETRO $(#nomeDoModal)																  //
-   	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+     //////////////////////////////
+	//      FIM DA FUNÇÃO		//
+   ////////////////////////////// 
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   ///////////////////////////////////////////////////
+  //         FUNÇÃO USADA NO BOTÃO DO MODAL        //
+ ///////////////////////////////////////////////////
 	$scope.btnSalvarEndereco = function(endereco){
 		$scope.mensagemRodape = "";
     	if (!endereco.rua){
@@ -511,9 +662,39 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     		$scope.pessoa.enderecos.push(endereco);
     	}
 		$('#modalEndereco').modal('hide');
-	}   
-		
-		
+	}
+	 //////////////////////////////
+	//      FIM DA FUNÇÃO		//
+   ////////////////////////////// 
+
+
+
+
+
+
+   ////////////////////////////////////////////////////////////////////////////
+  //         FUNÇÃO ESPECIFICA QUE ABRE O MODAL DE INCLUSÃO DE CONTATO      //
+ ////////////////////////////////////////////////////////////////////////////
+     $scope.btnIncluirContato = function(){
+     	$scope.mensagemRodape = "";
+     	$scope.contato = {};
+     	$scope.contato.status = 1;
+     	$('#modalContato').modal();
+     	
+    }
+     //////////////////////////////
+	//      FIM DA FUNÇÃO		//
+   //////////////////////////////
+   //
+   //
+   //
+   //
+   //
+   //
+   //	
+   ///////////////////////////////////////////////////
+  //         FUNÇÃO USADA NO BOTÃO DO MODAL        //
+ ///////////////////////////////////////////////////		
 	$scope.btnSalvarContato = function(contato){
 		$scope.mensagemRodape = "";
 		if (!contato.nome){
@@ -530,11 +711,9 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
     	}
 		$('#modalContato').modal('hide');
 	} 
-	
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// VARIÁVEL QUE RECEBE UMA FUNÇÃO QUE RECEBE UM ENDEREÇO. SE NÃO endereco.rua, DÁ-SE UM FOCO NO CAMPO 'Rua'E PARA O FLUXO		//
-	// SE TUDO ESTIVER CORRETO, VARIÁVEL pessoa.enderecos (QUE É UMA LISTA EM PESSOA), DÁ UM push E ENDEREÇO E O INSERE NA LISTA   //
-	// MÉTODO .modal('hide') QUE TEM COMO PARÂMETRO $(#nomeDoModal)																  //
-   	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	 //////////////////////////////
+	//      FIM DA FUNÇÃO		//
+   //////////////////////////////
+
     
 });

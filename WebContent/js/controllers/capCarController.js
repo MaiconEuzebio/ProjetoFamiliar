@@ -141,8 +141,6 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 				console.log($scope.resultadoDesconto.toFixed(2));
 			}else{
 				console.log("teste");
-				$scope.mensagemRodape = "Não é possível dar desconto e acréscimo ao mesmo tempo!";
-				return;
 			}
 		
 			

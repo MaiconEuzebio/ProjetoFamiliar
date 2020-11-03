@@ -55,13 +55,15 @@ public class CaixaImp {
 		return caixa;
 	}
 	
+	
+	
 	public Caixa obterCaixaAberto () {
 		EntityManager em = UnidadePersistencia.createEntityManager();
 		
 		Caixa caixa = null;
 		try {
 			caixa = (Caixa) em.createQuery("select a " 
-				     + "  from Caixa a "
+				     + "from Caixa a "
 				     + "where a.status = 1"
 					).getSingleResult();
 			
@@ -75,6 +77,8 @@ public class CaixaImp {
 	}
 
 
+	
+	
 	@Path("obterPorId")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")

@@ -10,6 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import br.com.erp.json.ParamJson;
+import br.com.erp.model.Contato;
 import br.com.erp.model.TipoContato;
 import br.com.erp.util.UnidadePersistencia;
 
@@ -106,21 +107,48 @@ public class TipoContatoImp {
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public void remove(ParamJson paramJson) {
 		EntityManager em = UnidadePersistencia.createEntityManager();
-
+		
 		try {
 			TipoContato tipoContato = em.find(TipoContato.class, paramJson.getInt1());
 			em.getTransaction().begin();
+			Contato contato = obterDependencia();
+			
+			if(contato != null) {
+				System.out.println("Já existe uma dependência: " + contato.getId());
+			}
 			em.remove(tipoContato);
 			em.getTransaction().commit();
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			em.getTransaction().rollback();
-
+			if(em.getTransaction().isActive()){
+				em.getTransaction().rollback();
+			}
+			throw e;
 		} finally {
 			em.close();
 		}
 
+	}
+	
+	
+	
+	public Contato obterDependencia() {
+		EntityManager em = UnidadePersistencia.createEntityManager();
+		
+		Contato contato = null;
+		
+		try {
+			contato = (Contato) em.createQuery("select a "
+											   +"from Contato a "
+											   +"where a.tipoContato.id = 64").getResultList();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			em.close();
+		}
+		
+		return contato;
 	}
 	
 }

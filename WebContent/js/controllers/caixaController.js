@@ -40,14 +40,6 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	$scope.caixa.valorFechamento   = null;
     	$scope.caixa.status = 1;
     	$scope.caixa.caixaMovimentacoes = [];
-    	
-    	/*if ($scope.caixa.status == 1) {
-			console.log("Teste: "+$scope.caixa.id)
-            $scope.mensagemModal  = "Ja existe um caixa em aberto!";
-        	$('#modalAtencao').modal();
-    		return;
-    	}*/
-
 	
     	$scope.visualizaCadastro = true;
     }
@@ -238,9 +230,10 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
 
     	requisicaoService.requisitarPOST("caixa/salvar", pcaixa, function(retorno){
     		if (!retorno.isValid) {
-    			$scope.mensagemRodape = retorno.msg;
-    			$scope.mostrarAguarde = false;
-        		return;
+    			$scope.mensagemModal  = retorno.data.str1;
+	        	$('#modalAtencao').modal();
+	    		$scope.mostrarAguarde = false;
+	    		return;
     		}
     		
     		$scope.mostrarAguarde    = false;

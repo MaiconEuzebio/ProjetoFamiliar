@@ -29,8 +29,6 @@ public class Caixa {
 	private Double valorAtual;
 	@Column(length = 10, name = "VALOR_FECHAMENTO")
 	private Double valorFechamento;
-	@Column(length = 10, name = "VALOR_TOTAL_CAIXA")
-	private Double valorTotalCaixa;
 	@Column(length = 1, name = "STATUS")
 	private Integer status;
 	@Transient
@@ -73,12 +71,6 @@ public class Caixa {
 	}
 	public void setValorFechamento(Double valorFechamento) {
 		this.valorFechamento = valorFechamento;
-	}
-	public Double getValorTotalCaixa() {
-		return valorTotalCaixa;
-	}
-	public void setValorTotalCaixa(Double valorTotalCaixa) {
-		this.valorTotalCaixa = valorTotalCaixa;
 	}
 	public Integer getStatus() {
 		return status;

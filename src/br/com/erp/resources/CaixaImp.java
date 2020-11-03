@@ -55,6 +55,37 @@ public class CaixaImp {
 		return caixa;
 	}
 	
+	@Path("abrirCaixa")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public Caixa testeCaixa (Caixa caixa) {
+		EntityManager em = UnidadePersistencia.createEntityManager();
+		
+	try {
+			Caixa caixaAux = obterCaixaAberto();
+			
+			if(caixaAux != null) {
+				throw new RuntimeException("Já existe um caixa em aberto : " + caixaAux.getId());
+			}
+			
+	} catch (Exception e) {
+		e.printStackTrace();
+		if(em.getTransaction().isActive()){
+			em.getTransaction().rollback();
+		}
+		throw e;
+	}
+	finally {
+		em.close();
+	}
+		return caixa;
+	}
+	
+	@Path("obterCaixaAberto")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public Caixa obterCaixaAberto () {
 		EntityManager em = UnidadePersistencia.createEntityManager();
 		

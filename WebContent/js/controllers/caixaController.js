@@ -26,22 +26,30 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	$scope.visualizaCadastro 	= false;
     }
 
-    $scope.btnIncluir = function(){
+    $scope.btnIncluir = function(pcaixa){
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";
     	$scope.abaSelecionada = 'caixa'
     		
-    	$scope.caixa		       = {};
-    	$scope.caixa.id       = null;
-    	$scope.caixa.dataAbertura    = new Date();
-    	$scope.caixa.dataFechamento   = null;
-    	$scope.caixa.valorAbertura = null;
-    	$scope.caixa.valorAtual = null;
-    	$scope.caixa.valorFechamento   = null;
-    	$scope.caixa.status = 1;
-    	$scope.caixa.caixaMovimentacoes = [];
-	
-    	$scope.visualizaCadastro = true;
+    		requisicaoService.requisitarPOST("caixa/abrirCaixa", pcaixa, function(retorno){
+        		if (!retorno.isValid) {
+        			$scope.mensagemModal  = retorno.data.str1;
+    	        	$('#modalAtencao').modal();
+    	    		$scope.mostrarAguarde = false;
+    	    		return;
+        		}
+        		$scope.caixa		       = {};
+        		$scope.caixa.id       = null;
+        		$scope.caixa.dataAbertura    = new Date();
+        		$scope.caixa.dataFechamento   = null;
+        		$scope.caixa.valorAbertura = null;
+        		$scope.caixa.valorAtual = null;
+        		$scope.caixa.valorFechamento   = null;
+        		$scope.caixa.status = 1;
+        		$scope.caixa.caixaMovimentacoes = [];
+        		$scope.visualizaCadastro = true;  
+    		});
+ 	
     }
     
     $scope.btnIncluirCaixaMovimentacao = function(){

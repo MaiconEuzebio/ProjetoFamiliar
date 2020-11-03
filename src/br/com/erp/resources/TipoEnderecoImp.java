@@ -11,6 +11,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import br.com.erp.json.ParamJson;
+import br.com.erp.model.Contato;
+import br.com.erp.model.Endereco;
 import br.com.erp.model.TipoContato;
 import br.com.erp.model.TipoEndereco;
 import br.com.erp.util.UnidadePersistencia;
@@ -103,27 +105,59 @@ import br.com.erp.util.UnidadePersistencia;
 			return tipoEnderecos;
 		}
 		
+		
 		@Path("removerPorId")
 		@POST
 		@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 		@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 		public void remove(ParamJson paramJson) {
 			EntityManager em = UnidadePersistencia.createEntityManager();
-
+			
 			try {
 				TipoEndereco tipoEndereco = em.find(TipoEndereco.class, paramJson.getInt1());
 				em.getTransaction().begin();
+				Endereco endereco = obterDependencia(paramJson.getInt1());
+				
+				if(endereco != null) {
+					throw new RuntimeException("Existe uma dependência relacionada a este registro: " + endereco.getId());
+				}
 				em.remove(tipoEndereco);
 				em.getTransaction().commit();
 
 			} catch (Exception e) {
 				e.printStackTrace();
-				em.getTransaction().rollback();
-
+				if(em.getTransaction().isActive()){
+					em.getTransaction().rollback();
+				}
+				throw e;
 			} finally {
 				em.close();
 			}
 
 		}
+		
+		
+		
+		public Endereco obterDependencia(Integer id) {
+			EntityManager em = UnidadePersistencia.createEntityManager();
+			
+			Endereco endereco = null;
+			
+			try {
+				endereco = (Endereco) em.createQuery("select a "
+												   +"from Endereco a "
+												   +"where a.tipoEndereco.id = :id")
+									  .setParameter("id", id)
+									  .setMaxResults(1)
+						              .getSingleResult();
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally {
+				em.close();
+			}
+			
+			return endereco;
+		}
+		
 }
 

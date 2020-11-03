@@ -9,7 +9,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import br.com.erp.json.ParamJson;
+import br.com.erp.model.CapCar;
 import br.com.erp.model.Categoria;
+import br.com.erp.model.Contato;
+import br.com.erp.model.TipoContato;
 import br.com.erp.util.UnidadePersistencia;
 
 @Path("categoria")
@@ -105,20 +108,50 @@ public class CategoriaImp {
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public void remove(ParamJson paramJson) {
 		EntityManager em = UnidadePersistencia.createEntityManager();
-
+		
 		try {
 			Categoria categoria = em.find(Categoria.class, paramJson.getInt1());
 			em.getTransaction().begin();
+			CapCar capCar = obterDependencia(paramJson.getInt1());
+			
+			if(capCar != null) {
+				throw new RuntimeException("Existe uma dependência relacionada a este registro: " + capCar.getId());
+			}
 			em.remove(categoria);
 			em.getTransaction().commit();
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			em.getTransaction().rollback();
-
+			if(em.getTransaction().isActive()){
+				em.getTransaction().rollback();
+			}
+			throw e;
 		} finally {
 			em.close();
 		}
 
 	}
+	
+	
+	public CapCar obterDependencia(Integer id) {
+		EntityManager em = UnidadePersistencia.createEntityManager();
+		
+		CapCar capCar = null;
+		
+		try {
+			capCar = (CapCar) em.createQuery("select a "
+											   +"from CapCar a "
+											   +"where a.categoria.id = :id")
+								  .setParameter("id", id)
+								  .setMaxResults(1)
+					              .getSingleResult();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			em.close();
+		}
+		
+		return capCar;
+	}
+	
 }

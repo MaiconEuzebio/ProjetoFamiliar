@@ -90,19 +90,19 @@ app.controller("tipoEnderecoController", function ($scope, requisicaoService, fi
 		var param = {
 			int1: $scope.objetoSelecionado.id
 		}
-
+		$('#modalExcluir').modal('hide');
     	//deletar
     	requisicaoService.requisitarPOST("tipoEndereco/removerPorId", param, function(retorno){
     		if (!retorno.isValid) {
-    			$scope.mensagemModal  = retorno.msg;
-    			$scope.showModalAviso = true;
+    			$scope.mensagemModal  = retorno.data.str1;
+    			$('#modalAtencao').modal();
     			$scope.mostrarAguarde = false;
         		return;
     		}
     		
     		$scope.mostrarAguarde       = false;
     		$scope.showModalConfirmacao = false;
-			$('#modalExcluir').modal('hide');
+			
     		atualizarTela();
     	});
     }

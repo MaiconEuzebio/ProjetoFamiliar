@@ -111,10 +111,10 @@ public class TipoContatoImp {
 		try {
 			TipoContato tipoContato = em.find(TipoContato.class, paramJson.getInt1());
 			em.getTransaction().begin();
-			Contato contato = obterDependencia();
+			Contato contato = obterDependencia(paramJson.getInt1());
 			
 			if(contato != null) {
-				System.out.println("Já existe uma dependência: " + contato.getId());
+				throw new RuntimeException("Existe uma dependência relacionada a este registro: " + contato.getId());
 			}
 			em.remove(tipoContato);
 			em.getTransaction().commit();
@@ -133,7 +133,7 @@ public class TipoContatoImp {
 	
 	
 	
-	public Contato obterDependencia() {
+	public Contato obterDependencia(Integer id) {
 		EntityManager em = UnidadePersistencia.createEntityManager();
 		
 		Contato contato = null;
@@ -141,7 +141,10 @@ public class TipoContatoImp {
 		try {
 			contato = (Contato) em.createQuery("select a "
 											   +"from Contato a "
-											   +"where a.tipoContato.id = 64").getResultList();
+											   +"where a.tipoContato.id = :id")
+								  .setParameter("id", id)
+								  .setMaxResults(1)
+					              .getSingleResult();
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally {

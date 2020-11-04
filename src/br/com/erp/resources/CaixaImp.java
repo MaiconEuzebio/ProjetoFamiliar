@@ -167,13 +167,19 @@ public class CaixaImp {
 		try {
 			Caixa caixa = em.find(Caixa.class, paramJson.getInt1());
 			em.getTransaction().begin();
+			Caixa caixaA = obterCaixaAberto();
+			if(caixaA != null) {
+				throw new RuntimeException("Este caixa está aberto e não pode ser excluído!: " + caixaA.getId());
+			}
 			em.remove(caixa);
 			em.getTransaction().commit();
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			em.getTransaction().rollback();
-
+			if(em.getTransaction().isActive()){
+				em.getTransaction().rollback();
+			}
+			throw e;
 		} finally {
 			em.close();
 		}

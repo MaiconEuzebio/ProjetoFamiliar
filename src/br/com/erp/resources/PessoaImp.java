@@ -152,12 +152,8 @@ public class PessoaImp {
 		
 		try {
 			capCar = (CapCar) em.createQuery("select a "
-											   +"from capcar a "
-											   +"where a.cliente.id = :id"
-											   +"and tipo a = 'P'"
-											   +"or tipo a = 'R'"
-											   +"and status a = 0"
-											   +"or status a = 1")
+											   +"from CapCar a "
+											   +"where a.cliente.id = :id")
 								  .setParameter("id", id)
 								  .setMaxResults(1)
 					              .getSingleResult();

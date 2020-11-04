@@ -325,7 +325,7 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 		
 			requisicaoService.requisitarPOST("capCar/salvar",$scope.objetoSelecionado, function(retorno){
 				if (!retorno.isValid) {
-    				$scope.mensagemRodape = retorno.msg;
+    				$scope.mensagemModal = retorno.data.str1;
     				$scope.mostrarAguarde = false;
         			return;
     			}

@@ -274,19 +274,19 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 			int1: $scope.objetoSelecionado.id
 		}
 			
-
+		$('#modalExcluirPessoa').modal('hide');
     	//deletar
     	requisicaoService.requisitarPOST("pessoa/removerPorId", param, function(retorno){
     		if (!retorno.isValid) {
-    			$scope.mensagemModal  = retorno.msg;
-    			$scope.showModalAviso = true;
+    			$scope.mensagemModal  = retorno.data.str1;
+    			$('#modalAtencao').modal();
     			$scope.mostrarAguarde = false;
         		return;
     		}
     		
     		$scope.mostrarAguarde       = false;
     		$scope.showModalConfirmacao = false;
-			$('#modalExcluirPessoa').modal('hide');
+			
     		atualizarTela();
     	});
     }

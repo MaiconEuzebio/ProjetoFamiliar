@@ -13,7 +13,7 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
 	$scope.mensagemModal 	 	= '';
 	$scope.mensagemRodape 	 	= '';
 	$scope.mostrarAguarde 		= true;
-	$scope.campoOrdenacao 		= 'descricao';
+	$scope.campoOrdenacao 		= '-dataAbertura';
 	
 	atualizarTela();	
 	
@@ -26,18 +26,19 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	$scope.visualizaCadastro 	= false;
     }
 
-    $scope.btnIncluir = function(pcaixa){
+    $scope.btnIncluir = function(){
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";
     	$scope.abaSelecionada = 'caixa'
     		
-    		requisicaoService.requisitarPOST("caixa/abrirCaixa", pcaixa, function(retorno){
-        		if (!retorno.isValid) {
+    		requisicaoService.requisitarGET("caixa/abrirCaixa", function(retorno){
+    			if (!retorno.isValid) {
         			$scope.mensagemModal  = retorno.data.str1;
     	        	$('#modalAtencao').modal();
     	    		$scope.mostrarAguarde = false;
     	    		return;
         		}
+        		
         		$scope.caixa		       = {};
         		$scope.caixa.id       = null;
         		$scope.caixa.dataAbertura    = new Date();
@@ -238,7 +239,6 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
 
     	requisicaoService.requisitarPOST("caixa/salvar", pcaixa, function(retorno){
     		if (!retorno.isValid) {
-    			$scope.mensagemModal  = retorno.data.str1;
 	        	$('#modalAtencao').modal();
 	    		$scope.mostrarAguarde = false;
 	    		return;

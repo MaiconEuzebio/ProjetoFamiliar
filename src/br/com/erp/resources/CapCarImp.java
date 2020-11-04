@@ -69,7 +69,13 @@ public class CapCarImp {
 			caixaMovimentacao.setDataMovimentacao(new Date());
 			caixaMovimentacao.setCaixa(caixa);
 			caixaMovimentacao.setObservacao("Movimentação gerada a partir da conta "+capCar.getId());
-			if(capCar.getTipo().equals("P")) {
+			
+			if(caixaImp.obterCaixaAberto() == null) {
+				throw new RuntimeException("Nenhum caixa em aberto!");
+				
+			}
+			
+			else if(capCar.getTipo().equals("P")) {
 				
 				if(capCar.getValorTotal() > caixa.getValorAtual()) {
 					throw new RuntimeException("Valor da conta superior ao valor total do caixa");

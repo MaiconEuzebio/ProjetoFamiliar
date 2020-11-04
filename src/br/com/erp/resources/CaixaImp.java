@@ -31,12 +31,6 @@ public class CaixaImp {
 			
 			if (caixa.getId() == null) {
 				
-				Caixa caixaAux = obterCaixaAberto();
-				
-				if(caixaAux != null) {
-					throw new RuntimeException("Já existe um caixa em aberto : " + caixaAux.getId());
-				}
-				
 				em.persist(caixa);
 			} else {
 				em.merge(caixa);
@@ -48,7 +42,6 @@ public class CaixaImp {
 			if(em.getTransaction().isActive()){
 				em.getTransaction().rollback();
 			}
-			throw e;
 		} finally {
 			em.close();
 		}
@@ -56,10 +49,10 @@ public class CaixaImp {
 	}
 	
 	@Path("abrirCaixa")
-	@POST
+	@GET
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public Caixa testeCaixa (Caixa caixa) {
+	public Caixa abrirCaixa (Caixa caixa) {
 		EntityManager em = UnidadePersistencia.createEntityManager();
 		
 	try {
@@ -83,7 +76,7 @@ public class CaixaImp {
 	}
 	
 	@Path("obterCaixaAberto")
-	@POST
+	@GET
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	
@@ -105,9 +98,6 @@ public class CaixaImp {
 	
 		return caixa;
 	}
-
-
-	
 	
 	@Path("obterPorId")
 	@POST

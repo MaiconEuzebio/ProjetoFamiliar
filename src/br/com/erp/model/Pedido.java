@@ -182,5 +182,11 @@ public class Pedido {
 		this.descStatus = descStatus;
 	}
 	
+	public void atualizarItens() {
+		for(Item item : itens) {
+			item.setPedido(this);
+		}	
+	}
+	
 	
 }

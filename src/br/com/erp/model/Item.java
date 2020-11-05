@@ -8,7 +8,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Item {
@@ -31,12 +35,23 @@ public class Item {
 	private String observacao;
 	@Column(length = 1, name = "STATUS")
 	private Integer status;
+	@OneToOne
+	@JoinColumn(name = "ID_PEDIDO")
+	private Pedido pedido;
 	@Transient
 	private String descStatus;
 	@ManyToOne
 	@JoinColumn(name = "ID_PRODUTO")
 	private Produto produto;
 	
+	
+	@JsonBackReference
+	public Pedido getPedido() {
+		return pedido;
+	}
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
+	}
 	public Integer getId() {
 		return id;
 	}

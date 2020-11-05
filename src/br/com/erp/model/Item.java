@@ -42,8 +42,9 @@ public class Item {
 	private Pedido pedido;
 	@Transient
 	private String descStatus;
-	@OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Produto> produtos;
+	@ManyToOne
+	@JoinColumn(name = "ID_PRODUTO")
+	private Produto produto;
 	
 	
 	@JsonBackReference
@@ -114,18 +115,11 @@ public class Item {
 	public void setDescStatus(String descStatus) {
 		this.descStatus = descStatus;
 	}
-	public List<Produto> getProdutos() {
-		return produtos;
+	public Produto getProduto() {
+		return produto;
 	}
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
-	
-	public void atualizarProduto() {
-		if (this.produtos != null) {
-			for (Produto produto : this.produtos) {
-				produto.setItem(this);
-			}
-		}
-	}
+
 }

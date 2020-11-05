@@ -51,7 +51,7 @@ public class Pedido {
 	
 	@ManyToOne
 	@JoinColumn(name = "ID_CLIENTE")
-	private Pessoa cliente;
+	private Pessoa pessoa;
 	
 	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Item> itens;
@@ -144,12 +144,12 @@ public class Pedido {
 		this.status = status;
 	}
 
-	public Pessoa getCliente() {
-		return cliente;
+	public Pessoa getPessoa() {
+		return pessoa;
 	}
 
-	public void setCliente(Pessoa cliente) {
-		this.cliente = cliente;
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	

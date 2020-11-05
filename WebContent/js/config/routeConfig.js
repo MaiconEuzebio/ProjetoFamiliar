@@ -74,6 +74,11 @@ angular.module("listaTelefonica").config(function ($routeProvider){
 		templateUrl: "view/contaRecebida.html",
 		controller: "contaRecebidaController",
 	});
+	
+	$routeProvider.when("/pedido", {
+		templateUrl: "view/pedido.html",
+		controller: "pedidoController",
+	});
 	$routeProvider.otherwise({redirectTo: "/index.html"});
 
 });

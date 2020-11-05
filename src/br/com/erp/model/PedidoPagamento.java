@@ -20,7 +20,7 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "PAGAMENTO_PEDIDO")
-public class PagamentoPedido {
+public class PedidoPagamento {
 	
 	@Id
 	@Column(name = "ID")

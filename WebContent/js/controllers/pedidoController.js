@@ -127,6 +127,13 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 		    $scope.visualizaCadastro = true;
 		    $('#modalItem').modal();
     }
+
+
+
+
+
+
+
     
     $scope.btnEditarFinanceiro = function(){
     	$scope.mensagemRodape = "";
@@ -182,6 +189,11 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     		atualizarTela();
     	});
     }
+
+
+
+
+
     
     $scope.btnExcluirItem = function(){
     	if (!$scope.objetoSelecionadoItem) {
@@ -194,6 +206,12 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.pedido.itens.splice(posicao,1);
     	$scope.atualizarValor();
     }
+
+
+
+
+
+
     
     $scope.btnExcluirFinanceiro = function(){
     	if (!$scope.objetoSelecionadoItem) {
@@ -212,6 +230,13 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.visualizaCadastro = false;
     }
     
+
+
+
+
+
+
+
     $scope.btnSalvar = function(ppedido){
     	$scope.caixa.dataFechamento = null;
     	$scope.mensagemRodape = "";
@@ -230,6 +255,12 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     		
     	});
     }
+
+
+
+
+
+
     
     $scope.btnSalvarItem = function(pitem){
     	$scope.mensagemRodape = ""; 
@@ -242,6 +273,13 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	}
 		$('#modalItem').modal('hide');	
     }
+
+
+
+
+
+
+
     
     $scope.btnSalvarFinanceiro = function(ppagamentoPedido){
     	$scope.mensagemRodape = ""; 
@@ -258,6 +296,12 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     $scope.fecharModalItem = function(){
     	$('#modalItem').modal('hide');
     }
+
+
+
+
+
+
     
     $scope.fecharModalFinanceiro = function(){
     	$('#modalFinanceiro').modal('hide');
@@ -341,18 +385,44 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 			$scope.mostrarAguarde = false;
 		});
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
     
 	$scope.pesquisar = function(){
 		$scope.pedidosFiltradas = orderByFilter(filterFilter($scope.caixas,{id:$scope.idFilter}), $scope.campoOrdenacao);
 	}
 	
+	
+	
+	
+	
+	
+	
+	
 	 $scope.selecionarLinha = function(objeto) {
 	       $scope.objetoSelecionado = objeto;
 	    }
+
+
+
+
+
 	    
 	    $scope.selecionarLinhaItem = function(objeto) {
 	       $scope.objetoSelecionadoItem = objeto;
 	    }
+
+
+
+
+
 
 		$scope.ordenacao = function (pcampo) {
 			if ($scope.campoOrdenacao == '+'+pcampo || $scope.campoOrdenacao == '-'+pcampo) {

@@ -11,7 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import br.com.erp.json.ParamJson;
-import br.com.erp.model.PagamentoPedido;
+import br.com.erp.model.PedidoPagamento;
 import br.com.erp.model.Pedido;
 import br.com.erp.util.UnidadePersistencia;
 
@@ -21,7 +21,7 @@ public class PagamentoPedidoImp {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public PagamentoPedido save(PagamentoPedido pagamentoPedido) {
+	public PedidoPagamento save(PedidoPagamento pagamentoPedido) {
 
 		EntityManager em = UnidadePersistencia.createEntityManager();
 
@@ -54,11 +54,11 @@ public class PagamentoPedidoImp {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public  PagamentoPedido findByID(ParamJson paramJson) {
+	public  PedidoPagamento findByID(ParamJson paramJson) {
 		EntityManager em = UnidadePersistencia.createEntityManager();
-		PagamentoPedido pagamentoPedido = null;
+		PedidoPagamento pagamentoPedido = null;
 		try {
-			pagamentoPedido = em.find(PagamentoPedido.class, paramJson.getInt1());
+			pagamentoPedido = em.find(PedidoPagamento.class, paramJson.getInt1());
 		} catch (Exception e) {
 			System.err.println(e);
 		} finally {
@@ -71,9 +71,9 @@ public class PagamentoPedidoImp {
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public List<PagamentoPedido> pagamentoPedidos() {
+	public List<PedidoPagamento> pagamentoPedidos() {
 		EntityManager em = UnidadePersistencia.createEntityManager();
-		List<PagamentoPedido> pagamentoPedidos = null;
+		List<PedidoPagamento> pagamentoPedidos = null;
 
 		try {
 			pagamentoPedidos = em.createQuery("select a " 
@@ -91,9 +91,9 @@ public class PagamentoPedidoImp {
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public List<PagamentoPedido> obterTodosAtivos() {
+	public List<PedidoPagamento> obterTodosAtivos() {
 		EntityManager em = UnidadePersistencia.createEntityManager();
-		List<PagamentoPedido> pagamentoPedidos = null;
+		List<PedidoPagamento> pagamentoPedidos = null;
 
 		try {
 			pagamentoPedidos = em.createQuery("select a " 

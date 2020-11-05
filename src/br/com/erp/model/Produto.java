@@ -46,10 +46,12 @@ public class Produto {
 	private Integer status; 
 	@Transient
 	private String descStatus;
-	
-	
-	
 
+	@ManyToOne
+	@JoinColumn(name = "ID_ITEM")
+	private Item item;
+	
+	
 	public Integer getId() {
 		return id;
 	}
@@ -133,9 +135,16 @@ public class Produto {
 		}
 		return descStatus;
 	}
-	
 	public void setDescStatus(String descStatus) {
 		this.descStatus = descStatus;
 	}
-	
+
+	@JsonBackReference
+	public Item getItem() {
+		return item;
+	}
+	public void setItem(Item item) {
+		this.item = item;
+	}
+
 }

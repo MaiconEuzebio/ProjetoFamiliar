@@ -376,7 +376,9 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
 			
 			for(i in $scope.caixas){
 				$scope.caixas[i].dataAberturaStr = dateToStr(new Date($scope.caixas[i].dataAbertura));
+				if($scope.caixas[i].dataFechamento){
 				$scope.caixas[i].dataFechamentoStr = dateToStr(new Date($scope.caixas[i].dataFechamento));
+				}
 			}
 			
 			$scope.pesquisar();

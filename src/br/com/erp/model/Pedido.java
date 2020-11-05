@@ -57,7 +57,8 @@ public class Pedido {
 	@JoinColumn(name = "ID_CLIENTE")
 	private Pessoa cliente;
 	
-	
+	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Item> itens;
 	
 	@Transient
 	private String descStatus;
@@ -65,10 +66,16 @@ public class Pedido {
 	
 	
 	
-	
-	
 
 	
+
+	public List<Item> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<Item> itens) {
+		this.itens = itens;
+	}
 
 	public Integer getId() {
 		return id;

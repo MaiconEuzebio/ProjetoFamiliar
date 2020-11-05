@@ -49,7 +49,7 @@ public class Produto {
 
 	@ManyToOne
 	@JoinColumn(name = "ID_ITEM")
-	private Item item;
+	private PedidoItem item;
 	
 	
 	public Integer getId() {
@@ -140,10 +140,10 @@ public class Produto {
 	}
 
 	@JsonBackReference
-	public Item getItem() {
+	public PedidoItem getItem() {
 		return item;
 	}
-	public void setItem(Item item) {
+	public void setItem(PedidoItem item) {
 		this.item = item;
 	}
 

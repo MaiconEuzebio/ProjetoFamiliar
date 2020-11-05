@@ -9,7 +9,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import br.com.erp.json.ParamJson;
-import br.com.erp.model.Item;
+import br.com.erp.model.PedidoItem;
 import br.com.erp.util.UnidadePersistencia;
 
 @Path("item")
@@ -19,7 +19,7 @@ public class ItemImp {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public Item save(Item item) {
+	public PedidoItem save(PedidoItem item) {
 
 		EntityManager em = UnidadePersistencia.createEntityManager();
 
@@ -46,11 +46,11 @@ public class ItemImp {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public Item findByID(ParamJson paramJson) {
+	public PedidoItem findByID(ParamJson paramJson) {
 		EntityManager em = UnidadePersistencia.createEntityManager();
-		Item item = null;
+		PedidoItem item = null;
 		try {
-			item = em.find(Item.class, paramJson.getInt1());
+			item = em.find(PedidoItem.class, paramJson.getInt1());
 		} catch (Exception e) {
 			System.err.println(e);
 		} finally {
@@ -63,9 +63,9 @@ public class ItemImp {
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public List<Item> obterTodos() {
+	public List<PedidoItem> obterTodos() {
 		EntityManager em = UnidadePersistencia.createEntityManager();
-		List<Item> itens = null;
+		List<PedidoItem> itens = null;
 
 		try {
 			itens = em.createQuery("select a " 
@@ -83,9 +83,9 @@ public class ItemImp {
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public List<Item> obterTodosAtivos() {
+	public List<PedidoItem> obterTodosAtivos() {
 		EntityManager em = UnidadePersistencia.createEntityManager();
-		List<Item> itens = null;
+		List<PedidoItem> itens = null;
 
 		try {
 			itens = em.createQuery("select a " 
@@ -108,7 +108,7 @@ public class ItemImp {
 		EntityManager em = UnidadePersistencia.createEntityManager();
 
 		try {
-			Item item = em.find(Item.class, paramJson.getInt1());
+			PedidoItem item = em.find(PedidoItem.class, paramJson.getInt1());
 			em.getTransaction().begin();
 			em.remove(item);
 			em.getTransaction().commit();

@@ -54,14 +54,14 @@ public class Pedido {
 	private Pessoa pessoa;
 	
 	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Item> itens;
+	private List<PedidoItem> itens;
 	
 
-	public List<Item> getItens() {
+	public List<PedidoItem> getItens() {
 		return itens;
 	}
 
-	public void setItens(List<Item> itens) {
+	public void setItens(List<PedidoItem> itens) {
 		this.itens = itens;
 	}
 
@@ -170,7 +170,7 @@ public class Pedido {
 	}
 	
 	public void atualizarItens() {
-		for(Item item : itens) {
+		for(PedidoItem item : itens) {
 			item.setPedido(this);
 		}	
 	}

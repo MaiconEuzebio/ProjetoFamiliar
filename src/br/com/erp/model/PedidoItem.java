@@ -15,7 +15,7 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-public class Item {
+public class PedidoItem {
 		
 	@Id		
 	@GeneratedValue(strategy = GenerationType.AUTO)

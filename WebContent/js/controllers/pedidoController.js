@@ -64,6 +64,22 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.visualizaCadastro = true;
     }
     
+    $scope.btnIncluirFinanceiro = function(){
+    	$scope.mensagemRodape = "";
+    	$scope.mensagemModal  = "";
+    	$scope.mostrarAguarde = true;
+    	
+    	$scope.pagamentoPedido		        = {};
+    	$scope.pagamentoPedido.id           = null;
+        $scope.pagamentoPedido.valor        = null;
+        $scope.pagamentoPedido.tipoCobranca = null;
+    	$scope.pagamentoPedido.observacao              = null;
+    	$('#modalFinanceiro').modal();
+    	
+    	$scope.mostrarAguarde    = false;
+    	$scope.visualizaCadastro = true;
+    }
+    
     $scope.btnEditar = function(){
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";
@@ -100,7 +116,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.mensagemModal  = "";
     	$scope.abaSelecionada = "item"
     	
-    	if (!$scope.objetoSelecionadoMovimentacao) {
+    	if (!$scope.objetoSelecionadoItem) {
             $scope.mensagemModal   = "É necessário selecionar o registro que deseja editar!";
         	$('#modalAtencao').modal();
     		return;
@@ -110,6 +126,23 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 		    $scope.mostrarAguarde    = false;
 		    $scope.visualizaCadastro = true;
 		    $('#modalItem').modal();
+    }
+    
+    $scope.btnEditarFinanceiro = function(){
+    	$scope.mensagemRodape = "";
+    	$scope.mensagemModal  = "";
+    	$scope.abaSelecionada = "financeiro"
+    	
+    	if (!$scope.objetoSelecionadoPagamentoPedido) {
+            $scope.mensagemModal   = "É necessário selecionar o registro que deseja editar!";
+        	$('#modalAtencao').modal();
+    		return;
+    	}
+    
+    	    $scope.pagamentoPedido = $scope.objetoSelecionadoPagamentoPedido;
+		    $scope.mostrarAguarde    = false;
+		    $scope.visualizaCadastro = true;
+		    $('#modalFinanceiro').modal();
     }
     
     $scope.btnExcluir = function(){
@@ -162,6 +195,19 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.atualizarValor();
     }
     
+    $scope.btnExcluirFinanceiro = function(){
+    	if (!$scope.objetoSelecionadoItem) {
+            $scope.mensagemModal  = "É necessário selecionar o registro que deseja excluir!";
+        	$('#modalAtencao').modal();
+    		return;
+    	}
+    	    	
+    	var posicao = $scope.pedido.pagamentoPedidos.indexOf($scope.objetoSelecionadoPagamentoPedido);
+    	$scope.pedido.pagamentoPedidos.splice(posicao,1);
+    	$scope.atualizarValor();
+    }
+    
+    
     $scope.retornarPesquisa = function (){
     	$scope.visualizaCadastro = false;
     }
@@ -197,8 +243,24 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 		$('#modalItem').modal('hide');	
     }
     
+    $scope.btnSalvarFinanceiro = function(ppagamentoPedido){
+    	$scope.mensagemRodape = ""; 
+    	
+    	if($scope.objetoSelecionadoPagamentoPedido){
+    		var posicao = $scope.pedido.pagamentoPedidos.indexOf($scope.objetoSelecionadoPagamentoPedido);
+    		$scope.pedido.pagamentoPedidos[posicao] = pitem;
+    	} else {
+    		$scope.pedido.pagamentoPedidos.push(ppagamentoPedido);
+    	}
+		$('#modalFinanceiro').modal('hide');	
+    }
+    
     $scope.fecharModalItem = function(){
     	$('#modalItem').modal('hide');
+    }
+    
+    $scope.fecharModalFinanceiro = function(){
+    	$('#modalFinanceiro').modal('hide');
     }
     
     function atualizarTela(){
@@ -251,6 +313,30 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
         		return;
     		}
 			$scope.produtos = retorno.data;
+			$scope.pesquisar();
+			$scope.mostrarAguarde = false;
+		});
+    	
+    	requisicaoService.requisitarGET("pagamentoPedido/obterTodos", function(retorno) {
+    		if (!retorno.isValid) {
+    			$scope.mensagemModal  = retorno.msg;
+    			$scope.showModalAviso = true;
+    			$scope.mostrarAguarde = false;
+        		return;
+    		}
+			$scope.pagamentoPedidos = retorno.data;
+			$scope.pesquisar();
+			$scope.mostrarAguarde = false;
+		});
+    	
+    	requisicaoService.requisitarGET("tipoCobranca/obterTodosAtivos", function(retorno) {
+    		if (!retorno.isValid) {
+    			$scope.mensagemModal  = retorno.msg;
+    			$scope.showModalAviso = true;
+    			$scope.mostrarAguarde = false;
+        		return;
+    		}
+			$scope.tipoCobrancas = retorno.data;
 			$scope.pesquisar();
 			$scope.mostrarAguarde = false;
 		});

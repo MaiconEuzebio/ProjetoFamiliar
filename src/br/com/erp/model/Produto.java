@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Produto {
 	@Id
@@ -44,6 +46,10 @@ public class Produto {
 	private Integer status; 
 	@Transient
 	private String descStatus;
+	
+	
+	
+
 	public Integer getId() {
 		return id;
 	}
@@ -131,4 +137,5 @@ public class Produto {
 	public void setDescStatus(String descStatus) {
 		this.descStatus = descStatus;
 	}
+	
 }

@@ -57,8 +57,7 @@ public class Pedido {
 	@JoinColumn(name = "ID_CLIENTE")
 	private Pessoa cliente;
 	
-	@OneToOne
-	private Item item;
+	
 	
 	@Transient
 	private String descStatus;
@@ -69,13 +68,7 @@ public class Pedido {
 	
 	
 
-	public Item getItem() {
-		return item;
-	}
-
-	public void setItem(Item item) {
-		this.item = item;
-	}
+	
 
 	public Integer getId() {
 		return id;

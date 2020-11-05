@@ -30,9 +30,9 @@ public class PagamentoPedido {
 	@Column(name = "VALOR")
 	private Double valor;
 	
-	@OneToMany
+	@ManyToOne
 	@JoinColumn(name = "ID_TIPO_COBRANCA")
-	private List<TipoCobranca> tipoCobranca;
+	private TipoCobranca tipoCobranca;
 	
 	@Column(length = 1, name = "STATUS")
 	private Integer status;
@@ -73,10 +73,11 @@ public class PagamentoPedido {
 	public void setValor(Double valor) {
 		this.valor = valor;
 	}
-	public List<TipoCobranca> getTipoCobranca() {
+	public TipoCobranca getTipoCobranca() {
 		return tipoCobranca;
 	}
-	public void setTipoCobranca(List<TipoCobranca> tipoCobranca) {
+	public void setTipoCobranca(TipoCobranca tipoCobranca) {
 		this.tipoCobranca = tipoCobranca;
 	}
+	
 }

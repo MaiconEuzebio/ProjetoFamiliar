@@ -1,5 +1,6 @@
 package br.com.erp.model;
 
+
 import java.util.List;
 import java.util.Objects;
 
@@ -16,43 +17,31 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table(name = "TIPO_COBRANCA")
-public class TipoCobranca {
+@Table(name = "PAGAMENTO_PEDIDO")
+public class PagamentoPedido {
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	@Column(length = 100, name = "DESCRICAO")
-	private String descricao;
-	@Column(length = 20, name = "TIPO")
-	private String tipo;
+	
+	@Column(name = "VALOR")
+	private Double valor;
+	
+	@OneToMany
+	@JoinColumn(name = "ID_TIPO_COBRANCA")
+	private List<TipoCobranca> tipoCobranca;
+	
 	@Column(length = 1, name = "STATUS")
 	private Integer status;
+	
 	@Transient
 	private String descStatus;
 	
 	
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	public String getDescricao() {
-		return descricao;
-	}
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-	public String getTipo() {
-		return tipo;
-	}
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
+	
 	public Integer getStatus() {
 		return status;
 	}
@@ -69,8 +58,25 @@ public class TipoCobranca {
 		}
 		return descStatus;
 	}
-	
 	public void setDescStatus(String descStatus) {
 		this.descStatus = descStatus;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Double getValor() {
+		return valor;
+	}
+	public void setValor(Double valor) {
+		this.valor = valor;
+	}
+	public List<TipoCobranca> getTipoCobranca() {
+		return tipoCobranca;
+	}
+	public void setTipoCobranca(List<TipoCobranca> tipoCobranca) {
+		this.tipoCobranca = tipoCobranca;
 	}
 }

@@ -36,9 +36,6 @@ public class Contato {
 	@Column(length = 1, name = "STATUS")
 	private Integer status;
 
-	@ManyToOne
-	@JoinColumn
-	private TipoContato tipoContato;
 	
 	@ManyToOne
 	@JoinColumn(name = "ID_PESSOA")
@@ -93,13 +90,6 @@ public class Contato {
 		this.status = status;
 	}
 
-	public TipoContato getTipoContato() {
-		return tipoContato;
-	}
-
-	public void setTipoContato(TipoContato tipoContato) {
-		this.tipoContato = tipoContato;
-	}
 	
 	@JsonBackReference
 	public Pessoa getPessoa() {

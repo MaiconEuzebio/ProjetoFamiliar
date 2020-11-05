@@ -9,13 +9,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
 import br.com.erp.json.ParamJson;
-import br.com.erp.model.Caixa;
-import br.com.erp.model.CapCar;
-import br.com.erp.model.Item;
 import br.com.erp.model.Pedido;
-import br.com.erp.model.Pessoa;
 import br.com.erp.util.UnidadePersistencia;
 
 @Path("pedido")

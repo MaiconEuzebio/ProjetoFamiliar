@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -25,9 +24,6 @@ public class Pedido {
 	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
-	@Column(length = 1, name = "TIPO")
-	private String tipo;
 	
 	@Column(name = "DATA_PEDIDO")
 	private Date data;
@@ -60,14 +56,6 @@ public class Pedido {
 	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Item> itens;
 	
-	@Transient
-	private String descStatus;
-	
-	
-	
-	
-
-	
 
 	public List<Item> getItens() {
 		return itens;
@@ -77,20 +65,19 @@ public class Pedido {
 		this.itens = itens;
 	}
 
+	@Transient
+	private String descStatus;
+	
+	
+	
+	
+
 	public Integer getId() {
 		return id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
 	}
 
 	public Date getData() {
@@ -187,6 +174,5 @@ public class Pedido {
 			item.setPedido(this);
 		}	
 	}
-	
 	
 }

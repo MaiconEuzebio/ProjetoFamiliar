@@ -1,4 +1,4 @@
-app.controller("caixaController", function ($scope, requisicaoService, filterFilter, orderByFilter) {
+app.controller("pedidoController", function ($scope, requisicaoService, filterFilter, orderByFilter) {
 		
 	$scope.vizualizarCadastro = false;
 	$scope.mostrarAguarde = false;
@@ -31,10 +31,15 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	$scope.mensagemModal  = "";
     	$scope.abaSelecionada = 'principal'
         		
-        $scope.pedido		       = {};
-        $scope.pedido.id       = null;
+        $scope.pedido		        = {};
+        $scope.pedido.id            = null;
         $scope.pedido.dataPedido    = new Date();
-        $scope.caixa.status = 1;
+        $scope.pedido.pessoa        = null;
+        $scope.pedido.valorUnitario = null;
+        $scope.pedido.acrescimo     = null;
+        $scope.pedido.desconto      = null;
+        $scope.pedido.valorTotal    = null;
+        $scope.pedido.observacao    = null;
         $scope.pedido.itens = [];
         $scope.visualizaCadastro = true;  
     }
@@ -52,7 +57,7 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	$scope.item.acrescimo     = null;
     	$scope.item.desconto      = null;
     	$scope.item.valorTotal    = null;
-    	$scope.item.observacao = null;
+    	$scope.item.observacao    = null;
     	$('#modalItem').modal();
     	
     	$scope.mostrarAguarde    = false;
@@ -214,6 +219,18 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
 			$scope.mostrarAguarde = false;
 		});
     	
+    	requisicaoService.requisitarGET("pessoa/obterTodosAtivos", function(retorno) {
+    		if (!retorno.isValid) {
+    			$scope.mensagemModal  = retorno.msg;
+    			$scope.showModalAviso = true;
+    			$scope.mostrarAguarde = false;
+        		return;
+    		}
+			$scope.pessoas = retorno.data;
+			$scope.pesquisar();
+			$scope.mostrarAguarde = false;
+		});
+    	
     	requisicaoService.requisitarGET("item/obterTodos", function(retorno) {
     		if (!retorno.isValid) {
     			$scope.mensagemModal  = retorno.msg;
@@ -222,6 +239,18 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
         		return;
     		}
 			$scope.itens = retorno.data;
+			$scope.pesquisar();
+			$scope.mostrarAguarde = false;
+		});
+    	
+    	requisicaoService.requisitarGET("produto/obterTodosAtivos", function(retorno) {
+    		if (!retorno.isValid) {
+    			$scope.mensagemModal  = retorno.msg;
+    			$scope.showModalAviso = true;
+    			$scope.mostrarAguarde = false;
+        		return;
+    		}
+			$scope.produtos = retorno.data;
 			$scope.pesquisar();
 			$scope.mostrarAguarde = false;
 		});

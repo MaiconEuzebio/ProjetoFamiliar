@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
@@ -34,8 +36,9 @@ public class Item {
 	private Integer status;
 	@Transient
 	private String descStatus;
-	@OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Produto> produtos;
+	@ManyToOne
+	@JoinColumn(name = "ID_PRODUTO")
+	private Produto produto;
 	
 	public Integer getId() {
 		return id;
@@ -98,18 +101,11 @@ public class Item {
 	public void setDescStatus(String descStatus) {
 		this.descStatus = descStatus;
 	}
-	public List<Produto> getProdutos() {
-		return produtos;
+	public Produto getProduto() {
+		return produto;
 	}
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
-	
-	public void atualizarProduto() {
-		if (this.produtos != null) {
-			for (Produto produto : this.produtos) {
-				produto.setItem(this);
-			}
-		}
-	}
+
 }

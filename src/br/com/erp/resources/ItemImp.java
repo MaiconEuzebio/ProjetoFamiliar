@@ -25,9 +25,7 @@ public class ItemImp {
 
 		try {
 			em.getTransaction().begin();
-			
-			item.atualizarProduto();
-			
+						
 			if (item.getId() == null) {
 				em.persist(item);
 			} else {

@@ -4,6 +4,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 	$scope.mostrarAguarde = false;
 	$scope.tela = "Pedido > Pedido de Venda"	
 	
+	
     $scope.itens                = [];
 	$scope.pedidos              = [];
 	$scope.showModalConfirmacao = false;
@@ -17,11 +18,20 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 	
 	atualizarTela();
 	
+	
 	/*
     /////////////////////////////////////////////////////////////////
 	// FUNÇÕES                                                     //
     /////////////////////////////////////////////////////////////////
     */
+	$scope.atualizarQuantidade = function(){
+		if($scope.pedidos != null){
+		console.log($scope.pedidos)
+		}
+	}
+
+	
+
     $scope.voltar = function(){
     	$scope.visualizaCadastro 	= false;
     }
@@ -224,7 +234,8 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     		
     		$scope.mostrarAguarde    = false;
     		$scope.visualizaCadastro = false;
-    		atualizarTela();
+			atualizarTela();
+			
     	});
     }
   

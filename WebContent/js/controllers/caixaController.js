@@ -211,7 +211,7 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	    	
     	var posicao = $scope.caixa.caixaMovimentacoes.indexOf($scope.objetoSelecionadoMovimentacao);
     	$scope.caixa.caixaMovimentacoes.splice(posicao,1);
-    	$scope.atualizarValor();
+    	
     }
 
     $scope.retornarPesquisa = function (){

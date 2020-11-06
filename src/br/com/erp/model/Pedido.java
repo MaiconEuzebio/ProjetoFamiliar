@@ -161,9 +161,13 @@ public class Pedido {
 	}
 	
 	public void atualizarItens() {
-		for(PedidoItem item : itens) {
+		if(this.itens != null) {	
+			for(PedidoItem item : itens) {
 			item.setPedido(this);
+			}	
 		}	
 	}
+	
+	
 	
 }

@@ -101,9 +101,9 @@ public class Caixa {
 	}
 	
 	public void atualizarMovimentacao() {
-		if (this.caixaMovimentacoes != null) {
-			for (CaixaMovimentacao caixaMovimentacao : this.caixaMovimentacoes) {
-				caixaMovimentacao.setCaixa(this);
+		if (this.caixaMovimentacoes != null) {											//se esta caixaMovimentações ser diferente de nulo
+			for (CaixaMovimentacao caixaMovimentacao : this.caixaMovimentacoes) {		//obj caixaMov : recebe estas caixasMovimentações
+				caixaMovimentacao.setCaixa(this);										//obj caixaMov.seta o valor de Caixa
 			}
 		}
 	}

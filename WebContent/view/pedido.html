@@ -24,13 +24,13 @@
 		<div class="card">
 			<div class="card-header">
 					<button type="button" ng-click="btnIncluir()"
-						class="btn btn-outline-success btn-lg glyphicon glyphicon-piggy-bank">Incluir</button>
+						class="btn btn-outline-success btn-lg glyphicon glyphicon-piggy-bank"> Incluir</button>
 				
 					<button type="button" ng-click="btnEditar()"
-						class="btn btn-outline-primary btn-lg glyphicon glyphicon-pencil">  Editar</button>
+						class="btn btn-outline-primary btn-lg glyphicon glyphicon-pencil"> Editar</button>
 				
 					<button type="button" ng-click="btnExcluir()"
-						class="btn btn-outline-danger btn-lg glyphicon glyphicon-saved">Excluir</button>
+						class="btn btn-outline-danger btn-lg glyphicon glyphicon-saved"> Excluir</button>
 			</div>
 			
 			<!-- /.card-header -->
@@ -51,13 +51,13 @@
 									ng-change="pesquisar()" mask-maiusculas></th>
 									
 								    <th><a href=""
-									ng-click="ordenacao('dataPedido')"
+									ng-click="ordenacao('data')"
 									title="{{buscarDicionario('Ordenar')}}"> Data Pedido <span
-										ng-show="campoOrdenacao == '+dataPedido'"
+										ng-show="campoOrdenacao == '+data'"
 										class="glyphicon glyphicon-sort-by-attributes" /> <span
-										ng-show="campoOrdenacao == '-dataPedido'"
+										ng-show="campoOrdenacao == '-data'"
 										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="text" name="id" ng-model="dataPedidoFilter"
+								</a> <input type="text" name="id" ng-model="dataFilter"
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
 									
@@ -128,8 +128,8 @@
 							<tr ng-repeat="g in pedidosFiltradas" ng-click="selecionarLinha(g)"
 								ng-class="{linhaSelecionada : g == objetoSelecionado}">
 								<td>{{g.id}}</td>
-								<td>{{g.dataPedido}}</td>
-								<td>{{g.cliente.nomeRzSocial}}</td>
+								<td>{{g.dataStr}}</td>
+								<td>{{g.pessoa.nomeRzSocial}}</td>
 								<td>{{g.valorUnitario}}</td>
 								<td>{{g.acrescimo}}</td>
 								<td>{{g.desconto}}</td>
@@ -182,8 +182,8 @@
 					
 					 <div class="col-md-2">
 						<div class="form-group">
-							<label>Data Pedido</label> <input type="text" class="form-control"
-								ng-model="pedido.dataPedido" readonly>
+							<label>Data Pedido</label> <input type="date" class="form-control"
+								ng-model="pedido.data" readonly>
 						</div>
 					</div>
 					
@@ -203,7 +203,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<button type="button" class="btn bg-primary btn-lg pull-right"
-							ng-click="btnSalvar(item)">Salvar</button>
+							ng-click="btnSalvar(pedido)">Salvar</button>
 					</div>
 				</div>
 			</div>
@@ -247,7 +247,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<button type="button" class="btn bg-primary btn-lg pull-right"
-				ng-click="btnSalvar(item)">Salvar</button>
+				ng-click="btnSalvar(pedido)">Salvar</button>
 		</div>
 	</div>
 </div>

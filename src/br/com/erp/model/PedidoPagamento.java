@@ -17,9 +17,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-
 @Entity
-@Table(name = "PAGAMENTO_PEDIDO")
 public class PedidoPagamento {
 	
 	@Id

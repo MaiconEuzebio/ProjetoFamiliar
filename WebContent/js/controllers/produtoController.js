@@ -14,6 +14,8 @@ app.controller("produtoController", function ($scope, requisicaoService, filterF
 	$scope.mensagemRodape 	 	= '';
 	$scope.mostrarAguarde 		= true;
 	$scope.campoOrdenacao 		= 'descricao';
+	$scope.produtoMovimentacoes = [];
+	
 	
 	atualizarTela();	
 	
@@ -44,6 +46,8 @@ app.controller("produtoController", function ($scope, requisicaoService, filterF
     	$scope.produto.tamanho   = null;
     	$scope.produto.unidadeMedida   = null;
     	$scope.produto.status	   = 1;
+		$scope.produtoMovimentacoes.tipo = null;
+		
     	
     	$scope.mostrarAguarde    = false;
     	$scope.visualizaCadastro = true;
@@ -244,6 +248,8 @@ app.controller("produtoController", function ($scope, requisicaoService, filterF
     		atualizarTela();
     	});
     }
+
+
 
     /*
     /////////////////////////////////////////////////////////////////

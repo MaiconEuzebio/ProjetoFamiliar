@@ -1,5 +1,6 @@
 package br.com.erp.model;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;

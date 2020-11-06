@@ -28,9 +28,6 @@ public class Pedido {
 	@Column(name = "DATA_PEDIDO")
 	private Date data;
 	
-	@Column(name = "QUANTIDADE")
-	private Integer quantidade;
-	
 	@Column(name = "OBSERVACAO")
 	private String observacao;
 	
@@ -40,8 +37,8 @@ public class Pedido {
 	@Column(name = "DESCONTO")
 	private Double desconto;
 	
-	@Column(name = "VALOR_UNITARIO")
-	private Double valorUnitario;
+	@Column(name = "VALOR_LIQUIDO")
+	private Double valorLiquido;
 	
 	@Column(name = "VALOR_TOTAL")
 	private Double valorTotal;
@@ -88,14 +85,6 @@ public class Pedido {
 		this.data = data;
 	}
 
-	public Integer getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
-	}
-
 	public String getObservacao() {
 		return observacao;
 	}
@@ -120,12 +109,14 @@ public class Pedido {
 		this.desconto = desconto;
 	}
 
-	public Double getValorUnitario() {
-		return valorUnitario;
+	
+
+	public Double getValorLiquido() {
+		return valorLiquido;
 	}
 
-	public void setValorUnitario(Double valorUnitario) {
-		this.valorUnitario = valorUnitario;
+	public void setValorLiquido(Double valorLiquido) {
+		this.valorLiquido = valorLiquido;
 	}
 
 	public Double getValorTotal() {

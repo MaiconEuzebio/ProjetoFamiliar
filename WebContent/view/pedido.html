@@ -72,13 +72,13 @@
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
 									
-									<th><a href="" ng-click="ordenacao('valorUnitario')"
-									title="Ordenar"> Valor Unitario <span
-										ng-show="campoOrdenacao == '+valorUnitario'"
+									<th><a href="" ng-click="ordenacao('valorLiquido')"
+									title="Ordenar"> Valor Liquido <span
+										ng-show="campoOrdenacao == '+valorLiquido'"
 										class="glyphicon glyphicon-sort-by-attributes" /> <span
-										ng-show="campoOrdenacao == '-valorUnitario'"
+										ng-show="campoOrdenacao == '-valorLiquido'"
 										class="glyphicon glyphicon-sort-by-attributes-alt" />
-									</a> <input type="text" name="peso" ng-model="valorUnitarioFilter"
+									</a> <input type="text" name="peso" ng-model="valorLiquidoFilter"
 										class="form-control" placeholder="Pesquisar..."
 										ng-change="pesquisar()" mask-maiusculas></th>
 													
@@ -130,11 +130,11 @@
 								<td>{{g.id}}</td>
 								<td>{{g.dataStr}}</td>
 								<td>{{g.pessoa.nomeRzSocial}}</td>
-								<td>{{g.valorUnitario}}</td>
+								<td>{{g.valorLiquido}}</td>
 								<td>{{g.acrescimo}}</td>
 								<td>{{g.desconto}}</td>
 								<td>{{g.valorTotal}}</td>
-								<td>{{g.observacao}}</td>
+								<td>{{g.pedidoItem.observacao}}</td>
 							</tr>
 						</tbody>
 					</table>
@@ -213,22 +213,22 @@
 	<div class="row">
 		<div class="col-md-3">
 			<div class="form-group">
-				<label>Valor Unitario</label> <input type="text" class="form-control"
-					ng-model="pedido.valorUnitario" readonly>
+				<label>Valor Liquido</label> <input type="text" class="form-control"
+					ng-model="pedido.valorLiquido" ng-change="atualizarValorPedido()" readonly>
 			</div>
 		</div>
 					
 	    <div class="col-md-3">
 			<div class="form-group">
 				<label>Desconto</label> <input type="text" class="form-control"
-					ng-model="pedido.desconto" >
+					ng-model="pedido.desconto" ng-change="atualizarValorPedido()" >
 			</div>
 		</div>
 		
 		<div class="col-md-3">
 			<div class="form-group">
 				<label>Acrescimo</label> <input type="text" class="form-control"
-					ng-model="pedido.acrescimo" >
+					ng-model="pedido.acrescimo" ng-change="atualizarValorPedido()" >
 			</div>
 		</div>
 		<div class="col-md-3">
@@ -347,7 +347,7 @@
 										<tbody>
 											<tr ng-repeat="g in pedido.itens" ng-click="selecionarLinhaItem(g)"
 												ng-class="{linhaSelecionada : g == objetoSelecionadoItem}">
-												<td>{{g.produto}}</td>
+												<td>{{g.produto.descricao}}</td>
 												<td>{{g.quantidade}}</td>
 												<td>{{g.valorUnitario}}</td>
 												<td>{{g.acrescimo}}</td>
@@ -442,7 +442,7 @@
 					<!-- CAMPO PRODUTO -->
 					<div class="col-md-2">
 						<div class="form-group">
-							<label>Produto</label> <select id="cProduto" class="form-control" ng-model="item.produto" 
+							<label>Produto</label> <select id="cProduto" class="form-control" ng-model="pedidoItem.produto" 
 							ng-options="produto.descricao for produto in produtos | orderBy:'nome' track by produto.id">
 			                 <option value="">Selecione um produto</option></select>
 						</div>
@@ -452,7 +452,7 @@
 					<div class="col-md-2">
 						<div class="form-group">
 							<label>* Quantidade</label> <input id="cQuantidade" type="text"
-								class="form-control" ng-model="item.quantidade""  maxlength="10"
+								class="form-control" ng-model="pedidoItem.quantidade" ng-change="atualizarValorItem()"  maxlength="10"
 								mask-maiusculas autofocus>
 						</div>
 					</div>
@@ -461,7 +461,7 @@
 					<div class="col-md-2">
 						<div class="form-group">
 							<label>* Valor Unitario</label> <input id="cValorUnitario" type="text"
-								class="form-control" ng-model="item.valorUnitario""  maxlength="10"
+								class="form-control" ng-model="pedidoItem.valorUnitario" ng-change="atualizarValorItem()" maxlength="10"
 								mask-maiusculas autofocus>
 						</div>
 					</div>
@@ -470,7 +470,7 @@
 					<div class="col-md-2">
 						<div class="form-group">
 							<label>Acrescimo</label> <input id="cAcrescimo" type="text"
-								class="form-control" ng-model="item.acrescimo""  maxlength="10"
+								class="form-control" ng-model="pedidoItem.acrescimo" ng-change="atualizarValorItem()" maxlength="10"
 								mask-maiusculas autofocus>
 						</div>
 					</div>
@@ -479,7 +479,7 @@
 					<div class="col-md-2">
 						<div class="form-group">
 							<label>Desconto</label> <input id="cDesconto" type="text"
-								class="form-control" ng-model="item.desconto""  maxlength="10"
+								class="form-control" ng-model="pedidoItem.desconto" ng-change="atualizarValorItem()" maxlength="10"
 								mask-maiusculas autofocus>
 						</div>
 					</div>
@@ -488,7 +488,7 @@
 					<div class="col-md-2">
 						<div class="form-group">
 							<label>Valor Total</label> <input id="cValorTotal" type="text"
-								class="form-control" ng-model="item.valorTotal""  maxlength="10"
+								class="form-control" ng-model="pedidoItem.valorTotal"  maxlength="10"
 								mask-maiusculas autofocus readonly>
 						</div>
 					</div>
@@ -497,7 +497,7 @@
 					<div class="col-md-12">
 						<div class="form-group">
 							<label>Observacao</label> <textarea id="cObservacao" type="text"
-								class="form-control" ng-model="item.observacao" maxlength="300"
+								class="form-control" ng-model="pedidoItem.observacao" maxlength="300"
 								mask-maiusculas autofocus></textarea>
 						</div>
 					</div>
@@ -511,7 +511,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<button type="button" class="btn bg-primary btn-lg pull-right"
-							ng-click="btnSalvarItem(item)">Salvar</button>
+							ng-click="btnSalvarItem(pedidoItem)">Salvar</button>
 					</div>
 				</div>
 			</div>

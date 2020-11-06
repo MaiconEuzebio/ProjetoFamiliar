@@ -57,13 +57,6 @@ public class PedidoItem {
 	private Produto produto;
 	
 	
-	@JsonBackReference
-	public Pedido getPedido() {
-		return pedido;
-	}
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
-	}
 	public Integer getId() {
 		return id;
 	}
@@ -112,6 +105,13 @@ public class PedidoItem {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+	@JsonBackReference
+	public Pedido getPedido() {
+		return pedido;
+	}
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
+	}
 	public String getDescStatus() {
 		if(Objects.nonNull(status)) {
 			if(status.equals(0)) {
@@ -131,5 +131,4 @@ public class PedidoItem {
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
-
 }

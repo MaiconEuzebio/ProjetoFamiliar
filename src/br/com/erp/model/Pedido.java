@@ -51,100 +51,80 @@ public class Pedido {
 	private Pessoa pessoa;
 	
 	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<PedidoPagamento> pagamentos;
+
+	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<PedidoItem> itens;
 	
-
-	public List<PedidoItem> getItens() {
-		return itens;
-	}
-
-	public void setItens(List<PedidoItem> itens) {
-		this.itens = itens;
-	}
-
 	@Transient
 	private String descStatus;
-	
-	
-	
-	
 
 	public Integer getId() {
 		return id;
 	}
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 	public Date getData() {
 		return data;
 	}
-
 	public void setData(Date data) {
 		this.data = data;
 	}
-
 	public String getObservacao() {
 		return observacao;
 	}
-
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-
 	public Double getAcrescimo() {
 		return acrescimo;
 	}
-
 	public void setAcrescimo(Double acrescimo) {
 		this.acrescimo = acrescimo;
 	}
-
 	public Double getDesconto() {
 		return desconto;
 	}
-
 	public void setDesconto(Double desconto) {
 		this.desconto = desconto;
 	}
-
-	
-
 	public Double getValorLiquido() {
 		return valorLiquido;
 	}
-
 	public void setValorLiquido(Double valorLiquido) {
 		this.valorLiquido = valorLiquido;
 	}
-
 	public Double getValorTotal() {
 		return valorTotal;
 	}
-
 	public void setValorTotal(Double valorTotal) {
 		this.valorTotal = valorTotal;
 	}
-
 	public Integer getStatus() {
 		return status;
 	}
-
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-
 	public Pessoa getPessoa() {
 		return pessoa;
 	}
-
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
 	}
-
-	
-
+	public List<PedidoPagamento> getPagamentos() {
+		return pagamentos;
+	}
+	public void setPagamentos(List<PedidoPagamento> pagamentos) {
+		this.pagamentos = pagamentos;
+	}
+	public List<PedidoItem> getItens() {
+		return itens;
+	}
+	public void setItens(List<PedidoItem> itens) {
+		this.itens = itens;
+	}
 	public String getDescStatus() {
 		if(Objects.nonNull(status)) {
 			if(status.equals(0)) {
@@ -155,15 +135,12 @@ public class Pedido {
 		}
 		return descStatus;
 	}
-
 	public void setDescStatus(String descStatus) {
 		this.descStatus = descStatus;
 	}
-	
 	public void atualizarItens() {
 		for(PedidoItem item : itens) {
 			item.setPedido(this);
 		}	
 	}
-	
 }

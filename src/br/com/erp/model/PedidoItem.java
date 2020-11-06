@@ -10,36 +10,48 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
+@Table(name = "PEDIDO_ITEM")
 public class PedidoItem {
 		
 	@Id		
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
 	private Integer id;
+	
 	@Column(name = "QUANTIDADE", length = 10)
 	private Integer quantidade;
+	
 	@Column(name = "VALOR_UNITARIO", length = 10)
 	private Double valorUnitario;
+	
 	@Column(name = "VALOR_TOTAL", length = 10)
 	private Double valorTotal;
+	
 	@Column(name = "DESCONTO", length = 10)
 	private Double desconto;
+	
 	@Column(name = "ACRESCIMO", length = 10)
 	private Double acrescimo;
+	
 	@Column(name = "OBSERVACAO", length = 300)
 	private String observacao;
+	
 	@Column(length = 1, name = "STATUS")
 	private Integer status;
-	@OneToOne
+	
+	@ManyToOne
 	@JoinColumn(name = "ID_PEDIDO")
 	private Pedido pedido;
+	
 	@Transient
 	private String descStatus;
+	
 	@ManyToOne
 	@JoinColumn(name = "ID_PRODUTO")
 	private Produto produto;

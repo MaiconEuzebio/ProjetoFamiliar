@@ -17,9 +17,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.lowagie.text.pdf.AcroFields.Item;
+
 
 @Entity
-@Table(name = "PAGAMENTO_PEDIDO")
+@Table(name = "PEDIDO_PAGAMENTO")
 public class PedidoPagamento {
 	
 	@Id
@@ -39,6 +41,9 @@ public class PedidoPagamento {
 	
 	@Transient
 	private String descStatus;
+	
+	
+	
 	
 	
 	

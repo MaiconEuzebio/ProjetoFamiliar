@@ -17,11 +17,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.lowagie.text.pdf.AcroFields.Item;
 
 
-
+@Entity
 @Table(name = "PEDIDO_PAGAMENTO")
 public class PedidoPagamento {
 	
@@ -37,17 +37,41 @@ public class PedidoPagamento {
 	@JoinColumn(name = "ID_TIPO_COBRANCA")
 	private TipoCobranca tipoCobranca;
 	
+	@ManyToOne
+	@JoinColumn(name = "ID_PEDIDO")
+	private Pedido pedido;
+	
 	@Column(length = 1, name = "STATUS")
 	private Integer status;
 	
 	@Transient
 	private String descStatus;
-	
-	
-	
-	
-	
-	
+
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Double getValor() {
+		return valor;
+	}
+	public void setValor(Double valor) {
+		this.valor = valor;
+	}
+	public TipoCobranca getTipoCobranca() {
+		return tipoCobranca;
+	}
+	public void setTipoCobranca(TipoCobranca tipoCobranca) {
+		this.tipoCobranca = tipoCobranca;
+	}
+	@JsonBackReference
+	public Pedido getPedido() {
+		return pedido;
+	}
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
+	}
 	public Integer getStatus() {
 		return status;
 	}
@@ -66,24 +90,6 @@ public class PedidoPagamento {
 	}
 	public void setDescStatus(String descStatus) {
 		this.descStatus = descStatus;
-	}
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	public Double getValor() {
-		return valor;
-	}
-	public void setValor(Double valor) {
-		this.valor = valor;
-	}
-	public TipoCobranca getTipoCobranca() {
-		return tipoCobranca;
-	}
-	public void setTipoCobranca(TipoCobranca tipoCobranca) {
-		this.tipoCobranca = tipoCobranca;
 	}
 	
 }

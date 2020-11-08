@@ -4,12 +4,9 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 	$scope.mostrarAguarde = false;
 	$scope.tela = "Pedido > Pedido de Venda"	
 	
-
-	
-    $scope.itens                = [];
-
-
 	$scope.pedidos              = [];
+	$scope.itens                = [];
+	$scope.pagamentos           = [];
 	$scope.showModalConfirmacao = false;
 	$scope.showModalAviso       = false;
 	$scope.mostrarAguarde       = false;
@@ -21,12 +18,12 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 	
 	atualizarTela();
 	
-	
 	/*
     /////////////////////////////////////////////////////////////////
 	// FUNÇÕES                                                     //
     /////////////////////////////////////////////////////////////////
     */
+
 	$scope.atualizarQuantidade = function(){
 		if($scope.pedidos != null){
 		console.log($scope.itens)
@@ -45,7 +42,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.abaSelecionada = 'principal'
         		
         $scope.pedido		        = {};
-    	$scope.pedidoItem           = {};
         $scope.pedido.id            = null;
         $scope.pedido.data          = new Date();
         $scope.pedido.pessoa        = null;
@@ -54,7 +50,8 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
         $scope.pedido.desconto      = null;
         $scope.pedido.valorTotal    = null;
         $scope.pedido.observacao    = null;
-        $scope.pedido.pedidoItem   = [];
+        $scope.pedido.itens         = [];
+        $scope.pedido.pagamentos    = [];
         $scope.visualizaCadastro    = true;  
     }
     
@@ -83,11 +80,11 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.mensagemModal  = "";
     	$scope.mostrarAguarde = true;
     	
-    	$scope.pagamentoPedido		        = {};
-    	$scope.pagamentoPedido.id           = null;
-        $scope.pagamentoPedido.valor        = null;
-        $scope.pagamentoPedido.tipoCobranca = null;
-    	$scope.pagamentoPedido.observacao   = null;
+    	$scope.pedidoPagamento		        = {};
+    	$scope.pedidoPagamento.id           = null;
+        $scope.pedidoPagamento.valor        = null;
+        $scope.pedidoPagamento.tipoCobranca = null;
+    	$scope.pedidoPagamento.observacao   = null;
     	$('#modalFinanceiro').modal();
     	
     	$scope.mostrarAguarde    = false;
@@ -154,7 +151,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     		return;
     	}
     
-    	    $scope.pagamentoPedido = $scope.objetoSelecionadoPagamentoPedido;
+    	    $scope.pedidoPagamento = $scope.objetoSelecionadoPagamentoPedido;
 		    $scope.mostrarAguarde    = false;
 		    $scope.visualizaCadastro = true;
 		    $('#modalFinanceiro').modal();
@@ -217,8 +214,8 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     		return;
     	}
     	    	
-    	var posicao = $scope.pedido.pagamentoPedidos.indexOf($scope.objetoSelecionadoPagamentoPedido);
-    	$scope.pedido.pagamentoPedidos.splice(posicao,1);
+    	var posicao = $scope.pedido.pagamentos.indexOf($scope.objetoSelecionadoPagamentoPedido);
+    	$scope.pedido.pagamentos.splice(posicao,1);
     	$scope.atualizarValorItem();
     }
      
@@ -236,14 +233,9 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 	    		$scope.mostrarAguarde = false;
 	    		return;
     		}
-    		
-    		$scope.mostrarAguarde    = false;
+
+     		$scope.mostrarAguarde    = false;
     		$scope.visualizaCadastro = false;
-
-			atualizarTela();
-			
-
-    		$scopr.atualizarValorPedido();
     		$scope.atualizarValorItem();
     		atualizarTela();
 
@@ -261,7 +253,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	}
     	
 		$('#modalItem').modal('hide');	
-		$scope.atualizarValorItem();
 
     }
     
@@ -269,10 +260,10 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.mensagemRodape = ""; 
     	
     	if($scope.objetoSelecionadoPagamentoPedido){
-    		var posicao = $scope.pedido.pagamentoPedidos.indexOf($scope.objetoSelecionadoPagamentoPedido);
-    		$scope.pedido.pagamentoPedidos[posicao] = pitem;
+    		var posicao = $scope.pedido.pagamentos.indexOf($scope.objetoSelecionadoPagamentoPedido);
+    		$scope.pedido.pagamentos[posicao] = ppagamentoPedido;
     	} else {
-    		$scope.pedido.pagamentoPedidos.push(ppagamentoPedido);
+    		$scope.pedido.pagamentos.push(ppagamentoPedido);
     	}
 		$('#modalFinanceiro').modal('hide');	
     }
@@ -298,25 +289,27 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     }
     
     $scope.atualizarValorPedido = function(){
-		$scope.pedido.valorLiquido = 10;
 
-		if($scope.pedido.acrescimo != 0||$scope.pedido.desconto == 0){
 
+		if($scope.pedido.desconto != 0||$scope.pedido.acrescimo == 0){
+			$scope.pedido.valorLiquido = $scope.pedidoItem.valorTotal;
+
+			$scope.valor = $scope.pedido.desconto;
+			$scope.porcentagem = ($scope.valor)*0.01;
+			$scope.resultado = ($scope.pedido.valorLiquido * $scope.porcentagem);
+			$scope.resultadoDesconto = parseFloat($scope.pedido.valorLiquido) - ($scope.resultado);
+			$scope.pedido.valorTotal = parseFloat($scope.resultadoDesconto);
+	
+			
+		} else if ($scope.pedido.acrescimo != 0||$scope.pedido.desconto == 0){
+			$scope.pedido.valorLiquido = $scope.pedidoItem.valorTotal;
+
+			
 			$scope.valor = $scope.pedido.acrescimo;
 			$scope.porcentagem = ($scope.valor)*0.01;
 			$scope.resultado = ($scope.pedido.valorLiquido * $scope.porcentagem);
 			$scope.resultadoAcrescimo = parseFloat($scope.pedido.valorLiquido) + ($scope.resultado);
 			$scope.pedido.valorTotal = parseFloat($scope.resultadoAcrescimo);
-	
-			
-		} else if ($scope.pedido.desconto != 0||$scope.pedido.acrescimo == 0){
-			
-			$scope.valor = $scope.pedido.desconto;
-
-			$scope.porcentagem = ($scope.valor)*0.01;
-			$scope.resultado = ($scope.pedido.valorLiquido * $scope.porcentagem);
-			$scope.resultadoDesconto = parseFloat($scope.pedido.valorLiquido) + ($scope.resultado);
-			$scope.pedido.valorTotal = parseFloat($scope.resultadoDesconto);
 			
 		} 
     	

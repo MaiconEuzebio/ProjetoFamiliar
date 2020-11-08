@@ -134,7 +134,7 @@
 								<td>{{g.acrescimo}}</td>
 								<td>{{g.desconto}}</td>
 								<td>{{g.valorTotal}}</td>
-								<td>{{g.pedidoItem.observacao}}</td>
+								<td>{{g.observacao}}</td>
 							</tr>
 						</tbody>
 					</table>
@@ -214,7 +214,7 @@
 		<div class="col-md-3">
 			<div class="form-group">
 				<label>Valor Liquido</label> <input type="text" class="form-control"
-					ng-model="pedido.valorLiquido" ng-change="atualizarValorPedido()" readonly>
+					ng-model="pedido.valorLiquido" ng-change="atualizarValorPedido()" >
 			</div>
 		</div>
 					
@@ -396,10 +396,10 @@
 									<table class="table table-bordered table-condensed">
 
 										<tbody>
-											<tr ng-repeat="g in pedido.pagamentoPedidos" ng-click="selecionarLinhaPagamentoPedido(g)"
+											<tr ng-repeat="g in pedido.pagamentos" ng-click="selecionarLinhaPagamentoPedido(g)"
 												ng-class="{linhaSelecionada : g == objetoSelecionadoPagamentoPedido}">
-												<td>{{g.tipoCobranca}}</td>
-												<td>{{g.valorTotal}}</td>
+												<td>{{g.tipoCobranca.descricao}}</td>
+												<td>{{g.pedido.valorTotal}}</td>
 												<td>{{g.observacao}}</td>
 											</tr>
 										</tbody>
@@ -531,7 +531,7 @@
 					<!-- CAMPO TIPO COBRANCA -->
 					<div class="col-md-4">
 						<div class="form-group">
-							<label>Tipo de Cobranca</label> <select id="cTipoCobranca" class="form-control" ng-model="financeiro.tipoCobranca" 
+							<label>Tipo de Cobranca</label> <select id="cTipoCobranca" class="form-control" ng-model="pedidoPagamento.tipoCobranca" 
 							ng-options="tipoCobranca.descricao for tipoCobranca in tipoCobrancas | orderBy:'nome' track by tipoCobranca.id">
 			                 <option value="">Selecione um tipo de cobranca</option></select>
 						</div>
@@ -541,7 +541,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>Valor Total</label> <input id="cValorTotal" type="text"
-								class="form-control" ng-model="item.valorTotal""  maxlength="10"
+								class="form-control" ng-model="pedido.valorTotal" ng-change="atualizarValorPedido" maxlength="10"
 								mask-maiusculas autofocus readonly>
 						</div>
 					</div>
@@ -550,7 +550,7 @@
 					<div class="col-md-12">
 						<div class="form-group">
 							<label>Observacao</label> <textarea id="cObservacao" type="text"
-								class="form-control" ng-model="item.observacao" maxlength="300"
+								class="form-control" ng-model="pedidoPagamento.observacao" maxlength="300"
 								mask-maiusculas autofocus></textarea>
 						</div>
 					</div>
@@ -564,7 +564,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<button type="button" class="btn bg-primary btn-lg pull-right"
-							ng-click="btnSalvarFinanceiro(financeiro)">Salvar</button>
+							ng-click="btnSalvarFinanceiro(pedidoPagamento)">Salvar</button>
 					</div>
 				</div>
 			</div>

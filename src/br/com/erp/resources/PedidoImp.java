@@ -11,6 +11,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import br.com.erp.json.ParamJson;
 import br.com.erp.model.Pedido;
+import br.com.erp.model.PedidoItem;
+import br.com.erp.model.Produto;
 import br.com.erp.util.UnidadePersistencia;
 
 @Path("pedido")
@@ -163,4 +165,19 @@ public class PedidoImp {
 	
 		return pedido;
 	}
-}
+	
+	public void gerarPedidoMovimentacao(PedidoItem item) {
+		EntityManager em = UnidadePersistencia.createEntityManager();
+	
+		//set.quantidadeAtual()-quantidadePedido();
+		
+		if(item.getQuantidade()!= null) {
+			Produto produto = item.getProduto();
+			
+			produto.setQuantidadeAtual(produto.getQuantidadeAtual()-item.getQuantidade());
+		}
+		em.getTransaction().begin();
+		em.getTransaction().commit();
+	}
+	
+}	

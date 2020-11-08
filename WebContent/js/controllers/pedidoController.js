@@ -29,7 +29,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     */
 	$scope.atualizarQuantidade = function(){
 		if($scope.pedidos != null){
-		console.log($scope.pedidos)
+		console.log($scope.itens)
 		}
 	}
 

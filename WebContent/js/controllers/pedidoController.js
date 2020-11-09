@@ -23,40 +23,16 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 	// FUNÇÕES                                                     //
     /////////////////////////////////////////////////////////////////
     */
-
-
-
-
-
-
-
 	$scope.atualizarQuantidade = function(){
 		if($scope.pedidos != null){
 		console.log($scope.itens)
 		}
 	}
-	
-	
-	
-	
-	
-	
-
-	
-
 
     $scope.voltar = function(){
     	$scope.visualizaCadastro 	= false;
     }
 
-
-
-
-
-
-
-
-    
     $scope.btnIncluir = function(){
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";
@@ -77,17 +53,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
         $scope.visualizaCadastro    = true;  
     }
 
-
-
-
-
-
-
-
-
-
-
-    
     $scope.btnIncluirItem = function(){
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";
@@ -108,14 +73,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.visualizaCadastro = true;
     }
 
-
-
-
-
-
-
-
-    
     $scope.btnIncluirFinanceiro = function(){
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";
@@ -132,15 +89,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.visualizaCadastro = true;
     }
 
-
-
-
-
-
-
-
-
-    
     $scope.btnEditar = function(){
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";
@@ -173,13 +121,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 		});
     }
 
-
-
-
-
-
-
-    
     $scope.btnEditarItem = function(){
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";
@@ -196,13 +137,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 		    $scope.visualizaCadastro = true;
 		    $('#modalItem').modal();
     }
-
-
-
-
-
-
-
 
     $scope.btnEditarFinanceiro = function(){
     	$scope.mensagemRodape = "";
@@ -221,14 +155,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 		    $('#modalFinanceiro').modal();
     }
 
-
-
-
-
-
-
-
-    
     $scope.btnExcluir = function(){
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";
@@ -242,12 +168,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 		$('#modalExcluir').modal();
     }
 
-
-
-
-
-
-    
     $scope.confirmaExcluir = function(){
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";
@@ -273,14 +193,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	});
     }
 
-
-
-
-
-
-
-
-
     $scope.btnExcluirItem = function(){
     	if (!$scope.objetoSelecionadoItem) {
             $scope.mensagemModal  = "É necessário selecionar o registro que deseja excluir!";
@@ -293,13 +205,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.atualizarValorItem();
     }
 
-
-
-
-
-
-
-
     $scope.btnExcluirFinanceiro = function(){
     	if (!$scope.objetoSelecionadoPagamentoPedido) {
             $scope.mensagemModal  = "É necessário selecionar o registro que deseja excluir!";
@@ -311,18 +216,10 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.pedido.pagamentos.splice(posicao,1);
     }
 
-
-
-
-     
     $scope.retornarPesquisa = function (){
     	$scope.visualizaCadastro = false;
     }
 
-
-
-
-    
     $scope.btnSalvar = function(ppedido){
     	$scope.mensagemRodape = "";
     	$scope.mostrarAguarde = true;
@@ -349,10 +246,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 
     	});
     }
-
-
-  
-
 
     $scope.btnSalvarItem = function(pitem){
     	$scope.mensagemRodape = ""; 
@@ -389,10 +282,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 
     }
 
-
-
-
-    
     $scope.btnSalvarFinanceiro = function(ppagamentoPedido){
     	$scope.mensagemRodape = ""; 
     	
@@ -419,11 +308,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 		$('#modalFinanceiro').modal('hide');	
     }
 
-
-
-
-
-    
     $scope.btnFecharPedido = function(){
     	$scope.pedido = $scope.objetoSelecionado;
     	
@@ -433,10 +317,32 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     		return;
     	}
     	if ($scope.objetoSelecionado.status == 0) {
-            $scope.mensagemModal  = "Caixa Pedido!";
+            $scope.mensagemModal  = "Pedido Fechado!";
         	$('#modalAtencao').modal();
     		return;
     	}
+    	$scope.mostrarAguarde    = false;
+        $scope.visualizaCadastro = true;
+        $('#modalPedidoFechamento').modal();	
+
+    }
+    	$scope.btnConfirmarFechamento = function(ppedido){ 
+        	$scope.mensagemRodape = "";
+        	$scope.mostrarAguarde = true;
+        	$scope.pedido.status = 0;
+
+    	requisicaoService.requisitarPOST("pedido/salvar", ppedido, function(retorno){
+    		if (!retorno.isValid) {
+    			$scope.mensagemRodape = retorno.msg;
+    			$scope.mostrarAguarde = false;
+        		return;
+    		}
+        	$('#modalPedidoFechamento').modal('hide');
+
+    		$scope.mostrarAguarde    = false;
+    		$scope.visualizaCadastro = false;
+    		atualizarTela();
+    	});
     }
     
     $scope.atualizarValorItem = function(){
@@ -461,10 +367,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	//}
     }
     
-
-
-
-
     $scope.atualizarValorPedido = function(){
     	     
 		if($scope.pedido.desconto != 0||$scope.pedido.acrescimo == 0){
@@ -489,24 +391,18 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	
     }
 
-
-
-
- 
     $scope.fecharModalItem = function(){
     	$('#modalItem').modal('hide');
     }
 
-
-
- 
     $scope.fecharModalFinanceiro = function(){
     	$('#modalFinanceiro').modal('hide');
     }
-
-
-
     
+    $scope.fecharModalFechamento = function(){
+    	$('#modalPedidoFechamento').modal('hide');
+    }
+
     function atualizarTela(){
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  ="";
@@ -566,27 +462,14 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 			$scope.mostrarAguarde = false;
 		});
 	}
-	
-	
-	
-	
- 
+
 	$scope.pesquisar = function(){
 		$scope.pedidosFiltradas = orderByFilter(filterFilter($scope.pedidos,{id:$scope.idFilter}), $scope.campoOrdenacao);
 	}
 	
-	
-	
-	
-	
-
 	    $scope.selecionarLinha = function(objeto) {
 	       $scope.objetoSelecionado = objeto;
 	    }
-
-
-
-
 
 	    $scope.selecionarLinhaItem = function(objeto) {
 	       $scope.objetoSelecionadoItem = objeto;
@@ -595,11 +478,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 	    $scope.selecionarLinhaPagamentoPedido = function(objeto) {
 		       $scope.objetoSelecionadoPagamentoPedido = objeto;
 		    }
-
-
-
-
-
 
 		$scope.ordenacao = function (pcampo) {
 			if ($scope.campoOrdenacao == '+'+pcampo || $scope.campoOrdenacao == '-'+pcampo) {
@@ -616,11 +494,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 	    	
 	    	$scope.pesquisar();
 	    }
-
-
-
-
- 
 
 });
 	

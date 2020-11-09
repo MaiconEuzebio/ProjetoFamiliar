@@ -129,9 +129,9 @@ public class Pedido {
 	public String getDescStatus() {
 		if(Objects.nonNull(status)) {
 			if(status.equals(0)) {
-				return "INATIVO";
+				return "FECHADO";
 			}else {
-				return "ATIVO";
+				return "ABERTO";
 			}
 		}
 		return descStatus;

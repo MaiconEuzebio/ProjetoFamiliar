@@ -379,7 +379,7 @@
 				<div class="col-md-12">
 					<div class="card">
 			<div class="card-header">
-						
+
 						<button type="button" ng-click="btnIncluirFinanceiro()"
 							class="btn  btn-outline-primary btn-lg glyphicon glyphicon-floppy-disk">  Incluir</button>
 							
@@ -399,7 +399,7 @@
 											<tr ng-repeat="g in pedido.pagamentos" ng-click="selecionarLinhaPagamentoPedido(g)"
 												ng-class="{linhaSelecionada : g == objetoSelecionadoPagamentoPedido}">
 												<td>{{g.tipoCobranca.descricao}}</td>
-												<td>{{g.pedido.valorTotal}}</td>
+												<td>{{g.valorTotal}}</td>
 												<td>{{g.observacao}}</td>
 											</tr>
 										</tbody>

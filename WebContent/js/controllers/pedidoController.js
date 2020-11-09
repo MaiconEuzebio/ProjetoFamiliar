@@ -292,8 +292,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     		$scope.mostrarAguarde = false;
     		return;
         }
-    	
-    	
+    		
     	if($scope.objetoSelecionadoPagamentoPedido){
     		var posicao = $scope.pedido.pagamentos.indexOf($scope.objetoSelecionadoPagamentoPedido);
     		$scope.pedido.pagamentos[posicao] = ppagamentoPedido;
@@ -301,6 +300,21 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     		$scope.pedido.pagamentos.push(ppagamentoPedido);
     	}
 		$('#modalFinanceiro').modal('hide');	
+    }
+    
+    $scope.btnFecharPedido = function(){
+    	$scope.pedido = $scope.objetoSelecionado;
+    	
+    	if (!$scope.objetoSelecionado) {
+            $scope.mensagemModal  = "É necessário selecionar o pedido que deseja fechar!";
+        	$('#modalAtencao').modal();
+    		return;
+    	}
+    	if ($scope.objetoSelecionado.status == 0) {
+            $scope.mensagemModal  = "Caixa Pedido!";
+        	$('#modalAtencao').modal();
+    		return;
+    	}
     }
     
     $scope.atualizarValorItem = function(){

@@ -292,12 +292,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     		return;
         }
     	
-    	if (!ppagamentoPedido.valorTotal) {
-        	$scope.mensagemRodape = "É necessário o preenchimento do campo Valor Total!";
-    		document.getElementById("cValorTotal").focus();
-    		$scope.mostrarAguarde = false;
-    		return;
-        }
+
     		
     	if($scope.objetoSelecionadoPagamentoPedido){
     		var posicao = $scope.pedido.pagamentos.indexOf($scope.objetoSelecionadoPagamentoPedido);
@@ -321,6 +316,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
         	$('#modalAtencao').modal();
     		return;
     	}
+    	$scope.pedido.data = new Date($scope.pedido.data);
     	$scope.mostrarAguarde    = false;
         $scope.visualizaCadastro = true;
         $('#modalPedidoFechamento').modal();	
@@ -329,6 +325,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.btnConfirmarFechamento = function(ppedido){ 
         	$scope.mensagemRodape = "";
         	$scope.mostrarAguarde = true;
+        	$scope.pedido.data = new Date();
         	$scope.pedido.status = 0;
 
     	requisicaoService.requisitarPOST("pedido/salvar", ppedido, function(retorno){
@@ -399,7 +396,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$('#modalFinanceiro').modal('hide');
     }
     
-    $scope.fecharModalFechamento = function(){
+    $scope.fecharModalPedidoFechamento = function(){
     	$('#modalPedidoFechamento').modal('hide');
     }
 

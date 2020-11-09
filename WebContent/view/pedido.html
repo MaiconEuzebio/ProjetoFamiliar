@@ -124,6 +124,16 @@
 									</a> <input type="text" name="peso" ng-model="observacaoFilter"
 										class="form-control" placeholder="Pesquisar..."
 										ng-change="pesquisar()" mask-maiusculas></th>
+										
+									<th width="100px"><a href=""
+									ng-click="ordenacao('descStatus')" title="Ordenar"> Status <span
+										ng-show="campoOrdenacao == '+descricao'"
+										class="glyphicon glyphicon-sort-by-attributes" /> <span
+										ng-show="campoOrdenacao == '-descricao'"
+										class="glyphicon glyphicon-sort-by-attributes-alt" />
+								</a> <input type="text" name="peso" ng-model="descStatusFilter"
+									class="form-control" placeholder="Pesquisar..."
+									ng-change="pesquisar()" mask-maiusculas></th>
 							</tr>
 						</thead>
 						
@@ -138,6 +148,7 @@
 								<td>{{g.desconto}}</td>
 								<td>{{g.valorTotal}}</td>
 								<td>{{g.observacao}}</td>
+								<td>{{g.descStatus}}</td>
 							</tr>
 						</tbody>
 					</table>

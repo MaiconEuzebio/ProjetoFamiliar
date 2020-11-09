@@ -72,12 +72,12 @@ public void gerarPedidoMovimentacao(PedidoItem item) {
 				System.out.println("Quantidade baixada do estoque com sucesso");
 				em.merge(produto);
 				
-			}else if(item.getQuantidade()!=null && item.getId()!=null) {
+			/*}else if(item.getQuantidade()!=null && item.getId()!=null) {
 				Produto produto = item.getProduto();
 				produto.setQuantidadeAtual(produto.getQuantidadeAtual()+item.getQuantidade());
 				System.out.println(produto.getQuantidadeAtual());
 				System.out.println("Quantidade editada com sucesso");
-				em.merge(produto);
+				em.merge(produto);*/
 			}
 				em.getTransaction().commit();
 		}catch(Exception e) {
@@ -87,8 +87,37 @@ public void gerarPedidoMovimentacao(PedidoItem item) {
 			em.close();
 		}
 	}
+
+
+
+
+public void gerarDevolucao(PedidoItem item) {
+	EntityManager em = UnidadePersistencia.createEntityManager();
+	try {
+		em.getTransaction().begin();
+		if(item.getQuantidade()!=null && item.getId()!=null) {
+		Produto produto;
+		produto = item.getProduto();
+		System.out.println("Antes: "+produto.getQuantidadeAtual());
+		produto.setQuantidadeAtual(item.getQuantidade()+produto.getQuantidadeAtual());
+		System.out.println("Agora: "+produto.getQuantidadeAtual());
+		System.out.println("Quantidade devolvida com sucesso");
+		em.merge(produto);
+		}
+		em.getTransaction().commit();
+		
+	}catch(Exception e) {
+		em.getTransaction().rollback();
+	}finally {
+		em.close();
+	}
+}
 	
-	
+
+
+
+
+
 	@Path("obterPorId")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
@@ -157,6 +186,10 @@ public void gerarPedidoMovimentacao(PedidoItem item) {
 		
 		try {
 			Pedido pedido = em.find(Pedido.class, paramJson.getInt1());
+			for(PedidoItem pedidoItem : pedido.getItens()) {
+				gerarDevolucao(pedidoItem);
+			}
+			
 			em.getTransaction().begin();
 			Pedido pedidoAux = obterPedidoFechado() ;
 			
@@ -177,6 +210,11 @@ public void gerarPedidoMovimentacao(PedidoItem item) {
 		}
 
 	}
+	
+	
+	
+	
+	
 	
 	@Path("obterPedidoFechado")
 	@GET

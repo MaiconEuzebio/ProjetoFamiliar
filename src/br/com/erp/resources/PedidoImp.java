@@ -11,6 +11,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import br.com.erp.json.ParamJson;
 import br.com.erp.model.Pedido;
+import br.com.erp.model.PedidoItem;
+import br.com.erp.model.Produto;
 import br.com.erp.util.UnidadePersistencia;
 
 @Path("pedido")
@@ -23,8 +25,12 @@ public class PedidoImp {
 	public Pedido save(Pedido pedido) {
 
 		EntityManager em = UnidadePersistencia.createEntityManager();
-
+		
 		try {
+
+			for(PedidoItem pedidoItem : pedido.getItens()) {
+				gerarPedidoMovimentacao(pedidoItem);
+			}
 
 			em.getTransaction().begin();
 			
@@ -49,6 +55,26 @@ public class PedidoImp {
 			em.close();
 		}
 		return pedido;
+	}
+	
+	
+public void gerarPedidoMovimentacao(PedidoItem item) {
+	EntityManager em = UnidadePersistencia.createEntityManager();
+		try {
+			em.getTransaction().begin();
+			if(item.getQuantidade()!=null) {
+				Produto produto = item.getProduto();
+				produto.setQuantidadeAtual(produto.getQuantidadeAtual()-item.getQuantidade());
+				System.out.println(produto.getQuantidadeAtual());
+				System.out.println("Quantidade atualizada co sucesso");
+			}
+				em.getTransaction().commit();
+		}catch(Exception e) {
+				em.getTransaction().isActive();
+				em.getTransaction().rollback();
+		}finally {
+			em.close();
+		}
 	}
 	
 	
@@ -164,4 +190,6 @@ public class PedidoImp {
 	
 		return pedido;
 	}
-}
+	
+	
+}	

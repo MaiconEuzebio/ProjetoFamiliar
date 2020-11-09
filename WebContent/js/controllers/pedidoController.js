@@ -23,6 +23,15 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 	// FUNÇÕES                                                     //
     /////////////////////////////////////////////////////////////////
     */
+
+	$scope.atualizarQuantidade = function(){
+		if($scope.pedidos != null){
+		console.log($scope.itens)
+		}
+	}
+
+	
+
     $scope.voltar = function(){
     	$scope.visualizaCadastro 	= false;
     }

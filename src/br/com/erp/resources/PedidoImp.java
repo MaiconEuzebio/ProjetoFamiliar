@@ -25,14 +25,17 @@ public class PedidoImp {
 	public Pedido save(Pedido pedido) {
 
 		EntityManager em = UnidadePersistencia.createEntityManager();
+
+		em.getTransaction().begin();
 		try {
+
 
 
 			for(PedidoItem pedidoItem : pedido.getItens()) {
 				gerarPedidoMovimentacao(pedidoItem);
 			}			
 
-			em.getTransaction().begin();
+			
 			
 			pedido.atualizarItens();
 			pedido.atualizarPagamentos();
@@ -62,11 +65,18 @@ public void gerarPedidoMovimentacao(PedidoItem item) {
 	EntityManager em = UnidadePersistencia.createEntityManager();
 		try {
 			em.getTransaction().begin();
-			if(item.getQuantidade()!=null) {
+			if(item.getQuantidade()!=null && item.getId()==null) {
 				Produto produto = item.getProduto();
 				produto.setQuantidadeAtual(produto.getQuantidadeAtual()-item.getQuantidade());
 				System.out.println(produto.getQuantidadeAtual());
-				System.out.println("Quantidade atualizada co sucesso");
+				System.out.println("Quantidade baixada do estoque com sucesso");
+				em.merge(produto);
+				
+			}else if(item.getQuantidade()!=null && item.getId()!=null) {
+				Produto produto = item.getProduto();
+				produto.setQuantidadeAtual(produto.getQuantidadeAtual()+item.getQuantidade());
+				System.out.println(produto.getQuantidadeAtual());
+				System.out.println("Quantidade editada com sucesso");
 				em.merge(produto);
 			}
 				em.getTransaction().commit();

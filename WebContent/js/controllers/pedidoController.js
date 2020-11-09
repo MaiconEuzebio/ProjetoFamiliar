@@ -44,6 +44,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 
 	
 
+
     $scope.voltar = function(){
     	$scope.visualizaCadastro 	= false;
     }
@@ -300,7 +301,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 
 
     $scope.btnExcluirFinanceiro = function(){
-    	if (!$scope.objetoSelecionadoItem) {
+    	if (!$scope.objetoSelecionadoPagamentoPedido) {
             $scope.mensagemModal  = "É necessário selecionar o registro que deseja excluir!";
         	$('#modalAtencao').modal();
     		return;
@@ -308,7 +309,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	    	
     	var posicao = $scope.pedido.pagamentos.indexOf($scope.objetoSelecionadoPagamentoPedido);
     	$scope.pedido.pagamentos.splice(posicao,1);
-    	$scope.atualizarValorItem();
     }
 
 
@@ -327,6 +327,13 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.mensagemRodape = "";
     	$scope.mostrarAguarde = true;
     	
+    	if (!ppedido.pessoa) {
+        	$scope.mensagemRodape = "É necessário o preenchimento do campo Cliente!";
+    		document.getElementById("cPessoa").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
+    	
     	requisicaoService.requisitarPOST("pedido/salvar", ppedido, function(retorno){
     		if (!retorno.isValid) {
 	        	$('#modalAtencao').modal();
@@ -337,6 +344,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
      		$scope.mostrarAguarde    = false;
     		$scope.visualizaCadastro = false;
     		$scope.atualizarValorItem();
+    		$scope.atualizarValorPedido();
     		atualizarTela();
 
     	});
@@ -348,6 +356,27 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 
     $scope.btnSalvarItem = function(pitem){
     	$scope.mensagemRodape = ""; 
+    	
+    	if (!pitem.produto) {
+        	$scope.mensagemRodape = "É necessário o preenchimento do campo Produto!";
+    		document.getElementById("cProduto").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
+    	
+    	if (!pitem.quantidade) {
+        	$scope.mensagemRodape = "É necessário o preenchimento do campo Quantidade!";
+    		document.getElementById("cQuantidade").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
+    	
+    	if (!pitem.valorUnitario) {
+        	$scope.mensagemRodape = "É necessário o preenchimento do campo Valor Unitario!";
+    		document.getElementById("cValorUnitario").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
     	
     	if($scope.objetoSelecionadoItem){
     		var posicao = $scope.pedido.itens.indexOf($scope.objetoSelecionadoItem);
@@ -367,6 +396,21 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     $scope.btnSalvarFinanceiro = function(ppagamentoPedido){
     	$scope.mensagemRodape = ""; 
     	
+    	if (!ppagamentoPedido.tipoCobranca) {
+        	$scope.mensagemRodape = "É necessário o preenchimento do campo Tipo de Cobranca!";
+    		document.getElementById("cTipoCobranca").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
+    	
+    	if (!ppagamentoPedido.valorTotal) {
+        	$scope.mensagemRodape = "É necessário o preenchimento do campo Valor Total!";
+    		document.getElementById("cValorTotal").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
+    	
+    	
     	if($scope.objetoSelecionadoPagamentoPedido){
     		var posicao = $scope.pedido.pagamentos.indexOf($scope.objetoSelecionadoPagamentoPedido);
     		$scope.pedido.pagamentos[posicao] = ppagamentoPedido;
@@ -382,23 +426,25 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 
     
     $scope.atualizarValorItem = function(){
-			
-		if($scope.pedidoItem.acrescimo != 0||$scope.pedidoItem.desconto == 0){
-
-			$scope.valor = $scope.pedidoItem.acrescimo;
-			$scope.porcentagem = ($scope.valor)*0.01;
-			$scope.resultado = ($scope.pedidoItem.valorUnitario * $scope.porcentagem);
-			$scope.resultadoAcrescimo = parseFloat($scope.pedidoItem.valorUnitario) + ($scope.resultado);
-			$scope.pedidoItem.valorTotal = parseFloat($scope.resultadoAcrescimo * $scope.pedidoItem.quantidade);
-			
-		} else if ($scope.pedidoItem.desconto != 0||$scope.pedidoItem.acrescimo == 0){
-			
-			$scope.valor = $scope.pedidoItem.desconto;
-			$scope.porcentagem = ($scope.valor)*0.01;
-			$scope.resultado = ($scope.pedidoItem.valorUnitario * $scope.porcentagem);
-			$scope.resultadoDesconto = parseFloat($scope.pedidoItem.valorUnitario) - ($scope.resultado);
-			$scope.pedidoItem.valorTotal = parseFloat($scope.resultadoDesconto * $scope.pedidoItem.quantidade);				
-		}
+    	//for(i in $scope.pedido.itens){
+		
+    		if($scope.pedidoItem.acrescimo != 0||$scope.pedidoItem.desconto == 0){
+	
+				$scope.valor = $scope.pedidoItem.acrescimo;
+				$scope.porcentagem = ($scope.valor)*0.01;
+				$scope.resultado = ($scope.pedidoItem.valorUnitario * $scope.porcentagem);
+				$scope.resultadoAcrescimo = parseFloat($scope.pedidoItem.valorUnitario) + ($scope.resultado);
+				$scope.pedidoItem.valorTotal = parseFloat($scope.resultadoAcrescimo * $scope.pedidoItem.quantidade);
+				
+			} else if ($scope.pedidoItem.desconto != 0||$scope.pedidoItem.acrescimo == 0){
+				
+				$scope.valor = $scope.pedidoItem.desconto;
+				$scope.porcentagem = ($scope.valor)*0.01;
+				$scope.resultado = ($scope.pedidoItem.valorUnitario * $scope.porcentagem);
+				$scope.resultadoDesconto = parseFloat($scope.pedidoItem.valorUnitario) - ($scope.resultado);
+				$scope.pedidoItem.valorTotal = parseFloat($scope.resultadoDesconto * $scope.pedidoItem.quantidade);				
+			}
+    	//}
     }
     
 
@@ -406,8 +452,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 
 
     $scope.atualizarValorPedido = function(){
-
-
+    	     
 		if($scope.pedido.desconto != 0||$scope.pedido.acrescimo == 0){
 			$scope.pedido.valorLiquido = $scope.pedidoItem.valorTotal;
 
@@ -416,12 +461,10 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 			$scope.resultado = ($scope.pedido.valorLiquido * $scope.porcentagem);
 			$scope.resultadoDesconto = parseFloat($scope.pedido.valorLiquido) - ($scope.resultado);
 			$scope.pedido.valorTotal = parseFloat($scope.resultadoDesconto);
-	
 			
 		} else if ($scope.pedido.acrescimo != 0||$scope.pedido.desconto == 0){
 			$scope.pedido.valorLiquido = $scope.pedidoItem.valorTotal;
-
-			
+	
 			$scope.valor = $scope.pedido.acrescimo;
 			$scope.porcentagem = ($scope.valor)*0.01;
 			$scope.resultado = ($scope.pedido.valorLiquido * $scope.porcentagem);
@@ -534,6 +577,10 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 	    $scope.selecionarLinhaItem = function(objeto) {
 	       $scope.objetoSelecionadoItem = objeto;
 	    }
+	    
+	    $scope.selecionarLinhaPagamentoPedido = function(objeto) {
+		       $scope.objetoSelecionadoPagamentoPedido = objeto;
+		    }
 
 
 

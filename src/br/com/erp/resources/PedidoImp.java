@@ -25,12 +25,13 @@ public class PedidoImp {
 	public Pedido save(Pedido pedido) {
 
 		EntityManager em = UnidadePersistencia.createEntityManager();
-
+		
 		try {
 			pedido.atualizarItens();
+			for(PedidoItem pedidoItem : pedido.getItens()) {
+				gerarPedidoMovimentacao(pedidoItem);
+			}
 			em.getTransaction().begin();
-			
-			
 			
 			if (pedido.getId() == null) {
 				em.persist(pedido);
@@ -50,6 +51,26 @@ public class PedidoImp {
 			em.close();
 		}
 		return pedido;
+	}
+	
+	
+public void gerarPedidoMovimentacao(PedidoItem item) {
+	EntityManager em = UnidadePersistencia.createEntityManager();
+		try {
+			em.getTransaction().begin();
+			if(item.getQuantidade()!=null) {
+				Produto produto = item.getProduto();
+				produto.setQuantidadeAtual(produto.getQuantidadeAtual()-item.getQuantidade());
+				System.out.println(produto.getQuantidadeAtual());
+				System.out.println("Quantidade atualizada co sucesso");
+			}
+				em.getTransaction().commit();
+		}catch(Exception e) {
+				em.getTransaction().isActive();
+				em.getTransaction().rollback();
+		}finally {
+			em.close();
+		}
 	}
 	
 	
@@ -166,18 +187,5 @@ public class PedidoImp {
 		return pedido;
 	}
 	
-	public void gerarPedidoMovimentacao(PedidoItem item) {
-		EntityManager em = UnidadePersistencia.createEntityManager();
-	
-		//set.quantidadeAtual()-quantidadePedido();
-		
-		if(item.getQuantidade()!= null) {
-			Produto produto = item.getProduto();
-			
-			produto.setQuantidadeAtual(produto.getQuantidadeAtual()-item.getQuantidade());
-		}
-		em.getTransaction().begin();
-		em.getTransaction().commit();
-	}
 	
 }	

@@ -25,10 +25,11 @@ public class PedidoImp {
 		EntityManager em = UnidadePersistencia.createEntityManager();
 
 		try {
-			pedido.atualizarItens();
+
 			em.getTransaction().begin();
 			
-			
+			pedido.atualizarItens();
+			pedido.atualizarPagamentos();
 			
 			if (pedido.getId() == null) {
 				em.persist(pedido);

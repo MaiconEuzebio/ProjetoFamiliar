@@ -113,6 +113,7 @@ public class Pedido {
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
 	}
+
 	public List<PedidoPagamento> getPagamentos() {
 		return pagamentos;
 	}
@@ -142,6 +143,14 @@ public class Pedido {
 		if(this.itens != null) {	
 			for(PedidoItem item : itens) {
 			item.setPedido(this);
+			}	
+		}	
+	}
+	
+	public void atualizarPagamentos() {
+		if(this.pagamentos != null) {	
+			for(PedidoPagamento pagamento : pagamentos) {
+			pagamento.setPedido(this);
 			}	
 		}	
 	}

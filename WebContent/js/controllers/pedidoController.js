@@ -41,6 +41,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
         $scope.pedido.desconto      = null;
         $scope.pedido.valorTotal    = null;
         $scope.pedido.observacao    = null;
+        $scope.pedido.status        = 1;
         $scope.pedido.itens         = [];
         $scope.pedido.pagamentos    = [];
         $scope.visualizaCadastro    = true;  
@@ -193,8 +194,8 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     		return;
     	}
     	    	
-    	var posicao = $scope.pedido.pedidoItens.indexOf($scope.objetoSelecionadoItem);
-    	$scope.pedido.pedidoItens.splice(posicao,1);
+    	var posicao = $scope.pedido.itens.indexOf($scope.objetoSelecionadoItem);
+    	$scope.pedido.itens.splice(posicao,1);
     	$scope.atualizarValorItem();
     }
 

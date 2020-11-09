@@ -1,10 +1,6 @@
 package br.com.erp.model;
 
-
-import java.util.List;
 import java.util.Objects;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,26 +8,24 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.lowagie.text.pdf.AcroFields.Item;
-
 
 @Entity
 @Table(name = "PEDIDO_PAGAMENTO")
 public class PedidoPagamento {
 	
 	@Id
-	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID")
 	private Integer id;
 	
 	@Column(name = "VALOR")
 	private Double valor;
+	
+	@Column(name = "OBSERVACAO", length = 300)
+	private String observacao;
 	
 	@ManyToOne
 	@JoinColumn(name = "ID_TIPO_COBRANCA")
@@ -58,6 +52,13 @@ public class PedidoPagamento {
 	}
 	public void setValor(Double valor) {
 		this.valor = valor;
+	}
+	
+	public String getObservacao() {
+		return observacao;
+	}
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
 	}
 	public TipoCobranca getTipoCobranca() {
 		return tipoCobranca;

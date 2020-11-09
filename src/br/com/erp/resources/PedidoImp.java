@@ -25,15 +25,15 @@ public class PedidoImp {
 	public Pedido save(Pedido pedido) {
 
 		EntityManager em = UnidadePersistencia.createEntityManager();
+
 		em.getTransaction().begin();
 		try {
 
 
+
 			for(PedidoItem pedidoItem : pedido.getItens()) {
 				gerarPedidoMovimentacao(pedidoItem);
-			}
-			pedido.atualizarItens();
-			
+			}			
 
 			
 			

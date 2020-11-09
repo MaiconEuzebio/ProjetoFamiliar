@@ -31,6 +31,9 @@
 				
 					<button type="button" ng-click="btnExcluir()"
 						class="btn btn-outline-danger btn-lg glyphicon glyphicon-saved"> Excluir</button>
+						
+					<button type="button" ng-click="btnFecharPedido()"
+						class="btn btn-outline-success btn-lg glyphicon glyphicon-saved"> Fechar Pedido</button>
 			</div>
 			
 			<!-- /.card-header -->
@@ -121,6 +124,16 @@
 									</a> <input type="text" name="peso" ng-model="observacaoFilter"
 										class="form-control" placeholder="Pesquisar..."
 										ng-change="pesquisar()" mask-maiusculas></th>
+										
+									<th width="100px"><a href=""
+									ng-click="ordenacao('descStatus')" title="Ordenar"> Status <span
+										ng-show="campoOrdenacao == '+descricao'"
+										class="glyphicon glyphicon-sort-by-attributes" /> <span
+										ng-show="campoOrdenacao == '-descricao'"
+										class="glyphicon glyphicon-sort-by-attributes-alt" />
+								</a> <input type="text" name="peso" ng-model="descStatusFilter"
+									class="form-control" placeholder="Pesquisar..."
+									ng-change="pesquisar()" mask-maiusculas></th>
 							</tr>
 						</thead>
 						
@@ -135,6 +148,7 @@
 								<td>{{g.desconto}}</td>
 								<td>{{g.valorTotal}}</td>
 								<td>{{g.observacao}}</td>
+								<td>{{g.descStatus}}</td>
 							</tr>
 						</tbody>
 					</table>
@@ -375,10 +389,10 @@
 				</div>
 			</div>
 			
-						<div class="card-body" ng-show="abaSelecionada == 'financeiro'">
-				<div class="col-md-12">
-					<div class="card">
-			<div class="card-header">
+		<div class="card-body" ng-show="abaSelecionada == 'financeiro'">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
 
 						<button type="button" ng-click="btnIncluirFinanceiro()"
 							class="btn  btn-outline-primary btn-lg glyphicon glyphicon-floppy-disk">  Incluir</button>
@@ -388,26 +402,26 @@
 							
 						<button type="button" ng-click="btnExcluirFinanceiro()"
 							class="btn  btn-outline-danger btn-lg glyphicon glyphicon-remove-sign">  Excluir</button>
-			</div>
+					</div>
 			
 						<!-- /.card-header -->
-							<div class="card-body">
-								<div class="table-responsive table-pesquisa-fixa">
-									<table class="table table-bordered table-condensed">
+						<div class="card-body">
+							<div class="table-responsive table-pesquisa-fixa">
+								<table class="table table-bordered table-condensed">
 
-										<tbody>
-											<tr ng-repeat="g in pedido.pagamentos" ng-click="selecionarLinhaPagamentoPedido(g)"
-												ng-class="{linhaSelecionada : g == objetoSelecionadoPagamentoPedido}">
-												<td>{{g.tipoCobranca.descricao}}</td>
-												<td>{{g.valorTotal}}</td>
-												<td>{{g.observacao}}</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
+									<tbody>
+										<tr ng-repeat="g in pedido.pagamentos" ng-click="selecionarLinhaPagamentoPedido(g)"
+											ng-class="{linhaSelecionada : g == objetoSelecionadoPagamentoPedido}">
+											<td>{{g.tipoCobranca.descricao}}</td>
+											<td>{{g.valorTotal}}</td>
+											<td>{{g.observacao}}</td>
+										</tr>
+									</tbody>
+								</table>
 							</div>
-							<!-- /.card-body -->
 						</div>
+							<!-- /.card-body -->
+				</div>
 				<div class="row">
 					<div
 						class="alert alert-danger alert-dismissible col-md-12 text-center"
@@ -542,7 +556,7 @@
 						<div class="form-group">
 							<label>Valor Total</label> <input id="cValorTotal" type="text"
 								class="form-control" ng-model="pedido.valorTotal" ng-change="atualizarValorPedido" maxlength="10"
-								mask-maiusculas autofocus readonly>
+								mask-maiusculas autofocus>
 						</div>
 					</div>
 					

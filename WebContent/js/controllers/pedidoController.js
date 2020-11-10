@@ -100,6 +100,11 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
         	$('#modalAtencao').modal();
     		return;
     	}
+    	if ($scope.objetoSelecionado.status == 0) {
+            $scope.mensagemModal  = "Pedido Fechado!";
+        	$('#modalAtencao').modal();
+    		return;
+    	}
 	
     	var param = {
 			int1: $scope.objetoSelecionado.id
@@ -202,7 +207,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	    	
     	var posicao = $scope.pedido.itens.indexOf($scope.objetoSelecionadoItem);
     	$scope.pedido.itens.splice(posicao,1);
-    	$scope.atualizarValorPedido();
     }
 
     $scope.btnExcluirFinanceiro = function(){
@@ -279,7 +283,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	}
     	
 		$('#modalItem').modal('hide');
-		$scope.atualizarValorItem();
 		$scope.atualizarValorPedido();
 
     }
@@ -343,6 +346,8 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     }
     
     $scope.atualizarValorItem = function(){
+
+
 		
     		if($scope.pedidoItem.acrescimo != 0||$scope.pedidoItem.desconto == 0){
 	
@@ -364,12 +369,13 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     }
     
     $scope.atualizarValorPedido = function(){
-		$scope.pedido.valorLiquido = $scope.pedidoItem.valorTotal;
-		
-		for(i in $scope.pedido.itens){
+    	$scope.pedido.valorLiquido = parseFloat($scope.pedidoItem.valorTotal);
+
+    	for(i in $scope.pedido.itens){
+
 			$scope.pedido.valorLiquido += parseFloat($scope.pedido.itens[i].valorTotal);
-		}
-    	     
+    	}
+    	
 		if($scope.pedido.desconto != 0||$scope.pedido.acrescimo == 0){
 
 			$scope.valor = $scope.pedido.desconto;
@@ -385,9 +391,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 			$scope.resultado = ($scope.pedido.valorLiquido * $scope.porcentagem);
 			$scope.resultadoAcrescimo = parseFloat($scope.pedido.valorLiquido) + ($scope.resultado);
 			$scope.pedido.valorTotal = parseFloat($scope.resultadoAcrescimo);
-    	}	
-		
-
+    	}		
     }
 
     $scope.fecharModalItem = function(){

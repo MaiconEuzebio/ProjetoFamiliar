@@ -402,11 +402,15 @@
 							
 						<button type="button" ng-click="btnExcluirFinanceiro()"
 							class="btn  btn-outline-danger btn-lg glyphicon glyphicon-remove-sign">  Excluir</button>
+							
+						<label></label>	
+						<span class="labelTableItens">Pagamentos à Vista</span>							
 					</div>
+					
 			
 						<!-- /.card-header -->
 						<div class="card-body">
-							<div class="table-responsive table-pesquisa-fixa">
+							<div class="table-responsive p-0">
 								<table class="table table-bordered table-condensed">
 
 									<tbody>
@@ -415,6 +419,39 @@
 											<td>{{g.tipoCobranca.descricao}}</td>
 											<td>{{g.valor}}</td>
 											<td>{{g.observacao}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+							<!-- /.card-body -->
+				</div>
+				</br>
+				<div class="card">
+					<div class="card-header">
+
+						<button type="button" ng-click="btnIncluirFinanceiroPrazo()"
+							class="btn  btn-outline-primary btn-lg glyphicon glyphicon-floppy-disk">  Incluir</button>
+							
+						<button type="button" ng-click="btnEditarFinanceiroPrazo()"
+							class="btn  btn-outline-primary btn-lg glyphicon glyphicon-pencil">  Editar</button>
+							
+						<button type="button" ng-click="btnExcluirFinanceiroPrazo()"
+							class="btn  btn-outline-danger btn-lg glyphicon glyphicon-remove-sign">  Excluir</button>
+							
+						<label></label>	
+						<span class="labelTableItens">Pagamentos à Prazo</span>		
+					</div>
+			
+						<!-- /.card-header -->
+						<div class="card-body">
+							<div class="table-responsive p-0">
+								<table class="table table-bordered table-condensed">
+
+									<tbody>
+										<tr ng-repeat="g in pedido.pagamentos" ng-click="selecionarLinhaPagamentoPedido(g)"
+											ng-class="{linhaSelecionada : g == objetoSelecionadoPagamentoPedido}">
+
 										</tr>
 									</tbody>
 								</table>

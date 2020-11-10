@@ -202,7 +202,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	    	
     	var posicao = $scope.pedido.itens.indexOf($scope.objetoSelecionadoItem);
     	$scope.pedido.itens.splice(posicao,1);
-    	$scope.atualizarValorItem();
+    	$scope.atualizarValorPedido();
     }
 
     $scope.btnExcluirFinanceiro = function(){
@@ -278,7 +278,9 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     		$scope.pedido.itens.push(pitem);
     	}
     	
-		$('#modalItem').modal('hide');	
+		$('#modalItem').modal('hide');
+		$scope.atualizarValorItem();
+		$scope.atualizarValorPedido();
 
     }
 
@@ -291,8 +293,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     		$scope.mostrarAguarde = false;
     		return;
         }
-    	
-
     		
     	if($scope.objetoSelecionadoPagamentoPedido){
     		var posicao = $scope.pedido.pagamentos.indexOf($scope.objetoSelecionadoPagamentoPedido);
@@ -343,7 +343,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     }
     
     $scope.atualizarValorItem = function(){
-    	//for(i in $scope.pedido.itens){
 		
     		if($scope.pedidoItem.acrescimo != 0||$scope.pedidoItem.desconto == 0){
 	
@@ -361,13 +360,17 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 				$scope.resultadoDesconto = parseFloat($scope.pedidoItem.valorUnitario) - ($scope.resultado);
 				$scope.pedidoItem.valorTotal = parseFloat($scope.resultadoDesconto * $scope.pedidoItem.quantidade);				
 			}
-    	//}
+    	
     }
     
     $scope.atualizarValorPedido = function(){
+		$scope.pedido.valorLiquido = $scope.pedidoItem.valorTotal;
+		
+		for(i in $scope.pedido.itens){
+			$scope.pedido.valorLiquido += parseFloat($scope.pedido.itens[i].valorTotal);
+		}
     	     
 		if($scope.pedido.desconto != 0||$scope.pedido.acrescimo == 0){
-			$scope.pedido.valorLiquido = $scope.pedidoItem.valorTotal;
 
 			$scope.valor = $scope.pedido.desconto;
 			$scope.porcentagem = ($scope.valor)*0.01;
@@ -376,16 +379,15 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 			$scope.pedido.valorTotal = parseFloat($scope.resultadoDesconto);
 			
 		} else if ($scope.pedido.acrescimo != 0||$scope.pedido.desconto == 0){
-			$scope.pedido.valorLiquido = $scope.pedidoItem.valorTotal;
 	
 			$scope.valor = $scope.pedido.acrescimo;
 			$scope.porcentagem = ($scope.valor)*0.01;
 			$scope.resultado = ($scope.pedido.valorLiquido * $scope.porcentagem);
 			$scope.resultadoAcrescimo = parseFloat($scope.pedido.valorLiquido) + ($scope.resultado);
 			$scope.pedido.valorTotal = parseFloat($scope.resultadoAcrescimo);
-			
-		} 
-    	
+    	}	
+		
+
     }
 
     $scope.fecharModalItem = function(){

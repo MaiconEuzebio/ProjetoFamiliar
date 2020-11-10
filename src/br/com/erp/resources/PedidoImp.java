@@ -115,8 +115,6 @@ public void gerarDevolucao(PedidoItem item) {
 
 
 
-
-
 	@Path("obterPorId")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
@@ -133,6 +131,10 @@ public void gerarDevolucao(PedidoItem item) {
 		}
 		return pedido;
 	}
+	
+	
+	
+	
 	
 	@Path("obterTodos")
 	@GET
@@ -154,6 +156,10 @@ public void gerarDevolucao(PedidoItem item) {
 		return pedidos;
 	}
 	
+	
+	
+	
+	
 	@Path("obterTodosAtivos")
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
@@ -174,6 +180,10 @@ public void gerarDevolucao(PedidoItem item) {
 		}
 		return pedidos;
 	}
+	
+	
+	
+	
 	
 	
 	@Path("removerPorId")

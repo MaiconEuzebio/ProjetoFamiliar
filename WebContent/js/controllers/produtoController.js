@@ -326,17 +326,17 @@ app.controller("produtoController", function ($scope, requisicaoService, filterF
 	
 	$scope.pesquisar = function(){
 		$scope.produtosFiltradas = orderByFilter(filterFilter($scope.produtos,{id:$scope.idFilter,
-													                     descricao: $scope.descricaoFilter,
-													                     quantidadeMaxima: $scope.quantidadeMaximaFilter,
-													                     quantidadeMinima: $scope.quantidadeMinimaFilter,
-													                     quantidadeAtual: $scope.quantidadeAtualFilter,
-													                     precoCusto: $scope.precoCustoFilter,
-													                     precoVenda: $scope.precoVendaFilter,
-													                     cor:{descricao:$scope.descricaoCorFilter},
-													                     marca:{descricao:$scope.descricaoMarcaFilter},
-													                     tamanho:{descricao:$scope.descricaoTamanhoFilter},
-													                     unidadeMedida:{descricao:$scope.descricaoUnidadeMedidaFilter},
-													                     descStatus:$scope.descStatusFilter}), $scope.campoOrdenacao);
+													                     		descricao: $scope.descricaoFilter,
+													                     		quantidadeMaxima: $scope.quantidadeMaximaFilter,
+													                     		quantidadeMinima: $scope.quantidadeMinimaFilter,
+													                    		quantidadeAtual: $scope.quantidadeAtualFilter,
+													                    		precoCusto: $scope.precoCustoFilter,
+													                     		precoVenda: $scope.precoVendaFilter,
+													                     		cor:{descricao:$scope.descricaoCorFilter},
+													                     		marca:{descricao:$scope.descricaoMarcaFilter},
+													                     		tamanho:{descricao:$scope.descricaoTamanhoFilter},
+													                     		unidadeMedida:{descricao:$scope.descricaoUnidadeMedidaFilter},
+													                     		descStatus:$scope.descStatusFilter}), $scope.campoOrdenacao);
 		
 	}
 	

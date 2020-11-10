@@ -72,19 +72,16 @@ public void gerarPedidoMovimentacao(PedidoItem item) {
 				System.out.println("Quantidade baixada do estoque com sucesso");
 				em.merge(produto);
 				
-			/*}else if(item.getQuantidade()!=null && item.getId()!=null) {
-				Produto produto = item.getProduto();
-				produto.setQuantidadeAtual(produto.getQuantidadeAtual()+item.getQuantidade());
-				System.out.println(produto.getQuantidadeAtual());
+			}else if(item.getQuantidade()!=null && item.getId()!=null && item.getValorUnitario() !=null) {
+				PedidoItem pedidoItem = new PedidoItem();
+				System.out.println(pedidoItem.getQuantidade());
 				System.out.println("Quantidade editada com sucesso");
-				em.merge(produto);*/
+				em.merge(pedidoItem);
 			}
 				em.getTransaction().commit();
 		}catch(Exception e) {
-			e.printStackTrace();
-			if(em.getTransaction().isActive()){
 				em.getTransaction().rollback();
-			}
+			
 		}finally {
 			em.close();
 		}
@@ -231,7 +228,6 @@ public void gerarDevolucao(PedidoItem item) {
 			pedido = (Pedido) em.createQuery("select a " 
 				     						+ "from Pedido a "
 				     						+ "where a.status = 0")
-											
 											.setMaxResults(1)
 											.getSingleResult();
 			

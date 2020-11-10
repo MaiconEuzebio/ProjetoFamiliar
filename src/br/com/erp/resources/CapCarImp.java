@@ -228,6 +228,7 @@ public class CapCarImp {
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	
 	public List<CapCar> obterTodosInativos() {
 		EntityManager em = UnidadePersistencia.createEntityManager();
 		List<CapCar> capCarS = null;

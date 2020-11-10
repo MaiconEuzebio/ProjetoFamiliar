@@ -81,8 +81,10 @@ public void gerarPedidoMovimentacao(PedidoItem item) {
 			}
 				em.getTransaction().commit();
 		}catch(Exception e) {
-				em.getTransaction().isActive();
+			e.printStackTrace();
+			if(em.getTransaction().isActive()){
 				em.getTransaction().rollback();
+			}
 		}finally {
 			em.close();
 		}
@@ -191,14 +193,15 @@ public void gerarDevolucao(PedidoItem item) {
 			}
 			
 			em.getTransaction().begin();
-			Pedido pedidoAux = obterPedidoFechado() ;
+			Pedido pedidoAux = obterPedidoFechado();
 			
 			if(pedidoAux != null) {
 				throw new RuntimeException("Existe pedido esta fechado e não pode ser excluído: " + pedidoAux.getId());
+			}else if(pedidoAux == null) {
+				em.remove(pedido);
+				em.getTransaction().commit();
 			}
-			em.remove(pedido);
-			em.getTransaction().commit();
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			if(em.getTransaction().isActive()){
@@ -215,7 +218,6 @@ public void gerarDevolucao(PedidoItem item) {
 	
 	
 	
-	
 	@Path("obterPedidoFechado")
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
@@ -227,12 +229,17 @@ public void gerarDevolucao(PedidoItem item) {
 		Pedido pedido = null;
 		try {
 			pedido = (Pedido) em.createQuery("select a " 
-				     + "from Pedido a "
-				     + "where a.status = 0"
-					).getSingleResult();
+				     						+ "from Pedido a "
+				     						+ "where a.status = 0"
+																 )
+											.setMaxResults(1)
+											.getSingleResult();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			if(em.getTransaction().isActive()){
+				em.getTransaction().rollback();
+			}
 		} finally {
 			em.close();
 		}

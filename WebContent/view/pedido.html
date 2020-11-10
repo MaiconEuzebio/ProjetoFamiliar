@@ -413,7 +413,7 @@
 										<tr ng-repeat="g in pedido.pagamentos" ng-click="selecionarLinhaPagamentoPedido(g)"
 											ng-class="{linhaSelecionada : g == objetoSelecionadoPagamentoPedido}">
 											<td>{{g.tipoCobranca.descricao}}</td>
-											<td>{{g.valorTotal}}</td>
+											<td>{{g.valor}}</td>
 											<td>{{g.observacao}}</td>
 										</tr>
 									</tbody>
@@ -588,31 +588,23 @@
 </div>
 
 <div class="modal" id="modalPedidoFechamento">
-	<div class="col-md-4 col-md-offset-4" >
-		<div class="card">
-			<div class="card-header">
-				<h3 class="card-title">Fechamento</h3>
-				<button type="button" class="btn btn-secondary pull-right" ng-click="fecharModalPedidoFechamento()">Voltar</button>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title glyphicon glyphicon-exclamation-sign">  Atenção</h4>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close" ng-click="fecharModalPedidoFechamento()">
+					<span aria-hidden="true">&times;</span>
+				</button>
 			</div>
-			<!-- /.card-header -->
-			<div class="card-body">
-				<div class="row">
-				<h3>Deseja fechar o pedido?</h3>
-				</div>
-				<div class="row">
-					<div
-						class="alert alert-danger alert-dismissible col-md-12 text-center"
-						ng-show="mensagemRodape">{{mensagemRodape}}</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<button type="button" class="btn bg-primary btn-lg pull-right"
-							ng-click=btnConfirmarFechamento(pedido)>Confirmar
-					</div>
-			<!-- /.card-body -->
-		       </div>
+			<div class="modal-body">
+				<p><h2>Deseja Fechar o Pedido?</h2></p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default pull-right" ng-click="btnConfirmarFechamento(pedido)"data-dismiss="modal">Confirmar</button>
 			</div>
 		</div>
+		<!-- /.modal-content -->
 	</div>
 </div>
 

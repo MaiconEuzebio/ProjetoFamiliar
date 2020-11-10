@@ -202,7 +202,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	    	
     	var posicao = $scope.pedido.itens.indexOf($scope.objetoSelecionadoItem);
     	$scope.pedido.itens.splice(posicao,1);
-    	$scope.atualizarValorItem();
+    	$scope.atualizarValorPedido();
     }
 
     $scope.btnExcluirFinanceiro = function(){
@@ -278,7 +278,9 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     		$scope.pedido.itens.push(pitem);
     	}
     	
-		$('#modalItem').modal('hide');	
+		$('#modalItem').modal('hide');
+		$scope.atualizarValorItem();
+		$scope.atualizarValorPedido();
 
     }
 
@@ -288,13 +290,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	if (!ppagamentoPedido.tipoCobranca) {
         	$scope.mensagemRodape = "É necessário o preenchimento do campo Tipo de Cobranca!";
     		document.getElementById("cTipoCobranca").focus();
-    		$scope.mostrarAguarde = false;
-    		return;
-        }
-    	
-    	if (!ppagamentoPedido.valorTotal) {
-        	$scope.mensagemRodape = "É necessário o preenchimento do campo Valor Total!";
-    		document.getElementById("cValorTotal").focus();
     		$scope.mostrarAguarde = false;
     		return;
         }
@@ -321,6 +316,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
         	$('#modalAtencao').modal();
     		return;
     	}
+    	$scope.pedido.data = new Date($scope.pedido.data);
     	$scope.mostrarAguarde    = false;
         $scope.visualizaCadastro = true;
         $('#modalPedidoFechamento').modal();	
@@ -329,6 +325,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.btnConfirmarFechamento = function(ppedido){ 
         	$scope.mensagemRodape = "";
         	$scope.mostrarAguarde = true;
+        	$scope.pedido.data = new Date();
         	$scope.pedido.status = 0;
 
     	requisicaoService.requisitarPOST("pedido/salvar", ppedido, function(retorno){
@@ -346,7 +343,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     }
     
     $scope.atualizarValorItem = function(){
-    	//for(i in $scope.pedido.itens){
 		
     		if($scope.pedidoItem.acrescimo != 0||$scope.pedidoItem.desconto == 0){
 	
@@ -364,13 +360,17 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 				$scope.resultadoDesconto = parseFloat($scope.pedidoItem.valorUnitario) - ($scope.resultado);
 				$scope.pedidoItem.valorTotal = parseFloat($scope.resultadoDesconto * $scope.pedidoItem.quantidade);				
 			}
-    	//}
+    	
     }
     
     $scope.atualizarValorPedido = function(){
+		$scope.pedido.valorLiquido = $scope.pedidoItem.valorTotal;
+		
+		for(i in $scope.pedido.itens){
+			$scope.pedido.valorLiquido += parseFloat($scope.pedido.itens[i].valorTotal);
+		}
     	     
 		if($scope.pedido.desconto != 0||$scope.pedido.acrescimo == 0){
-			$scope.pedido.valorLiquido = $scope.pedidoItem.valorTotal;
 
 			$scope.valor = $scope.pedido.desconto;
 			$scope.porcentagem = ($scope.valor)*0.01;
@@ -379,16 +379,15 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 			$scope.pedido.valorTotal = parseFloat($scope.resultadoDesconto);
 			
 		} else if ($scope.pedido.acrescimo != 0||$scope.pedido.desconto == 0){
-			$scope.pedido.valorLiquido = $scope.pedidoItem.valorTotal;
 	
 			$scope.valor = $scope.pedido.acrescimo;
 			$scope.porcentagem = ($scope.valor)*0.01;
 			$scope.resultado = ($scope.pedido.valorLiquido * $scope.porcentagem);
 			$scope.resultadoAcrescimo = parseFloat($scope.pedido.valorLiquido) + ($scope.resultado);
 			$scope.pedido.valorTotal = parseFloat($scope.resultadoAcrescimo);
-			
-		} 
-    	
+    	}	
+		
+
     }
 
     $scope.fecharModalItem = function(){
@@ -399,7 +398,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$('#modalFinanceiro').modal('hide');
     }
     
-    $scope.fecharModalFechamento = function(){
+    $scope.fecharModalPedidoFechamento = function(){
     	$('#modalPedidoFechamento').modal('hide');
     }
 

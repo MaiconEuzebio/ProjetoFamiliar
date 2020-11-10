@@ -154,9 +154,9 @@ public class PessoaImp {
 			capCar = (CapCar) em.createQuery("select a "
 											   +"from CapCar a "
 											   +"where a.cliente.id = :id")
-								  .setParameter("id", id)
-								  .setMaxResults(1)
-					              .getSingleResult();
+								  				.setParameter("id", id)
+								  				.setMaxResults(1)
+								  				.getSingleResult();
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally {

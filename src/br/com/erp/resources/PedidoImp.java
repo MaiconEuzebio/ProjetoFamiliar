@@ -188,17 +188,17 @@ public void gerarDevolucao(PedidoItem item) {
 		
 		try {
 			Pedido pedido = em.find(Pedido.class, paramJson.getInt1());
-			for(PedidoItem pedidoItem : pedido.getItens()) {
-				gerarDevolucao(pedidoItem);
-			}
-			
 			em.getTransaction().begin();
-			Pedido pedidoAux = obterPedidoFechado();
 			
-			if(pedidoAux != null) {
-				throw new RuntimeException("Existe pedido esta fechado e não pode ser excluído: " + pedidoAux.getId());
-			}else if(pedidoAux == null) {
+			
+			if(pedido.getStatus()== 0) {
+				throw new RuntimeException("Existe pedido esta fechado e não pode ser excluído.");
+			}else if(pedido.getStatus()== 1) {
+				for(PedidoItem pedidoItem : pedido.getItens()) {
+					gerarDevolucao(pedidoItem);
+				}
 				em.remove(pedido);
+				System.out.println("Pedido removido com sucesso");
 				em.getTransaction().commit();
 			}
 			
@@ -230,8 +230,34 @@ public void gerarDevolucao(PedidoItem item) {
 		try {
 			pedido = (Pedido) em.createQuery("select a " 
 				     						+ "from Pedido a "
-				     						+ "where a.status = 0"
-																 )
+				     						+ "where a.status = 0")
+											
+											.setMaxResults(1)
+											.getSingleResult();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+	
+		return pedido;
+	}
+	
+	
+	
+	
+	
+	
+	public Pedido obterPedidoStatus() {
+		EntityManager em = UnidadePersistencia.createEntityManager();
+		
+		Pedido pedido = null;
+		try {
+			pedido = (Pedido) em.createQuery("select a " 
+				     						+ "from Pedido a "
+				     						+ "where a.status = 1"
+				     						+ "or a.status = 0")
 											.setMaxResults(1)
 											.getSingleResult();
 			

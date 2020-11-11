@@ -303,6 +303,8 @@ public void gerarDevolucao(PedidoItem item) {
 	
 	
 	
+	
+	
 	public Pedido obterPedidoStatus() {
 		EntityManager em = UnidadePersistencia.createEntityManager();
 		

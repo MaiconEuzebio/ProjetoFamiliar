@@ -490,7 +490,7 @@
 					<!-- CAMPO PRODUTO -->
 					<div class="col-md-2">
 						<div class="form-group">
-							<label>Produto</label> <select id="cProduto" class="form-control" ng-model="pedidoItem.produto" 
+							<label>Produto</label> <select id="cProduto" class="form-control" ng-model="pedidoItem.produto" ng-true-value="produto.quantidadeAtual > 0"ng-false-value="produto.quantidadeAtual <= 0"
 							ng-options="produto.descricao for produto in produtos | orderBy:'nome' track by produto.id">
 			                 <option value="">Selecione um produto</option></select>
 						</div>

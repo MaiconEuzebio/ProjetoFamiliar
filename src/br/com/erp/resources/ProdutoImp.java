@@ -78,18 +78,19 @@ public class ProdutoImp {
 		return produtos;
 	}
 
-	@Path("obterTodosAtivos")
+	@Path("obterTodosAtivosEmEstoque")
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public List<Produto> obterTodosAtivos() {
+	public List<Produto> obterTodosAtivosEmEstoque() {
 		EntityManager em = UnidadePersistencia.createEntityManager();
 		List<Produto> produtos = null;
 
 		try {
 			produtos = em.createQuery("select a " 
-								 + "  from Produto a" 
-								 + " where a.status = 1").getResultList();
+								 + " from Produto a" 
+								 + " where a.status = 1"
+								 + " and quantidadeAtual > 0").getResultList();
 
 		} catch (Exception e) {
 
@@ -98,6 +99,8 @@ public class ProdutoImp {
 		}
 		return produtos;
 	}
+	
+	
 
 	@Path("removerPorId")
 	@POST

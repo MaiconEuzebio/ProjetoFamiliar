@@ -441,7 +441,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 			$scope.mostrarAguarde = false;
 		});
     	
-    	requisicaoService.requisitarGET("produto/obterTodosAtivos", function(retorno) {
+    	requisicaoService.requisitarGET("produto/obterTodosAtivosEmEstoque", function(retorno) {
     		if (!retorno.isValid) {
     			$scope.mensagemModal  = retorno.msg;
     			$scope.showModalAviso = true;

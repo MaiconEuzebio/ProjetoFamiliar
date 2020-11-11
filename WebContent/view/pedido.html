@@ -407,7 +407,6 @@
 						<span class="labelTableItens">Pagamentos à Vista</span>							
 					</div>
 					
-			
 						<!-- /.card-header -->
 						<div class="card-body">
 							<div class="table-responsive p-0">
@@ -426,7 +425,12 @@
 						</div>
 							<!-- /.card-body -->
 				</div>
-				</br>
+
+				</div>
+			</div>
+			
+					<div class="card-body" ng-show="abaSelecionada == 'financeiro'">
+			<div class="col-md-12">
 				<div class="card">
 					<div class="card-header">
 
@@ -440,18 +444,21 @@
 							class="btn  btn-outline-danger btn-lg glyphicon glyphicon-remove-sign">  Excluir</button>
 							
 						<label></label>	
-						<span class="labelTableItens">Pagamentos à Prazo</span>		
+						<span class="labelTableItens">Pagamentos à Prazo</span>							
 					</div>
-			
+					
 						<!-- /.card-header -->
 						<div class="card-body">
 							<div class="table-responsive p-0">
 								<table class="table table-bordered table-condensed">
 
 									<tbody>
-										<tr ng-repeat="g in pedido.pagamentos" ng-click="selecionarLinhaPagamentoPedido(g)"
-											ng-class="{linhaSelecionada : g == objetoSelecionadoPagamentoPedido}">
-
+										<tr ng-repeat="g in pedido.pagamentos" ng-click="selecionarLinhaPagamentoPedidoPrazo(g)"
+											ng-class="{linhaSelecionada : g == objetoSelecionadoPagamentoPedidoPrazo}">
+											<td>{{g.tipoCobranca.descricao}}</td>
+											<td>{{g.valor}}</td>
+											<td>{{g.dataVencimentoStr}}</td>
+											<td>{{g.observacao}}</td>
 										</tr>
 									</tbody>
 								</table>
@@ -459,6 +466,8 @@
 						</div>
 							<!-- /.card-body -->
 				</div>
+				</br>
+
 				<div class="row">
 					<div
 						class="alert alert-danger alert-dismissible col-md-12 text-center"
@@ -591,8 +600,8 @@
 					<!-- CAMPO VALOR TOTAL -->
 					<div class="col-md-4">
 						<div class="form-group">
-							<label>Valor Total</label> <input id="cValorTotal" type="text"
-								class="form-control" ng-model="pedido.valorTotal" ng-change="atualizarValorPedido" maxlength="10"
+							<label>Valor Total</label> <input id="cValor" type="text"
+								class="form-control" ng-model="pedidoPagamento.valor" ng-change="atualizarValorPedido()" maxlength="10"
 								mask-maiusculas autofocus>
 						</div>
 					</div>
@@ -615,7 +624,72 @@
 				<div class="row">
 					<div class="col-md-12">
 						<button type="button" class="btn bg-primary btn-lg pull-right"
-							ng-click="btnSalvarFinanceiro(pedidoPagamento)">Salvar</button>
+							ng-click="btnSalvarFinanceiro()">Salvar</button>
+					</div>
+				</div>
+			</div>
+			<!-- /.card-body -->
+		</div>
+	</div>
+</div>
+
+	<div class="modal" id="modalFinanceiroPrazo">
+	<div class="col-md-6 col-md-offset-3">
+		<div class="card">
+			<div class="card-header">
+				<h3 class="card-title">Cadastro</h3>
+				<button type="button" class="btn btn-secondary pull-right" ng-click="fecharModalFinanceiroPrazo()">Voltar</button>
+			</div>
+			<!-- /.card-header -->
+			<div class="card-body">
+				<div class="row">
+
+					<!-- CAMPO TIPO COBRANCA -->
+					<div class="col-md-4">
+						<div class="form-group">
+							<label>Tipo de Cobranca</label> <select id="cTipoCobranca" class="form-control" ng-model="pedidoPagamento.tipoCobranca" 
+							ng-options="tipoCobranca.descricao for tipoCobranca in tipoCobrancas | orderBy:'nome' track by tipoCobranca.id">
+			                 <option value="">Selecione um tipo de cobranca</option></select>
+						</div>
+					</div>
+					
+					<!-- CAMPO VALOR TOTAL -->
+					<div class="col-md-4">
+						<div class="form-group">
+							<label>Valor Total</label> <input id="cValor" type="text"
+								class="form-control" ng-model="pedidoPagamento.valor" ng-change="atualizarValorPedido()"  maxlength="10"
+								mask-maiusculas autofocus>
+						</div>
+					</div>
+					
+					<!-- CAMPO DATA VENCIMENTO -->
+					<div class="col-md-4">
+						<div class="form-group">
+							<label>Data Vencimento</label> <input id="cDataVencimento" type="date"
+								class="form-control" ng-model="pedidoPagamento.dataVencimento" maxlength="10"
+								mask-maiusculas autofocus>
+						</div>
+					</div>
+					
+					<!-- CAMPO OBS -->
+					<div class="col-md-12">
+						<div class="form-group">
+							<label>Observacao</label> <textarea id="cObservacao" type="text"
+								class="form-control" ng-model="pedidoPagamento.observacao" maxlength="300"
+								mask-maiusculas autofocus></textarea>
+						</div>
+					</div>
+
+				</div>
+				<div class="row">
+					<div
+						class="alert alert-danger alert-dismissible col-md-12 text-center"
+						ng-show="mensagemRodape">{{mensagemRodape}}</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<button type="button" class="btn bg-primary btn-lg pull-right"
+							ng-click="btnSalvarFinanceiroPrazo()">Salvar</button>
 					</div>
 				</div>
 			</div>

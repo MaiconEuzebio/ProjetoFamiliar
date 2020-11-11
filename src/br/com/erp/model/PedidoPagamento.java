@@ -1,5 +1,6 @@
 package br.com.erp.model;
 
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,6 +27,9 @@ public class PedidoPagamento {
 	
 	@Column(name = "OBSERVACAO", length = 300)
 	private String observacao;
+	
+	@Column(name = "DATA_VENCIMENTO")
+	private Date dataVencimento;
 	
 	@ManyToOne
 	@JoinColumn(name = "ID_TIPO_COBRANCA")
@@ -59,6 +63,13 @@ public class PedidoPagamento {
 	}
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
+	}
+	
+	public Date getDataVencimento() {
+		return dataVencimento;
+	}
+	public void setDataVencimento(Date dataVencimento) {
+		this.dataVencimento = dataVencimento;
 	}
 	public TipoCobranca getTipoCobranca() {
 		return tipoCobranca;

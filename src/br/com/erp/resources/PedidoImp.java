@@ -119,11 +119,6 @@ public void gerarPedidoMovimentacao(PedidoItem item) {
 				System.out.println("Quantidade baixada do estoque com sucesso");
 				em.merge(produto);
 				
-			/*}else if(item.getQuantidade()!=null && item.getId()!=null && item.getValorUnitario() !=null && item.getObservacao()!= null) {
-				PedidoItem pedidoItem = new PedidoItem();
-				System.out.println(pedidoItem.getQuantidade());
-				System.out.println("Quantidade editada com sucesso");
-				em.merge(pedidoItem);*/
 			}
 				em.getTransaction().commit();
 		}catch(Exception e) {

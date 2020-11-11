@@ -468,7 +468,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 			$scope.porcentagem = ($scope.valor)*0.01;
 			$scope.resultado = ($scope.pedido.valorLiquido * $scope.porcentagem);
 			$scope.resultadoDesconto = parseFloat($scope.pedido.valorLiquido) - ($scope.resultado);
-			$scope.pedido.valorTotal = parseFloat($scope.resultadoDesconto);
+			$scope.pedido.valorTotal = parseFloat($scope.resultadoDesconto.toFixed(2));
 			
 		} else if ($scope.pedido.acrescimo != 0||$scope.pedido.desconto == 0){
 	
@@ -476,7 +476,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 			$scope.porcentagem = ($scope.valor)*0.01;
 			$scope.resultado = ($scope.pedido.valorLiquido * $scope.porcentagem);
 			$scope.resultadoAcrescimo = parseFloat($scope.pedido.valorLiquido) + ($scope.resultado);
-			$scope.pedido.valorTotal = parseFloat($scope.resultadoAcrescimo);
+			$scope.pedido.valorTotal = parseFloat($scope.resultadoAcrescimo.toFixed(2));
     	}	
     }
 

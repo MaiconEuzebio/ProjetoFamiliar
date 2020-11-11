@@ -39,6 +39,7 @@ public class PedidoImp {
 			
 			pedido.atualizarItens();
 			pedido.atualizarPagamentos();
+			pedido.atualizarPagamentosPrazo();
 			
 			if (pedido.getId() == null) {
 				em.persist(pedido);

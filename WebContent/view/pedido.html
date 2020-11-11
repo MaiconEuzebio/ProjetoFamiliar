@@ -462,7 +462,7 @@
 									<th>Observacao</th>
 								</tr>
 									<tbody>
-										<tr ng-repeat="g in pedido.pagamentos" ng-click="selecionarLinhaPagamentoPedidoPrazo(g)"
+										<tr ng-repeat="g in pedido.pagamentosPrazo" ng-click="selecionarLinhaPagamentoPedidoPrazo(g)"
 											ng-class="{linhaSelecionada : g == objetoSelecionadoPagamentoPedidoPrazo}">
 											<td>{{g.tipoCobranca.descricao}}</td>
 											<td>{{g.valor}}</td>
@@ -656,7 +656,7 @@
 					<!-- CAMPO TIPO COBRANCA -->
 					<div class="col-md-4">
 						<div class="form-group">
-							<label>Tipo de Cobranca</label> <select id="cTipoCobranca" class="form-control" ng-model="pedidoPagamento.tipoCobranca" 
+							<label>Tipo de Cobranca</label> <select id="cTipoCobranca" class="form-control" ng-model="pedidoPagamentoPrazo.tipoCobranca" 
 							ng-options="tipoCobranca.descricao for tipoCobranca in tipoCobrancas | orderBy:'nome' track by tipoCobranca.id">
 			                 <option value="">Selecione um tipo de cobranca</option></select>
 						</div>
@@ -666,7 +666,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>Valor Total</label> <input id="cValor" type="text"
-								class="form-control" ng-model="pedidoPagamento.valor" ng-change="atualizarValorPedido()"  maxlength="10"
+								class="form-control" ng-model="pedidoPagamentoPrazo.valor" ng-change="atualizarValorPedido()"  maxlength="10"
 								mask-maiusculas autofocus>
 						</div>
 					</div>
@@ -675,7 +675,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>Data Vencimento</label> <input id="cDataVencimento" type="date"
-								class="form-control" ng-model="pedidoPagamento.dataVencimento" maxlength="10"
+								class="form-control" ng-model="pedidoPagamentoPrazo.dataVencimento" maxlength="10"
 								mask-maiusculas autofocus>
 						</div>
 					</div>
@@ -684,7 +684,7 @@
 					<div class="col-md-12">
 						<div class="form-group">
 							<label>Observacao</label> <textarea id="cObservacao" type="text"
-								class="form-control" ng-model="pedidoPagamento.observacao" maxlength="300"
+								class="form-control" ng-model="pedidoPagamentoPrazo.observacao" maxlength="300"
 								mask-maiusculas autofocus></textarea>
 						</div>
 					</div>
@@ -698,7 +698,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<button type="button" class="btn bg-primary btn-lg pull-right"
-							ng-click="btnSalvarFinanceiroPrazo(pedidoPagamento)">Salvar</button>
+							ng-click="btnSalvarFinanceiroPrazo(pedidoPagamentoPrazo)">Salvar</button>
 					</div>
 				</div>
 			</div>

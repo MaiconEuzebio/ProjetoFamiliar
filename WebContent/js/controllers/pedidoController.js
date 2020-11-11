@@ -7,6 +7,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 	$scope.pedidos              = [];
 	$scope.itens                = [];
 	$scope.pagamentos           = [];
+	$scope.pagamentosPrazo      = [];
 	$scope.showModalConfirmacao = false;
 	$scope.showModalAviso       = false;
 	$scope.mostrarAguarde       = false;
@@ -83,6 +84,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
         $scope.pedidoPagamento.valor        = null;
         $scope.pedidoPagamento.tipoCobranca = null;
     	$scope.pedidoPagamento.observacao   = null;
+    	//$scope.pedidoPagamento.status       = 0;
     	$('#modalFinanceiro').modal();
     	
     	$scope.mostrarAguarde    = false;
@@ -94,12 +96,14 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.mensagemModal  = "";
     	$scope.mostrarAguarde = true;
     	
-    	$scope.pedidoPagamento		          = {};
-    	$scope.pedidoPagamento.id             = null;
-        $scope.pedidoPagamento.valor          = null;
-        $scope.pedidoPagamento.tipoCobranca   = null;
-        $scope.pedidoPagamento.dataVencimento = new Date();
-    	$scope.pedidoPagamento.observacao     = null;
+    	$scope.pedidoPagamentoPrazo		          = {};
+    	$scope.pedidoPagamentoPrazo.id             = null;
+        $scope.pedidoPagamentoPrazo.valor          = null;
+        $scope.pedidoPagamentoPrazo.tipoCobranca   = null;
+        $scope.pedidoPagamentoPrazo.dataVencimento = new Date();
+    	$scope.pedidoPagamentoPrazo.observacao     = null;
+    	//$scope.pedidoPagamento.status         = 1;
+
     	$('#modalFinanceiroPrazo').modal();
     	
     	$scope.mostrarAguarde    = false;
@@ -188,10 +192,10 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     		return;
     	}
     
-    	    $scope.pedidoPagamento 				  = $scope.objetoSelecionadoPagamentoPedidoPrazo;
-		    $scope.mostrarAguarde    			  = false;
-		    $scope.pedidoPagamento.dataVencimento = new Date();
-		    $scope.visualizaCadastro 			  = true;
+    	    $scope.pedidoPagamentoPrazo 			   = $scope.objetoSelecionadoPagamentoPedidoPrazo;
+		    $scope.mostrarAguarde    			       = false;
+		    $scope.pedidoPagamentoPrazo.dataVencimento = new Date();
+		    $scope.visualizaCadastro 			       = true;
 		    $('#modalFinanceiroPrazo').modal();
     }
 
@@ -262,8 +266,8 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     		return;
     	}
     	    	
-    	var posicao = $scope.pedido.pagamentos.indexOf($scope.objetoSelecionadoPagamentoPedidoPrazo);
-    	$scope.pedido.pagamentos.splice(posicao,1);
+    	var posicao = $scope.pedido.pagamentosPrazo.indexOf($scope.objetoSelecionadoPagamentoPedidoPrazo);
+    	$scope.pedido.pagamentosPrazo.splice(posicao,1);
     }
 
     $scope.retornarPesquisa = function (){
@@ -345,14 +349,15 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 		$('#modalFinanceiro').modal('hide');	
     }
     
-    $scope.btnSalvarFinanceiroPrazo = function(ppagamentoPedido){
+    $scope.btnSalvarFinanceiroPrazo = function(ppagamentoPedidoPrazo){
     	$scope.mensagemRodape = ""; 
+
     		
     	if($scope.objetoSelecionadoPagamentoPedidoPrazo){
-    		var posicao = $scope.pedido.pagamentos.indexOf($scope.objetoSelecionadoPagamentoPedidoPrazo);
-    		$scope.pedido.pagamentos[posicao] = ppagamentoPedido;
+    		var posicao = $scope.pedido.pagamentosPrazo.indexOf($scope.objetoSelecionadoPagamentoPedidoPrazo);
+    		$scope.pedido.pagamentosPrazo[posicao] = ppagamentoPedidoPrazo;
     	} else {
-    		$scope.pedido.pagamentos.push(ppagamentoPedido);
+    		$scope.pedido.pagamentosPrazo.push(ppagamentoPedidoPrazo);
     	}
 		$('#modalFinanceiroPrazo').modal('hide');	
     }
@@ -440,6 +445,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 			$scope.resultadoAcrescimo = parseFloat($scope.pedido.valorLiquido) + ($scope.resultado);
 			$scope.pedido.valorTotal = parseFloat($scope.resultadoAcrescimo);
     	}	
+
     }
 
     $scope.fecharModalItem = function(){
@@ -477,6 +483,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 				$scope.pedidos[i].dataStr = dateToStr(new Date($scope.pedidos[i].data));				
 			}
 
+			
 			$scope.pesquisar();
 			$scope.mostrarAguarde = false;
 		});
@@ -493,7 +500,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 			$scope.mostrarAguarde = false;
 		});
     	
-    	requisicaoService.requisitarGET("produto/obterTodosAtivosEmEstoque", function(retorno) {
+    	requisicaoService.requisitarGET("produto/obterTodosAtivos", function(retorno) {
     		if (!retorno.isValid) {
     			$scope.mensagemModal  = retorno.msg;
     			$scope.showModalAviso = true;

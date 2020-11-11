@@ -414,6 +414,14 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 				$scope.resultado = ($scope.pedidoItem.valorUnitario * $scope.porcentagem);
 				$scope.resultadoAcrescimo = parseFloat($scope.pedidoItem.valorUnitario) + ($scope.resultado);
 				$scope.pedidoItem.valorTotal = parseFloat($scope.resultadoAcrescimo * $scope.pedidoItem.quantidade);
+				if($scope.pedidoItem.quantidade > $scope.pedidoItem.produto.quantidadeAtual){
+						$scope.mensagemRodape  = "Quantidade em estoque insuficiente";
+						document.getElementById("cQuantidade").focus();
+						$scope.pedidoItem.quantidade = null;
+    					$scope.mostrarAguarde = false;
+						return;
+						
+				}
 				
 			} else if ($scope.pedidoItem.desconto != 0||$scope.pedidoItem.acrescimo == 0){
 				
@@ -421,15 +429,30 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 				$scope.porcentagem = ($scope.valor)*0.01;
 				$scope.resultado = ($scope.pedidoItem.valorUnitario * $scope.porcentagem);
 				$scope.resultadoDesconto = parseFloat($scope.pedidoItem.valorUnitario) - ($scope.resultado);
-				$scope.pedidoItem.valorTotal = parseFloat($scope.resultadoDesconto * $scope.pedidoItem.quantidade);				
+				$scope.pedidoItem.valorTotal = parseFloat($scope.resultadoDesconto * $scope.pedidoItem.quantidade);
+				if($scope.pedidoItem.quantidade > $scope.pedidoItem.produto.quantidadeAtual){
+						$scope.mensagemRodape  = "Quantidade em estoque insuficiente";
+						document.getElementById("cQuantidade").focus();
+						$scope.pedidoItem.quantidade = null;
+    					$scope.mostrarAguarde = false;
+						return;
+				}				
 			}
     	
     }
 
+
+	
+	$scope.estoque = null;
+	
+	$scope.mostrarEstoqueProduto = function(){
+		$scope.estoque = $scope.pedidoItem.produto.quantidadeAtual;
+	}
 	$scope.atualizarEstoque = function(){
 		
 		$scope.estoque = $scope.pedidoItem.valorTotal;
 		console.log($scope.estoque);	
+
 	}
 
     $scope.atualizarValorPedido = function(){

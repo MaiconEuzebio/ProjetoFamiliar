@@ -430,20 +430,12 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	
     }
 
-
-
 	$scope.atualizarEstoque = function(){
 		
 		$scope.estoque = $scope.pedidoItem.valorTotal;
-		console.log($scope.estoque);
-		
+		console.log($scope.estoque);	
 	}
 
-
-
-
-
-    
     $scope.atualizarValorPedido = function(){
     	$scope.pedido.valorLiquido = 0;
 
@@ -467,7 +459,11 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 			$scope.resultadoAcrescimo = parseFloat($scope.pedido.valorLiquido) + ($scope.resultado);
 			$scope.pedido.valorTotal = parseFloat($scope.resultadoAcrescimo);
     	}	
-
+    }
+    
+    $scope.atualizarValorFinanceiro = function(){
+    	$scope.pedidoPagamento.valor = parseFloat($scope.pedido.valorTotal);
+   
     }
 
     $scope.fecharModalItem = function(){

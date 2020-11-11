@@ -114,16 +114,6 @@
 									</a> <input type="text" name="peso" ng-model="valorTotalFilter"
 										class="form-control" placeholder="Pesquisar..."
 										ng-change="pesquisar()" mask-maiusculas></th>
-													
-									<th><a href="" ng-click="ordenacao('observacao')"
-									title="Ordenar"> Observacao <span
-										ng-show="campoOrdenacao == '+observacao'"
-										class="glyphicon glyphicon-sort-by-attributes" /> <span
-										ng-show="campoOrdenacao == '-observacao'"
-										class="glyphicon glyphicon-sort-by-attributes-alt" />
-									</a> <input type="text" name="peso" ng-model="observacaoFilter"
-										class="form-control" placeholder="Pesquisar..."
-										ng-change="pesquisar()" mask-maiusculas></th>
 										
 									<th width="100px"><a href=""
 									ng-click="ordenacao('descStatus')" title="Ordenar"> Status <span
@@ -147,7 +137,6 @@
 								<td>{{g.acrescimo}}</td>
 								<td>{{g.desconto}}</td>
 								<td>{{g.valorTotal}}</td>
-								<td>{{g.observacao}}</td>
 								<td>{{g.descStatus}}</td>
 							</tr>
 						</tbody>
@@ -420,7 +409,7 @@
 										<tr ng-repeat="g in pedido.pagamentos" ng-click="selecionarLinhaPagamentoPedido(g)"
 											ng-class="{linhaSelecionada : g == objetoSelecionadoPagamentoPedido}">
 											<td>{{g.tipoCobranca.descricao}}</td>
-											<td>{{g.valor}}</td>
+											<td>{{pedido.valorTotal}}</td>
 											<td>{{g.observacao}}</td>
 										</tr>
 									</tbody>
@@ -465,7 +454,7 @@
 										<tr ng-repeat="g in pedido.pagamentosPrazo" ng-click="selecionarLinhaPagamentoPedidoPrazo(g)"
 											ng-class="{linhaSelecionada : g == objetoSelecionadoPagamentoPedidoPrazo}">
 											<td>{{g.tipoCobranca.descricao}}</td>
-											<td>{{g.valor}}</td>
+											<td>{{pedido.valorTotal}}</td>
 											<td>{{g.dataVencimento | date:'dd/MM/yyyy'}}</td>
 											<td>{{g.observacao}}</td>
 										</tr>
@@ -625,7 +614,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>Valor Total</label> <input id="cValor" type="text"
-								class="form-control" ng-model="pedidoPagamento.valor" ng-change="atualizarValorPedido()" maxlength="10"
+								class="form-control" ng-model="pedido.valorTotal" maxlength="10"
 								mask-maiusculas autofocus>
 						</div>
 					</div>
@@ -681,7 +670,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>Valor Total</label> <input id="cValor" type="text"
-								class="form-control" ng-model="pedidoPagamentoPrazo.valor" ng-change="atualizarValorPedido()"  maxlength="10"
+								class="form-control" ng-model="pedido.valorTotal"  maxlength="10"
 								mask-maiusculas autofocus>
 						</div>
 					</div>

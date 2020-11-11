@@ -27,16 +27,8 @@ public class PedidoImp {
 		EntityManager em = UnidadePersistencia.createEntityManager();
 
 		em.getTransaction().begin();
-		try {
+		try {	
 
-
-
-			/*for(PedidoItem pedidoItem : pedido.getItens()) {
-				gerarPedidoMovimentacao(pedidoItem);
-			}*/			
-
-			
-			
 			pedido.atualizarItens();
 			pedido.atualizarPagamentos();
 			pedido.atualizarPagamentosPrazo();
@@ -74,13 +66,9 @@ public class PedidoImp {
 
 		em.getTransaction().begin();
 		try {
-
-
-
 			for(PedidoItem pedidoItem : pedido.getItens()) {
 				gerarPedidoMovimentacao(pedidoItem);
 			}			
-
 			
 			
 			pedido.atualizarItens();
@@ -100,6 +88,7 @@ public class PedidoImp {
 			e.printStackTrace();
 			em.getTransaction().rollback();
 			System.out.println("Não foi poss�vel incluir a pessoa");
+		
 		} finally {
 			em.close();
 		}

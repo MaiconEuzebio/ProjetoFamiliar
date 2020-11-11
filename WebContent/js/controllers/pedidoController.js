@@ -17,6 +17,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 	$scope.mostrarAguarde 		= true;
 	$scope.campoOrdenacao 		= '-id';
 	
+	
 	atualizarTela();
 	
 	/*
@@ -38,7 +39,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";
     	$scope.abaSelecionada = 'principal'
-        		
+        	
         $scope.pedido		        = {};
         $scope.pedido.id            = null;
         $scope.pedido.data          = new Date();
@@ -59,6 +60,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.mensagemModal  = "";
     	$scope.mostrarAguarde = true;
     	
+		
     	$scope.pedidoItem		        = {};
     	$scope.pedidoItem.id            = null;
     	$scope.pedidoItem.produto       = null;
@@ -294,8 +296,14 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 
      		$scope.mostrarAguarde    = false;
     		$scope.visualizaCadastro = false;
+
+			$scope.atualizarEstoque();
+    		$scope.atualizarValorItem();
+    		$scope.atualizarValorPedido();
+
     		//$scope.atualizarValorItem();
     		//$scope.atualizarValorPedido();
+
     		atualizarTela();
 
     	});
@@ -421,6 +429,20 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 			}
     	
     }
+
+
+
+	$scope.atualizarEstoque = function(){
+		
+		$scope.estoque = $scope.pedidoItem.valorTotal;
+		console.log($scope.estoque);
+		
+	}
+
+
+
+
+
     
     $scope.atualizarValorPedido = function(){
     	$scope.pedido.valorLiquido = 0;

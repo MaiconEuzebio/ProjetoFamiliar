@@ -514,8 +514,23 @@
 						</div>
 					</div>
 					
+					<div class="col-md-1">
+						<div class="form-group">
+							<label>Estoque</label> <input id="cEstoque" type="text" placeHolder="estoque"
+								class="form-control" ng-model="produto.quantidadeAtual"  maxlength="10"
+								mask-maiusculas autofocus readonly>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-12">
+							<button type="button" class="btn bg-primary btn-lg pull-right"
+								ng-click="atualizarEstoque()">Botão Teste</button>
+						</div>
+					</div>
+					
 					<!-- CAMPO QUANTIDADE -->
-					<div class="col-md-2">
+					<div class="col-md-1">
 						<div class="form-group">
 							<label>* Quantidade</label> <input id="cQuantidade" type="text"
 								class="form-control" ng-model="pedidoItem.quantidade" ng-change="atualizarValorItem()"  maxlength="10"

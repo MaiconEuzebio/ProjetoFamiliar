@@ -331,7 +331,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
         	$scope.pedido.data = new Date();
         	$scope.pedido.status = 0;
 
-    	requisicaoService.requisitarPOST("pedido/salvar", ppedido, function(retorno){
+    	requisicaoService.requisitarPOST("pedido/salvarFechamento", ppedido, function(retorno){
     		if (!retorno.isValid) {
     			$scope.mensagemRodape = retorno.msg;
     			$scope.mostrarAguarde = false;

@@ -31,6 +31,51 @@ public class PedidoImp {
 
 
 
+			/*for(PedidoItem pedidoItem : pedido.getItens()) {
+				gerarPedidoMovimentacao(pedidoItem);
+			}*/			
+
+			
+			
+			pedido.atualizarItens();
+			pedido.atualizarPagamentos();
+			
+			if (pedido.getId() == null) {
+				em.persist(pedido);
+			} else {
+				em.merge(pedido);
+			}
+			em.getTransaction().commit();
+			System.out.println("Pessoa inclu�da com sucesso");
+		} catch (Exception e) {
+			if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
+			e.printStackTrace();
+			em.getTransaction().rollback();
+			System.out.println("Não foi poss�vel incluir a pessoa");
+		} finally {
+			em.close();
+		}
+		return pedido;
+	}
+	
+	
+	
+	
+	@Path("salvarFechamento")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public Pedido saveFechamento(Pedido pedido) {
+
+		EntityManager em = UnidadePersistencia.createEntityManager();
+
+		em.getTransaction().begin();
+		try {
+
+
+
 			for(PedidoItem pedidoItem : pedido.getItens()) {
 				gerarPedidoMovimentacao(pedidoItem);
 			}			
@@ -61,22 +106,24 @@ public class PedidoImp {
 	}
 	
 	
+	
+	
 public void gerarPedidoMovimentacao(PedidoItem item) {
 	EntityManager em = UnidadePersistencia.createEntityManager();
 		try {
 			em.getTransaction().begin();
-			if(item.getQuantidade()!=null && item.getId()==null) {
+			if(item.getQuantidade()!=null && item.getId()!=null) {
 				Produto produto = item.getProduto();
 				produto.setQuantidadeAtual(produto.getQuantidadeAtual()-item.getQuantidade());
 				System.out.println(produto.getQuantidadeAtual());
 				System.out.println("Quantidade baixada do estoque com sucesso");
 				em.merge(produto);
 				
-			}else if(item.getQuantidade()!=null && item.getId()!=null && item.getValorUnitario() !=null) {
+			/*}else if(item.getQuantidade()!=null && item.getId()!=null && item.getValorUnitario() !=null && item.getObservacao()!= null) {
 				PedidoItem pedidoItem = new PedidoItem();
 				System.out.println(pedidoItem.getQuantidade());
 				System.out.println("Quantidade editada com sucesso");
-				em.merge(pedidoItem);
+				em.merge(pedidoItem);*/
 			}
 				em.getTransaction().commit();
 		}catch(Exception e) {
@@ -186,6 +233,9 @@ public void gerarDevolucao(PedidoItem item) {
 	
 	
 	
+	
+	
+	
 	@Path("removerPorId")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
@@ -220,6 +270,9 @@ public void gerarDevolucao(PedidoItem item) {
 		}
 
 	}
+	
+	
+	
 	
 	
 	

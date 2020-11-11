@@ -52,6 +52,9 @@ public class Pedido {
 	
 	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<PedidoPagamento> pagamentos;
+	
+	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<PedidoPagamentoPrazo> pagamentosPrazo;
 
 	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<PedidoItem> itens;
@@ -120,6 +123,13 @@ public class Pedido {
 	public void setPagamentos(List<PedidoPagamento> pagamentos) {
 		this.pagamentos = pagamentos;
 	}
+	
+	public List<PedidoPagamentoPrazo> getPagamentosPrazo() {
+		return pagamentosPrazo;
+	}
+	public void setPagamentosPrazo(List<PedidoPagamentoPrazo> pagamentosPrazo) {
+		this.pagamentosPrazo = pagamentosPrazo;
+	}
 	public List<PedidoItem> getItens() {
 		return itens;
 	}
@@ -151,6 +161,14 @@ public class Pedido {
 		if(this.pagamentos != null) {	
 			for(PedidoPagamento pagamento : pagamentos) {
 			pagamento.setPedido(this);
+			}	
+		}	
+	}
+	
+	public void atualizarPagamentosPrazo() {
+		if(this.pagamentosPrazo != null) {	
+			for(PedidoPagamentoPrazo pagamentoPrazo : pagamentosPrazo) {
+			pagamentoPrazo.setPedido(this);
 			}	
 		}	
 	}

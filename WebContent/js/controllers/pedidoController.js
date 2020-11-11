@@ -440,7 +440,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 			$scope.resultadoAcrescimo = parseFloat($scope.pedido.valorLiquido) + ($scope.resultado);
 			$scope.pedido.valorTotal = parseFloat($scope.resultadoAcrescimo);
     	}	
-
     }
 
     $scope.fecharModalItem = function(){
@@ -478,7 +477,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 				$scope.pedidos[i].dataStr = dateToStr(new Date($scope.pedidos[i].data));				
 			}
 
-			
 			$scope.pesquisar();
 			$scope.mostrarAguarde = false;
 		});

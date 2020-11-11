@@ -411,7 +411,11 @@
 						<div class="card-body">
 							<div class="table-responsive p-0">
 								<table class="table table-bordered table-condensed">
-
+								<tr>
+									<th>Tipo de Cobranca</th>
+								    <th>Valor</th>
+									<th>Observacao</th>
+								</tr>
 									<tbody>
 										<tr ng-repeat="g in pedido.pagamentos" ng-click="selecionarLinhaPagamentoPedido(g)"
 											ng-class="{linhaSelecionada : g == objetoSelecionadoPagamentoPedido}">
@@ -451,13 +455,18 @@
 						<div class="card-body">
 							<div class="table-responsive p-0">
 								<table class="table table-bordered table-condensed">
-
+						        <tr>
+									<th>Tipo de Cobranca</th>
+								    <th>Valor</th>
+								    <th>Data Vencimento</th>
+									<th>Observacao</th>
+								</tr>
 									<tbody>
 										<tr ng-repeat="g in pedido.pagamentos" ng-click="selecionarLinhaPagamentoPedidoPrazo(g)"
 											ng-class="{linhaSelecionada : g == objetoSelecionadoPagamentoPedidoPrazo}">
 											<td>{{g.tipoCobranca.descricao}}</td>
 											<td>{{g.valor}}</td>
-											<td>{{g.dataVencimentoStr}}</td>
+											<td>{{g.dataVencimento | date:'dd/MM/yyyy'}}</td>
 											<td>{{g.observacao}}</td>
 										</tr>
 									</tbody>
@@ -624,7 +633,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<button type="button" class="btn bg-primary btn-lg pull-right"
-							ng-click="btnSalvarFinanceiro()">Salvar</button>
+							ng-click="btnSalvarFinanceiro(pedidoPagamento)">Salvar</button>
 					</div>
 				</div>
 			</div>
@@ -689,7 +698,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<button type="button" class="btn bg-primary btn-lg pull-right"
-							ng-click="btnSalvarFinanceiroPrazo()">Salvar</button>
+							ng-click="btnSalvarFinanceiroPrazo(pedidoPagamento)">Salvar</button>
 					</div>
 				</div>
 			</div>

@@ -508,26 +508,20 @@
 					<!-- CAMPO PRODUTO -->
 					<div class="col-md-2">
 						<div class="form-group">
-							<label>Produto</label> <select id="cProduto" class="form-control" ng-model="pedidoItem.produto" ng-true-value="produto.quantidadeAtual > 0"ng-false-value="produto.quantidadeAtual <= 0"
-							ng-options="produto.descricao for produto in produtos | orderBy:'nome' track by produto.id">
+							<label>Produto</label> <select id="cProduto" class="form-control" ng-model="pedidoItem.produto"
+							ng-options="produto.descricao for produto in produtos | orderBy:'nome' track by produto.id" ng-change="mostrarEstoqueProduto()">
 			                 <option value="">Selecione um produto</option></select>
 						</div>
 					</div>
 					
 					<div class="col-md-1">
 						<div class="form-group">
-							<label>Estoque</label> <input id="cEstoque" type="text" placeHolder="estoque"
-								class="form-control" ng-model="produto.quantidadeAtual"  maxlength="10"
+							<label>Estoque</label> <input id="cEstoque" type="text"
+								class="form-control" ng-model="estoque"  maxlength="10"
 								mask-maiusculas autofocus readonly>
 						</div>
 					</div>
 					
-					<div class="row">
-						<div class="col-md-12">
-							<button type="button" class="btn bg-primary btn-lg pull-right"
-								ng-click="atualizarEstoque()">Botão Teste</button>
-						</div>
-					</div>
 					
 					<!-- CAMPO QUANTIDADE -->
 					<div class="col-md-1">

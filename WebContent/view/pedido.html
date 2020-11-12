@@ -599,7 +599,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>Tipo de Cobranca</label> <select id="cTipoCobranca" class="form-control" ng-model="pedidoPagamento.tipoCobranca" 
-							ng-options="tipoCobranca.descricao for tipoCobranca in tipoCobrancas | orderBy:'nome' track by tipoCobranca.id">
+							ng-options="tipoCobranca.descricao for tipoCobranca in tipoCobrancas | orderBy:'nome' track by tipoCobranca.id" >
 			                 <option value="">Selecione um tipo de cobranca</option></select>
 						</div>
 					</div>

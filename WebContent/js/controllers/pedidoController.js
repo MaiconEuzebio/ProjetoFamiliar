@@ -514,7 +514,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 			for(i in $scope.pedidos){
 				$scope.pedidos[i].dataStr = dateToStr(new Date($scope.pedidos[i].data));				
 			}
-
 			
 			$scope.pesquisar();
 			$scope.mostrarAguarde = false;

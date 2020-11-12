@@ -32,7 +32,9 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 	}
 
     $scope.voltar = function(){
+		
     	$scope.visualizaCadastro 	= false;
+		
     }
 
     $scope.btnIncluir = function(){
@@ -335,6 +337,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     		$scope.pedido.itens[posicao] = pitem;
     	} else {
     		$scope.pedido.itens.push(pitem);
+			$scope.estoque = null;
     	}
     	
 		$('#modalItem').modal('hide');
@@ -482,6 +485,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     }
 
     $scope.fecharModalItem = function(){
+	 	$scope.estoque = null;
     	$('#modalItem').modal('hide');
     }
 

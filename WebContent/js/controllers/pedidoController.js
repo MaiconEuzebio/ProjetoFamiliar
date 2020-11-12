@@ -49,7 +49,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
         $scope.pedido.desconto      = null;
         $scope.pedido.valorTotal    = null;
         $scope.pedido.observacao    = null;
-        $scope.pedido.status        = 1;
+        $scope.pedido.status        = null;
         $scope.pedido.itens         = [];
         $scope.pedido.pagamentos    = [];
         $scope.visualizaCadastro    = true;  
@@ -390,16 +390,18 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
         	$scope.mensagemRodape = "";
         	$scope.mostrarAguarde = true;
         	$scope.pedido.data = new Date();
-        	$scope.pedido.status = 0;
-
-    	requisicaoService.requisitarPOST("pedido/salvar", ppedido, function(retorno){
+			
+				
+			
+    	requisicaoService.requisitarPOST("pedido/salvarFechamento", ppedido, function(retorno){
     		if (!retorno.isValid) {
-    			$scope.mensagemRodape = retorno.msg;
+    			$scope.mensagemModal  = retorno.data.str1;
+    			$('#modalAtencao').modal();
     			$scope.mostrarAguarde = false;
         		return;
     		}
-        	$('#modalPedidoFechamento').modal('hide');
-
+			$('#modalPedidoFechamento').modal('hide');
+			
     		$scope.mostrarAguarde    = false;
     		$scope.visualizaCadastro = false;
     		atualizarTela();

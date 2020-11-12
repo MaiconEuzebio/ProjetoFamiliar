@@ -32,6 +32,9 @@ public class PedidoImp {
 			pedido.atualizarItens();
 			pedido.atualizarPagamentos();
 			pedido.atualizarPagamentosPrazo();
+			System.out.println("Status anterior: "+pedido.getStatus());
+			pedido.setStatus(1);
+			System.out.println("Status gerado com valor: "+pedido.getStatus());
 			
 			if (pedido.getId() == null) {
 				em.persist(pedido);
@@ -61,18 +64,27 @@ public class PedidoImp {
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public Pedido saveFechamento(Pedido pedido) {
-
-		EntityManager em = UnidadePersistencia.createEntityManager();
-
-		em.getTransaction().begin();
+			EntityManager em = UnidadePersistencia.createEntityManager();
+			em.getTransaction().begin();
+			
 		try {
+			for(PedidoItem listaItens : pedido.getItens()) {
+				Produto produto = listaItens.getProduto();
+				if(listaItens.getQuantidade() > produto.getQuantidadeAtual()) {
+					throw new RuntimeException("Saldo em estoque insuficiente para esta operação.");
+				}
+			
+			}
+			
 			for(PedidoItem pedidoItem : pedido.getItens()) {
 				gerarPedidoMovimentacao(pedidoItem);
 			}			
 			
-			
 			pedido.atualizarItens();
 			pedido.atualizarPagamentos();
+			System.out.println("Status antes: "+pedido.getStatus());
+			pedido.setStatus(0);
+			System.out.println("Status agora: "+pedido.getStatus());
 			
 			if (pedido.getId() == null) {
 				em.persist(pedido);
@@ -82,13 +94,11 @@ public class PedidoImp {
 			em.getTransaction().commit();
 			System.out.println("Pessoa inclu�da com sucesso");
 		} catch (Exception e) {
-			if (em.getTransaction().isActive()) {
+			e.printStackTrace();
+			if(em.getTransaction().isActive()){
 				em.getTransaction().rollback();
 			}
-			e.printStackTrace();
-			em.getTransaction().rollback();
-			System.out.println("Não foi poss�vel incluir a pessoa");
-		
+			throw e;
 		} finally {
 			em.close();
 		}
@@ -112,8 +122,8 @@ public void gerarPedidoMovimentacao(PedidoItem item) {
 			}
 				em.getTransaction().commit();
 		}catch(Exception e) {
+				e.printStackTrace();
 				em.getTransaction().rollback();
-			
 		}finally {
 			em.close();
 		}

@@ -40,19 +40,22 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.mensagemModal  = "";
     	$scope.abaSelecionada = 'principal'
         	
-        $scope.pedido		        = {};
-        $scope.pedido.id            = null;
-        $scope.pedido.data          = new Date();
-        $scope.pedido.pessoa        = null;
-        $scope.pedido.valorLiquido  = null;
-        $scope.pedido.acrescimo     = null;
-        $scope.pedido.desconto      = null;
-        $scope.pedido.valorTotal    = null;
-        $scope.pedido.observacao    = null;
-        $scope.pedido.status        = null;
-        $scope.pedido.itens         = [];
-        $scope.pedido.pagamentos    = [];
-        $scope.visualizaCadastro    = true;  
+
+        $scope.pedido		          = {};
+        $scope.pedido.id              = null;
+        $scope.pedido.data            = new Date();
+        $scope.pedido.pessoa          = null;
+        $scope.pedido.valorLiquido    = null;
+        $scope.pedido.acrescimo       = null;
+        $scope.pedido.desconto        = null;
+        $scope.pedido.valorTotal      = null;
+        $scope.pedido.observacao      = null;
+        $scope.pedido.status          = 1;
+        $scope.pedido.itens           = [];
+        $scope.pedido.pagamentos      = [];
+        $scope.pedido.pagamentosPrazo = [];
+        $scope.visualizaCadastro      = true;  
+
     }
 
     $scope.btnIncluirItem = function(){
@@ -70,7 +73,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.pedidoItem.desconto      = null;
     	$scope.pedidoItem.valorTotal    = null;
     	$scope.pedidoItem.observacao    = null;
-		$scope.estoque 					= null;
     	$('#modalItem').modal();
     	
     	$scope.mostrarAguarde    = false;
@@ -87,7 +89,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
         $scope.pedidoPagamento.valor        = null;
         $scope.pedidoPagamento.tipoCobranca = null;
     	$scope.pedidoPagamento.observacao   = null;
-    	//$scope.pedidoPagamento.status       = 0;
+    	//$scope.pedidoPagamento.status     = 0;
     	$('#modalFinanceiro').modal();
     	
     	$scope.mostrarAguarde    = false;
@@ -99,13 +101,13 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.mensagemModal  = "";
     	$scope.mostrarAguarde = true;
     	
-    	$scope.pedidoPagamentoPrazo		          = {};
+    	$scope.pedidoPagamentoPrazo		           = {};
     	$scope.pedidoPagamentoPrazo.id             = null;
         $scope.pedidoPagamentoPrazo.valor          = null;
         $scope.pedidoPagamentoPrazo.tipoCobranca   = null;
         $scope.pedidoPagamentoPrazo.dataVencimento = new Date();
     	$scope.pedidoPagamentoPrazo.observacao     = null;
-    	//$scope.pedidoPagamento.status         = 1;
+    	//$scope.pedidoPagamento.status            = 1;
 
     	$('#modalFinanceiroPrazo').modal();
     	
@@ -178,7 +180,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     		return;
     	}
     
-    	    $scope.pedidoPagamento = $scope.objetoSelecionadoPagamentoPedido;
+    	    $scope.pedidoPagamento   = $scope.objetoSelecionadoPagamentoPedido;
 		    $scope.mostrarAguarde    = false;
 		    $scope.visualizaCadastro = true;
 		    $('#modalFinanceiro').modal();
@@ -211,7 +213,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     		return;
     	}
 
-    	$scope.mensagemModal        = 'Deseja realmente excluir o registro?';
+    	$scope.mensagemModal = 'Deseja realmente excluir o registro?';
 		$('#modalExcluir').modal();
     }
 
@@ -471,7 +473,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 			$scope.porcentagem = ($scope.valor)*0.01;
 			$scope.resultado = ($scope.pedido.valorLiquido * $scope.porcentagem);
 			$scope.resultadoDesconto = parseFloat($scope.pedido.valorLiquido) - ($scope.resultado);
-			$scope.pedido.valorTotal = parseFloat($scope.resultadoDesconto.toFixed(2));
+			$scope.pedido.valorTotal = parseFloat($scope.resultadoDesconto);
 			
 		} else if ($scope.pedido.acrescimo != 0||$scope.pedido.desconto == 0){
 	
@@ -479,7 +481,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 			$scope.porcentagem = ($scope.valor)*0.01;
 			$scope.resultado = ($scope.pedido.valorLiquido * $scope.porcentagem);
 			$scope.resultadoAcrescimo = parseFloat($scope.pedido.valorLiquido) + ($scope.resultado);
-			$scope.pedido.valorTotal = parseFloat($scope.resultadoAcrescimo.toFixed(2));
+			$scope.pedido.valorTotal = parseFloat($scope.resultadoAcrescimo);
     	}	
     }
 
@@ -517,7 +519,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 			for(i in $scope.pedidos){
 				$scope.pedidos[i].dataStr = dateToStr(new Date($scope.pedidos[i].data));				
 			}
-
 			
 			$scope.pesquisar();
 			$scope.mostrarAguarde = false;
@@ -554,14 +555,21 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     			$scope.mostrarAguarde = false;
         		return;
     		}
-			$scope.tipoCobrancas = retorno.data;
+			$scope.tipoCobrancas  = retorno.data;
 			$scope.pesquisar();
 			$scope.mostrarAguarde = false;
 		});
 	}
 
 	$scope.pesquisar = function(){
-		$scope.pedidosFiltradas = orderByFilter(filterFilter($scope.pedidos,{id:$scope.idFilter}), $scope.campoOrdenacao);
+		$scope.pedidosFiltradas = orderByFilter(filterFilter($scope.pedidos,{id:$scope.idFilter,
+																			dataStr: $scope.dataFilter,
+																			pessoa: {nomeRzSocial:$scope.pessoaFilter},
+																			valorLiquido: $scope.valorLiquidoFilter,
+																			acrescimo: $scope.acrescimoFilter,
+																			desconto: $scope.descontoFilter,
+																			valorTotal: $scope.valorTotalFilter,
+																			descStatus: $scope.descStatusFilter}), $scope.campoOrdenacao);
 	}
 	
 	    $scope.selecionarLinha = function(objeto) {

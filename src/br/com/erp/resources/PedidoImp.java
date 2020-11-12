@@ -76,15 +76,15 @@ public class PedidoImp {
 			
 			}
 			
-			for(PedidoItem pedidoItem : pedido.getItens()) {
-				gerarPedidoMovimentacao(pedidoItem);
-			}			
+				for(PedidoItem pedidoItem : pedido.getItens()) {
+					gerarPedidoMovimentacao(pedidoItem);
+				}			
 			
-			pedido.atualizarItens();
-			pedido.atualizarPagamentos();
-			System.out.println("Status antes: "+pedido.getStatus());
-			pedido.setStatus(0);
-			System.out.println("Status agora: "+pedido.getStatus());
+				pedido.atualizarItens();
+				pedido.atualizarPagamentos();
+				System.out.println("Status antes: "+pedido.getStatus());
+				pedido.setStatus(0);
+				System.out.println("Status agora: "+pedido.getStatus());
 			
 			if (pedido.getId() == null) {
 				em.persist(pedido);
@@ -93,6 +93,9 @@ public class PedidoImp {
 			}
 			em.getTransaction().commit();
 			System.out.println("Pessoa inclu�da com sucesso");
+			if(pedido.getStatus()==0) {
+				throw new RuntimeException("O pedido ja foi fechado.");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			if(em.getTransaction().isActive()){

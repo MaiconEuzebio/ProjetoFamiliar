@@ -70,6 +70,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.pedidoItem.desconto      = null;
     	$scope.pedidoItem.valorTotal    = null;
     	$scope.pedidoItem.observacao    = null;
+		$scope.estoque 					= null;
     	$('#modalItem').modal();
     	
     	$scope.mostrarAguarde    = false;

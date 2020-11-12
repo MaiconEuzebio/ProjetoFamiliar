@@ -40,7 +40,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.mensagemModal  = "";
     	$scope.abaSelecionada = 'principal'
         	
-
         $scope.pedido		          = {};
         $scope.pedido.id              = null;
         $scope.pedido.data            = new Date();
@@ -55,7 +54,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
         $scope.pedido.pagamentos      = [];
         $scope.pedido.pagamentosPrazo = [];
         $scope.visualizaCadastro      = true;  
-
     }
 
     $scope.btnIncluirItem = function(){
@@ -392,18 +390,16 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
         	$scope.mensagemRodape = "";
         	$scope.mostrarAguarde = true;
         	$scope.pedido.data = new Date();
-			
-				
-			
-    	requisicaoService.requisitarPOST("pedido/salvarFechamento", ppedido, function(retorno){
+        	$scope.pedido.status = 0;
+
+    	requisicaoService.requisitarPOST("pedido/salvar", ppedido, function(retorno){
     		if (!retorno.isValid) {
-    			$scope.mensagemModal  = retorno.data.str1;
-    			$('#modalAtencao').modal();
+    			$scope.mensagemRodape = retorno.msg;
     			$scope.mostrarAguarde = false;
         		return;
     		}
-			$('#modalPedidoFechamento').modal('hide');
-			
+        	$('#modalPedidoFechamento').modal('hide');
+
     		$scope.mostrarAguarde    = false;
     		$scope.visualizaCadastro = false;
     		atualizarTela();

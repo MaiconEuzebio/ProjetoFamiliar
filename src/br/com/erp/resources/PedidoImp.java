@@ -9,6 +9,9 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
+import org.apache.poi.util.SystemOutLogger;
+
 import br.com.erp.json.ParamJson;
 import br.com.erp.model.Pedido;
 import br.com.erp.model.PedidoItem;
@@ -27,14 +30,13 @@ public class PedidoImp {
 		EntityManager em = UnidadePersistencia.createEntityManager();
 
 		em.getTransaction().begin();
+			
 		try {	
-
+			
 			pedido.atualizarItens();
 			pedido.atualizarPagamentos();
 			pedido.atualizarPagamentosPrazo();
-			System.out.println("Status anterior: "+pedido.getStatus());
-			pedido.setStatus(1);
-			System.out.println("Status gerado com valor: "+pedido.getStatus());
+			
 			
 			if (pedido.getId() == null) {
 				em.persist(pedido);
@@ -70,21 +72,19 @@ public class PedidoImp {
 		try {
 			for(PedidoItem listaItens : pedido.getItens()) {
 				Produto produto = listaItens.getProduto();
-				if(listaItens.getQuantidade() > produto.getQuantidadeAtual()) {
+				/*if(listaItens.getQuantidade() > produto.getQuantidadeAtual()) {
 					throw new RuntimeException("Saldo em estoque insuficiente para esta operação.");
-				}
+				}*/
 			
 			}
-			
+				pedido.setStatus(0);
 				for(PedidoItem pedidoItem : pedido.getItens()) {
 					gerarPedidoMovimentacao(pedidoItem);
-				}			
-			
+				}	
+				
+				
 				pedido.atualizarItens();
 				pedido.atualizarPagamentos();
-				System.out.println("Status antes: "+pedido.getStatus());
-				pedido.setStatus(0);
-				System.out.println("Status agora: "+pedido.getStatus());
 			
 			if (pedido.getId() == null) {
 				em.persist(pedido);

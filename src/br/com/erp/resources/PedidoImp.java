@@ -93,9 +93,7 @@ public class PedidoImp {
 			}
 			em.getTransaction().commit();
 			System.out.println("Pessoa inclu�da com sucesso");
-			if(pedido.getStatus()==0) {
-				throw new RuntimeException("O pedido ja foi fechado.");
-			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			if(em.getTransaction().isActive()){

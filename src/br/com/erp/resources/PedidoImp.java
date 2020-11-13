@@ -70,15 +70,20 @@ public class PedidoImp {
 			em.getTransaction().begin();
 			
 		try {
-			for(PedidoItem listaItens : pedido.getItens()) {
-				Produto produto = listaItens.getProduto();
-				/*if(listaItens.getQuantidade() > produto.getQuantidadeAtual()) {
-					throw new RuntimeException("Saldo em estoque insuficiente para esta operação.");
-				}*/
 			
-			}
+			/*for(PedidoItem listaItens : pedido.getItens()) {
+				Produto produto = listaItens.getProduto();
+				if(listaItens.getQuantidade() > produto.getQuantidadeAtual()) {
+					throw new RuntimeException("Saldo em estoque insuficiente para esta operação.");
+				}
+			
+			}*/
 				pedido.setStatus(0);
 				for(PedidoItem pedidoItem : pedido.getItens()) {
+					Produto produto = pedidoItem.getProduto();
+					if(pedidoItem.getQuantidade() > produto.getQuantidadeAtual()) {
+						throw new RuntimeException("Saldo em estoque insuficiente para esta operação.");
+					}
 					gerarPedidoMovimentacao(pedidoItem);
 				}	
 				

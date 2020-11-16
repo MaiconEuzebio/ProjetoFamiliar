@@ -86,7 +86,7 @@ angular.module("listaTelefonica").config(function ($routeProvider){
 	});
 	
 	$routeProvider.when("/testeKarine", {
-		templateUrl: "view/testeKerine.html",
+		templateUrl: "view/testeKarine.html",
 		controller: "testeKarineController",
 	});
 	$routeProvider.otherwise({redirectTo: "/index.html"});

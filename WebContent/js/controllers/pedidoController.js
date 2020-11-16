@@ -18,6 +18,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 	$scope.campoOrdenacao 		= '-id';
 	
 	
+	
 	atualizarTela();
 	
 	/*

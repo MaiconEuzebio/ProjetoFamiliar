@@ -70,14 +70,6 @@ public class PedidoImp {
 			em.getTransaction().begin();
 			
 		try {
-			
-			/*for(PedidoItem listaItens : pedido.getItens()) {
-				Produto produto = listaItens.getProduto();
-				if(listaItens.getQuantidade() > produto.getQuantidadeAtual()) {
-					throw new RuntimeException("Saldo em estoque insuficiente para esta operação.");
-				}
-			
-			}*/
 				pedido.setStatus(0);
 				for(PedidoItem pedidoItem : pedido.getItens()) {
 					Produto produto = pedidoItem.getProduto();
@@ -138,7 +130,7 @@ public void gerarPedidoMovimentacao(PedidoItem item) {
 
 
 
-public void gerarDevolucao(PedidoItem item) {
+/*public void gerarDevolucao(PedidoItem item) {
 	EntityManager em = UnidadePersistencia.createEntityManager();
 	try {
 		em.getTransaction().begin();
@@ -158,7 +150,7 @@ public void gerarDevolucao(PedidoItem item) {
 	}finally {
 		em.close();
 	}
-}
+}*/ //Função não utilizada.
 	
 
 
@@ -252,9 +244,9 @@ public void gerarDevolucao(PedidoItem item) {
 			if(pedido.getStatus()== 0) {
 				throw new RuntimeException("Existe pedido esta fechado e não pode ser excluído.");
 			}else if(pedido.getStatus()== 1) {
-				for(PedidoItem pedidoItem : pedido.getItens()) {
+				/*for(PedidoItem pedidoItem : pedido.getItens()) {
 					gerarDevolucao(pedidoItem);
-				}
+				}*/
 				em.remove(pedido);
 				System.out.println("Pedido removido com sucesso");
 				em.getTransaction().commit();

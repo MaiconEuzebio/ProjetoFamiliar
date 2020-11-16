@@ -28,8 +28,9 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
    
    
    
-   
-   
+/*$(document).ready(function(){
+	$('#minha_tabela').DataTable();
+});*/
    
    
    

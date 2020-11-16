@@ -520,15 +520,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 			for(i in $scope.pedidos){
 				$scope.pedidos[i].dataStr = dateToStr(new Date($scope.pedidos[i].data));				
 			}
-			
-			//refaz dados da paginação
-			$scope.listagem          = [10, 50, 100, 200, 'TODOS'];
-		    $scope.objetoSelecionado = null;
-		    $scope.viewby       	 = 10;
-			$scope.currentPage  	 = 1;
-			$scope.itemsPerPage 	 = $scope.viewby;
-			$scope.maxSize 			 = 3; //Number of pager buttons to show
-			
+		
 			$scope.pesquisar();
 			$scope.mostrarAguarde = false;
 		});
@@ -569,19 +561,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 			$scope.mostrarAguarde = false;
 		});
 	}
-    
-	$scope.setPage = function (pageNo) {
-		$scope.currentPage = pageNo;
-	};
-
-	$scope.setItemsPerPage = function(num) {
-		 if(num == 'TODOS'){
-			 $scope.itemsPerPage = $scope.pedidos.length;
-			 return;
-		 }
-		  $scope.itemsPerPage = num;
-		  $scope.currentPage = 1; //reset to first page
-	}
 
 	$scope.pesquisar = function(){
 		$scope.pedidosFiltradas = orderByFilter(filterFilter($scope.pedidos,{id:$scope.idFilter,
@@ -592,6 +571,8 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 																			desconto: $scope.descontoFilter,
 																			valorTotal: $scope.valorTotalFilter,
 																			descStatus: $scope.descStatusFilter}), $scope.campoOrdenacao);
+		$scope.totalItems = $scope.pedidosFiltradas.length;
+
 	}
 	
 	    $scope.selecionarLinha = function(objeto) {

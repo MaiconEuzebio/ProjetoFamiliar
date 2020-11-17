@@ -75,3 +75,13 @@
 	font-weight: bold;
 	padding-left: 20%;
 }
+
+.paginacaoPadrao{
+	margin: 0px;
+	font-size: 11px;
+	padding-top: 5px;
+}
+
+.labelPaginacao{
+	padding-top: 7px;
+}

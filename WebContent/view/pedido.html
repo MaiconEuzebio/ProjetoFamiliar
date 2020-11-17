@@ -38,7 +38,7 @@
 			
 			<!-- /.card-header -->
 			<div class="card-body">
-				<div class="table-responsive table-pesquisa-fixa">
+				<div class="table-responsive table-pesquisa-fixa" ng-controller="pedidoController">
 					<table class="table table-bordered table-condensed">
 						<thead>
 							<tr>
@@ -128,7 +128,7 @@
 						</thead>
 						
 						<tbody>
-							<tr ng-repeat="g in pedidosFiltradas" ng-click="selecionarLinha(g)"
+							<tr dir-paginate="g in pedidosFiltradas | itemsPerPage:10" ng-click="selecionarLinha(g)"
 								ng-class="{linhaSelecionada : g == objetoSelecionado}">
 								<td>{{g.id}}</td>
 								<td>{{g.dataStr}}</td>
@@ -141,20 +141,14 @@
 							</tr>
 						</tbody>
 					</table>
+					
+				</div>
+				<div class="pagination pagination-lg justify-content-center">
+				<dir-pagination-controls  max-size="5" boundary-links="true"></dir-pagination-controls>
 				</div>
 			</div>
 			<!-- /.card-body -->
-			
-			<div class="card-footer clearfix">
-                <ul class="pagination pagination-lg m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="">«</a></li>
-                  <li class="page-item"><a class="page-link" href="">1</a></li>
-                  <li class="page-item"><a class="page-link" href="">2</a></li>
-                  <li class="page-item"><a class="page-link" href="">3</a></li>
-                  <li class="page-item"><a class="page-link" href="">4</a></li>
-                  <li class="page-item"><a class="page-link" href="">»</a></li>
-                </ul>
-              </div>
+
 		</div>
 	</div>
 </div>

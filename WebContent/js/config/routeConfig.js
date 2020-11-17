@@ -80,15 +80,6 @@ angular.module("listaTelefonica").config(function ($routeProvider){
 		controller: "pedidoController",
 	});
 	
-	$routeProvider.when("/testeMaicon", {
-		templateUrl: "view/testeMaicon.html",
-		controller: "testeMaiconController",
-	});
-	
-	$routeProvider.when("/testeKarine", {
-		templateUrl: "view/testeKarine.html",
-		controller: "testeKarineController",
-	});
 	$routeProvider.otherwise({redirectTo: "/index.html"});
 
 });

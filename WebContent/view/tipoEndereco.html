@@ -1,5 +1,5 @@
 <!-- Content Header (Page header) -->
-<div class="content-header">
+<div class="content-header" ng-controller="tipoEnderecoController">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12">
@@ -67,7 +67,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="e in tipoEnderecosFiltradas" ng-click="selecionarLinha(e)"
+							<tr dir-paginate="e in tipoEnderecosFiltradas | itemsPerPage : 10" ng-click="selecionarLinha(e)"
 								ng-class="{linhaSelecionada : e == objetoSelecionado}">
 								<td>{{e.id}}</td>
 								<td>{{e.descricao}}</td>
@@ -75,6 +75,9 @@
 							</tr>
 						</tbody>
 					</table>
+				</div>
+				<div class="pagination pagination-lg justify-content-center">
+					<dir-pagination-controls  max-size="5" boundary-links="true"></dir-pagination-controls>
 				</div>
 			</div>
 			<!-- /.card-body -->

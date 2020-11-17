@@ -1,7 +1,7 @@
 
 
 <!-- Content Header (Page header) -->
-<div class="content-header">
+<div class="content-header" ng-controller="tipoCobrancaController">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12">
@@ -81,7 +81,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="g in tipoCobrancasFiltradas" ng-click="selecionarLinha(g)"
+							<tr dir-paginate="g in tipoCobrancasFiltradas | itemsPerPage : 10" ng-click="selecionarLinha(g)"
 								ng-class="{linhaSelecionada : g == objetoSelecionado}">
 								<td>{{g.id}}</td>
 								<td>{{g.descricao}}</td>
@@ -91,6 +91,9 @@
 							</tr>
 						</tbody>
 					</table>
+				</div>
+				<div class="pagination pagination-lg justify-content-center">
+					<dir-pagination-controls  max-size="5" boundary-links="true"></dir-pagination-controls>
 				</div>
 			</div>
 			<!-- /.card-body -->

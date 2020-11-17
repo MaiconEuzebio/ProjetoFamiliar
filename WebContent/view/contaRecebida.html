@@ -1,5 +1,5 @@
 <!-- DIV COM HEADER DA PÁGINA -->
-<div class="content-header">
+<div class="content-header" ng-controller="contaRecebidaController">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12">
@@ -162,7 +162,7 @@
 							
 							
 								<tbody>
-									<tr ng-repeat="conta in capCarSFiltradas"
+									<tr dir-paginate="conta in capCarSFiltradas | itemsPerPage : 10"
 										ng-click="selecionarLinha(conta)"
 										ng-class="{linhaSelecionada : conta == objetoSelecionado}">
 										
@@ -185,6 +185,9 @@
 						
 						
 					</div>
+								<div class="pagination pagination-lg justify-content-center">
+					<dir-pagination-controls  max-size="5" boundary-links="true"></dir-pagination-controls>
+				</div>
 				</div>
 				<!-- FIM DA DIV QUE CONTÉM A TABELA COM OS NOMES DAS COLUNAS DOS DADOS E COM OS LINKS PARA ORDENAÇÃO -->
 			

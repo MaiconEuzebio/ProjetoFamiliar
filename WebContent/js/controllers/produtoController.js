@@ -63,9 +63,7 @@ app.controller("produtoController", function ($scope, requisicaoService, filterF
         	$('#modalAtencao').modal();
     		return;
     	}
-    	var param = {
-			int1: $scope.objetoSelecionado.id
-		}
+    	var param = {int1: $scope.objetoSelecionado.id}
     	$scope.mostrarAguarde = true;
     	
     	//obter o produto
@@ -78,7 +76,6 @@ app.controller("produtoController", function ($scope, requisicaoService, filterF
     		}
 			
 			$scope.produto			   = retorno.data;
-
 	    	$scope.mostrarAguarde    = false;
 	        $scope.visualizaCadastro = true;
 		});

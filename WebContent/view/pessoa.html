@@ -109,7 +109,7 @@
 					
 					
 					
-							<tr ng-repeat="p in pessoasFiltradas"
+							<tr dir-paginate="p in pessoasFiltradas |itemsPerPage : 10"
 								ng-click="selecionarLinha(p)"
 								ng-class="{linhaSelecionada : p == objetoSelecionado}">
 								<td>{{p.id}}</td>
@@ -121,7 +121,15 @@
 						</tbody>
 					</table>
 					<!-- FIM DA DIV QUE CONTÉM A TABELA ONDE SERÁ MOSTRADA NOMES DAS COLUNAS E CAMPOS DE ORDENAÇÃO -->
-							
+
+					
+					
+				</div>
+					
+					<div class="pagination pagination-lg justify-content-center">
+						<dir-pagination-controls  max-size="5" boundary-links="true"></dir-pagination-controls>
+					</div>
+					
 			</div>
 			<!-- FIM DA DIV QUE CONTÉM A TABELA COM OS NOMES DAS COLUNAS DOS DADOS E COM OS LINKS PARA ORDENAÇÃO -->
 			

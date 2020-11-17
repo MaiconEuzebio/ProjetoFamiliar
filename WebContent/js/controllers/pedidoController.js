@@ -48,8 +48,8 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
         $scope.pedido.data            = new Date();
         $scope.pedido.pessoa          = null;
         $scope.pedido.valorLiquido    = null;
-        $scope.pedido.acrescimo       = null;
-        $scope.pedido.desconto        = null;
+        $scope.pedido.acrescimo       = 0;
+        $scope.pedido.desconto        = 0;
         $scope.pedido.valorTotal      = null;
         $scope.pedido.observacao      = null;
         $scope.pedido.status          = 1;
@@ -70,8 +70,8 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.pedidoItem.produto       = null;
     	$scope.pedidoItem.quantidade    = null;
     	$scope.pedidoItem.valorUnitario = null;
-    	$scope.pedidoItem.acrescimo     = null;
-    	$scope.pedidoItem.desconto      = null;
+    	$scope.pedidoItem.acrescimo     = 0;
+    	$scope.pedidoItem.desconto      = 0;
     	$scope.pedidoItem.valorTotal    = null;
     	$scope.pedidoItem.observacao    = null;
     	$('#modalItem').modal();

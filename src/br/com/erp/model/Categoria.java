@@ -16,16 +16,30 @@ public class Categoria {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
 	private Integer id;
+	
 	@Column(length = 100, name = "DESCRICAO")
 	private String descricao;
+	
 	@Column(length = 1, name = "STATUS")
 	private Integer status;
+	
+	@Column(length = 1, name = "TIPO")
+	private String tipo;
 	
 	@Transient
 	private String descStatus;
 	public Integer getId() {
 		return id;
 	}
+	
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}

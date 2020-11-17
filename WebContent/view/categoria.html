@@ -45,6 +45,7 @@
 								</a> <input type="text" name="id" ng-model="idFilter"
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
+									
 								<th><a href="" ng-click="ordenacao('descricao')"
 									title="Ordenar"> Descrição <span
 										ng-show="campoOrdenacao == '+descricao'"
@@ -54,6 +55,17 @@
 								</a> <input type="text" name="peso" ng-model="descricaoFilter"
 									class="form-control" placeholder="Pesquisar..."
 									ng-change="pesquisar()" mask-maiusculas></th>
+									
+								<th width="40px"><a href="" 
+									ng-click="ordenacao('tipo')" title="Ordenar"> Tipo <span
+										ng-show="campoOrdenacao == '+tipo'"
+										class="glyphicon glyphicon-sort-by-attributes" /> <span
+										ng-show="campoOrdenacao == '-tipo'"
+										class="glyphicon glyphicon-sort-by-attributes-alt" />
+								</a> <input type="text" name="peso" ng-model="tipoFilter"
+									class="form-control" placeholder="..."
+									ng-change="pesquisar()" mask-maiusculas></th>
+									
 								<th width="100px"><a href=""
 									ng-click="ordenacao('descStatus')" title="Ordenar"> Status <span
 										ng-show="campoOrdenacao == '+descStatus'"
@@ -70,6 +82,7 @@
 								ng-class="{linhaSelecionada : g == objetoSelecionado}">
 								<td>{{g.id}}</td>
 								<td>{{g.descricao}}</td>
+								<td>{{g.tipo}}</td>
 								<td>{{g.descStatus}}</td>
 							</tr>
 						</tbody>
@@ -99,11 +112,20 @@
 					</div>
 
 					<!-- CAMPO DESCRICAO -->
-					<div class="col-md-10">
+					<div class="col-md-8">
 						<div class="form-group">
 							<label>* Descrição</label> <input id="cDescricao" type="text"
 								class="form-control" ng-model="categoria.descricao" maxlength="60"
 								mask-maiusculas autofocus>
+						</div>
+					</div>
+					
+					<div class="col-md-2">
+						<div class="form-group">
+							<label>Tipo</label> <select id="cTipo" class="form-control" ng-model="categoria.tipo">
+			                 <option value="">Selecione um tipo</option>
+			                 <option value="V">A vista</option>
+			                 <option value="P">A prazo</option></select>
 						</div>
 					</div>
 

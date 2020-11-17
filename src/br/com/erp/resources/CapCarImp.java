@@ -15,6 +15,7 @@ import br.com.erp.json.ParamJson;
 import br.com.erp.model.Caixa;
 import br.com.erp.model.CaixaMovimentacao;
 import br.com.erp.model.CapCar;
+import br.com.erp.model.TipoCobranca;
 import br.com.erp.util.UnidadePersistencia;
 
 @Path("capCar")
@@ -74,7 +75,6 @@ public class CapCarImp {
 				throw new RuntimeException("Nenhum caixa em aberto!");
 				
 			}
-			
 			else if(capCar.getTipo().equals("P")) {
 				
 				if(capCar.getValorTotal() > caixa.getValorAtual()) {
@@ -84,8 +84,15 @@ public class CapCarImp {
 				caixaMovimentacao.setTipo("D");
 				caixa.setValorAtual(caixa.getValorAtual() - capCar.getValorTotal());
 			}
-			else if(capCar.getTipo().equals("R")) {
+			else if(capCar.getCategoria().getTipo().equals("P") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() != null) {
+				//throw new RuntimeException("Conta a receber valor ainda a ser creditado!");
+				System.out.println("Conta a receber valor ainda a ser creditado!");
+				capCar.setStatus(1);
+				//caixaMovimentacao.setTipo("C");
+			}
+			else if(capCar.getCategoria().getId() == 222 && capCar.getTipo().equals("R")) {
 				caixa.setValorAtual(caixa.getValorAtual() + capCar.getValorTotal());
+				System.out.println("CapCar recebida imediatamente por ser a vista");
 				caixaMovimentacao.setTipo("C");
 			}
 			caixaMovimentacao.setValorMovimentacao(capCar.getValorTotal());
@@ -108,6 +115,9 @@ public class CapCarImp {
 			em.close();
 		}
 	}
+	
+	
+	
 	
 	
 	@Path("obterPorId")

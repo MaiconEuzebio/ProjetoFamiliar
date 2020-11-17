@@ -12,7 +12,7 @@ app.controller("tamanhoController", function ($scope, requisicaoService, filterF
 	$scope.mensagemModal 	 	= '';
 	$scope.mensagemRodape 	 	= '';
 	$scope.mostrarAguarde 		= true;
-	$scope.campoOrdenacao 		= 'descricao';
+	$scope.campoOrdenacao 		= '-id';
 	
 	atualizarTela();	
 	

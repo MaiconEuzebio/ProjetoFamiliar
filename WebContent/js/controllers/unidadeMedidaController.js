@@ -12,7 +12,7 @@ app.controller("unidadeMedidaController", function ($scope, requisicaoService, f
 	$scope.mensagemModal 	 	= '';
 	$scope.mensagemRodape 	 	= '';
 	$scope.mostrarAguarde 		= true;
-	$scope.campoOrdenacao 		= 'descricao';
+	$scope.campoOrdenacao 		= '-id';
 	
 	atualizarTela();	
 	

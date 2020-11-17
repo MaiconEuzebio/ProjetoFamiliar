@@ -16,7 +16,7 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 	$scope.mensagemModal 	 	= '';				//VARIÁVEL mensagemModal 			INICIADA
 	$scope.mensagemRodape 	 	= '';				//VARIÁVEL mensagemRodape 			INICIADA
 	$scope.mostrarAguarde 		= true;				//VARIÁVEL mostrarAguarde 			INICIADA COMO true
-	$scope.campoOrdenacao 		= 'descricao';		//VARIÁVEL campoOrdenacao 			INICIADA COMO String 'descricao'
+	$scope.campoOrdenacao 		= '-id';		//VARIÁVEL campoOrdenacao 			INICIADA COMO String 'descricao'
 	
 						
 						

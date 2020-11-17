@@ -12,7 +12,7 @@ app.controller("corController", function ($scope, requisicaoService, filterFilte
 	$scope.mensagemModal 	 	= '';
 	$scope.mensagemRodape 	 	= '';
 	$scope.mostrarAguarde 		= true;
-	$scope.campoOrdenacao 		= 'descricao';
+	$scope.campoOrdenacao 		= '-id';
 	
 	atualizarTela();	
 	

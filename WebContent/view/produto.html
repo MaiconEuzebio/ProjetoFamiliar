@@ -34,7 +34,7 @@
 			<!-- /.card-header -->
 			<div class="card-body">
 				<div class="table-responsive table-pesquisa-fixa">
-					<table class="table table-bordered table-condensed">
+					<table class="table table-bordered table-condensed" ng-controller="produtoController">
 						<thead>
 							<tr>
 								<th width="80px"><a href=""
@@ -160,7 +160,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="g in produtosFiltradas" ng-click="selecionarLinha(g)"
+							<tr dir-paginate="g in produtosFiltradas | itemsPerPage : 10" ng-click="selecionarLinha(g)"
 								ng-class="{linhaSelecionada : g == objetoSelecionado}">
 								<td>{{g.id}}</td>
 								<td>{{g.descricao}}</td>
@@ -177,6 +177,9 @@
 							</tr>
 						</tbody>
 					</table>
+				</div>
+				<div class="pagination pagination-lg justify-content-center">
+					<dir-pagination-controls  max-size="5" boundary-links="true"></dir-pagination-controls>
 				</div>
 			</div>
 			<!-- /.card-body -->

@@ -168,8 +168,6 @@ public class CapCarImp {
 		return capCarS;
 	}
 	
-	
-	
 	@Path("exibirTodosAtivos")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")

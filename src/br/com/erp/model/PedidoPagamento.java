@@ -32,8 +32,8 @@ public class PedidoPagamento {
 	private Date dataVencimento;
 	
 	@ManyToOne
-	@JoinColumn(name = "ID_TIPO_COBRANCA")
-	private TipoCobranca tipoCobranca;
+	@JoinColumn(name = "ID_CATEGORIA")
+	private TipoCobranca categoria;
 	
 	@ManyToOne
 	@JoinColumn(name = "ID_PEDIDO")
@@ -71,11 +71,11 @@ public class PedidoPagamento {
 	public void setDataVencimento(Date dataVencimento) {
 		this.dataVencimento = dataVencimento;
 	}
-	public TipoCobranca getTipoCobranca() {
-		return tipoCobranca;
+	public TipoCobranca getCategoria() {
+		return categoria;
 	}
-	public void setTipoCobranca(TipoCobranca tipoCobranca) {
-		this.tipoCobranca = tipoCobranca;
+	public void setCategoria(TipoCobranca categoria) {
+		this.categoria = categoria;
 	}
 	@JsonBackReference
 	public Pedido getPedido() {

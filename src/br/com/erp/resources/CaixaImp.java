@@ -3,6 +3,7 @@ package br.com.erp.resources;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -90,8 +91,9 @@ public class CaixaImp {
 				     + "where a.status = 1"
 					).getSingleResult();
 			
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (NoResultException nre) {
+			return null;
+			
 		} finally {
 			em.close();
 		}

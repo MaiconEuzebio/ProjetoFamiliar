@@ -88,7 +88,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.pedidoPagamento		        = {};
     	$scope.pedidoPagamento.id           = null;
         $scope.pedidoPagamento.valor        = null;
-        $scope.pedidoPagamento.categoria    = null;
+        $scope.pedidoPagamento.tipoCobranca = null;
     	$scope.pedidoPagamento.observacao   = null;
     	//$scope.pedidoPagamento.status     = 0;
     	$('#modalFinanceiro').modal();
@@ -105,7 +105,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.pedidoPagamentoPrazo		           = {};
     	$scope.pedidoPagamentoPrazo.id             = null;
         $scope.pedidoPagamentoPrazo.valor          = null;
-        $scope.pedidoPagamentoPrazo.categoria      = null;
+        $scope.pedidoPagamentoPrazo.tipoCobranca   = null;
         $scope.pedidoPagamentoPrazo.dataVencimento = new Date();
     	$scope.pedidoPagamentoPrazo.observacao     = null;
     	//$scope.pedidoPagamento.status            = 1;
@@ -550,14 +550,14 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 			$scope.mostrarAguarde = false;
 		});
     	
-    	requisicaoService.requisitarGET("categoria/obterTodosAtivos", function(retorno) {
+    	requisicaoService.requisitarGET("tipoCobranca/obterTodosAtivos", function(retorno) {
     		if (!retorno.isValid) {
     			$scope.mensagemModal  = retorno.msg;
     			$scope.showModalAviso = true;
     			$scope.mostrarAguarde = false;
         		return;
     		}
-			$scope.categorias  = retorno.data;
+			$scope.tipoCobrancas  = retorno.data;
 			$scope.pesquisar();
 			$scope.mostrarAguarde = false;
 		});

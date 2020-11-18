@@ -71,7 +71,7 @@ public class CapCarImp {
 			caixaMovimentacao.setCaixa(caixa);
 			caixaMovimentacao.setObservacao("Movimentação gerada a partir da conta "+capCar.getId());
 			
-			if(caixaImp.obterCaixaAberto() == null) {
+			if(caixaImp.obterCaixaAberto() == null && capCar.getCategoria().getTipo().equals("V")) {
 				throw new RuntimeException("Nenhum caixa em aberto!");
 				
 			}
@@ -84,13 +84,14 @@ public class CapCarImp {
 				caixaMovimentacao.setTipo("D");
 				caixa.setValorAtual(caixa.getValorAtual() - capCar.getValorTotal());
 			}
-			else if(capCar.getCategoria().getTipo().equals("P") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() != null) {
+			else if((capCar.getCategoria().getTipo().equals("P") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() != null)||
+					(capCar.getCategoria().getTipo().equals("P") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() == null)) {
 				//throw new RuntimeException("Conta a receber valor ainda a ser creditado!");
 				System.out.println("Conta a receber valor ainda a ser creditado!");
 				capCar.setStatus(1);
 				//caixaMovimentacao.setTipo("C");
 			}
-			else if(capCar.getCategoria().getId() == 222 && capCar.getTipo().equals("R")) {
+			else if(capCar.getCategoria().getTipo().equals("V") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() != null) {
 				caixa.setValorAtual(caixa.getValorAtual() + capCar.getValorTotal());
 				System.out.println("CapCar recebida imediatamente por ser a vista");
 				caixaMovimentacao.setTipo("C");

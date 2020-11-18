@@ -554,9 +554,7 @@ $scope.selecionarLinha = function(objeto) {
 																			acrescimo:$scope.acrescimoFilter,
 																			valorLiquido:$scope.valorLiquidoFilter,
 																			valorTotal:$scope.valorTotalFilter}), $scope.campoOrdenacao);				
-																			
-												              			}
-												              			
+																			}         			
 		$scope.selecionarLinha = function(objeto) {
        		$scope.objetoSelecionado = objeto;
     	}

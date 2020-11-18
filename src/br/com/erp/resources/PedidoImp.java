@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import org.apache.poi.util.SystemOutLogger;
 
 import br.com.erp.json.ParamJson;
+import br.com.erp.model.CapCar;
 import br.com.erp.model.Pedido;
 import br.com.erp.model.PedidoItem;
 import br.com.erp.model.Produto;
@@ -84,12 +85,13 @@ public class PedidoImp {
 				pedido.atualizarPagamentos();
 			
 			if (pedido.getId() == null) {
+				pedidoGeraCapcar(pedido);
 				em.persist(pedido);
 			} else {
 				em.merge(pedido);
 			}
 			em.getTransaction().commit();
-			System.out.println("Pessoa inclu�da com sucesso");
+			System.out.println("Pedido inclu�do com sucesso");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -104,7 +106,33 @@ public class PedidoImp {
 	}
 	
 	
-	
+public void pedidoGeraCapcar(Pedido pedido) {
+	EntityManager em = UnidadePersistencia.createEntityManager();
+		
+		CapCar capCar = null;
+	try {
+		em.getTransaction().begin();
+		capCar.setValorTotal(pedido.getValorTotal());
+		capCar.setCliente(pedido.getPessoa());
+		capCar.setDataInicial(pedido.getData());
+		capCar.setDesconto(pedido.getDesconto());
+		capCar.setAcrescimo(pedido.getAcrescimo());
+		capCar.setValorLiquido(pedido.getValorLiquido());
+		capCar.setStatus(1);
+		
+		em.persist(capCar);
+		em.getTransaction().commit();
+		System.out.println("CapCar inclu�da de pedido com sucesso ");
+		
+	}catch(Exception e) {
+		e.printStackTrace();
+		System.out.println("CapCar não pode ser incluída");
+	}finally {
+		em.close();
+	}
+}
+
+
 	
 public void gerarPedidoMovimentacao(PedidoItem item) {
 	EntityManager em = UnidadePersistencia.createEntityManager();

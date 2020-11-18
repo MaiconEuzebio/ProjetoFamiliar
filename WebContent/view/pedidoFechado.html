@@ -114,16 +114,6 @@
 										class="form-control" placeholder="Pesquisar..."
 										ng-change="pesquisar()" mask-maiusculas></th>
 									
-									<th width="100px"><a href=""
-									ng-click="ordenacao('descStatus')" title="Ordenar"> Status <span
-										ng-show="campoOrdenacao == '+descricao'"
-										class="glyphicon glyphicon-sort-by-attributes" /> <span
-										ng-show="campoOrdenacao == '-descricao'"
-										class="glyphicon glyphicon-sort-by-attributes-alt" />
-								</a> <input type="text" name="peso" ng-model="descStatusFilter"
-									class="form-control" placeholder="Pesquisar..."
-									ng-change="pesquisar()" mask-maiusculas></th>
-									
 								</tr>
 							</thead>
 							<!-- FIM DA TABLE HEADER QUE CONTÉM A CABEÇA DA TABELA ONDE SERÁ MOSTRADA NOMES DAS COLUNAS E CAMPOS DE ORDENAÇÃO -->
@@ -140,7 +130,6 @@
 										<td>{{g.acrescimo}}</td>
 										<td>{{g.desconto}}</td>
 										<td>{{g.valorTotal}}</td>
-										<td>{{g.descStatus}}</td>
 								
 									</tr>	
 								</tbody>

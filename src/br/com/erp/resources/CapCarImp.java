@@ -75,7 +75,7 @@ public class CapCarImp {
 				throw new RuntimeException("Nenhum caixa em aberto!");
 				
 			}
-			else if(capCar.getTipo().equals("P")) {
+			else if(capCar.getTipo().equals("P") && capCar.getCategoria().getTipo().equals("V")) {
 				
 				if(capCar.getValorTotal() > caixa.getValorAtual()) {
 					throw new RuntimeException("Valor da conta superior ao valor total do caixa");
@@ -86,6 +86,13 @@ public class CapCarImp {
 			}
 			else if((capCar.getCategoria().getTipo().equals("P") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() != null)||
 					(capCar.getCategoria().getTipo().equals("P") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() == null)) {
+				//throw new RuntimeException("Conta a receber valor ainda a ser creditado!");
+				System.out.println("Conta a receber valor ainda a ser creditado!");
+				capCar.setStatus(1);
+				//caixaMovimentacao.setTipo("C");
+			}
+			else if((capCar.getCategoria().getTipo().equals("P") && capCar.getTipo().equals("P") && caixaImp.obterCaixaAberto() != null)||
+					(capCar.getCategoria().getTipo().equals("P") && capCar.getTipo().equals("P") && caixaImp.obterCaixaAberto() == null)) {
 				//throw new RuntimeException("Conta a receber valor ainda a ser creditado!");
 				System.out.println("Conta a receber valor ainda a ser creditado!");
 				capCar.setStatus(1);

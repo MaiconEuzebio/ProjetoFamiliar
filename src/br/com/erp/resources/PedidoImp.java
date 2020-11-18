@@ -125,7 +125,9 @@ public void pedidoGeraCapcar(Pedido pedido) {
 		System.out.println("CapCar inclu�da de pedido com sucesso ");
 		
 	}catch(Exception e) {
-		e.printStackTrace();
+		if (em.getTransaction().isActive()) {
+			em.getTransaction().rollback();
+		}
 		System.out.println("CapCar não pode ser incluída");
 	}finally {
 		em.close();

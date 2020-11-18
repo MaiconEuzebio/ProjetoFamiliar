@@ -167,21 +167,24 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 	// FUNÇÃO BTN INCLUIR ------>CHAMA A TELA COM OS IMPUTS DE INCLUSÃO DE DADOS   //
    /////////////////////////////////////////////////////////////////////////////////
 	$scope.btnIncluir = function(){
-
-    	$scope.mensagemRodape = 		"";
+		$scope.mensagemRodape = 		"";
     	$scope.mensagemModal  =		 	"";
     	$scope.mostrarAguarde = 		true;
 
-    	$scope.capCar = 				{};
-    	$scope.capCar.id = 				null;
-    	$scope.capCar.dataInicial = 	new Date();
-    	$scope.capCar.dataVencimento = 	null;
+		$scope.capCar = 				{};
+		$scope.capCar.id = 				null;
+		$scope.capCar.dataInicial = 	new Date();
+		$scope.capCar.pessoa = 			null;
+		$scope.capCar.categoria =		null;
+		$scope.capCar.valorLiquido = 	null;
+		$scope.capCar.acrescimo	=		0;
+		$scope.capCar.desconto	=		0;
+		$scope.capCar.valorTotal = 		null;
+		$scope.capCar.dataVencimento = 	null;
     	$scope.capCar.dataPagamento = 	null;
-    	$scope.capCar.valorLiquido = 	null;
-    	$scope.capCar.valorTotal = 		null;
-		$scope.capCar.desconto	=		0
-		$scope.capCar.acrescimo	=		0
     	$scope.capCar.status =			1;
+		
+		
 
 		if($routeParams.tipo == 'cap'){
 			$scope.capCar.tipo = 'P';

@@ -80,6 +80,11 @@ angular.module("listaTelefonica").config(function ($routeProvider){
 		controller: "pedidoController",
 	});
 	
+	$routeProvider.when("/pedidoFechado", {
+		templateUrl: "view/pedidoFechado.html",
+		controller: "pedidoFechadoController",
+	});
+	
 	$routeProvider.otherwise({redirectTo: "/index.html"});
 
 });

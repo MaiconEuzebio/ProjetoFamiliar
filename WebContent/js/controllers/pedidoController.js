@@ -509,7 +509,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.mostrarAguarde = true; 
     	
 		//obter todos os registros
-    	requisicaoService.requisitarGET("pedido/obterTodos", function(retorno) {
+    	requisicaoService.requisitarGET("pedido/obterTodosAtivos", function(retorno) {
     		if (!retorno.isValid) {
     			$scope.mensagemModal  = retorno.msg;
     			$scope.showModalAviso = true;

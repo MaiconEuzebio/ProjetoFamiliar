@@ -484,12 +484,7 @@ $scope.selecionarLinha = function(objeto) {
     		$scope.mostrarAguarde = false;
     		return;
         }
-        if (!ccapCar.dataVencimento) {
-        	$scope.mensagemRodape = "É necessário o preenchimento do campo Data de Vencimento!";
-    		document.getElementById("cDataVencimento").focus();
-    		$scope.mostrarAguarde = false;
-    		return;
-        }
+
         if (!ccapCar.dataPagamento) {
 			$scope.capCar.dataPagamento 	= null;
         }

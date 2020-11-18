@@ -80,13 +80,13 @@ public class PedidoImp {
 					gerarPedidoMovimentacao(pedidoItem);
 				}	
 				
-				
+				pedidoGeraCapcar(pedido);
 				pedido.atualizarItens();
 				pedido.atualizarPagamentos();
 			
 			if (pedido.getId() == null) {
-				pedidoGeraCapcar(pedido);
 				em.persist(pedido);
+				
 			} else {
 				em.merge(pedido);
 			}
@@ -106,10 +106,12 @@ public class PedidoImp {
 	}
 	
 	
+	
+	
 public void pedidoGeraCapcar(Pedido pedido) {
 	EntityManager em = UnidadePersistencia.createEntityManager();
 		
-		CapCar capCar = null;
+		CapCar capCar = new CapCar();
 	try {
 		em.getTransaction().begin();
 		capCar.setValorTotal(pedido.getValorTotal());
@@ -122,6 +124,7 @@ public void pedidoGeraCapcar(Pedido pedido) {
 		
 		em.persist(capCar);
 		em.getTransaction().commit();
+		
 		System.out.println("CapCar inclu�da de pedido com sucesso ");
 		
 	}catch(Exception e) {

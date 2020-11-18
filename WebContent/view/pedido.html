@@ -415,7 +415,7 @@
 									<tbody>
 										<tr ng-repeat="g in pedido.pagamentos" ng-click="selecionarLinhaPagamentoPedido(g)"
 											ng-class="{linhaSelecionada : g == objetoSelecionadoPagamentoPedido}">
-											<td>{{g.categoria.descricao}}</td>
+											<td>{{g.tipoCobranca.descricao}}</td>
 											<td>{{g.valor}}</td>
 											<td>{{g.observacao}}</td>
 										</tr>
@@ -460,7 +460,7 @@
 									<tbody>
 										<tr ng-repeat="g in pedido.pagamentosPrazo" ng-click="selecionarLinhaPagamentoPedidoPrazo(g)"
 											ng-class="{linhaSelecionada : g == objetoSelecionadoPagamentoPedidoPrazo}">
-											<td>{{g.categoria.descricao}}</td>
+											<td>{{g.tipoCobranca.descricao}}</td>
 											<td>{{g.valor}}</td>
 											<td>{{g.dataVencimento | date:'dd/MM/yyyy'}}</td>
 											<td>{{g.observacao}}</td>
@@ -605,8 +605,8 @@
 					<!-- CAMPO TIPO COBRANCA -->
 					<div class="col-md-4">
 						<div class="form-group">
-							<label>Tipo de Cobranca</label> <select id="cCategoria" class="form-control" ng-model="pedidoPagamento.categoria" 
-							ng-options="categoria.descricao for categoria in categorias | filter:{tipo:'V'} | orderBy:'-id' track by categoria.id">
+							<label>Tipo de Cobranca</label> <select id="cTipoCobranca" class="form-control" ng-model="pedidoPagamento.tipoCobranca" 
+							ng-options="tipoCobranca.descricao for tipoCobranca in tipoCobrancas | filter:{tipo:'V'} |orderBy:'-id' track by tipoCobranca.id">
 			                 <option value="">Selecione um tipo de cobranca</option></select>
 						</div>
 					</div>
@@ -658,11 +658,11 @@
 			<div class="card-body">
 				<div class="row">
 
-					<!-- CAMPO CATEGORIA -->
+					<!-- CAMPO TIPO COBRANCA -->
 					<div class="col-md-4">
 						<div class="form-group">
-							<label>Tipo de Cobranca</label> <select id="cCategoria" class="form-control" ng-model="pedidoPagamentoPrazo.categoria" 
-							ng-options="categoria.descricao for categoria in categorias | filter:{tipo:'P'} | orderBy:'-id' track by categoria.id">
+							<label>Tipo de Cobranca</label> <select id="cTipoCobranca" class="form-control" ng-model="pedidoPagamentoPrazo.tipoCobranca" 
+							ng-options="tipoCobranca.descricao for tipoCobranca in tipoCobrancas | filter:{tipo:'P'} | orderBy:'nome' track by tipoCobranca.id">
 			                 <option value="">Selecione um tipo de cobranca</option></select>
 						</div>
 					</div>

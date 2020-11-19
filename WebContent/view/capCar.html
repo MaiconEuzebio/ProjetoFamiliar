@@ -171,12 +171,12 @@
 							
 							
 								<tbody>
-									<tr ng-repeat="conta in capCarSFiltradas"
+									<tr ng-repeat="conta in capCarSFiltradas" 
 										ng-click="selecionarLinha(conta)"
 										ng-class="{linhaSelecionada : conta == objetoSelecionado}">
 										
 										<td>{{conta.id}}</td>
-										<td>{{conta.categoria.descricao}}</td>
+										<td>{{conta.tipoCobranca.descricao}}</td>
 										<td>{{conta.cliente.nomeRzSocial}}</td>
 										<td>{{conta.dataInicialStr}}</td>
 										<td>{{conta.dataVencimentoStr}}</td>
@@ -265,8 +265,8 @@
 				<!-- CAMPO CATEGORIA -->
 				<div class="col-md-3">
 					<div class="form-group">
-						<label>Categoria</label> <select id="cCategoria" class="form-control" ng-model="capCar.categoria" 
-							ng-options="categoria.descricao for categoria in categorias | orderBy:'nome' track by categoria.id">
+						<label>Categoria</label> <select id="cTipoCobranca" class="form-control" ng-model="capCar.tipoCobranca" 
+							ng-options="tipoCobranca.descricao for tipoCobranca in tipoCobrancas | orderBy:'nome' track by tipoCobranca.id">
 			               	<option value="">Selecione uma categoria de pagamento</option></select>
 					</div>
 				</div>

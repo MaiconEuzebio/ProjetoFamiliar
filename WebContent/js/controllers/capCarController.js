@@ -80,6 +80,7 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 				$scope.pesquisar();
 				$scope.mostrarAguarde = false;
 		});
+    	
 		requisicaoService.requisitarGET("pessoa/obterTodosAtivos", function(retorno) {
     		if (!retorno.isValid) {
     			$scope.mensagemModal  = retorno.msg;
@@ -91,14 +92,14 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 				$scope.pesquisar();
 				$scope.mostrarAguarde = false;
 		});
-		requisicaoService.requisitarGET("categoria/obterTodosAtivos", function(retorno) {
+		requisicaoService.requisitarGET("tipoCobranca/obterTodosAtivos", function(retorno) {
     		if (!retorno.isValid) {
     			$scope.mensagemModal  = retorno.msg;
     			$scope.showModalAviso = true;
     			$scope.mostrarAguarde = false;
         		return;
     		}
-				$scope.categorias = retorno.data;
+				$scope.tipoCobrancas = retorno.data;
 				$scope.pesquisar();
 				$scope.mostrarAguarde = false;
 		});		
@@ -177,7 +178,7 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 		$scope.capCar.id = 				null;
 		$scope.capCar.dataInicial = 	new Date();
 		$scope.capCar.pessoa = 			null;
-		$scope.capCar.categoria =		null;
+		$scope.capCar.tipoCobranca =		null;
 		$scope.capCar.valorLiquido = 	null;
 		$scope.capCar.acrescimo	=		0;
 		$scope.capCar.desconto	=		0;
@@ -496,12 +497,7 @@ $scope.selecionarLinha = function(objeto) {
     		$scope.mostrarAguarde = false;
     		return;
         }
-        if (!ccapCar.categoria) {
-        	$scope.mensagemRodape = "É necessário o preenchimento do campo Categoria!";
-    		document.getElementById("cCategoria").focus();
-    		$scope.mostrarAguarde = false;
-    		return;
-        }
+
         if (!ccapCar.valorLiquido) {
         	$scope.mensagemRodape = "É necessário o preenchimento do campo Valor Liquido!";
     		document.getElementById("cValorLiquido").focus();

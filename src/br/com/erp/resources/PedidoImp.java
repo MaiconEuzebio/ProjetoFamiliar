@@ -16,6 +16,8 @@ import br.com.erp.json.ParamJson;
 import br.com.erp.model.CapCar;
 import br.com.erp.model.Pedido;
 import br.com.erp.model.PedidoItem;
+import br.com.erp.model.PedidoPagamento;
+import br.com.erp.model.PedidoPagamentoPrazo;
 import br.com.erp.model.Produto;
 import br.com.erp.util.UnidadePersistencia;
 
@@ -111,32 +113,37 @@ public class PedidoImp {
 public void pedidoGeraCapcar(Pedido pedido) {
 	EntityManager em = UnidadePersistencia.createEntityManager();
 		
-		CapCarImp capCarImp = new CapCarImp();
-		CapCar capCar = new CapCar();
+	CapCarImp capCarImp = new CapCarImp();
 		
 	try {
-		em.getTransaction().begin();
-		capCar.setValorTotal(pedido.getValorTotal());
-		capCar.setCliente(pedido.getPessoa());
-		capCar.setDataVencimento(pedido.getData());
-		capCar.setDataPagamento(pedido.getData());
-		capCar.setDataInicial(pedido.getData());
-		capCar.setDesconto(pedido.getDesconto());
-		capCar.setAcrescimo(pedido.getAcrescimo());
-		capCar.setValorLiquido(pedido.getValorLiquido());
-		capCar.setTipo("R");
-		capCar.setStatus(1);
-		
-		em.persist(capCar);
-		em.getTransaction().commit();
-		capCarImp.save(capCar);
+		for(PedidoPagamentoPrazo pagamentoPrazo : pedido.getPagamentosPrazo()) {
+			CapCar capCar = new CapCar();
+			
+			capCar.setValorTotal(pagamentoPrazo.getValor());
+			capCar.setCliente(pedido.getPessoa());
+			capCar.setDataVencimento(pagamentoPrazo.getDataVencimento());
+			capCar.setTipoCobranca(pagamentoPrazo.getTipoCobranca());
+			capCar.setDataPagamento(null);
+			capCar.setDataInicial(pedido.getData());
+			capCar.setDesconto(pedido.getDesconto());
+			capCar.setAcrescimo(pedido.getAcrescimo());
+			capCar.setValorLiquido(pagamentoPrazo.getValor());
+			capCar.setTipo("R");
+			capCar.setStatus(1);
+			
+			
+			em.persist(capCar);
+			capCarImp.save(capCar);
+		}
+			
 		System.out.println("CapCar inclu�da de pedido com sucesso ");
 		
 	}catch(Exception e) {
 		if (em.getTransaction().isActive()) {
 			em.getTransaction().rollback();
+			System.out.println("CapCar não pode ser incluída");
 		}
-		System.out.println("CapCar não pode ser incluída");
+		
 	}finally {
 		em.close();
 	}

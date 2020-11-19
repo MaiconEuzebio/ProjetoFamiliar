@@ -116,6 +116,7 @@ public void pedidoGeraCapcar(Pedido pedido) {
 	CapCarImp capCarImp = new CapCarImp();
 		
 	try {
+
 		for(PedidoPagamentoPrazo pagamentoPrazo : pedido.getPagamentosPrazo()) {
 			CapCar capCar = new CapCar();
 			
@@ -136,6 +137,7 @@ public void pedidoGeraCapcar(Pedido pedido) {
 			capCarImp.save(capCar);
 		}
 			
+
 		System.out.println("CapCar inclu�da de pedido com sucesso ");
 		
 	}catch(Exception e) {

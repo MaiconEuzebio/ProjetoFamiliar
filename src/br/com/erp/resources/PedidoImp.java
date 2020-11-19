@@ -16,6 +16,8 @@ import br.com.erp.json.ParamJson;
 import br.com.erp.model.CapCar;
 import br.com.erp.model.Pedido;
 import br.com.erp.model.PedidoItem;
+import br.com.erp.model.PedidoPagamento;
+import br.com.erp.model.PedidoPagamentoPrazo;
 import br.com.erp.model.Produto;
 import br.com.erp.util.UnidadePersistencia;
 
@@ -116,6 +118,8 @@ public void pedidoGeraCapcar(Pedido pedido) {
 		
 	try {
 		em.getTransaction().begin();
+		
+		PedidoPagamentoPrazo pedidoPagamentoPrazo = new PedidoPagamentoPrazo();
 		capCar.setValorTotal(pedido.getValorTotal());
 		capCar.setCliente(pedido.getPessoa());
 		capCar.setDataVencimento(pedido.getData());
@@ -126,6 +130,7 @@ public void pedidoGeraCapcar(Pedido pedido) {
 		capCar.setValorLiquido(pedido.getValorLiquido());
 		capCar.setTipo("R");
 		capCar.setStatus(1);
+		capCar.setDataVencimento(pedidoPagamentoPrazo.getDataVencimento());
 		
 		em.persist(capCar);
 		em.getTransaction().commit();

@@ -1,5 +1,5 @@
 <!-- DIV COM HEADER DA PÁGINA -->
-<div class="content-header">
+<div class="content-header" ng-controller="capCarController">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12">
@@ -73,21 +73,21 @@
 									</th>
 									
 									<th width="80px"><a href=""
-										ng-click="ordenacao('categoria')"
-										title="{{buscarDicionario('Ordenar')}}"> Categoria Pagamento. <span
-										ng-show="campoOrdenacao == '+categoria'"
+										ng-click="ordenacao('tipoCobranca')"
+										title="{{buscarDicionario('Ordenar')}}"> Tipo de Cobranca <span
+										ng-show="campoOrdenacao == '+tipoCobranca'"
 										class="glyphicon glyphicon-sort-by-attributes" /> <span
-										ng-show="campoOrdenacao == '-categoria'"
+										ng-show="campoOrdenacao == '-tipoCobranca'"
 										class="glyphicon glyphicon-sort-by-attributes-alt" />
 										</a>
-											<input type="text" name="cliente" ng-model="descricaoFilter"
+											<input type="text" name="tipoCobranca" ng-model="tipoCobrancaFilter"
 												class="form-control" placeholder="Pesquisar..."
 												ng-change="pesquisar()" mask-maiusculas>
 									</th>
 									
 									<th width="80px"><a href=""
 										ng-click="ordenacao('cliente')"
-										title="{{buscarDicionario('Ordenar')}}"> Cliente. <span
+										title="{{buscarDicionario('Ordenar')}}"> Cliente <span
 										ng-show="campoOrdenacao == '+cliente'"
 										class="glyphicon glyphicon-sort-by-attributes" /> <span
 										ng-show="campoOrdenacao == '-cliente'"
@@ -171,7 +171,7 @@
 							
 							
 								<tbody>
-									<tr ng-repeat="conta in capCarSFiltradas" 
+									<tr dir-paginate="conta in capCarSFiltradas | itemsPerPage : 10" 
 										ng-click="selecionarLinha(conta)"
 										ng-class="{linhaSelecionada : conta == objetoSelecionado}">
 										
@@ -193,6 +193,9 @@
 						
 						
 					</div>
+				<div class="pagination pagination-lg justify-content-center">
+					<dir-pagination-controls  max-size="5" boundary-links="true"></dir-pagination-controls>
+				</div>
 				</div>
 				<!-- FIM DA DIV QUE CONTÉM A TABELA COM OS NOMES DAS COLUNAS DOS DADOS E COM OS LINKS PARA ORDENAÇÃO -->
 				
@@ -265,9 +268,9 @@
 				<!-- CAMPO CATEGORIA -->
 				<div class="col-md-3">
 					<div class="form-group">
-						<label>Categoria</label> <select id="cTipoCobranca" class="form-control" ng-model="capCar.tipoCobranca" 
+						<label>Tipo de Cobranca</label> <select id="cTipoCobranca" class="form-control" ng-model="capCar.tipoCobranca" 
 							ng-options="tipoCobranca.descricao for tipoCobranca in tipoCobrancas | orderBy:'nome' track by tipoCobranca.id">
-			               	<option value="">Selecione uma categoria de pagamento</option></select>
+			               	<option value="">Selecione um Tipo de Cobranca</option></select>
 					</div>
 				</div>
 				

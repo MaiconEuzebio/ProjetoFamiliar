@@ -513,7 +513,8 @@ $scope.selecionarLinha = function(objeto) {
        
 		requisicaoService.requisitarPOST("capCar/salvar", ccapCar, function(retorno){
     		if (!retorno.isValid) {
-    			$scope.mensagemRodape = retorno.msg;
+    			$scope.mensagemModal  = retorno.data.str1;
+    			$('#modalAtencao').modal();
     			$scope.mostrarAguarde = false;
         		return;
     		}

@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import org.apache.poi.util.SystemOutLogger;
 
 import br.com.erp.json.ParamJson;
+import br.com.erp.model.Caixa;
 import br.com.erp.model.CapCar;
 import br.com.erp.model.Pedido;
 import br.com.erp.model.PedidoItem;
@@ -112,7 +113,8 @@ public class PedidoImp {
 	
 public void pedidoGeraCapcar(Pedido pedido) {
 	EntityManager em = UnidadePersistencia.createEntityManager();
-		
+	CaixaImp caixaImp = new CaixaImp();
+	
 	CapCarImp capCarImp = new CapCarImp();
 		
 	try {
@@ -137,6 +139,10 @@ public void pedidoGeraCapcar(Pedido pedido) {
 			capCarImp.save(capCar);
 		}
 		
+		Caixa caixa = caixaImp.obterCaixaAberto();
+		if(caixaImp.obterCaixaAberto()==null) {
+			throw new RuntimeException("Nenhum caixa em aberto!");
+		}
 		for(PedidoPagamento pagamento : pedido.getPagamentos()) {
 			CapCar capCar = new CapCar();
 			
@@ -161,11 +167,12 @@ public void pedidoGeraCapcar(Pedido pedido) {
 		System.out.println("CapCar inclu�da de pedido com sucesso ");
 		
 	}catch(Exception e) {
+		e.printStackTrace();
 		if (em.getTransaction().isActive()) {
 			em.getTransaction().rollback();
 			System.out.println("CapCar não pode ser incluída");
 		}
-		
+		throw e;
 	}finally {
 		em.close();
 	}

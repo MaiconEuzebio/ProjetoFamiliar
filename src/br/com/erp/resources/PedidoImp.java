@@ -129,7 +129,9 @@ public void pedidoGeraCapcar(Pedido pedido) {
 		System.out.println("CapCar inclu�da de pedido com sucesso ");
 		
 	}catch(Exception e) {
-		e.printStackTrace();
+		if (em.getTransaction().isActive()) {
+			em.getTransaction().rollback();
+		}
 		System.out.println("CapCar não pode ser incluída");
 	}finally {
 		em.close();
@@ -327,6 +329,31 @@ public void gerarPedidoMovimentacao(PedidoItem item) {
 	
 		return pedido;
 	}
+	
+	@Path("obterPedidoFechadoLista")
+	@GET
+	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+
+	public List<Pedido> obterPedidoFechadoLista() {
+		EntityManager em = UnidadePersistencia.createEntityManager();
+		List<Pedido> pedidos = null;
+
+		try {
+			pedidos =  em.createQuery("select a " 
+				     						+ "from Pedido a "
+				     						+ "where a.status = 0")
+											.getResultList();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+
+		return pedidos;
+	}
+
 	
 	
 	

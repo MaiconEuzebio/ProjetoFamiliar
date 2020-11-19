@@ -30,7 +30,7 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";											//AO INICIAR TELA...
     	$scope.mostrarAguarde = true;
-    	
+    	 
 		var tipo;															//CRIADA VARIAVEL tipo QUE NÃO RECEBE NADA.
 		if($routeParams.tipo == 'cap'){										//SE, $routeParams.tipo LA DE CIMA FOR cap NA MUDANÇA DE TELA
 			tipo = 'P';														//VARIAVEL CRIADA VAZIA tipo RECEBE STRING 'P'.
@@ -60,8 +60,10 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 				//preciso para formatar a data e se quiser, a hora no formato correto para ser entendido pela BD
 				for(i in $scope.capCarS){
 					$scope.capCarS[i].dataInicialStr = dateToStr(new Date($scope.capCarS[i].dataInicial));
-					$scope.capCarS[i].dataVencimentoStr = dateToStr(new Date($scope.capCarS[i].dataVencimento));
 					$scope.capCarS[i].dataPagamentoStr = dateToStr(new Date($scope.capCarS[i].dataPagamento));
+					if($scope.capCarS[i].dataVencimento){
+					$scope.capCarS[i].dataVencimentoStr = dateToStr(new Date($scope.capCarS[i].dataVencimento));
+					}
 				}
 
 				$scope.pesquisar();
@@ -238,8 +240,8 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 			
 			$scope.capCar			   		= retorno.data;
 			$scope.capCar.dataInicial 		= new Date($scope.capCar.dataInicial);
-			$scope.capCar.dataVencimento 	= new Date($scope.capCar.dataVencimento);
-			$scope.capCar.dataPagamento 	= new Date($scope.capCar.dataPagamento);
+			$scope.capCar.dataVencimento 	= null;
+			$scope.capCar.dataPagamento 	= null;
 	       	$scope.mostrarAguarde   	 	= false;
 	        $scope.visualizaCadastro 		= true;
 		});

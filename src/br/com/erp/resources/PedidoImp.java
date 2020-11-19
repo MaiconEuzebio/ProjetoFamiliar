@@ -136,6 +136,26 @@ public void pedidoGeraCapcar(Pedido pedido) {
 			em.persist(capCar);
 			capCarImp.save(capCar);
 		}
+		
+		for(PedidoPagamento pagamento : pedido.getPagamentos()) {
+			CapCar capCar = new CapCar();
+			
+			capCar.setValorTotal(pagamento.getValor());
+			capCar.setCliente(pedido.getPessoa());
+			capCar.setDataVencimento(pagamento.getDataVencimento());
+			capCar.setTipoCobranca(pagamento.getTipoCobranca());
+			capCar.setDataPagamento(null);
+			capCar.setDataInicial(pedido.getData());
+			capCar.setDesconto(pedido.getDesconto());
+			capCar.setAcrescimo(pedido.getAcrescimo());
+			capCar.setValorLiquido(pagamento.getValor());
+			capCar.setTipo("R");
+			capCar.setStatus(0);
+			
+			
+			em.persist(capCar);
+			capCarImp.save(capCar);
+		}
 			
 
 		System.out.println("CapCar inclu�da de pedido com sucesso ");

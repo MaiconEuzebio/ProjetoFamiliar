@@ -71,7 +71,8 @@ public class CapCarImp {
 			caixaMovimentacao.setCaixa(caixa);
 			caixaMovimentacao.setObservacao("Movimentação gerada a partir da conta "+capCar.getId());
 			
-			if(caixaImp.obterCaixaAberto() == null && capCar.getTipoCobranca().getTipo().equals("V")) {
+			if((caixaImp.obterCaixaAberto() == null && capCar.getTipoCobranca().getTipo().equals("V"))||
+				(caixaImp.obterCaixaAberto() == null && capCar.getTipoCobranca().getTipo().equals("P"))) {
 				throw new RuntimeException("Nenhum caixa em aberto!");
 				
 			}
@@ -84,15 +85,16 @@ public class CapCarImp {
 				caixaMovimentacao.setTipo("D");
 				caixa.setValorAtual(caixa.getValorAtual() - capCar.getValorTotal());
 			}
-			else if((capCar.getTipoCobranca().getTipo().equals("P") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() != null)||
-					(capCar.getTipoCobranca().getTipo().equals("P") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() == null)) {
+			else if(capCar.getTipoCobranca().getTipo().equals("P") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() != null){
+					//(capCar.getTipoCobranca().getTipo().equals("P") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() == null)) {
 				//throw new RuntimeException("Conta a receber valor ainda a ser creditado!");
+				
 				System.out.println("Conta a receber valor ainda a ser creditado!");
-				capCar.setStatus(1);
-				//caixaMovimentacao.setTipo("C");
+				capCar.setStatus(0);
+				caixaMovimentacao.setTipo("C");
 			}
-			else if((capCar.getTipoCobranca().getTipo().equals("P") && capCar.getTipo().equals("P") && caixaImp.obterCaixaAberto() != null)||
-					(capCar.getTipoCobranca().getTipo().equals("P") && capCar.getTipo().equals("P") && caixaImp.obterCaixaAberto() == null)) {
+			else if(capCar.getTipoCobranca().getTipo().equals("P") && capCar.getTipo().equals("P") && caixaImp.obterCaixaAberto() != null){
+					//(capCar.getTipoCobranca().getTipo().equals("P") && capCar.getTipo().equals("P") && caixaImp.obterCaixaAberto() == null)) {
 				//throw new RuntimeException("Conta a receber valor ainda a ser creditado!");
 				System.out.println("Conta a receber valor ainda a ser creditado!");
 				capCar.setStatus(1);

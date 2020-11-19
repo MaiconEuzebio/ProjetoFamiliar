@@ -543,7 +543,6 @@ $scope.selecionarLinha = function(objeto) {
 		$scope.capCarSFiltradas = orderByFilter(filterFilter($scope.capCarS,{
 																			id:$scope.idFilter,
 																			cliente:{nomeRzSocial:$scope.nomeRzSocialFilter},
-																			categoria:{descricao:$scope.descricaoFilter},
 																			dataInicialStr:$scope.dataInicialFilter,
 																			dataVencimentoStr:$scope.dataVencimentoFilter,
 																			desconto:$scope.descontoFilter,

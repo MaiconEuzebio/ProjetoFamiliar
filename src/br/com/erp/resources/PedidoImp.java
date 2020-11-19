@@ -110,12 +110,16 @@ public class PedidoImp {
 	
 public void pedidoGeraCapcar(Pedido pedido) {
 	EntityManager em = UnidadePersistencia.createEntityManager();
+		
 		CapCarImp capCarImp = new CapCarImp();
 		CapCar capCar = new CapCar();
+		
 	try {
 		em.getTransaction().begin();
 		capCar.setValorTotal(pedido.getValorTotal());
 		capCar.setCliente(pedido.getPessoa());
+		capCar.setDataVencimento(pedido.getData());
+		capCar.setDataPagamento(pedido.getData());
 		capCar.setDataInicial(pedido.getData());
 		capCar.setDesconto(pedido.getDesconto());
 		capCar.setAcrescimo(pedido.getAcrescimo());

@@ -53,8 +53,8 @@ public class CapCar {
 	private Pessoa cliente;
 	
 	@ManyToOne
-	@JoinColumn(name = "ID_CATEGORIA")
-	private Categoria categoria;
+	@JoinColumn(name = "ID_TIPO_COBRANCA")
+	private TipoCobranca tipoCobranca;
 	
 	@Transient
 	private String descStatus;
@@ -130,11 +130,11 @@ public class CapCar {
 	public void setCliente(Pessoa cliente) {
 		this.cliente = cliente;
 	}
-	public Categoria getCategoria() {
-		return categoria;
+	public TipoCobranca getTipoCobranca() {
+		return tipoCobranca;
 	}
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
+	public void setTipoCobranca(TipoCobranca tipoCobranca) {
+		this.tipoCobranca = tipoCobranca;
 	}
 	public String getDescStatus() {
 		if(Objects.nonNull(status)) {

@@ -30,7 +30,7 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";											//AO INICIAR TELA...
     	$scope.mostrarAguarde = true;
-    	
+    	 
 		var tipo;															//CRIADA VARIAVEL tipo QUE NÃO RECEBE NADA.
 		if($routeParams.tipo == 'cap'){										//SE, $routeParams.tipo LA DE CIMA FOR cap NA MUDANÇA DE TELA
 			tipo = 'P';														//VARIAVEL CRIADA VAZIA tipo RECEBE STRING 'P'.

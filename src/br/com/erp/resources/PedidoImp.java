@@ -110,7 +110,7 @@ public class PedidoImp {
 	
 public void pedidoGeraCapcar(Pedido pedido) {
 	EntityManager em = UnidadePersistencia.createEntityManager();
-		
+		CapCarImp capCarImp = new CapCarImp();
 		CapCar capCar = new CapCar();
 	try {
 		em.getTransaction().begin();
@@ -120,11 +120,12 @@ public void pedidoGeraCapcar(Pedido pedido) {
 		capCar.setDesconto(pedido.getDesconto());
 		capCar.setAcrescimo(pedido.getAcrescimo());
 		capCar.setValorLiquido(pedido.getValorLiquido());
+		capCar.setTipo("R");
 		capCar.setStatus(1);
 		
 		em.persist(capCar);
 		em.getTransaction().commit();
-		
+		capCarImp.save(capCar);
 		System.out.println("CapCar inclu�da de pedido com sucesso ");
 		
 	}catch(Exception e) {
@@ -326,13 +327,6 @@ public void gerarPedidoMovimentacao(PedidoItem item) {
 	
 		return pedido;
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

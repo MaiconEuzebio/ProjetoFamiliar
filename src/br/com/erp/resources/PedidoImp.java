@@ -81,11 +81,11 @@ public class PedidoImp {
 					}
 					gerarPedidoMovimentacao(pedidoItem);
 				}	
-				
+			
 				pedidoGeraCapcar(pedido);
 				pedido.atualizarItens();
 				pedido.atualizarPagamentos();
-			
+	
 			if (pedido.getId() == null) {
 				em.persist(pedido);
 				

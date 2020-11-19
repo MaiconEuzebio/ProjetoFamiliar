@@ -101,6 +101,7 @@ public class CapCarImp {
 			else if(capCar.getTipoCobranca().getTipo().equals("V") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() != null) {
 				caixa.setValorAtual(caixa.getValorAtual() + capCar.getValorTotal());
 				System.out.println("CapCar recebida imediatamente por ser a vista");
+				capCar.setStatus(0);
 				caixaMovimentacao.setTipo("C");
 			}
 			caixaMovimentacao.setValorMovimentacao(capCar.getValorTotal());

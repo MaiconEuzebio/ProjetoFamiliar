@@ -107,7 +107,7 @@ app.controller("contaRecebidaController", function ($scope, $routeParams, requis
 		$scope.capCarSFiltradas = orderByFilter(filterFilter($scope.capCarS,{
 																			id:$scope.idFilter,
 																			cliente:{nomeRzSocial:$scope.nomeRzSocialFilter},
-																			categoria:{descricao:$scope.descricaoFilter},
+																			tipoCobranca:{descricao:$scope.descricaoFilter},
 																			dataInicialStr:$scope.dataInicialFilter,
 																			dataVencimentoStr:$scope.dataVencimentoFilter,
 																			dataPagamentoStr:$scope.dataPagamentoFilter,

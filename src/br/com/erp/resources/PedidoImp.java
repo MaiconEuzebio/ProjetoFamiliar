@@ -116,6 +116,11 @@ public void pedidoGeraCapcar(Pedido pedido) {
 	CaixaImp caixaImp = new CaixaImp();
 	
 	CapCarImp capCarImp = new CapCarImp();
+	
+	Caixa caixa = caixaImp.obterCaixaAberto();
+	if(caixaImp.obterCaixaAberto() == null && pedido.getPagamentosPrazo()!= null) {
+		throw new RuntimeException("Nenhum caixa em aberto!");
+	}
 		
 	try {
 
@@ -139,10 +144,8 @@ public void pedidoGeraCapcar(Pedido pedido) {
 			capCarImp.save(capCar);
 		}
 		
-		Caixa caixa = caixaImp.obterCaixaAberto();
-		if(caixaImp.obterCaixaAberto()==null) {
-			throw new RuntimeException("Nenhum caixa em aberto!");
-		}
+		
+		
 		for(PedidoPagamento pagamento : pedido.getPagamentos()) {
 			CapCar capCar = new CapCar();
 			

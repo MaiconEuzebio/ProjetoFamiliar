@@ -121,18 +121,27 @@ public class CapCarImp {
 				caixaMovimentacao.setTipo("D");
 				
 			}
+			else if(capCar.getTipoCobranca().getTipo().equals("P") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() != null) {
+				caixa.setValorAtual(caixa.getValorAtual() + capCar.getValorTotal());
+				System.out.println("1 CapCar tipo: "+capCar.getTipo()+", cobranca tipo: "+capCar.getTipoCobranca().getTipo());
+				capCar.setStatus(0);
+				caixaMovimentacao.setTipo("C");
+			}
 
 			else if(capCar.getTipoCobranca().getTipo().equals("V") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() != null) {
 				caixa.setValorAtual(caixa.getValorAtual() + capCar.getValorTotal());
-				System.out.println("CapCar recebida imediatamente por ser a vista");
+				System.out.println("2 CapCar tipo: "+capCar.getTipo()+", cobranca tipo: "+capCar.getTipoCobranca().getTipo());
 				capCar.setStatus(0);
 				caixaMovimentacao.setTipo("C");
 			}
 			else if(capCar.getTipoCobranca().getTipo().equals("V") && capCar.getTipo().equals("P") && caixaImp.obterCaixaAberto() != null) {
 				caixa.setValorAtual(caixa.getValorAtual() - capCar.getValorTotal());
+				System.out.println("3 CapCar tipo: "+capCar.getTipo()+", cobranca tipo: "+capCar.getTipoCobranca().getTipo());
 				capCar.setStatus(0);
 				caixaMovimentacao.setTipo("D");
+				
 			}else if(capCar.getTipoCobranca().getTipo().equals("V") && capCar.getTipo().equals("P") && caixaImp.obterCaixaAberto() == null) {
+				System.out.println("4 CapCar tipo: "+capCar.getTipo()+", cobranca tipo: "+capCar.getTipoCobranca().getTipo());
 				capCar.setStatus(1);
 			}
 			caixaMovimentacao.setValorMovimentacao(capCar.getValorTotal());

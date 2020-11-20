@@ -30,14 +30,14 @@ public class CapCarImp {
 	public  CapCar save(CapCar capCar) {
 	
 		EntityManager em = UnidadePersistencia.createEntityManager();
-		CaixaImp caixaImp = new CaixaImp();
+		//CaixaImp caixaImp = new CaixaImp();
 		
 		
 		try {
-			Caixa caixa = caixaImp.obterCaixaAberto();
-			
-			if(capCar.getStatus().intValue() == 0) {
-				this.gerarMovimentacao(capCar);
+			//Caixa caixa = caixaImp.obterCaixaAberto();
+			em.getTransaction().begin();
+			/*if((capCar.getTipoCobranca().getTipo().equals("P")) && (capCar.getTipo().equals("P") && caixaImp.obterCaixaAberto() == null)) {
+				throw new RuntimeException("Nenhum caixa em aberto!");
 			}
 			if((capCar.getId() == null) && (capCar.getTipoCobranca().getTipo().equals("V") && capCar.getTipo().equals("P") && caixaImp.obterCaixaAberto() == null)) {
 				em.getTransaction().begin();
@@ -47,27 +47,22 @@ public class CapCarImp {
 				em.getTransaction().commit();
 				throw new RuntimeException("Nenhum caixa em aberto!");
 			}
-			if((capCar.getId() == null) && (capCar.getTipoCobranca().getTipo().equals("P") && capCar.getTipo().equals("P") && caixaImp.obterCaixaAberto() == null)) {
-				em.getTransaction().begin();
-				em.persist(capCar);
-				em.merge(capCar);
-				em.getTransaction().commit();	
-				throw new RuntimeException("Nenhum caixa em aberto!");
-			}
 			em.getTransaction().begin();
 			if ((capCar.getId() == null) && (capCar.getTipoCobranca().getTipo().equals("V") && capCar.getTipo().equals("P") && caixaImp.obterCaixaAberto() != null)) {
 				gerarMovimentacao(capCar);
 				System.out.println("CapCar paga com sucesso");
 				capCar.setStatus(0);
 				em.persist(capCar);
-			
-			} else {
+			}*/
+			if(capCar.getStatus().intValue() == 0) {
+				this.gerarMovimentacao(capCar);
+			}else {
 				
 				em.merge(capCar);
 			}
 			em.getTransaction().commit();
 
-			System.out.println("CapCar inclu�da com sucesso");
+			System.out.println("CapCar inclu�da com sucesso2");
 		} catch (Exception e) {
 			if (em.getTransaction().isActive()) {
 				em.getTransaction().rollback();
@@ -94,59 +89,58 @@ public class CapCarImp {
 			caixaMovimentacao.setCaixa(caixa);
 			caixaMovimentacao.setObservacao("Movimentação gerada a partir da conta "+capCar.getId());
 			
-			if(caixaImp.obterCaixaAberto() == null && capCar.getTipoCobranca().getTipo().equals("V")) {
+			if(caixaImp.obterCaixaAberto() == null) {
 				throw new RuntimeException("Nenhum caixa em aberto2!");
 				
 			}
-			else if(caixaImp.obterCaixaAberto() == null && capCar.getTipoCobranca().getTipo().equals("P")) {
-				throw new RuntimeException("Nenhum caixa em aberto2!");
-			}
-			else if(capCar.getTipo().equals("P") && capCar.getTipoCobranca().getTipo().equals("V")) {
+			//else if((capCar.getTipo().equals("P") && capCar.getTipoCobranca().getTipo().equals("V")) ||
+					//(capCar.getTipo().equals("P") && capCar.getTipoCobranca().getTipo().equals("P"))) {
 				
 				if(capCar.getValorTotal() > caixa.getValorAtual()) {
 					throw new RuntimeException("Valor da conta superior ao valor total do caixa");
 				}
+				
 				caixa.setValorAtual(caixa.getValorAtual() - capCar.getValorTotal());
 				caixaMovimentacao.setTipo("D");
 				
-			}
-			else if((capCar.getTipoCobranca().getTipo().equals("P") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() != null)||
-					(capCar.getTipoCobranca().getTipo().equals("P") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() == null)) {
-				//throw new RuntimeException("Conta a receber valor ainda a ser creditado!");
-				
-				System.out.println("Conta a receber valor ainda a ser creditado!");
+			//}
+			if(capCar.getTipo().equals("P") && capCar.getTipoCobranca().getTipo().equals("P") && caixaImp.obterCaixaAberto() == null) {
+				System.out.println("1 CapCar tipo: "+capCar.getTipo()+", tipo de cobranca: "+capCar.getTipoCobranca().getTipo());
 				capCar.setStatus(1);
 				caixaMovimentacao.setTipo("C");
 			}
+			
+			
 			else if(capCar.getTipoCobranca().getTipo().equals("P") && capCar.getTipo().equals("P") && caixaImp.obterCaixaAberto() != null){
-					//(capCar.getTipoCobranca().getTipo().equals("P") && capCar.getTipo().equals("P") && caixaImp.obterCaixaAberto() == null)) {
-				//throw new RuntimeException("Conta a receber valor ainda a ser creditado!");
-				System.out.println("Conta a receber valor ainda a ser creditado!");
-				capCar.setStatus(1);
-				//caixaMovimentacao.setTipo("C");
+				System.out.println("2 CapCar tipo: "+capCar.getTipo()+", tipo de cobranca: "+capCar.getTipoCobranca().getTipo());
+				capCar.setStatus(0);
 			}
+			
 			else if(capCar.getTipoCobranca().getTipo().equals("V") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() != null) {
 				caixa.setValorAtual(caixa.getValorAtual() + capCar.getValorTotal());
-				System.out.println("CapCar recebida imediatamente por ser a vista");
+				System.out.println("3 CapCar tipo: "+capCar.getTipo()+", tipo de cobranca: "+capCar.getTipoCobranca().getTipo());
 				capCar.setStatus(0);
 				caixaMovimentacao.setTipo("C");
 			}
+			
 			else if(capCar.getTipoCobranca().getTipo().equals("V") && capCar.getTipo().equals("P") && caixaImp.obterCaixaAberto() != null) {
 				caixa.setValorAtual(caixa.getValorAtual() - capCar.getValorTotal());
 				capCar.setStatus(0);
+				System.out.println("4 CapCar tipo: "+capCar.getTipo()+", tipo de cobranca: "+capCar.getTipoCobranca().getTipo());
 				caixaMovimentacao.setTipo("D");
+				
 			}else if(capCar.getTipoCobranca().getTipo().equals("V") && capCar.getTipo().equals("P") && caixaImp.obterCaixaAberto() == null) {
 				capCar.setStatus(1);
+				System.out.println("5 CapCar tipo: "+capCar.getTipo()+", tipo de cobranca: "+capCar.getTipoCobranca().getTipo());
 			}
-			caixaMovimentacao.setValorMovimentacao(capCar.getValorTotal());
 			
+			caixaMovimentacao.setValorMovimentacao(capCar.getValorTotal());
 			em.getTransaction().begin();
 			em.persist(caixaMovimentacao);
 			em.getTransaction().commit();
-			
 			caixaImp.save(caixa);
-			
 			System.out.println("CapCar inclu�da com sucesso");
+			
 		} catch (Exception e) {
 			if (em.getTransaction().isActive()) {
 				em.getTransaction().rollback();

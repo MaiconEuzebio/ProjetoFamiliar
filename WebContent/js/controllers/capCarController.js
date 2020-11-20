@@ -516,6 +516,8 @@ $scope.selecionarLinha = function(objeto) {
     			$scope.mensagemModal  = retorno.data.str1;
     			$('#modalAtencao').modal();
     			$scope.mostrarAguarde = false;
+				$scope.visualizaCadastro = false;
+				atualizarTela();
         		return;
     		}
     		

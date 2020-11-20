@@ -101,6 +101,7 @@ public class CapCarImp {
 			else if(caixaImp.obterCaixaAberto() == null && capCar.getTipoCobranca().getTipo().equals("P")) {
 				throw new RuntimeException("Nenhum caixa em aberto2!");
 			}
+			
 			else if(capCar.getTipo().equals("P") && capCar.getTipoCobranca().getTipo().equals("V")) {
 				
 				if(capCar.getValorTotal() > caixa.getValorAtual()) {
@@ -110,21 +111,17 @@ public class CapCarImp {
 				caixaMovimentacao.setTipo("D");
 				
 			}
-			else if((capCar.getTipoCobranca().getTipo().equals("P") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() != null)||
-					(capCar.getTipoCobranca().getTipo().equals("P") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() == null)) {
-				//throw new RuntimeException("Conta a receber valor ainda a ser creditado!");
+			
+			else if(capCar.getTipo().equals("P") && capCar.getTipoCobranca().getTipo().equals("P")) {
 				
-				System.out.println("Conta a receber valor ainda a ser creditado!");
-				capCar.setStatus(1);
-				caixaMovimentacao.setTipo("C");
+				if(capCar.getValorTotal() > caixa.getValorAtual()) {
+					throw new RuntimeException("Valor da conta superior ao valor total do caixa");
+				}
+				caixa.setValorAtual(caixa.getValorAtual() - capCar.getValorTotal());
+				caixaMovimentacao.setTipo("D");
+				
 			}
-			else if(capCar.getTipoCobranca().getTipo().equals("P") && capCar.getTipo().equals("P") && caixaImp.obterCaixaAberto() != null){
-					//(capCar.getTipoCobranca().getTipo().equals("P") && capCar.getTipo().equals("P") && caixaImp.obterCaixaAberto() == null)) {
-				//throw new RuntimeException("Conta a receber valor ainda a ser creditado!");
-				System.out.println("Conta a receber valor ainda a ser creditado!");
-				capCar.setStatus(1);
-				//caixaMovimentacao.setTipo("C");
-			}
+
 			else if(capCar.getTipoCobranca().getTipo().equals("V") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() != null) {
 				caixa.setValorAtual(caixa.getValorAtual() + capCar.getValorTotal());
 				System.out.println("CapCar recebida imediatamente por ser a vista");

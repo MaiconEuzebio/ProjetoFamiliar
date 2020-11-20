@@ -289,7 +289,7 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr ng-repeat="g in caixa.caixaMovimentacoes" ng-click="selecionarLinhaMovimentacao(g)"
+											<tr dir-paginate="g in caixa.caixaMovimentacoes | itemsPerPage : 10" ng-click="selecionarLinhaMovimentacao(g)"
 												ng-class="{linhaSelecionada : g == objetoSelecionadoMovimentacao}">
 												<td>{{g.dataMovimentacao | date:'dd/MM/yyyy'}}</td>
 												<td>{{g.valorMovimentacao}}</td>
@@ -299,6 +299,9 @@
 										</tbody>
 									</table>
 								</div>
+				<div class="pagination pagination-lg justify-content-center">
+					<dir-pagination-controls  max-size="5" boundary-links="true"></dir-pagination-controls>
+				</div>
 							</div>
 							<!-- /.card-body -->
 						</div>
@@ -523,7 +526,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="g in caixa.caixaMovimentacoes" ng-click="selecionarLinhaMovimentacao(g)"
+								<tr dir-paginate="g in caixa.caixaMovimentacoes | itemsPerPage : 10" ng-click="selecionarLinhaMovimentacao(g)"
 									ng-class="{linhaSelecionada : g == objetoSelecionadoMovimentacao}">
 									<td>{{g.dataMovimentacao | date:'dd/MM/yyyy'}}</td>
 									<td>{{g.valorMovimentacao}}</td>
@@ -533,6 +536,9 @@
 							</tbody>
 						</table>
 					</div>
+				<div class="pagination pagination-lg justify-content-center">
+					<dir-pagination-controls  max-size="5" boundary-links="true"></dir-pagination-controls>
+				</div>
 				</div>
 				<!-- /.card-body -->
 			</div>

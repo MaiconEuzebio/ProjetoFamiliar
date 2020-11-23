@@ -30,10 +30,10 @@ app.controller("corController", function ($scope, requisicaoService, filterFilte
     	$scope.mensagemModal  = "";
     	$scope.mostrarAguarde = true;
     	
-    	$scope.cor		       = {};
-    	$scope.cor.id       = null;
-    	$scope.cor.descricao   = null;
-    	$scope.cor.status	   = 1;
+    	$scope.cor		     = {};
+    	$scope.cor.id        = null;
+    	$scope.cor.descricao = null;
+    	$scope.cor.status	 = 1;
     	
     	$scope.mostrarAguarde    = false;
     	$scope.visualizaCadastro = true;
@@ -62,7 +62,7 @@ app.controller("corController", function ($scope, requisicaoService, filterFilte
         		return;
     		}
 			
-			$scope.cor			   = retorno.data;
+			$scope.cor			     = retorno.data;
 
 	    	$scope.mostrarAguarde    = false;
 	        $scope.visualizaCadastro = true;
@@ -195,7 +195,5 @@ app.controller("corController", function ($scope, requisicaoService, filterFilte
     	
     	$scope.pesquisar();
     }
-	
-    
-	
+
 });

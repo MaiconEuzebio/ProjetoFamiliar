@@ -4,8 +4,8 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
 	$scope.mostrarAguarde = false;
 	$scope.tela = "Caixa > Caixa"	
 	
-    $scope.caixaMovimentacoes = [];
-	$scope.caixas                = [];
+    $scope.caixaMovimentacoes   = [];
+	$scope.caixas               = [];
 	$scope.showModalConfirmacao = false;
 	$scope.showModalAviso       = false;
 	$scope.mostrarAguarde       = false;
@@ -39,16 +39,16 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	    		return;
         		}
         		
-        		$scope.caixa		       = {};
-        		$scope.caixa.id       = null;
-        		$scope.caixa.dataAbertura    = new Date();
-        		$scope.caixa.dataFechamento   = null;
-        		$scope.caixa.valorAbertura = null;
-        		$scope.caixa.valorAtual = null;
-        		$scope.caixa.valorFechamento   = null;
-        		$scope.caixa.status = 1;
+        		$scope.caixa		       		= {};
+        		$scope.caixa.id       			= null;
+        		$scope.caixa.dataAbertura       = new Date();
+        		$scope.caixa.dataFechamento     = null;
+        		$scope.caixa.valorAbertura 		= null;
+        		$scope.caixa.valorAtual 		= null;
+        		$scope.caixa.valorFechamento    = null;
+        		$scope.caixa.status 			= 1;
         		$scope.caixa.caixaMovimentacoes = [];
-        		$scope.visualizaCadastro = true;  
+        		$scope.visualizaCadastro        = true;  
     		});
  	
     }
@@ -58,12 +58,12 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	$scope.mensagemModal  = "";
     	$scope.mostrarAguarde = true;
     	
-    	$scope.caixaMovimentacao		       = {};
-    	$scope.caixaMovimentacao.id       = null;
+    	$scope.caixaMovimentacao		           = {};
+    	$scope.caixaMovimentacao.id       		   = null;
     	$scope.caixaMovimentacao.dataMovimentacao  = new Date();
-    	$scope.caixaMovimentacao.valorMovimentacao   = null;
-    	$scope.caixaMovimentacao.tipo   = null;
-    	$scope.caixaMovimentacao.observacao = null;
+    	$scope.caixaMovimentacao.valorMovimentacao = null;
+    	$scope.caixaMovimentacao.tipo   		   = null;
+    	$scope.caixaMovimentacao.observacao		   = null;
     	$('#modalCaixaMovimentacao').modal();
     	
     	$scope.mostrarAguarde    = false;
@@ -99,9 +99,9 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     	}
     	$scope.valorFechamento = $scope.valorFechamento; 
 		$scope.caixa.dataFechamento  = new Date($scope.caixa.dataFechamento);
-		$scope.caixa.dataAbertura = new Date($scope.caixa.dataAbertura);
-    	$scope.mostrarAguarde    = false;
-        $scope.visualizaCadastro = true;
+		$scope.caixa.dataAbertura    = new Date($scope.caixa.dataAbertura);
+    	$scope.mostrarAguarde        = false;
+        $scope.visualizaCadastro     = true;
         $('#modalCaixaFechamento').modal();	
     }
     
@@ -137,12 +137,12 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
         		return;
     		}
 			
-			$scope.caixa			   = retorno.data;
-			$scope.caixa.dataAbertura  = new Date($scope.caixa.dataAbertura);
+			$scope.caixa			     = retorno.data;
+			$scope.caixa.dataAbertura    = new Date($scope.caixa.dataAbertura);
 			$scope.caixa.dataFechamento  = null;
 			$scope.caixa.valorFechamento = $scope.caixa.valorFechamento;
-	    	$scope.mostrarAguarde    = false;
-	        $scope.visualizaCadastro = true;
+	    	$scope.mostrarAguarde        = false;
+	        $scope.visualizaCadastro     = true;
 		});
     }
     
@@ -297,11 +297,11 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
     }
     
     $scope.btnConfirmarFechamento = function(pcaixa){
-    	$scope.mensagemRodape = "";
-    	$scope.mostrarAguarde = true;
-    	$scope.caixa.dataFechamento = new Date();
+    	$scope.mensagemRodape        = "";
+    	$scope.mostrarAguarde        = true;
+    	$scope.caixa.dataFechamento  = new Date();
     	$scope.caixa.valorFechamento = $scope.valorFechamento;
-    	$scope.caixa.status = 0;
+    	$scope.caixa.status 		 = 0;
     	
     	requisicaoService.requisitarPOST("caixa/salvar", pcaixa, function(retorno){
     		if (!retorno.isValid) {
@@ -329,7 +329,7 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
 	    }
     	
     	$scope.caixa = $scope.objetoSelecionado;
-    	$scope.caixa.dataAbertura = new Date($scope.caixa.dataAbertura);
+    	$scope.caixa.dataAbertura   = new Date($scope.caixa.dataAbertura);
     	$scope.caixa.dataFechamento = new Date($scope.caixa.dataFechamento);
     	$scope.pesquisarCaixaMovimentacao();
 	    $('#modalPesquisarMovimentacao').modal();

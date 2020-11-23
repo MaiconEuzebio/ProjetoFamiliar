@@ -15,7 +15,7 @@
         <property name="hibernate.enable_lazy_load_no_trans" value="true"/>
  			
 
-		<!-- ORACLE -->
+		 <!-- ORACLE -->
 		<property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.25.176)(PORT=1521)))(CONNECT_DATA=(SID=ORCL)))"/> 
 	    <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
 	    <property name="javax.persistence.jdbc.user" value="VICT"/>
@@ -29,7 +29,7 @@
         
         <!-- POSTGRESQL -->
   			
-	    <!-- <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+	     <!--<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
 		 <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/erp"/>
 		 <property name="javax.persistence.jdbc.user" value="postgres"/>
 		 <property name="javax.persistence.jdbc.password" value="felipe01"/>

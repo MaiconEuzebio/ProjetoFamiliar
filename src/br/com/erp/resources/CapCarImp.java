@@ -31,8 +31,7 @@ public class CapCarImp {
 	
 		EntityManager em = UnidadePersistencia.createEntityManager();
 		CaixaImp caixaImp = new CaixaImp();
-		
-		
+
 		try {
 			Caixa caixa = caixaImp.obterCaixaAberto();
 			

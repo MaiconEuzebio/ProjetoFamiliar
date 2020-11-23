@@ -28,6 +28,22 @@
 <div class="row" ng-show="!visualizaCadastro && !mostrarAguarde">
 	<div class="col-md-12">
 		<div class="card">
+		
+		
+	
+			<!-- DIV QUE CONTÉM OS BOTÕES DE INCLUIR EDITAR E EXCLUIR -->
+			<div class="card-header">
+											
+				<button type="button" ng-click="btnEditar()"
+					class="btn btn-outline-primary btn-lg glyphicon glyphicon-eye-open"> Detalhes</button>
+					
+				<button type="button" ng-click="btnEstornar()" id="estorno"
+					class="btn btn-outline-danger btn-lg glyphicon glyphicon-ban-circle"> Estornar</button>
+						
+			</div>
+			<!--FIM DA DIV QUE CONTÉM OS BOTÕES DE INCLUIR EDITAR E EXCLUIR -->
+
+
 			
 			<!-- DIV QUE CONTÉM A TABELA COM OS NOMES DAS COLUNAS DOS DADOS E COM OS LINKS PARA ORDENAÇÃO -->
 				<div class="card-body">
@@ -54,13 +70,13 @@
 									
 									<th width="80px"><a href=""
 										ng-click="ordenacao('tipoCobranca')"
-										title="{{buscarDicionario('Ordenar')}}">Tipo de Cobranca <span
+										title="{{buscarDicionario('Ordenar')}}"> Tipo de Cobranca <span
 										ng-show="campoOrdenacao == '+tipoCobranca'"
 										class="glyphicon glyphicon-sort-by-attributes" /> <span
 										ng-show="campoOrdenacao == '-tipoCobranca'"
 										class="glyphicon glyphicon-sort-by-attributes-alt" />
 										</a>
-											<input type="text" name="cliente" ng-model="descricaoFilter"
+											<input type="text" name="tipoCobranca" ng-model="tipoCobrancaFilter"
 												class="form-control" placeholder="Pesquisar..."
 												ng-change="pesquisar()" mask-maiusculas>
 									</th>
@@ -197,3 +213,194 @@
 	</div>
 </div>
 <!--FIM DA DIV QUE NÃO VISUALIZA CADASTRO E NÃO MOSTRA O GIF AGUARDE >> DIV COM COLUNA TAMANHO 12 >> DIV QUE CONTÉM UM CARD -->
+
+
+
+<!-- DIV COM INPUTS DA TELA DE CADASTRO DE CONTAS A RECEBER -->
+<div class="row" ng-show="visualizaCadastro && !mostrarAguarde">
+	<div class="col-md-12">
+		<div class="card">
+		
+			<div class="card-header">
+				<h3 class="card-title">Cadastro</h3>
+				<button type="button" class="btn btn-secondary pull-right" ng-click="voltar()">Voltar</button>		
+			</div>
+			
+			
+		<div class="card-body">
+			<!-- DIV COM LINHA CONTENDO INPUTS DA TELA DE CADASTRO DE CONTAS A RECEBER -->
+			<div class="row">
+					
+				<!-- CAMPO CÓDIGO (INDEDITÁVEL) -->
+				<div class="col-md-1">
+					<div class="form-group">
+						<label>Código</label> <input type="text" class="form-control"
+							ng-model="capCar.id" readonly>
+					</div>	
+				</div>
+					
+				<!-- CAMPO DATA DE ABERTURA -->
+				<div class="col-md-2">
+					<div class="form-group">
+						<label>* Data de abertura</label> <input type="date" class="form-control" ng-disabled="true"
+							ng-model="capCar.dataInicial" readonly>
+					</div>
+				</div>
+				
+				<!-- CAMPO DATA DE VENCIMENTO-->
+				<div class="col-md-2">
+					<div class="form-group">
+						<label> Data de vencimento</label> <input id="cDataVencimento" type="date" ng-disabled="true"
+								class="form-control" ng-model="capCar.dataVencimento" maxlength="60"
+								mask-maiusculas autofocus>
+					</div>
+				</div>
+				
+				<!-- CAMPO TIPO DATA DE PAGAMENTO-->
+				<div class="col-md-2">
+					<div class="form-group">
+						<label>* Data de Pagamento</label> <input type="date" class="form-control" ng-disabled="true"
+							ng-model="capCar.dataPagamento" readonly>
+					</div>
+				</div>
+				
+				<!-- CAMPO CLIENTE -->
+				<div class="col-md-5">
+					<div class="form-group">
+						<label>Cliente</label> <select id="cCliente" class="form-control" ng-model="capCar.cliente" ng-disabled="true"
+							ng-options="pessoa.nomeRzSocial for pessoa in pessoas | orderBy:'nomeRzSocial' track by pessoa.id">
+			               	<option value="">Selecione um cliente</option></select>
+					</div>
+				</div>
+				
+				<!-- CAMPO CATEGORIA -->
+				<div class="col-md-3">
+					<div class="form-group">
+						<label>Tipo de Cobranca</label> <select id="cTipoCobranca" class="form-control" ng-model="capCar.tipoCobranca" ng-disabled="true"
+							ng-options="tipoCobranca.descricao for tipoCobranca in tipoCobrancas | orderBy:'nome' track by tipoCobranca.id">
+			               	<option value="">Selecione um Tipo de Cobranca</option></select>
+					</div>
+				</div>
+				
+				<!-- CAMPO VALOR LIQUIDO -->
+				<div class="col-md-1">
+					<div class="form-group">
+						<label>* Valor liquido</label> <input id="cValorLiquido" type="text" placeholder ="R$ 0.00" ng-disabled="true"
+							class="form-control" ng-model="capCar.valorLiquido" ng-change="opcaoBtnCalcular()" maxlength="10"
+							mask-maiusculas autofocus>
+					</div>
+				</div>
+				
+				<!-- CAMPO DESCONTO -->
+				<div class="col-md-1">
+					<div class="form-group">
+						<label>Desconto %</label> <input id="cDesconto" type="text" ng-model="capCar.desconto" ng-change="opcaoBtnCalcular()" placeholder ="0"  
+							class="form-control"  maxlength="10" ng-disabled="true"	
+							mask-maiusculas autofocus>	<!-- ng-model="capCar.valorTotal" -->
+					</div>
+				</div>
+				
+				<!-- CAMPO ACRÉSCIMO -->
+				<div class="col-md-1">
+					<div class="form-group">
+						<label>Acréscimo %</label> <input id="cAcrescimo" ng-model="capCar.acrescimo" ng-change="opcaoBtnCalcular()" type="text" placeholder ="0" 
+							class="form-control"  maxlength="10" ng-disabled="true"
+							mask-maiusculas autofocus>	<!-- ng-model="capCar.valorTotal" -->
+					</div>
+				</div>
+				
+				<div class="col-md-4">
+				</div>
+				
+				<!-- CAMPO VALOR TOTAL -->
+				<div class="col-md-2">
+					<div class="form-group">
+						<label><h2>Valor total</h2></label> <input id="cValorTotal" type="text" placeholder ="R$ 0.00" 
+							class="form-control" ng-model="capCar.valorTotal"  maxlength="10" ng-disabled="true"
+							mask-maiusculas autofocus>
+					</div>
+					
+				</div>
+				
+				<!-- CHECKBOX DE STATUS (ATIVA POR DAFAULT) -->
+				<div class="col-md-12">
+					<div class="form-group">
+						<div class="checkbox">
+							<label> 
+								<input type="checkbox" class="checkbox"
+									ng-model="capCar.status" ng-true-value="1" ng-false-value="0" ng-disabled="true">
+									Ativo (em aberto)
+							</label>
+						</div>
+					</div>
+				</div>		
+			</div>
+		</div>	
+			<!-- FIM DA DIV COM LINHA CONTENDO INPUTS DA TELA DE CADASTRO DE CONTAS A RECEBER -->
+			
+			
+			
+		</div>
+	</div>
+</div>
+<!-- FIM DA DIV COM INPUTS DA TELA DE CADASTRO DE CONTAS A RECEBER -->
+
+
+
+
+<!-- DIV COM MODAL ALERTANDO PARA CAMPOS SELECIONADOS -->
+<div class="modal" id="modalAtencao">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title glyphicon glyphicon-exclamation-sign">  Atenção</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+			</div>
+			
+			<div class="modal-body">
+				<p><h2>{{mensagemModal}}</h2></p>
+			</div>
+			
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default pull-right" data-dismiss="modal">OK</button>
+			</div>
+			
+		</div>
+	</div>
+</div>
+<!-- FIM DA DIV COM MODAL ALERTANDO PARA CAMPOS SELECIONADOS -->
+
+
+
+<!-- DIV COM MODAL ALERTANDO PARA CAMPOS A SEREM EXCLUIDOS -->
+<div class="modal" id="modalEstornar">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title glyphicon glyphicon-exclamation-sign">  Atenção</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			
+			
+			
+			<!-- DIV COM MENSAGEM PARA CAMPOS A SEREM EXCLUIDOS -->
+			<div class="modal-body">
+				<p><h2>{{mensagemModal}}</h2></p>
+			</div>
+			<!-- FIM DA DIV COM MENSAGEM PARA CAMPOS A SEREM EXCLUIDOS -->
+			
+			
+			
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn btn-primary pull-right" ng-click="confirmaEstornar()">Confirmar</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- FIM DA DIV COM MODAL ALERTANDO PARA CAMPOS A SEREM EXCLUIDOS -->

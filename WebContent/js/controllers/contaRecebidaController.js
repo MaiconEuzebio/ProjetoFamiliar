@@ -92,7 +92,117 @@ app.controller("contaRecebidaController", function ($scope, $routeParams, requis
 	}
 	 //////////////////////////////////////////////////////////////////////
 	// FIM DA FUNÇÃO ATUALIZAR TELA 									//
-   //////////////////////////////////////////////////////////////////////	
+   //////////////////////////////////////////////////////////////////////
+
+
+
+
+
+	 /////////////////////////////////////////////////////////////////////////////////////////////////
+	// FUNÇÃO BTN ESTORNO ------> CASO NÃO HAJA REGISTRO SELECIONADO EMITE MENSAGEM ABRINDO O MODAL//
+   /////////////////////////////////////////////////////////////////////////////////////////////////
+	$scope.btnEstornar = function(){
+		$scope.mensagemRodape = "";
+    	$scope.mensagemModal  = "";
+    	if (!$scope.objetoSelecionado) {
+            $scope.mensagemModal  = "É necessário selecionar o registro que deseja estornar!";
+        	$('#modalAtencao').modal();
+    		return;
+    	}
+
+    	$scope.mensagemModal        = 'Deseja realmente estornar este recebimento?';
+		$('#modalEstornar').modal();
+		
+		
+	}
+ 	 /////////////////////////////////////
+	// FIM DA FUNÇÃO FUNÇÃO BTN ESTORNO//
+   /////////////////////////////////////
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+	///////////////////////////////////////////////////////////////////////////////////////////////////
+   // FUNÇÃO CONFIRMA ESTORNO ------> FUNÇÃO QUE EFETIVAMENTE CONFIRMAÇÃO DE EXCLUSÃO  				//
+  ///////////////////////////////////////////////////////////////////////////////////////////////////
+	$scope.confirmaEstornar = function(){
+    	$scope.mensagemRodape = "";
+    	$scope.mensagemModal  = "";
+    	$scope.mostrarAguarde = true;
+    	
+		var param = {
+			int1: $scope.objetoSelecionado.id
+		}
+			
+
+    	//deletar
+    	requisicaoService.requisitarPOST("capCar/removerPorId", param, function(retorno){
+    		if (!retorno.isValid) {
+    			$scope.mensagemModal  = retorno.msg;
+    			$scope.showModalAviso = true;
+    			$scope.mostrarAguarde = false;
+        		return;
+    		}
+    		
+    		$scope.mostrarAguarde       = false;
+    		$scope.showModalConfirmacao = false;
+			$('#modalExcluir').modal('hide');
+    		atualizarTela();
+    	});
+    }
+	
+	 //////////////////////////////////////////
+	// FIM DA FUNÇÃO FUNÇÃO CONFIRMA ESTORNO//
+   //////////////////////////////////////////
+
+
+
+	 /////////////////////////////////////////////////////////////////////////////////
+	// FUNÇÃO BTN EDITAR ------>CHAMA A TELA COM OS IMPUTS DE INCLUSÃO DE DADOS    //
+   /////////////////////////////////////////////////////////////////////////////////
+	$scope.btnEditar = function(){
+    	$scope.mensagemRodape = "";
+    	$scope.mensagemModal  = "";
+    	
+    	
+    	if (!$scope.objetoSelecionado) {
+            $scope.mensagemModal   = "É necessário selecionar o registro que deseja editar!";
+        	$('#modalAtencao').modal();
+    		return;
+    	}
+    	var param = {
+			int1: $scope.objetoSelecionado.id
+		}
+    	$scope.mostrarAguarde = true;
+    	
+    	//OBTER A CAPCAR
+    	requisicaoService.requisitarPOST("capCar/obterPorId", param , function(retorno) {
+			if (!retorno.isValid) {
+    			$scope.mensagemModal  = retorno.msg;
+    			$scope.showModalAviso = true;
+    			$scope.mostrarAguarde = false;
+        		return;
+    		}
+			
+			$scope.capCar			   		= retorno.data;
+			$scope.capCar.dataInicial 		= new Date($scope.capCar.dataInicial);
+			$scope.capCar.dataVencimento 	= new Date($scope.capCar.dataVencimento);
+			$scope.capCar.dataPagamento 	= new Date($scope.capCar.dataPagamento);
+	       	$scope.mostrarAguarde   	 	= false;
+	        $scope.visualizaCadastro 		= true;
+		});
+    }
+	 //////////////////////////////////////////////////////////////////////
+	// FIM DA FUNÇÃO FUNÇÃO BTN EDITAR	 								//
+   //////////////////////////////////////////////////////////////////////
+	
+
+
+
+
 
 
 
@@ -100,25 +210,43 @@ app.controller("contaRecebidaController", function ($scope, $routeParams, requis
 
 
 
-  	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   // VARIÁVEL voltar RECEBE UMA FUNÇÃO SEM PARÂMETRO QUE CONTÉM A VARIÁVEL visualizaCadastro INICIALMENTE true AGORA COMO false//
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    	$scope.voltar = function(){					
+    		$scope.visualizaCadastro 	= false;
+    	}
+  	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   // VARIÁVEL voltar RECEBE UMA FUNÇÃO SEM PARÂMETRO QUE CONTÉM A VARIÁVEL visualizaCadastro INICIALMENTE true AGORA COMO false//
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    // VARIÁVEL PESQUISAR QUE RECEBE UMA FUNÇÃO QUE RECEBE UMA VARIÁVEL capCarSFiltradas E ORDENA PELOS FILTROS DECLARADOS NO HTML capCar//
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   $scope.pesquisar = function(){
 		$scope.capCarSFiltradas = orderByFilter(filterFilter($scope.capCarS,{
 																			id:$scope.idFilter,
 																			cliente:{nomeRzSocial:$scope.nomeRzSocialFilter},
-																			tipoCobranca:{descricao:$scope.descricaoFilter},
 																			dataInicialStr:$scope.dataInicialFilter,
 																			dataVencimentoStr:$scope.dataVencimentoFilter,
-																			dataPagamentoStr:$scope.dataPagamentoFilter,
 																			desconto:$scope.descontoFilter,
 																			acrescimo:$scope.acrescimoFilter,
 																			valorLiquido:$scope.valorLiquidoFilter,
 																			valorTotal:$scope.valorTotalFilter}), $scope.campoOrdenacao);				
-																			
-												              			}
-												              			
+																			}         			
 		$scope.selecionarLinha = function(objeto) {
        		$scope.objetoSelecionado = objeto;
     	}
+		
+		
+	 ////////////////////////////////////////////////////////////////////											              			
+	// VARIÁVEL ORDENAÇÃO QUE ORDENA OS DADOS CONFORME CLICK NA TABELA//
+   ////////////////////////////////////////////////////////////////////
 });

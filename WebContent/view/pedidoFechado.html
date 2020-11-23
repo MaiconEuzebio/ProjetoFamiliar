@@ -1,4 +1,3 @@
-<!-- DIV COM HEADER DA PÁGINA -->
 <div class="content-header" ng-controller="pedidoFechadoController">
 	<div class="container-fluid">
 		<div class="row">
@@ -11,31 +10,24 @@
 	</div>
 	<!-- /.container-fluid -->
 </div>
-<!-- FIM DA DIV COM HEADER DA PÁGINA -->
 
-
-
-<!-- DIV QUE CONTÉM A IMAGEM DE CARREGANDO DA PÁGINA -->
 <div class="text-center" ng-show="mostrarAguarde">
 	<img class="figura-aguarde" src="img/engrenagem.gif"> <label
 		class="label-aguarde">{{buscarDicionario('Aguarde...')}}</label>
 </div>
-<!-- FIM DA DIV QUE CONTÉM A IMAGEM DE CARREGANDO DA PÁGINA -->
 
-
-
-<!-- DIV QUE NÃO VISUALIZA CADASTRO E NÃO MOSTRA O GIF AGUARDE >> DIV COM COLUNA TAMANHO 12 >> DIV QUE CONTÉM UM CARD -->
 <div class="row" ng-show="!visualizaCadastro && !mostrarAguarde">
 	<div class="col-md-12">
 		<div class="card">
+			<div class="card-header"> 
+				<button type="button" ng-click="btnVisualizar()"
+					class="btn btn-outline-primary btn-lg glyphicon glyphicon-eye-open"> Visualizar</button>
+			</div>
 			
 			<!-- DIV QUE CONTÉM A TABELA COM OS NOMES DAS COLUNAS DOS DADOS E COM OS LINKS PARA ORDENAÇÃO -->
 				<div class="card-body">
 					<div class="table-responsive table-pesquisa-fixa">
 					
-					
-					
-						<!-- TABLE HEADER QUE CONTÉM A CABEÇA DA TABELA ONDE SERÁ MOSTRADA NOMES DAS COLUNAS E CAMPOS DE ORDENAÇÃO -->
 						<table class="table table-bordered table-condensed">
 							<thead>
 								<tr>
@@ -116,12 +108,9 @@
 									
 								</tr>
 							</thead>
-							<!-- FIM DA TABLE HEADER QUE CONTÉM A CABEÇA DA TABELA ONDE SERÁ MOSTRADA NOMES DAS COLUNAS E CAMPOS DE ORDENAÇÃO -->
-							
-							
-							
+
 								<tbody>
-									<tr dir-paginate="g in pedidosFiltradas | itemsPerPage:10" 
+									<tr dir-paginate="g in pedidosFiltradas | itemsPerPage:10" ng-click="selecionarLinha(g)"
 										ng-class="{linhaSelecionada : g == objetoSelecionado}">
 										<td>{{g.id}}</td>
 										<td>{{g.dataStr}}</td>
@@ -134,21 +123,296 @@
 									</tr>	
 								</tbody>
 						</table>
-						<!-- FIM DA DIV QUE CONTÉM A TABELA ONDE SERÁ MOSTRADA NOMES DAS COLUNAS E CAMPOS DE ORDENAÇÃO -->
-						
-						
-						
 					</div>
 
 					<div class="pagination pagination-lg justify-content-center">
 						<dir-pagination-controls  max-size="5" boundary-links="true"></dir-pagination-controls>
 					</div>
 
-
-				</div>
-				<!-- FIM DA DIV QUE CONTÉM A TABELA COM OS NOMES DAS COLUNAS DOS DADOS E COM OS LINKS PARA ORDENAÇÃO -->
-			
+				</div>			
 		</div>
 	</div>
 </div>
-<!--FIM DA DIV QUE NÃO VISUALIZA CADASTRO E NÃO MOSTRA O GIF AGUARDE >> DIV COM COLUNA TAMANHO 12 >> DIV QUE CONTÉM UM CARD -->
+
+			<div class="row" ng-show="visualizaCadastro && !mostrarAguarde">
+	<div class="col-md-12">
+		<div class="card">
+			<div class="card-header">
+				<h3 class="card-title">Cadastro</h3>
+				<button type="button" class="btn btn-secondary pull-right" ng-click="voltar()">Voltar</button>
+			</div>
+			
+			<!-- /.card-header -->
+			
+			<ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link active" data-toggle="pill" ng-click="abaSelecionada = 'principal'" >Principal</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" data-toggle="pill" ng-click="abaSelecionada = 'item'" >Item</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" data-toggle="pill" ng-click="abaSelecionada = 'total'" >Total</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" data-toggle="pill" ng-click="abaSelecionada = 'financeiro'" >Financeiro</a>
+				</li>
+			</ul>
+			
+			<div class="card-body" ng-show="abaSelecionada == 'principal'">
+				
+				<div class="row">
+					<div class="col-md-2">
+						<div class="form-group">
+							<label>Código</label> <input type="text" class="form-control"
+								ng-model="pedido.id" readonly>
+						</div>
+					</div>
+					
+					 <div class="col-md-2">
+						<div class="form-group">
+							<label>Data Pedido</label> <input type="date" class="form-control"
+								ng-model="pedido.data" readonly>
+						</div>
+					</div>
+					
+					<div class="col-md-8">
+						<div class="form-group">
+							<label>Cliente</label> <select id="cPessoa" class="form-control" ng-model="pedido.pessoa" 
+							ng-options="pessoa.nomeRzSocial for pessoa in pessoas | orderBy:'nome' track by pessoa.id" readonly>
+			                 </select>
+						</div>
+					</div>
+				</div>
+			
+			</div>
+			
+			<div class="card-body" ng-show="abaSelecionada == 'total'">
+				
+	<div class="row">
+		<div class="col-md-3">
+			<div class="form-group">
+				<label>Valor Liquido</label> <input type="text" class="form-control"
+					ng-model="pedido.valorLiquido" ng-change="atualizarValorPedido()" readonly>
+			</div>
+		</div>
+					
+	    <div class="col-md-3">
+			<div class="form-group">
+				<label>Desconto</label> <input type="text" class="form-control"
+					ng-model="pedido.desconto" ng-change="atualizarValorPedido()" readonly>
+			</div>
+		</div>
+		
+		<div class="col-md-3">
+			<div class="form-group">
+				<label>Acrescimo</label> <input type="text" class="form-control"
+					ng-model="pedido.acrescimo" ng-change="atualizarValorPedido()" readonly>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="form-group">
+				<label>Valor Total</label> <input type="text" class="form-control"
+					ng-model="pedido.valorTotal" readonly>
+			</div>
+		</div>
+					
+	</div>
+	
+</div>
+			
+<!-- /.card-body -->
+			<div class="card-body" ng-show="abaSelecionada == 'item'">
+				<div class="col-md-12">
+					<div class="card">
+			
+						<!-- /.card-header -->
+							<div class="card-body">
+								<div class="table-responsive table-pesquisa-fixa">
+									<table class="table table-bordered table-condensed">
+										<thead>
+											<tr>
+												<th><a href="" ng-click="ordenacao('produto')"
+													title="Ordenar"> Produto <span
+														ng-show="campoOrdenacao == '+produto'"
+														class="glyphicon glyphicon-sort-by-attributes" /> <span
+														ng-show="campoOrdenacao == '-produto'"
+														class="glyphicon glyphicon-sort-by-attributes-alt" />
+												</a> <input type="text" name="peso" ng-model="produtoFilter"
+													class="form-control" placeholder="Pesquisar..."
+													ng-change="pesquisar()" mask-maiusculas></th>
+													
+													<th><a href="" ng-click="ordenacao('quantidade')"
+													title="Ordenar"> Quantidade <span
+														ng-show="campoOrdenacao == '+quantidade'"
+														class="glyphicon glyphicon-sort-by-attributes" /> <span
+														ng-show="campoOrdenacao == '-quantidade'"
+														class="glyphicon glyphicon-sort-by-attributes-alt" />
+												</a> <input type="text" name="peso" ng-model="quantidadeFilter"
+													class="form-control" placeholder="Pesquisar..."
+													ng-change="pesquisar()" mask-maiusculas></th>
+													
+													<th><a href="" ng-click="ordenacao('valorUnitario')"
+													title="Ordenar"> Valor Unitario <span
+														ng-show="campoOrdenacao == '+valorUnitario'"
+														class="glyphicon glyphicon-sort-by-attributes" /> <span
+														ng-show="campoOrdenacao == '-valorUnitario'"
+														class="glyphicon glyphicon-sort-by-attributes-alt" />
+												</a> <input type="text" name="peso" ng-model="valorUnitarioFilter"
+													class="form-control" placeholder="Pesquisar..."
+													ng-change="pesquisar()" mask-maiusculas></th>
+													
+													<th><a href="" ng-click="ordenacao('acrescimo')"
+													title="Ordenar"> Acrescimo <span
+														ng-show="campoOrdenacao == '+acrescimo'"
+														class="glyphicon glyphicon-sort-by-attributes" /> <span
+														ng-show="campoOrdenacao == '-acrescimo'"
+														class="glyphicon glyphicon-sort-by-attributes-alt" />
+												</a> <input type="text" name="peso" ng-model="acrescimoFilter"
+													class="form-control" placeholder="Pesquisar..."
+													ng-change="pesquisar()" mask-maiusculas></th>
+													
+												    <th><a href="" ng-click="ordenacao('desconto')"
+													title="Ordenar"> Desconto <span
+														ng-show="campoOrdenacao == '+desconto'"
+														class="glyphicon glyphicon-sort-by-attributes" /> <span
+														ng-show="campoOrdenacao == '-desconto'"
+														class="glyphicon glyphicon-sort-by-attributes-alt" />
+												</a> <input type="text" name="peso" ng-model="descontoFilter"
+													class="form-control" placeholder="Pesquisar..."
+													ng-change="pesquisar()" mask-maiusculas></th>
+													
+												    <th><a href="" ng-click="ordenacao('valorTotal')"
+													title="Ordenar"> Valor Total <span
+														ng-show="campoOrdenacao == '+valorTotal'"
+														class="glyphicon glyphicon-sort-by-attributes" /> <span
+														ng-show="campoOrdenacao == '-valorTotal'"
+														class="glyphicon glyphicon-sort-by-attributes-alt" />
+												</a> <input type="text" name="peso" ng-model="valorTotalFilter"
+													class="form-control" placeholder="Pesquisar..."
+													ng-change="pesquisar()" mask-maiusculas></th>
+													
+													<th><a href="" ng-click="ordenacao('observacao')"
+													title="Ordenar"> Observacao <span
+														ng-show="campoOrdenacao == '+observacao'"
+														class="glyphicon glyphicon-sort-by-attributes" /> <span
+														ng-show="campoOrdenacao == '-observacao'"
+														class="glyphicon glyphicon-sort-by-attributes-alt" />
+												</a> <input type="text" name="peso" ng-model="observacaoFilter"
+													class="form-control" placeholder="Pesquisar..."
+													ng-change="pesquisar()" mask-maiusculas></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="g in pedido.itens" ng-click="selecionarLinhaItem(g)"
+												ng-class="{linhaSelecionada : g == objetoSelecionadoItem}">
+												<td>{{g.produto.descricao}}</td>
+												<td>{{g.quantidade}}</td>
+												<td>{{g.valorUnitario}}</td>
+												<td>{{g.acrescimo}}</td>
+												<td>{{g.desconto}}</td>
+												<td>{{g.valorTotal}}</td>
+												<td>{{g.observacao}}</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<!-- /.card-body -->
+						</div>
+
+				</div>
+			</div>
+			
+		<div class="card-body" ng-show="abaSelecionada == 'financeiro'">
+			<div class="col-md-12">
+				<div class="card">
+					
+						<!-- /.card-header -->
+						<div class="card-body">
+							<div class="table-responsive p-0">
+								<table class="table table-bordered table-condensed">
+								<tr>
+									<th>Tipo de Cobranca</th>
+								    <th>Valor</th>
+									<th>Observacao</th>
+								</tr>
+									<tbody>
+										<tr ng-repeat="g in pedido.pagamentos" ng-click="selecionarLinhaPagamentoPedido(g)"
+											ng-class="{linhaSelecionada : g == objetoSelecionadoPagamentoPedido}">
+											<td>{{g.tipoCobranca.descricao}}</td>
+											<td>{{g.valor}}</td>
+											<td>{{g.observacao}}</td>
+										</tr>
+									</tbody>
+								</table>
+						<span class="pull-right">
+							<label class="ng-binding">Total: {{pedidoPagamento.valorTotal}}</label>
+						</span>	
+							</div>
+						</div>
+						
+							<!-- /.card-body -->
+				</div>
+
+				</div>
+			</div>
+			
+					<div class="card-body" ng-show="abaSelecionada == 'financeiro'">
+			<div class="col-md-12">
+				<div class="card">
+					
+						<!-- /.card-header -->
+						<div class="card-body">
+							<div class="table-responsive p-0">
+								<table class="table table-bordered table-condensed">
+						        <tr>
+									<th>Tipo de Cobranca</th>
+								    <th>Valor</th>
+								    <th>Data Vencimento</th>
+									<th>Observacao</th>
+								</tr>
+									<tbody>
+										<tr ng-repeat="g in pedido.pagamentosPrazo" ng-click="selecionarLinhaPagamentoPedidoPrazo(g)"
+											ng-class="{linhaSelecionada : g == objetoSelecionadoPagamentoPedidoPrazo}">
+											<td>{{g.tipoCobranca.descricao}}</td>
+											<td>{{g.valor}}</td>
+											<td>{{g.dataVencimento | date:'dd/MM/yyyy'}}</td>
+											<td>{{g.observacao}}</td>
+										</tr>
+									</tbody>
+								</table>
+						<span class="pull-right">
+							<label class="ng-binding">Total: {{pedidoPagamentoPrazo.valorTotal}}</label>
+						</span>	
+							</div>
+						</div>
+							<!-- /.card-body -->
+				</div>
+				</br>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal" id="modalAtencao">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title glyphicon glyphicon-exclamation-sign">  Atenção</h4>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p><h2>{{mensagemModal}}</h2></p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default pull-right" data-dismiss="modal">OK</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>

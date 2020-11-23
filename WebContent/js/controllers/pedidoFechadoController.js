@@ -16,6 +16,42 @@ app.controller("pedidoFechadoController", function ($scope, $routeParams, requis
 	$scope.mostrarAguarde 		= true;
 	$scope.campoOrdenacao 		= '-id';
 	
+    $scope.voltar = function(){
+		$scope.itens = null;
+    	$scope.visualizaCadastro 	= false;
+		
+    }
+	
+	 $scope.btnVisualizar = function(){
+	    	$scope.mensagemRodape = "";
+	    	$scope.mensagemModal  = "";
+	    	$scope.abaSelecionada = 'principal'	    	
+	    	
+	    	if (!$scope.objetoSelecionado) {
+	            $scope.mensagemModal   = "É necessário selecionar o registro que deseja visualizar!";
+	        	$('#modalAtencao').modal();
+	    		return;
+	    	}	
+	    	var param = {
+				int1: $scope.objetoSelecionado.id
+			}
+	    	$scope.mostrarAguarde = true;
+	    	
+	    	requisicaoService.requisitarPOST("pedido/obterPorId", param , function(retorno) {
+				if (!retorno.isValid) {
+	    			$scope.mensagemModal  = retorno.msg;
+	    			$scope.showModalAviso = true;
+	    			$scope.mostrarAguarde = false;
+	        		return;
+	    		}
+				$scope.pedido            = retorno.data;
+				$scope.pedido.data       = new Date($scope.pedido.data);
+		    	$scope.mostrarAguarde    = false;
+		        $scope.visualizaCadastro = true;
+			});
+	    	
+	    }
+	
 	
 	function atualizarTela(){
     	$scope.mensagemRodape = "";
@@ -39,47 +75,9 @@ app.controller("pedidoFechadoController", function ($scope, $routeParams, requis
 			$scope.pesquisar();
 			$scope.mostrarAguarde = false;
 		});
-    	
-    	requisicaoService.requisitarGET("pessoa/obterTodosAtivos", function(retorno) {
-    		if (!retorno.isValid) {
-    			$scope.mensagemModal  = retorno.msg;
-    			$scope.showModalAviso = true;
-    			$scope.mostrarAguarde = false;
-        		return;
-    		}
-			$scope.pessoas = retorno.data;
-			$scope.pesquisar();
-			$scope.mostrarAguarde = false;
-		});
-    	
-    	requisicaoService.requisitarGET("produto/obterTodosAtivosEmEstoque", function(retorno) {
-    		if (!retorno.isValid) {
-    			$scope.mensagemModal  = retorno.msg;
-    			$scope.showModalAviso = true;
-    			$scope.mostrarAguarde = false;
-        		return;
-    		}
-			$scope.produtos = retorno.data;
-			$scope.pesquisar();
-			$scope.mostrarAguarde = false;
-		});
-    	
-    	requisicaoService.requisitarGET("categoria/obterTodosAtivos", function(retorno) {
-    		if (!retorno.isValid) {
-    			$scope.mensagemModal  = retorno.msg;
-    			$scope.showModalAviso = true;
-    			$scope.mostrarAguarde = false;
-        		return;
-    		}
-			$scope.categorias  = retorno.data;
-			$scope.pesquisar();
-			$scope.mostrarAguarde = false;
-		});
+
 	}
-	
-	
-	
-	
+
 	atualizarTela();
 	
 	
@@ -94,5 +92,8 @@ app.controller("pedidoFechadoController", function ($scope, $routeParams, requis
 																			descStatus: $scope.descStatusFilter}), $scope.campoOrdenacao);
 		
 
+	}
+    $scope.selecionarLinha = function(objeto) {
+	       $scope.objetoSelecionado = objeto;
 	}
 });

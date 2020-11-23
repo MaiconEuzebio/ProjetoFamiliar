@@ -256,6 +256,7 @@ $scope.gerarDevolucao = function(){
 		$scope.capCarSFiltradas = orderByFilter(filterFilter($scope.capCarS,{
 																			id:$scope.idFilter,
 																			cliente:{nomeRzSocial:$scope.nomeRzSocialFilter},
+																			tipoCobranca:{tipoCobranca:$scope.tipoCobrancaFilter},
 																			dataInicialStr:$scope.dataInicialFilter,
 																			dataVencimentoStr:$scope.dataVencimentoFilter,
 																			desconto:$scope.descontoFilter,

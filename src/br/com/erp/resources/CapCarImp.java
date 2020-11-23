@@ -111,7 +111,8 @@ public class CapCarImp {
 				
 			}
 			
-			else if(capCar.getTipo().equals("P") && capCar.getTipoCobranca().getTipo().equals("P")) {
+			else if(capCar.getTipo().equals("P") && capCar.getTipoCobranca().getTipo().equals("P")||
+					capCar.getTipo().equals("R") && capCar.getStatus().equals(0)) {
 				
 				if(capCar.getValorTotal() > caixa.getValorAtual()) {
 					throw new RuntimeException("Valor da conta superior ao valor total do caixa");
@@ -120,6 +121,7 @@ public class CapCarImp {
 				caixaMovimentacao.setTipo("D");
 				
 			}
+			
 			else if(capCar.getTipoCobranca().getTipo().equals("P") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() != null) {
 				caixa.setValorAtual(caixa.getValorAtual() + capCar.getValorTotal());
 				System.out.println("1 CapCar tipo: "+capCar.getTipo()+", cobranca tipo: "+capCar.getTipoCobranca().getTipo());
@@ -358,13 +360,14 @@ public class CapCarImp {
 		try {
 			CapCar capCar = em.find(CapCar.class, paramJson.getInt1());
 			em.getTransaction().begin();
+			gerarMovimentacao(capCar);
 			em.remove(capCar);
 			em.getTransaction().commit();
-
+			System.out.println("CapCar Excluída com sucesso");
 		} catch (Exception e) {
 			e.printStackTrace();
 			em.getTransaction().rollback();
-
+			System.out.println("Não foi possível excluir a capCar");
 		} finally {
 			em.close();
 		}

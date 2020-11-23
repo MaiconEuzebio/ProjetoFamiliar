@@ -98,6 +98,26 @@ app.controller("contaRecebidaController", function ($scope, $routeParams, requis
 
 
 
+
+
+
+
+
+
+
+$scope.gerarDevolucao = function(){
+	$scope.caixa.valorTotal = ($scope.caixa.valorTotal - $scope.capCar.valorTotal);
+}
+
+
+
+
+
+
+
+
+
+
 	 /////////////////////////////////////////////////////////////////////////////////////////////////
 	// FUNÇÃO BTN ESTORNO ------> CASO NÃO HAJA REGISTRO SELECIONADO EMITE MENSAGEM ABRINDO O MODAL//
    /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -147,6 +167,8 @@ app.controller("contaRecebidaController", function ($scope, $routeParams, requis
         		return;
     		}
     		
+			gerarDevolucao();
+			
     		$scope.mostrarAguarde       = false;
     		$scope.showModalConfirmacao = false;
 			$('#modalExcluir').modal('hide');

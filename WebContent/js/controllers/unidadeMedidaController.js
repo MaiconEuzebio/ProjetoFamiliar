@@ -30,10 +30,10 @@ app.controller("unidadeMedidaController", function ($scope, requisicaoService, f
     	$scope.mensagemModal  = "";
     	$scope.mostrarAguarde = true;
     	
-    	$scope.unidadeMedida		       = {};
-    	$scope.unidadeMedida.id       = null;
+    	$scope.unidadeMedida		   = {};
+    	$scope.unidadeMedida.id        = null;
     	$scope.unidadeMedida.descricao = null;
-    	$scope.unidadeMedida.sigla= null;
+    	$scope.unidadeMedida.sigla     = null;
     	$scope.unidadeMedida.status	   = 1;
     	
     	$scope.mostrarAguarde    = false;
@@ -63,7 +63,7 @@ app.controller("unidadeMedidaController", function ($scope, requisicaoService, f
         		return;
     		}
 			
-			$scope.unidadeMedida			   = retorno.data;
+			$scope.unidadeMedida     = retorno.data;
 
 	    	$scope.mostrarAguarde    = false;
 	        $scope.visualizaCadastro = true;
@@ -173,7 +173,7 @@ app.controller("unidadeMedidaController", function ($scope, requisicaoService, f
 		$scope.unidadeMedidasFiltradas = orderByFilter(filterFilter($scope.unidadeMedidas,{id:$scope.idFilter,
 													                     descricao: $scope.descricaoFilter,
 													                     sigla: $scope.siglaFilter,
-																		descStatus: $scope.descStatusFilter}), $scope.campoOrdenacao);
+																		 descStatus: $scope.descStatusFilter}), $scope.campoOrdenacao);
 		
 	}
 	

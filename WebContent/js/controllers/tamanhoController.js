@@ -4,7 +4,7 @@ app.controller("tamanhoController", function ($scope, requisicaoService, filterF
 	$scope.mostrarAguarde = false;
 	$scope.tela = "Produto > Tamanho"	
 	
-	$scope.tamanhos                = [];
+	$scope.tamanhos             = [];
 	$scope.showModalConfirmacao = false;
 	$scope.showModalAviso       = false;
 	$scope.mostrarAguarde       = false;
@@ -30,10 +30,10 @@ app.controller("tamanhoController", function ($scope, requisicaoService, filterF
     	$scope.mensagemModal  = "";
     	$scope.mostrarAguarde = true;
     	
-    	$scope.tamanho		       = {};
-    	$scope.tamanho.id       = null;
-    	$scope.tamanho.descricao   = null;
-    	$scope.tamanho.status	   = 1;
+    	$scope.tamanho		     = {};
+    	$scope.tamanho.id        = null;
+    	$scope.tamanho.descricao = null;
+    	$scope.tamanho.status	 = 1;
     	
     	$scope.mostrarAguarde    = false;
     	$scope.visualizaCadastro = true;
@@ -62,7 +62,7 @@ app.controller("tamanhoController", function ($scope, requisicaoService, filterF
         		return;
     		}
 			
-			$scope.tamanho			   = retorno.data;
+			$scope.tamanho           = retorno.data;
 
 	    	$scope.mostrarAguarde    = false;
 	        $scope.visualizaCadastro = true;
@@ -171,7 +171,7 @@ app.controller("tamanhoController", function ($scope, requisicaoService, filterF
 	$scope.pesquisar = function(){
 		$scope.tamanhosFiltradas = orderByFilter(filterFilter($scope.tamanhos,{id:$scope.idFilter,
 													                     descricao: $scope.descricaoFilter,
-																		descStatus: $scope.descStatusFilter}), $scope.campoOrdenacao);
+																		 descStatus: $scope.descStatusFilter}), $scope.campoOrdenacao);
 		
 	}
 	
@@ -195,7 +195,5 @@ app.controller("tamanhoController", function ($scope, requisicaoService, filterF
     	
     	$scope.pesquisar();
     }
-	
-    
-	
+
 });

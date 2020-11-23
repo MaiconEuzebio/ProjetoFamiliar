@@ -4,7 +4,7 @@ app.controller("marcaController", function ($scope, requisicaoService, filterFil
 	$scope.mostrarAguarde = false;
 	$scope.tela = "Produto > Marca"	
 	
-	$scope.marcas                = [];
+	$scope.marcas               = [];
 	$scope.showModalConfirmacao = false;
 	$scope.showModalAviso       = false;
 	$scope.mostrarAguarde       = false;
@@ -30,10 +30,10 @@ app.controller("marcaController", function ($scope, requisicaoService, filterFil
     	$scope.mensagemModal  = "";
     	$scope.mostrarAguarde = true;
     	
-    	$scope.marca		       = {};
-    	$scope.marca.id       = null;
+    	$scope.marca		     = {};
+    	$scope.marca.id          = null;
     	$scope.marca.descricao   = null;
-    	$scope.marca.status	   = 1;
+    	$scope.marca.status	     = 1;
     	
     	$scope.mostrarAguarde    = false;
     	$scope.visualizaCadastro = true;
@@ -171,7 +171,7 @@ app.controller("marcaController", function ($scope, requisicaoService, filterFil
 	$scope.pesquisar = function(){
 		$scope.marcasFiltradas = orderByFilter(filterFilter($scope.marcas,{id:$scope.idFilter,
 													                     descricao: $scope.descricaoFilter,
-																		descStatus: $scope.descStatusFilter}), $scope.campoOrdenacao);
+																	   	 descStatus: $scope.descStatusFilter}), $scope.campoOrdenacao);
 		
 	}
 	

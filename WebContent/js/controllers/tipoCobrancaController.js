@@ -22,7 +22,7 @@ app.controller("tipoCobrancaController", function ($scope, requisicaoService, fi
     /////////////////////////////////////////////////////////////////
     */
     $scope.voltar = function(){
-    	$scope.visualizaCadastro 	= false;
+    	$scope.visualizaCadastro = false;
     }
 
     $scope.btnIncluir = function(){
@@ -30,14 +30,14 @@ app.controller("tipoCobrancaController", function ($scope, requisicaoService, fi
     	$scope.mensagemModal  = "";
     	$scope.mostrarAguarde = true;
     	
-    	$scope.tipoCobranca		       = {};
-    	$scope.tipoCobranca.id       = null;
-    	$scope.tipoCobranca.descricao   = null;
+    	$scope.tipoCobranca		      = {};
+    	$scope.tipoCobranca.id        = null;
+    	$scope.tipoCobranca.descricao = null;
     	$scope.tipoCobranca.tipo = null;
-    	$scope.tipoCobranca.status	   = 1;
+    	$scope.tipoCobranca.status	  = 1;
     	
-    	$scope.mostrarAguarde    = false;
-    	$scope.visualizaCadastro = true;
+    	$scope.mostrarAguarde         = false;
+    	$scope.visualizaCadastro      = true;
     }
 
     $scope.btnEditar = function(){

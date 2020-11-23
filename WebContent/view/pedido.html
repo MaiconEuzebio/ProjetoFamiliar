@@ -223,7 +223,7 @@
 		<div class="col-md-3">
 			<div class="form-group">
 				<label>Valor Liquido</label> <input type="text" class="form-control"
-					ng-model="pedido.valorLiquido" ng-change="atualizarValorPedido()" >
+					ng-model="pedido.valorLiquido" ng-change="atualizarValorPedido()" readonly>
 			</div>
 		</div>
 					
@@ -371,11 +371,7 @@
 							</div>
 							<!-- /.card-body -->
 						</div>
-				<div class="row">
-					<div
-						class="alert alert-danger alert-dismissible col-md-12 text-center"
-						ng-show="mensagemRodape">{{mensagemRodape}}</div>
-				</div>
+
 				<div class="row">
 					<div class="col-md-12">
 						<button type="button" class="btn bg-primary btn-lg pull-right"
@@ -400,7 +396,8 @@
 							class="btn  btn-outline-danger btn-lg glyphicon glyphicon-remove-sign">  Excluir</button>
 							
 						<label></label>	
-						<span class="labelTableItens">Pagamentos à Vista</span>							
+						<span class="labelTableItens">Pagamentos à Vista </span>	
+					
 					</div>
 					
 						<!-- /.card-header -->
@@ -421,8 +418,14 @@
 										</tr>
 									</tbody>
 								</table>
+						<span class="pull-right">
+							<label class="ng-binding">Total: </label><input type="text"
+								class="form-control" id="cValorTotal" ng-model="pedidoPagamento.valorTotal"  maxlength="10"
+								mask-maiusculas autofocus readonly>
+						</span>	
 							</div>
 						</div>
+						
 							<!-- /.card-body -->
 				</div>
 
@@ -467,17 +470,17 @@
 										</tr>
 									</tbody>
 								</table>
+						<span class="pull-right">
+							<label class="ng-binding">Total: </label><input type="text"
+								class="form-control" id="cValorTotal" ng-model="pedidoPagamentoPrazo.valorTotal"  maxlength="10"
+								mask-maiusculas autofocus readonly>
+						</span>	
 							</div>
 						</div>
 							<!-- /.card-body -->
 				</div>
 				</br>
 
-				<div class="row">
-					<div
-						class="alert alert-danger alert-dismissible col-md-12 text-center"
-						ng-show="mensagemRodape">{{mensagemRodape}}</div>
-				</div>
 				<div class="row">
 					<div class="col-md-12">
 						<button type="button" class="btn bg-primary btn-lg pull-right"
@@ -559,7 +562,7 @@
 					<div class="col-md-2">
 						<div class="form-group">
 							<label>Valor Total</label> <input id="cValorTotal" type="text"
-								class="form-control" ng-model="pedidoItem.valorTotal"  maxlength="10"
+								class="form-control" ng-model="pedidoItem.valor" maxlength="10"
 								mask-maiusculas autofocus readonly>
 						</div>
 					</div>
@@ -615,7 +618,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>Valor Total</label> <input id="cValor" type="text"
-								class="form-control" ng-model="pedidoPagamento.valor" maxlength="10"
+								class="form-control" ng-model="pedidoPagamento.valor" ng-change="atualizarValorPagamento()" maxlength="10"
 								mask-maiusculas autofocus>
 						</div>
 					</div>
@@ -671,7 +674,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>Valor Total</label> <input id="cValor" type="text"
-								class="form-control" ng-model="pedidoPagamentoPrazo.valor" maxlength="10"
+								class="form-control" ng-model="pedidoPagamentoPrazo.valor" ng-change="atualizarValorPagamentoPrazso()" maxlength="10"
 								mask-maiusculas autofocus>
 						</div>
 					</div>

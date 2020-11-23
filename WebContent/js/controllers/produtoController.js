@@ -5,7 +5,7 @@ app.controller("produtoController", function ($scope, requisicaoService, filterF
 	$scope.mostrarAguarde = false;
 	$scope.tela = "Produto"	
 	
-	$scope.produtos                = [];
+	$scope.produtos             = [];
 	$scope.showModalConfirmacao = false;
 	$scope.showModalAviso       = false;
 	$scope.mostrarAguarde       = false;
@@ -25,7 +25,7 @@ app.controller("produtoController", function ($scope, requisicaoService, filterF
     /////////////////////////////////////////////////////////////////
     */
     $scope.voltar = function(){
-    	$scope.visualizaCadastro 	= false;
+    	$scope.visualizaCadastro = false;
     }
 
     $scope.btnIncluir = function(){
@@ -33,19 +33,19 @@ app.controller("produtoController", function ($scope, requisicaoService, filterF
     	$scope.mensagemModal  = "";
     	$scope.mostrarAguarde = true;
     	
-    	$scope.produto		       = {};
-    	$scope.produto.id       = null;
-    	$scope.produto.descricao   = null;
-    	$scope.produto.quantidadeMaxima   = null;
-    	$scope.produto.quantidadeMinima   = null;
+    	$scope.produto		             = {};
+    	$scope.produto.id                = null;
+    	$scope.produto.descricao         = null;
+    	$scope.produto.quantidadeMaxima  = null;
+    	$scope.produto.quantidadeMinima  = null;
     	$scope.produto.quantidadeAtual   = null;
-    	$scope.produto.precoCusto   = null;
-    	$scope.produto.precoVenda   = null;
-    	$scope.produto.cor   = null;
-    	$scope.produto.marca   = null;
-    	$scope.produto.tamanho   = null;
-    	$scope.produto.unidadeMedida   = null;
-    	$scope.produto.status	   = 1;
+    	$scope.produto.precoCusto        = null;
+    	$scope.produto.precoVenda        = null;
+    	$scope.produto.cor               = null;
+    	$scope.produto.marca             = null;
+    	$scope.produto.tamanho           = null;
+    	$scope.produto.unidadeMedida     = null;
+    	$scope.produto.status	         = 1;
 		$scope.produtoMovimentacoes.tipo = null;
 		
     	
@@ -75,7 +75,7 @@ app.controller("produtoController", function ($scope, requisicaoService, filterF
         		return;
     		}
 			
-			$scope.produto			   = retorno.data;
+			$scope.produto			 = retorno.data;
 	    	$scope.mostrarAguarde    = false;
 	        $scope.visualizaCadastro = true;
 		});
@@ -90,7 +90,7 @@ app.controller("produtoController", function ($scope, requisicaoService, filterF
     		return;
     	}
 
-    	$scope.mensagemModal        = 'Deseja realmente excluir o registro?';
+    	$scope.mensagemModal = 'Deseja realmente excluir o registro?';
 		$('#modalExcluir').modal();
     }
 

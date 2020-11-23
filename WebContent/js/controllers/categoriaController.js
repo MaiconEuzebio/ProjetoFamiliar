@@ -4,7 +4,7 @@ app.controller("categoriaController", function ($scope, requisicaoService, filte
 	$scope.mostrarAguarde = false;
 	$scope.tela = "Financeiro > Categoria"	
 	
-	$scope.categorias                = [];
+	$scope.categorias           = [];
 	$scope.showModalConfirmacao = false;
 	$scope.showModalAviso       = false;
 	$scope.mostrarAguarde       = false;
@@ -30,13 +30,13 @@ app.controller("categoriaController", function ($scope, requisicaoService, filte
     	$scope.mensagemModal  = "";
     	$scope.mostrarAguarde = true;
     	
-    	$scope.categoria		       = {};
-    	$scope.categoria.id       = null;
-    	$scope.categoria.descricao   = null;
+    	$scope.categoria		   = {};
+    	$scope.categoria.id        = null;
+    	$scope.categoria.descricao = null;
     	$scope.categoria.status	   = 1;
     	
-    	$scope.mostrarAguarde    = false;
-    	$scope.visualizaCadastro = true;
+    	$scope.mostrarAguarde      = false;
+    	$scope.visualizaCadastro   = true;
     }
 
     $scope.btnEditar = function(){
@@ -62,7 +62,7 @@ app.controller("categoriaController", function ($scope, requisicaoService, filte
         		return;
     		}
 			
-			$scope.categoria			   = retorno.data;
+			$scope.categoria         = retorno.data;
 
 	    	$scope.mostrarAguarde    = false;
 	        $scope.visualizaCadastro = true;

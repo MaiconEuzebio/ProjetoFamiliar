@@ -74,14 +74,14 @@ app.controller("contaRecebidaController", function ($scope, $routeParams, requis
 				$scope.pesquisar();
 				$scope.mostrarAguarde = false;
 		});
-		requisicaoService.requisitarGET("categoria/obterTodosAtivos", function(retorno) {
+		requisicaoService.requisitarGET("tipoCobranca/obterTodosAtivos", function(retorno) {
     		if (!retorno.isValid) {
     			$scope.mensagemModal  = retorno.msg;
     			$scope.showModalAviso = true;
     			$scope.mostrarAguarde = false;
         		return;
     		}
-				$scope.categorias = retorno.data;
+				$scope.tipoCobrancas = retorno.data;
 				$scope.pesquisar();
 				$scope.mostrarAguarde = false;
 		});		

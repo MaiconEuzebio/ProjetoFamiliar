@@ -75,6 +75,18 @@ app.controller("pedidoFechadoController", function ($scope, $routeParams, requis
 			$scope.pesquisar();
 			$scope.mostrarAguarde = false;
 		});
+    	
+		requisicaoService.requisitarGET("pessoa/obterTodosAtivos", function(retorno) {
+    		if (!retorno.isValid) {
+    			$scope.mensagemModal  = retorno.msg;
+    			$scope.showModalAviso = true;
+    			$scope.mostrarAguarde = false;
+        		return;
+    		}
+				$scope.pessoas = retorno.data;
+				$scope.pesquisar();
+				$scope.mostrarAguarde = false;
+		});
 
 	}
 

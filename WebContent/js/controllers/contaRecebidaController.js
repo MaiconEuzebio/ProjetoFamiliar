@@ -155,7 +155,7 @@ app.controller("contaRecebidaController", function ($scope, $routeParams, requis
 		var param = {
 			int1: $scope.objetoSelecionado.id
 		}
-			
+		$('#modalEstornar').modal('hide');	
 
     	//deletar
     	requisicaoService.requisitarPOST("capCar/removerPorId", param, function(retorno){
@@ -169,7 +169,7 @@ app.controller("contaRecebidaController", function ($scope, $routeParams, requis
 			
     		$scope.mostrarAguarde       = false;
     		$scope.showModalConfirmacao = false;
-			$('#modalEstornar').modal('hide');
+			//$('#modalEstornar').modal('hide');
     		atualizarTela();
     	});
     }

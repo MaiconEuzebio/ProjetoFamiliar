@@ -8,7 +8,12 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
+import org.bouncycastle.crypto.RuntimeCryptoException;
+
 import br.com.erp.json.ParamJson;
+import br.com.erp.model.Pedido;
+import br.com.erp.model.PedidoItem;
 import br.com.erp.model.Produto;
 import br.com.erp.util.UnidadePersistencia;
 
@@ -112,16 +117,48 @@ public class ProdutoImp {
 		try {
 			Produto produto = em.find(Produto.class, paramJson.getInt1());
 			em.getTransaction().begin();
+			PedidoItem pedidoItem = obterDependencia(paramJson.getInt1());
+			
+			if(pedidoItem != null) {
+				throw new RuntimeException("Existe uma depêndencia relacionada a este registro: "+pedidoItem.getId());
+			}
 			em.remove(produto);
 			em.getTransaction().commit();
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			em.getTransaction().rollback();
-
+			if(em.getTransaction().isActive()){
+				em.getTransaction().rollback();
+			}
+			throw e;
 		} finally {
 			em.close();
 		}
 
 	}
+
+	
+	
+	public PedidoItem obterDependencia(Integer id) {
+		EntityManager em = UnidadePersistencia.createEntityManager();
+		
+		PedidoItem pedidoItem = null;
+		
+		try {
+			pedidoItem = (PedidoItem) em.createQuery("select a "
+											   +"from PedidoItem a "
+											   +"where a.produto.id = :id")
+								  .setParameter("id", id)
+								  .setMaxResults(1)
+					              .getSingleResult();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			em.close();
+		}
+		
+		return pedidoItem;
+	}
+	
+	
 }

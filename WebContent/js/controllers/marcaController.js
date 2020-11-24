@@ -69,6 +69,11 @@ app.controller("marcaController", function ($scope, requisicaoService, filterFil
 		});
     }
 
+
+
+
+
+
     $scope.btnExcluir = function(){
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";
@@ -81,6 +86,12 @@ app.controller("marcaController", function ($scope, requisicaoService, filterFil
     	$scope.mensagemModal        = 'Deseja realmente excluir o registro?';
 		$('#modalExcluir').modal();
     }
+
+
+
+
+
+
 
     $scope.confirmaExcluir = function(){
     	$scope.mensagemRodape = "";
@@ -107,9 +118,23 @@ app.controller("marcaController", function ($scope, requisicaoService, filterFil
     	});
     }
 
+
+
+
+
+
+
+
+
     $scope.retornarPesquisa = function (){
     	$scope.visualizaCadastro = false;
     }
+
+
+
+
+
+
 
     $scope.btnSalvar = function(pmarca){
     	$scope.mensagemRodape = "";

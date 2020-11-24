@@ -1,6 +1,7 @@
 app.controller("contaRecebidaController", function ($scope, $routeParams, requisicaoService, filterFilter, orderByFilter) {
-	$scope.tela = 'Consulta > Contas Recebidas'
-	//$scope.showModalConfirmacao = false;
+	
+	$scope.tela				    = 'Consulta > Contas Recebidas'
+	$scope.showModalConfirmacao = false;
 	$scope.showModalAviso       = false;
 	$scope.mostrarAguarde       = false;
 	$scope.visualizaCadastro 	= false;
@@ -102,12 +103,10 @@ app.controller("contaRecebidaController", function ($scope, $routeParams, requis
 
 
 
+	atualizarTela();	//CHAMADA DA FUNÇÃO ATUALIZAR TELA
 
 
 
-$scope.gerarDevolucao = function(){
-	$scope.caixa.valorTotal = ($scope.caixa.valorTotal - $scope.capCar.valorTotal);
-}
 
 
 
@@ -184,13 +183,13 @@ $scope.gerarDevolucao = function(){
 	 /////////////////////////////////////////////////////////////////////////////////
 	// FUNÇÃO BTN EDITAR ------>CHAMA A TELA COM OS IMPUTS DE INCLUSÃO DE DADOS    //
    /////////////////////////////////////////////////////////////////////////////////
-	$scope.btnEditar = function(){
+	$scope.btnVisualizar = function(){
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";
     	
     	
     	if (!$scope.objetoSelecionado) {
-            $scope.mensagemModal   = "É necessário selecionar o registro que deseja editar!";
+            $scope.mensagemModal   = "É necessário selecionar o registro que deseja visualizar!";
         	$('#modalAtencao').modal();
     		return;
     	}
@@ -227,7 +226,7 @@ $scope.gerarDevolucao = function(){
 
 
 
-	atualizarTela();	//CHAMADA DA FUNÇÃO ATUALIZAR TELA
+	
 
 
 

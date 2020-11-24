@@ -93,15 +93,15 @@ public class CapCarImp {
 			caixaMovimentacao.setCaixa(caixa);
 			caixaMovimentacao.setObservacao("Movimentação gerada a partir da conta "+capCar.getId());
 			
-			if(caixaImp.obterCaixaAberto() == null && capCar.getTipoCobranca().getTipo().equals("V")) {
+			if(caixaImp.obterCaixaAberto() == null && capCar.getTipoCobranca().getTipo().equals("V")&& capCar.getStatus().equals(1)) {
 				throw new RuntimeException("Nenhum caixa em aberto2!");
 				
 			}
-			else if(caixaImp.obterCaixaAberto() == null && capCar.getTipoCobranca().getTipo().equals("P")) {
+			else if(caixaImp.obterCaixaAberto() == null && capCar.getTipoCobranca().getTipo().equals("P")&& capCar.getStatus().equals(1)) {
 				throw new RuntimeException("Nenhum caixa em aberto2!");
 			}
 			
-			else if(capCar.getTipo().equals("P") && capCar.getTipoCobranca().getTipo().equals("V")) {
+			else if(capCar.getTipo().equals("P") && capCar.getTipoCobranca().getTipo().equals("V")&& capCar.getStatus().equals(1)) {
 				
 				if(capCar.getValorTotal() > caixa.getValorAtual()) {
 					throw new RuntimeException("Valor da conta superior ao valor total do caixa");
@@ -111,9 +111,7 @@ public class CapCarImp {
 				
 			}
 			
-			else if(capCar.getTipo().equals("P") && capCar.getTipoCobranca().getTipo().equals("P")||
-					capCar.getTipo().equals("R") && capCar.getStatus().equals(0)) {
-				
+			else if(capCar.getTipo().equals("P") && capCar.getTipoCobranca().getTipo().equals("P") && capCar.getStatus().equals(1)){
 				if(capCar.getValorTotal() > caixa.getValorAtual()) {
 					throw new RuntimeException("Valor da conta superior ao valor total do caixa");
 				}
@@ -121,21 +119,37 @@ public class CapCarImp {
 				caixaMovimentacao.setTipo("D");
 				
 			}
+			else if(capCar.getTipo().equals("R") && capCar.getStatus().equals(0)) {
+				System.out.println("Entrou na subtração");
+				if(capCar.getValorTotal() > caixa.getValorAtual()) {
+					throw new RuntimeException("Valor da conta superior ao valor total do caixa");
+				}
+				caixa.setValorAtual(caixa.getValorAtual() - capCar.getValorTotal());
+				caixaMovimentacao.setTipo("D");
+			}
+			else if(capCar.getTipo().equals("P") && capCar.getStatus().equals(0)) {
+				System.out.println("Entrou na soma");
+				caixa.setValorAtual(caixa.getValorAtual() + capCar.getValorTotal());
+				caixaMovimentacao.setTipo("C");
+			}
 			
-			else if(capCar.getTipoCobranca().getTipo().equals("P") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() != null) {
+			else if(capCar.getTipoCobranca().getTipo().equals("P") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() != null
+					&& capCar.getStatus().equals(1)) {
 				caixa.setValorAtual(caixa.getValorAtual() + capCar.getValorTotal());
 				//System.out.println("1 CapCar tipo: "+capCar.getTipo()+", cobranca tipo: "+capCar.getTipoCobranca().getTipo());
 				capCar.setStatus(0);
 				caixaMovimentacao.setTipo("C");
 			}
 
-			else if(capCar.getTipoCobranca().getTipo().equals("V") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() != null) {
+			else if(capCar.getTipoCobranca().getTipo().equals("V") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() != null
+					&& capCar.getStatus().equals(1)) {
 				caixa.setValorAtual(caixa.getValorAtual() + capCar.getValorTotal());
 				//System.out.println("2 CapCar tipo: "+capCar.getTipo()+", cobranca tipo: "+capCar.getTipoCobranca().getTipo());
 				capCar.setStatus(0);
 				caixaMovimentacao.setTipo("C");
 			}
-			else if(capCar.getTipoCobranca().getTipo().equals("V") && capCar.getTipo().equals("P") && caixaImp.obterCaixaAberto() != null) {
+			else if(capCar.getTipoCobranca().getTipo().equals("V") && capCar.getTipo().equals("P") && caixaImp.obterCaixaAberto() != null
+					&& capCar.getStatus().equals(1)) {
 				caixa.setValorAtual(caixa.getValorAtual() - capCar.getValorTotal());
 				//System.out.println("3 CapCar tipo: "+capCar.getTipo()+", cobranca tipo: "+capCar.getTipoCobranca().getTipo());
 				capCar.setStatus(0);

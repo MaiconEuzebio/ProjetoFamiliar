@@ -1,6 +1,6 @@
 app.controller("contaRecebidaController", function ($scope, $routeParams, requisicaoService, filterFilter, orderByFilter) {
 	$scope.tela = 'Consulta > Contas Recebidas'
-	$scope.showModalConfirmacao = false;
+	//$scope.showModalConfirmacao = false;
 	$scope.showModalAviso       = false;
 	$scope.mostrarAguarde       = false;
 	$scope.visualizaCadastro 	= false;
@@ -161,17 +161,16 @@ $scope.gerarDevolucao = function(){
     	//deletar
     	requisicaoService.requisitarPOST("capCar/removerPorId", param, function(retorno){
     		if (!retorno.isValid) {
-    			$scope.mensagemModal  = retorno.msg;
-    			$scope.showModalAviso = true;
+    			$scope.mensagemModal  = retorno.data.str1;
+    			$('#modalAtencao').modal();
     			$scope.mostrarAguarde = false;
         		return;
     		}
     		
-			gerarDevolucao();
 			
     		$scope.mostrarAguarde       = false;
     		$scope.showModalConfirmacao = false;
-			$('#modalExcluir').modal('hide');
+			$('#modalEstornar').modal('hide');
     		atualizarTela();
     	});
     }

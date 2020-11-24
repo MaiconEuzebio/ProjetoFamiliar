@@ -240,6 +240,13 @@
 								</label>
 							</div>
 						</div>
+						
+						<div class="row">
+							<div
+								class="alert alert-danger alert-dismissible col-md-12 text-center"
+								ng-show="mensagemRodape">{{mensagemRodape}}</div>	
+						</div>
+						
 						<div class="row">
 							<div class="col-md-12">
 								<button type="button" class="btn bg-primary btn-lg pull-right"
@@ -251,9 +258,9 @@
 					
 				</div>
 				<!-- DIV LINHA CONTENDO OS INPUTS-->
-				
-				
-				
+					
+					
+									
 			</div>
 			<!--FIM DA ESTRUTURA DA ABA SELECIONADA PESSOA COM SEUS INPUTS----------------------------------------------------------->
 			
@@ -472,23 +479,17 @@
 									<!-------------------------------->
 								</table>
 								<div class="row">
-										<div class="col-md-12">
-											<button type="button" class="btn bg-primary btn-lg pull-right"
-											ng-click="btnSalvarPessoa(pessoa)">Salvar</button>
-										</div>
+									<div class="col-md-12">
+										<button type="button" class="btn bg-primary btn-lg pull-right"
+										ng-click="btnSalvarPessoa(pessoa)">Salvar</button>
 									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			
-			<div class="row">
-				<div
-					class="alert alert-danger alert-dismissible col-md-12 text-center"
-					ng-show="mensagemRodape">{{mensagemRodape}}</div>
-				</div>
-			</div>
+			</div>	
+		</div>
 	</div>
 </div>
 

@@ -260,5 +260,37 @@ app.controller("contaPagaController", function ($scope, $routeParams, requisicao
 												              			
 		$scope.selecionarLinha = function(objeto) {
        		$scope.objetoSelecionado = objeto;
-    	}	
+    	}
+
+
+
+
+
+
+
+
+	 ////////////////////////////////////////////////////////////////////											              			
+	// VARIÁVEL ORDENAÇÃO QUE ORDENA OS DADOS CONFORME CLICK NA TABELA//
+   ////////////////////////////////////////////////////////////////////
+	
+	$scope.ordenacao = function (pcampo) {
+		if ($scope.campoOrdenacao == '+'+pcampo || $scope.campoOrdenacao == '-'+pcampo) {
+    		$scope.reverseOrdenacao = !$scope.reverseOrdenacao;
+    	} else {
+    		$scope.reverseOrdenacao = false;
+    	}
+    	
+    	if ($scope.reverseOrdenacao) {
+    		$scope.campoOrdenacao   = '-'+pcampo;	
+    	} else {
+    		$scope.campoOrdenacao   = '+'+pcampo;
+    	}
+    	
+    	$scope.pesquisar();
+    	
+    }
+    ///////////////////////////////// 
+   // FIM DA VARIÁVEL DE ORDENAÇÃO//
+  /////////////////////////////////
+   	
 });

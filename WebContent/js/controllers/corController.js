@@ -82,6 +82,12 @@ app.controller("corController", function ($scope, requisicaoService, filterFilte
 		$('#modalExcluir').modal();
     }
 
+
+
+
+
+
+
     $scope.confirmaExcluir = function(){
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";

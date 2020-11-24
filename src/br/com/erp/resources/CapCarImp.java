@@ -121,9 +121,6 @@ public class CapCarImp {
 			}
 			else if(capCar.getTipo().equals("R") && capCar.getStatus().equals(0)) {
 				System.out.println("Entrou na subtração");
-				if(capCar.getValorTotal() > caixa.getValorAtual()) {
-					throw new RuntimeException("Valor da conta superior ao valor total do caixa");
-				}
 				caixa.setValorAtual(caixa.getValorAtual() - capCar.getValorTotal());
 				caixaMovimentacao.setTipo("D");
 			}
@@ -370,18 +367,26 @@ public class CapCarImp {
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public void remove(ParamJson paramJson) {
 		EntityManager em = UnidadePersistencia.createEntityManager();
-
+		CaixaImp caixaImp = new CaixaImp();
 		try {
+			Caixa caixa = caixaImp.obterCaixaAberto();
 			CapCar capCar = em.find(CapCar.class, paramJson.getInt1());
+			 if(capCar.getTipo().equals("R") && capCar.getStatus().equals(0)) {
+				 if(capCar.getValorTotal() > caixa.getValorAtual()){
+					 throw new RuntimeException("Valor da conta superior ao valor total do caixa");
+				 }
+			 }
 			em.getTransaction().begin();
 			gerarMovimentacao(capCar);
 			em.remove(capCar);
 			em.getTransaction().commit();
 			System.out.println("CapCar Excluída com sucesso");
 		} catch (Exception e) {
-			e.printStackTrace();
-			em.getTransaction().rollback();
+			if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
 			System.out.println("Não foi possível excluir a capCar");
+			throw e;
 		} finally {
 			em.close();
 		}

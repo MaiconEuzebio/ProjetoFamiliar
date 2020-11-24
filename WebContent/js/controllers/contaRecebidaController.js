@@ -155,7 +155,7 @@ app.controller("contaRecebidaController", function ($scope, $routeParams, requis
 		var param = {
 			int1: $scope.objetoSelecionado.id
 		}
-			
+		$('modalEstornar').modal('hide');	
 
     	//deletar
     	requisicaoService.requisitarPOST("capCar/removerPorId", param, function(retorno){
@@ -169,7 +169,7 @@ app.controller("contaRecebidaController", function ($scope, $routeParams, requis
 			
     		$scope.mostrarAguarde       = false;
     		$scope.showModalConfirmacao = false;
-			$('#modalEstornar').modal('hide');
+			
     		atualizarTela();
     	});
     }
@@ -270,4 +270,35 @@ app.controller("contaRecebidaController", function ($scope, $routeParams, requis
 	 ////////////////////////////////////////////////////////////////////											              			
 	// VARIÁVEL ORDENAÇÃO QUE ORDENA OS DADOS CONFORME CLICK NA TABELA//
    ////////////////////////////////////////////////////////////////////
+
+
+
+
+
+	 ////////////////////////////////////////////////////////////////////											              			
+	// VARIÁVEL ORDENAÇÃO QUE ORDENA OS DADOS CONFORME CLICK NA TABELA//
+   ////////////////////////////////////////////////////////////////////
+	
+	$scope.ordenacao = function (pcampo) {
+		if ($scope.campoOrdenacao == '+'+pcampo || $scope.campoOrdenacao == '-'+pcampo) {
+    		$scope.reverseOrdenacao = !$scope.reverseOrdenacao;
+    	} else {
+    		$scope.reverseOrdenacao = false;
+    	}
+    	
+    	if ($scope.reverseOrdenacao) {
+    		$scope.campoOrdenacao   = '-'+pcampo;	
+    	} else {
+    		$scope.campoOrdenacao   = '+'+pcampo;
+    	}
+    	
+    	$scope.pesquisar();
+    	
+    }
+    ///////////////////////////////// 
+   // FIM DA VARIÁVEL DE ORDENAÇÃO//
+  /////////////////////////////////
+   
+
+
 });

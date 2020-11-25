@@ -97,7 +97,7 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
 	    		$scope.valorFechamento -= $scope.caixa.caixaMovimentacoes[i].valorMovimentacao;
 	    	}
     	}
-    	$scope.valorFechamento = $scope.valorFechamento; 
+    	$scope.valorFechamento       = $scope.valorFechamento; 
 		$scope.caixa.dataFechamento  = new Date($scope.caixa.dataFechamento);
 		$scope.caixa.dataAbertura    = new Date($scope.caixa.dataAbertura);
     	$scope.mostrarAguarde        = false;

@@ -62,7 +62,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.mensagemModal  = "";
     	$scope.mostrarAguarde = true;
     	
-		
     	$scope.pedidoItem		        = {};
     	$scope.pedidoItem.id            = null;
     	$scope.pedidoItem.produto       = null;
@@ -70,7 +69,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.pedidoItem.valorUnitario = null;
     	$scope.pedidoItem.acrescimo     = 0;
     	$scope.pedidoItem.desconto      = 0;
-    	$scope.pedidoItem.valorTotal    = null;
+    	$scope.pedidoItem.valorTotal    = 0;
     	$scope.pedidoItem.observacao    = null;
     	$('#modalItem').modal();
     	
@@ -104,7 +103,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.pedidoPagamentoPrazo		           = {};
     	$scope.pedidoPagamentoPrazo.id             = null;
         $scope.pedidoPagamentoPrazo.valor          = null;
-        $scope.pedidoPagamento.valorTotal          = null;
+        $scope.pedidoPagamentoPrazo.valorTotal     = null;
         $scope.pedidoPagamentoPrazo.tipoCobranca   = null;
         $scope.pedidoPagamentoPrazo.dataVencimento = new Date();
     	$scope.pedidoPagamentoPrazo.observacao     = null;
@@ -146,10 +145,14 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
         		return;
     		}
 			
-			$scope.pedido			 = retorno.data;
-			$scope.pedido.data       = new Date($scope.pedido.data);
-	    	$scope.mostrarAguarde    = false;
-	        $scope.visualizaCadastro = true;
+			$scope.pedido			    = retorno.data;
+			$scope.pedido.data          = new Date($scope.pedido.data);
+	    	$scope.mostrarAguarde       = false;
+	        $scope.visualizaCadastro    = true;
+	        $scope.pedidoPagamento      = {};
+	        $scope.pedidoPagamentoPrazo = {};
+	        $scope.atualizarValorPagamento();
+	        $scope.atualizarValorPagamentoPrazo();
 		});
     }
 
@@ -175,16 +178,17 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.mensagemModal  = "";
     	$scope.abaSelecionada = "financeiro"
     	
-    	if (!$scope.objetoSelecionadoPagamentoPedido) {
+    	if (!$scope.objetoSelecionadoPedidoPagamento) {
             $scope.mensagemModal   = "É necessário selecionar o registro que deseja editar!";
         	$('#modalAtencao').modal();
     		return;
     	}
     
-    	    $scope.pedidoPagamento   = $scope.objetoSelecionadoPagamentoPedido;
+    	    $scope.pedidoPagamento   = $scope.objetoSelecionadoPedidoPagamento;
 		    $scope.mostrarAguarde    = false;
 		    $scope.visualizaCadastro = true;
 		    $('#modalFinanceiro').modal();
+		    $scope.atualizarValorPagamento();
     }
     
     $scope.btnEditarFinanceiroPrazo = function(){
@@ -192,17 +196,19 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.mensagemModal  = "";
     	$scope.abaSelecionada = "financeiro"
     	
-    	if (!$scope.objetoSelecionadoPagamentoPedidoPrazo) {
+    	if (!$scope.objetoSelecionadoPedidoPagamentoPrazo) {
             $scope.mensagemModal   = "É necessário selecionar o registro que deseja editar!";
         	$('#modalAtencao').modal();
     		return;
     	}
     
-    	    $scope.pedidoPagamentoPrazo 			   = $scope.objetoSelecionadoPagamentoPedidoPrazo;
+    	    $scope.pedidoPagamentoPrazo 			   = $scope.objetoSelecionadoPedidoPagamentoPrazo;
 		    $scope.mostrarAguarde    			       = false;
 		    $scope.pedidoPagamentoPrazo.dataVencimento = new Date();
 		    $scope.visualizaCadastro 			       = true;
 		    $('#modalFinanceiroPrazo').modal();
+	    	$scope.atualizarValorPagamentoPrazo();
+
     }
 
     $scope.btnExcluir = function(){
@@ -255,27 +261,30 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     }
 
     $scope.btnExcluirFinanceiro = function(){
-    	if (!$scope.objetoSelecionadoPagamentoPedido) {
+    	if (!$scope.objetoSelecionadoPedidoPagamento) {
             $scope.mensagemModal  = "É necessário selecionar o registro que deseja excluir!";
         	$('#modalAtencao').modal();
     		return;
     	}
     	    	
-    	var posicao = $scope.pedido.pagamentos.indexOf($scope.objetoSelecionadoPagamentoPedido);
-    	$scope.pedido.pagamentos.splice(posicao,1);
-    	
-    	$scope.atualizarValorPagamento();
+    	var posicao = $scope.pedido.pagamentos.indexOf($scope.objetoSelecionadoPedidoPagamento);
+    	$scope.pedido.pagamentos.splice(posicao,1); 
+		$scope.atualizarValorPagamento();
+
     }
     
     $scope.btnExcluirFinanceiroPrazo = function(){
-    	if (!$scope.objetoSelecionadoPagamentoPedidoPrazo) {
+    	if (!$scope.objetoSelecionadoPedidoPagamentoPrazo) {
             $scope.mensagemModal  = "É necessário selecionar o registro que deseja excluir!";
         	$('#modalAtencao').modal();
     		return;
     	}
     	    	
-    	var posicao = $scope.pedido.pagamentosPrazo.indexOf($scope.objetoSelecionadoPagamentoPedidoPrazo);
+    	var posicao = $scope.pedido.pagamentosPrazo.indexOf($scope.objetoSelecionadoPedidoPagamentoPrazo);
     	$scope.pedido.pagamentosPrazo.splice(posicao,1);
+		$scope.atualizarValorPagamentoPrazo();
+
+
     }
 
     $scope.retornarPesquisa = function (){
@@ -320,6 +329,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     		$scope.atualizarValorItem();
     		$scope.atualizarValorPedido();
     		$scope.atualizarValorPagamento();
+    		//$scope.consultar();
     		atualizarTela();
 
     	});
@@ -327,6 +337,13 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 
     $scope.btnSalvarItem = function(pitem){
     	$scope.mensagemRodape = ""; 
+    	
+    	if (!pitem) {
+        	$scope.mensagemRodape = "É necessário o preenchimento do campo Produto!";
+    		document.getElementById("cProduto").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
     	
     	if (!pitem.produto) {
         	$scope.mensagemRodape = "É necessário o preenchimento do campo Produto!";
@@ -374,41 +391,75 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 
     }  
 
-    $scope.btnSalvarFinanceiro = function(ppagamentoPedido){
+    $scope.btnSalvarFinanceiro = function(ppedidoPagamento){
     	$scope.mensagemRodape = ""; 
     	
-    	if (ppagamentoPedido.valor > $scope.pedido.valorLiquido) {
+    	if (!ppedidoPagamento.tipoCobranca){
+    		$scope.mensagemRodape = "É necessário o preenchimento do campo Tipo de Cobranca!";
+    		document.getElementById("cTipoCobranca").focus();
+    		$scope.mostrarAguarde =  false;
+    		return;
+    	}
+    	
+    	if (ppedidoPagamento.valor <= 0){
+    		$scope.mensagemRodape = "É necessário o preenchimento valido do campo valor!";
+    		document.getElementById("cValor").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+    	}
+    	
+    	if (ppedidoPagamento.valor > $scope.pedido.valorLiquido) {
         	$scope.mensagemRodape = "Valor maior que o total do pedido!";
     		document.getElementById("cValor").focus();
     		$scope.mostrarAguarde = false;
     		return;
         }
+    	
+		if ($scope.pedidoPagamento.valor > $scope.valorRestante){
+			$scope.mensagemRodapeItem = "Valor informado maior que o valor restante: ";
+			document.getElementById("cValor").focus();
+			return;
+		}
     		
-    	if($scope.objetoSelecionadoPagamentoPedido){
-    		var posicao = $scope.pedido.pagamentos.indexOf($scope.objetoSelecionadoPagamentoPedido);
-    		$scope.pedido.pagamentos[posicao] = ppagamentoPedido;
+    	if($scope.objetoSelecionadoPedidoPagamento){
+    		var posicao = $scope.pedido.pagamentos.indexOf($scope.objetoSelecionadoPedidoPagamento);
+    		$scope.pedido.pagamentos[posicao] = ppedidoPagamento;
     	} else {
-    		$scope.pedido.pagamentos.push(ppagamentoPedido);
+    		$scope.pedido.pagamentos.push(ppedidoPagamento);
     	}
 		$('#modalFinanceiro').modal('hide');
 		$scope.atualizarValorPagamento();
     }
     
-    $scope.btnSalvarFinanceiroPrazo = function(ppagamentoPedidoPrazo){
+    $scope.btnSalvarFinanceiroPrazo = function(ppedidoPagamentoPrazo){
     	$scope.mensagemRodape = ""; 
     	
-    	if (ppagamentoPedidoPrazo.valor > $scope.pedido.valorLiquido) {
+    	if (!ppedidoPagamentoPrazo.tipoCobranca){
+    		$scope.mensagemRodape = "É necessário o preenchimento do campo Tipo de Cobranca!";
+    		document.getElementById("cTipoCobranca").focus();
+    		$scope.mostrarAguarde =  false;
+    		return;
+    	}
+    	
+    	if (ppedidoPagamentoPrazo.valor <= 0){
+    		$scope.mensagemRodape = "É necessário o preenchimento valido do campo valor!";
+    		document.getElementById("cValor").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+    	}
+    	
+    	if (ppedidoPagamentoPrazo.valor > $scope.pedido.valorLiquido) {
         	$scope.mensagemRodape = "Valor maior que o total do pedido!";
     		document.getElementById("cValor").focus();
     		$scope.mostrarAguarde = false;
     		return;
         }
     		
-    	if($scope.objetoSelecionadoPagamentoPedidoPrazo){
-    		var posicao = $scope.pedido.pagamentosPrazo.indexOf($scope.objetoSelecionadoPagamentoPedidoPrazo);
-    		$scope.pedido.pagamentosPrazo[posicao] = ppagamentoPedidoPrazo;
+    	if($scope.objetoSelecionadoPedidoPagamentoPrazo){
+    		var posicao = $scope.pedido.pagamentosPrazo.indexOf($scope.objetoSelecionadoPedidoPagamentoPrazo);
+    		$scope.pedido.pagamentosPrazo[posicao] = ppedidoPagamentoPrazo;
     	} else {
-    		$scope.pedido.pagamentosPrazo.push(ppagamentoPedidoPrazo);
+    		$scope.pedido.pagamentosPrazo.push(ppedidoPagamentoPrazo);
     	}
 		$('#modalFinanceiroPrazo').modal('hide');	
 		$scope.atualizarValorPagamentoPrazo();
@@ -535,6 +586,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	for (i in $scope.pedido.pagamentos){
     		$scope.pedidoPagamento.valorTotal += parseFloat($scope.pedido.pagamentos[i].valor);
     	}
+    	$scope.pedidoPagamento.valorTotal = $scope.pedidoPagamento.valorTotal;
     }
     
     $scope.atualizarValorPagamentoPrazo =  function(){
@@ -542,7 +594,16 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	for (i in $scope.pedido.pagamentosPrazo){
     		$scope.pedidoPagamentoPrazo.valorTotal += parseFloat($scope.pedido.pagamentosPrazo[i].valor)
     	}
+    	$scope.pedidoPagamentoPrazo.valorTotal = $scope.pedidoPagamentoPrazo.valorTotal;
     }
+    
+   /* $scope.consultar = function(){
+    	$scope.soma = ($scope.pedidoPagamento.valorTotal + $scope.pedidoPagamentoPrazo.valorTotal);
+    	if($scope.soma > ($scope.pedido.valorTotal)){
+    		$scope.mensagemRodape = "Valor maior";
+    		return;
+    	}
+    } */
 
     $scope.fecharModalItem = function(){
 	 	$scope.estoque = null;
@@ -630,8 +691,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 																			desconto: $scope.descontoFilter,
 																			valorTotal: $scope.valorTotalFilter,
 																			descStatus: $scope.descStatusFilter}), $scope.campoOrdenacao);
-		$scope.totalItems = $scope.pedidosFiltradas.length;
-
 	}
 	
 	    $scope.selecionarLinha = function(objeto) {
@@ -642,12 +701,12 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 	       $scope.objetoSelecionadoItem = objeto;
 	    }
 	    
-	    $scope.selecionarLinhaPagamentoPedido = function(objeto) {
-		       $scope.objetoSelecionadoPagamentoPedido = objeto;
+	    $scope.selecionarLinhaPedidoPagamento = function(objeto) {
+		       $scope.objetoSelecionadoPedidoPagamento = objeto;
 		}
 	    
-	    $scope.selecionarLinhaPagamentoPedidoPrazo = function(objeto) {
-		       $scope.objetoSelecionadoPagamentoPedidoPrazo = objeto;
+	    $scope.selecionarLinhaPedidoPagamentoPrazo = function(objeto) {
+		       $scope.objetoSelecionadoPedidoPagamentoPrazo = objeto;
 		}
 
 		$scope.ordenacao = function (pcampo) {

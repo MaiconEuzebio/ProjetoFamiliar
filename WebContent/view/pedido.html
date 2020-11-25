@@ -410,17 +410,18 @@
 									<th>Observacao</th>
 								</tr>
 									<tbody>
-										<tr ng-repeat="g in pedido.pagamentos" ng-click="selecionarLinhaPagamentoPedido(g)"
-											ng-class="{linhaSelecionada : g == objetoSelecionadoPagamentoPedido}">
+										<tr ng-repeat="g in pedido.pagamentos" ng-click="selecionarLinhaPedidoPagamento(g)"
+											ng-class="{linhaSelecionada : g == objetoSelecionadoPedidoPagamento}">
 											<td>{{g.tipoCobranca.descricao}}</td>
 											<td>{{g.valor}}</td>
 											<td>{{g.observacao}}</td>
 										</tr>
 									</tbody>
+									
 								</table>
-						<span class="pull-right">
-							<label class="ng-binding">Total: {{pedidoPagamento.valorTotal}}</label>
-						</span>	
+						    <span class="pull-right">
+								<label>Total: {{pedidoPagamento.valorTotal}}</label>
+						    </span>	
 							</div>
 						</div>
 						
@@ -459,8 +460,8 @@
 									<th>Observacao</th>
 								</tr>
 									<tbody>
-										<tr ng-repeat="g in pedido.pagamentosPrazo" ng-click="selecionarLinhaPagamentoPedidoPrazo(g)"
-											ng-class="{linhaSelecionada : g == objetoSelecionadoPagamentoPedidoPrazo}">
+										<tr ng-repeat="g in pedido.pagamentosPrazo" ng-click="selecionarLinhaPedidoPagamentoPrazo(g)"
+											ng-class="{linhaSelecionada : g == objetoSelecionadoPedidoPagamentoPrazo}">
 											<td>{{g.tipoCobranca.descricao}}</td>
 											<td>{{g.valor}}</td>
 											<td>{{g.dataVencimento | date:'dd/MM/yyyy'}}</td>
@@ -469,7 +470,7 @@
 									</tbody>
 								</table>
 						<span class="pull-right">
-							<label class="ng-binding">Total: {{pedidoPagamentoPrazo.valorTotal}}</label>
+							<label>Total: {{pedidoPagamentoPrazo.valorTotal}}</label>
 						</span>	
 							</div>
 						</div>
@@ -670,7 +671,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>Valor Total</label> <input id="cValor" type="text"
-								class="form-control" ng-model="pedidoPagamentoPrazo.valor" ng-change="atualizarValorPagamentoPrazso()" maxlength="10"
+								class="form-control" ng-model="pedidoPagamentoPrazo.valor" ng-change="atualizarValorPagamentoPrazo()" maxlength="10"
 								mask-maiusculas autofocus>
 						</div>
 					</div>

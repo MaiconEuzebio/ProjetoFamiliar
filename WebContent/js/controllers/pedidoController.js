@@ -153,6 +153,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
 	        $scope.pedidoPagamentoPrazo = {};
 	        $scope.atualizarValorPagamento();
 	        $scope.atualizarValorPagamentoPrazo();
+	        
 		});
     }
 
@@ -316,11 +317,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	
     	
     	requisicaoService.requisitarPOST("pedido/salvar", ppedido, function(retorno){
-    		if (!retorno.isValid) {
-	        	$('#modalAtencao').modal();
-	    		$scope.mostrarAguarde = false;
-	    		return;
-    		}
 
      		$scope.mostrarAguarde    = false;
     		$scope.visualizaCadastro = false;
@@ -329,7 +325,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     		$scope.atualizarValorItem();
     		$scope.atualizarValorPedido();
     		$scope.atualizarValorPagamento();
-    		//$scope.consultar();
     		atualizarTela();
 
     	});
@@ -429,6 +424,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	}
 		$('#modalFinanceiro').modal('hide');
 		$scope.atualizarValorPagamento();
+		$scope.consultar();
     }
     
     $scope.btnSalvarFinanceiroPrazo = function(ppedidoPagamentoPrazo){
@@ -463,6 +459,8 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	}
 		$('#modalFinanceiroPrazo').modal('hide');	
 		$scope.atualizarValorPagamentoPrazo();
+		$scope.consultar();
+
 
     }
 
@@ -481,7 +479,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	}
     	$scope.pedido.data       = new Date($scope.pedido.data);
     	$scope.mostrarAguarde    = false;
-        $scope.visualizaCadastro = true;
+        $scope.visualizaCadastro = false;
         $('#modalPedidoFechamento').modal();	
 
     }
@@ -597,13 +595,13 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.pedidoPagamentoPrazo.valorTotal = $scope.pedidoPagamentoPrazo.valorTotal;
     }
     
-   /* $scope.consultar = function(){
+    $scope.consultar = function(){
     	$scope.soma = ($scope.pedidoPagamento.valorTotal + $scope.pedidoPagamentoPrazo.valorTotal);
     	if($scope.soma > ($scope.pedido.valorTotal)){
     		$scope.mensagemRodape = "Valor maior";
     		return;
     	}
-    } */
+    } 
 
     $scope.fecharModalItem = function(){
 	 	$scope.estoque = null;

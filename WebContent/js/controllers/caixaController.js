@@ -101,7 +101,7 @@ app.controller("caixaController", function ($scope, requisicaoService, filterFil
 		$scope.caixa.dataFechamento  = new Date($scope.caixa.dataFechamento);
 		$scope.caixa.dataAbertura    = new Date($scope.caixa.dataAbertura);
     	$scope.mostrarAguarde        = false;
-        $scope.visualizaCadastro     = true;
+        $scope.visualizaCadastro     = false;
         $('#modalCaixaFechamento').modal();	
     }
     

@@ -511,6 +511,9 @@ $scope.selecionarLinha = function(objeto) {
     		return;
         }
        
+
+
+
 		requisicaoService.requisitarPOST("capCar/salvar", ccapCar, function(retorno){
     		if (!retorno.isValid) {
     			$scope.mensagemModal  = retorno.data.str1;

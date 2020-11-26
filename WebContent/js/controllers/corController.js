@@ -113,6 +113,12 @@ app.controller("corController", function ($scope, requisicaoService, filterFilte
     	});
     }
 
+
+
+
+
+
+
     $scope.retornarPesquisa = function (){
     	$scope.visualizaCadastro = false;
     }

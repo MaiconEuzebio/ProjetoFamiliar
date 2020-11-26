@@ -9,6 +9,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import br.com.erp.json.ParamJson;
+import br.com.erp.model.CapCar;
+import br.com.erp.model.Produto;
 import br.com.erp.model.TipoCobranca;
 import br.com.erp.util.UnidadePersistencia;
 
@@ -109,17 +111,47 @@ public class TipoCobrancaImp {
 		try {
 			TipoCobranca tipoCobranca = em.find(TipoCobranca.class, paramJson.getInt1());
 			em.getTransaction().begin();
+			CapCar capCar = obterDependencia(paramJson.getInt1());
+			
+			if(capCar != null) {
+				throw new RuntimeException("Existe uma depêndencia para este registro: "+capCar.getId());
+			}
+			
 			em.remove(tipoCobranca);
 			em.getTransaction().commit();
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			em.getTransaction().rollback();
-
+			if(em.getTransaction().isActive()){
+				em.getTransaction().rollback();
+			}
+			throw e;
 		} finally {
 			em.close();
 		}
 
+	}
+	
+	
+	public CapCar obterDependencia(Integer id) {
+		EntityManager em = UnidadePersistencia.createEntityManager();
+		
+		CapCar capCar = null;
+		
+		try {
+			capCar = (CapCar) em.createQuery("select a "
+											   +"from CapCar a "
+											   +"where a.tipoCobranca.id = :id")
+								  .setParameter("id", id)
+								  .setMaxResults(1)
+					              .getSingleResult();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			em.close();
+		}
+		
+		return capCar;
 	}
 	
 }

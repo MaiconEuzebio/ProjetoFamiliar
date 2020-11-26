@@ -136,6 +136,11 @@ public class CorImp {
 
 	}
 	
+	
+	
+	
+	
+	
 	public Produto obterDependencia(Integer id) {
 		EntityManager em = UnidadePersistencia.createEntityManager();
 		

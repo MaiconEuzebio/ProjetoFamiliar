@@ -410,11 +410,12 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     		return;
         }
     	
-		if ($scope.pedidoPagamento.valor > $scope.valorRestante){
-			$scope.mensagemRodapeItem = "Valor informado maior que o valor restante: ";
-			document.getElementById("cValor").focus();
-			return;
-		}
+    	if (ppedidoPagamento.valorTotal > $scope.pedido.valorTotal){
+    		$scope.mensagemRodape = "Valor maior que total do pedido";
+    		document.getElementById("cValorTotal").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+    	}
     		
     	if($scope.objetoSelecionadoPedidoPagamento){
     		var posicao = $scope.pedido.pagamentos.indexOf($scope.objetoSelecionadoPedidoPagamento);
@@ -424,7 +425,8 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	}
 		$('#modalFinanceiro').modal('hide');
 		$scope.atualizarValorPagamento();
-		$scope.consultar();
+		$scope.atualizarValorPagamentoPrazo();
+
     }
     
     $scope.btnSalvarFinanceiroPrazo = function(ppedidoPagamentoPrazo){
@@ -450,6 +452,13 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     		$scope.mostrarAguarde = false;
     		return;
         }
+    	
+    	if (ppedidoPagamentoPrazo.valorTotal > $scope.pedido.valorTotal){
+    		$scope.mensagemRodape = "Valor maior que total do pedido";
+    		document.getElementById("cValorTotal").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+    	}
     		
     	if($scope.objetoSelecionadoPedidoPagamentoPrazo){
     		var posicao = $scope.pedido.pagamentosPrazo.indexOf($scope.objetoSelecionadoPedidoPagamentoPrazo);
@@ -459,9 +468,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	}
 		$('#modalFinanceiroPrazo').modal('hide');	
 		$scope.atualizarValorPagamentoPrazo();
-		$scope.consultar();
-
-
     }
 
     $scope.btnFecharPedido = function(){
@@ -595,13 +601,9 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.pedidoPagamentoPrazo.valorTotal = $scope.pedidoPagamentoPrazo.valorTotal;
     }
     
-    $scope.consultar = function(){
-    	$scope.soma = ($scope.pedidoPagamento.valorTotal + $scope.pedidoPagamentoPrazo.valorTotal);
-    	if($scope.soma > ($scope.pedido.valorTotal)){
-    		$scope.mensagemRodape = "Valor maior";
-    		return;
-    	}
-    } 
+    $scope.calcular = function(){
+    	$scope.soma = ($scope.pedidoPagamento)
+    }
 
     $scope.fecharModalItem = function(){
 	 	$scope.estoque = null;

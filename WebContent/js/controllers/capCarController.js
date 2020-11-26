@@ -178,7 +178,7 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
 		$scope.capCar.id = 				null;
 		$scope.capCar.dataInicial = 	new Date();
 		$scope.capCar.pessoa = 			null;
-		$scope.capCar.tipoCobranca =		null;
+		$scope.capCar.tipoCobranca =    null;
 		$scope.capCar.valorLiquido = 	null;
 		$scope.capCar.acrescimo	=		0;
 		$scope.capCar.desconto	=		0;
@@ -507,6 +507,12 @@ $scope.selecionarLinha = function(objeto) {
         if (!ccapCar.valorTotal) {
         	$scope.mensagemRodape = "É necessário o preenchimento do campo Valor Total!";
     		document.getElementById("cValorTotal").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
+        if (!ccapCar.tipoCobranca) {
+        	$scope.mensagemRodape = "É necessário o preenchimento do campo Tipo de cobrança!";
+    		document.getElementById("cTipoCobranca").focus();
     		$scope.mostrarAguarde = false;
     		return;
         }

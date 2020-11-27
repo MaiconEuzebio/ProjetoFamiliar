@@ -33,28 +33,34 @@ public class CapCarImp {
 		CaixaImp caixaImp = new CaixaImp();
 
 		try {
-			//Caixa caixa = caixaImp.obterCaixaAberto();
-			em.getTransaction().begin();
+			Caixa caixa = caixaImp.obterCaixaAberto();
+			
 			if(capCar.getStatus().intValue() == 0) {
 				this.gerarMovimentacao(capCar);
-			/*}
+			}
 			if((capCar.getId() == null) && (capCar.getTipoCobranca().getTipo().equals("V") && capCar.getTipo().equals("P") && caixaImp.obterCaixaAberto() == null)) {
 				em.getTransaction().begin();
 				capCar.setStatus(1);
 				em.persist(capCar);
 				em.merge(capCar);
 				em.getTransaction().commit();
-				throw new RuntimeException("Nenhum caixa aberto!");
+				throw new RuntimeException("Nenhum caixa em aberto!");
 			}
-			if((capCar.getId() == null) && (capCar.getTipoCobranca().getTipo().equals("V") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() == null)) {
+			if((capCar.getId() == null) && (capCar.getTipoCobranca().getTipo().equals("P") && capCar.getTipo().equals("P") && caixaImp.obterCaixaAberto() == null)) {
 				em.getTransaction().begin();
-				capCar.setStatus(1);
 				em.persist(capCar);
 				em.merge(capCar);
 				em.getTransaction().commit();	
-				throw new RuntimeException("Nenhum caixa aberto!");*/
+				throw new RuntimeException("Nenhum caixa em aberto!");
 			}
-			 else {
+			em.getTransaction().begin();
+			if ((capCar.getId() == null) && (capCar.getTipoCobranca().getTipo().equals("V") && capCar.getTipo().equals("P") && caixaImp.obterCaixaAberto() != null)) {
+				gerarMovimentacao(capCar);
+				System.out.println("CapCar paga com sucesso");
+				capCar.setStatus(0);
+				em.persist(capCar);
+			
+			} else {
 				
 				em.merge(capCar);
 			}
@@ -87,43 +93,69 @@ public class CapCarImp {
 			caixaMovimentacao.setCaixa(caixa);
 			caixaMovimentacao.setObservacao("Movimentação gerada a partir da conta "+capCar.getId());
 			
-			
-			if(caixaImp.obterCaixaAberto() == null) {
-				throw new RuntimeException("Nenhum caixa aberto no momento.");
+			if(caixaImp.obterCaixaAberto() == null && capCar.getTipoCobranca().getTipo().equals("V")&& capCar.getStatus().equals(1)) {
+				throw new RuntimeException("Nenhum caixa em aberto2!");
+				
+			}
+			else if(caixaImp.obterCaixaAberto() == null && capCar.getTipoCobranca().getTipo().equals("P")&& capCar.getStatus().equals(1)) {
+				throw new RuntimeException("Nenhum caixa em aberto2!");
 			}
 			
-			else if(capCar.getTipo().equals("R")) {
-				System.out.println("1 Entrou na soma");
-				caixa.setValorAtual(caixa.getValorAtual() + capCar.getValorTotal());
-				capCar.setStatus(0);
+			else if(capCar.getTipo().equals("P") && capCar.getTipoCobranca().getTipo().equals("V")&& capCar.getStatus().equals(1)) {
+				
+				if(capCar.getValorTotal() > caixa.getValorAtual()) {
+					throw new RuntimeException("Valor da conta superior ao valor total do caixa");
+				}
+				caixa.setValorAtual(caixa.getValorAtual() - capCar.getValorTotal());
+				caixaMovimentacao.setTipo("D");
+				
+			}
+			
+			else if(capCar.getTipo().equals("P") && capCar.getTipoCobranca().getTipo().equals("P") && capCar.getStatus().equals(1)){
+				if(capCar.getValorTotal() > caixa.getValorAtual()) {
+					throw new RuntimeException("Valor da conta superior ao valor total do caixa");
+				}
+				caixa.setValorAtual(caixa.getValorAtual() - capCar.getValorTotal());
+				caixaMovimentacao.setTipo("D");
+				
+			}
+			else if(capCar.getTipo().equals("R") && capCar.getStatus().equals(0)) {
+				System.out.println("Entrou na subtração");
+				caixa.setValorAtual(caixa.getValorAtual() - capCar.getValorTotal());
 				caixaMovimentacao.setTipo("D");
 			}
-			
-			else if(capCar.getTipo().equals("P") || capCar.getStatus().intValue() == 0) {
-				System.out.println("1-1 Entrou na soma");
+			else if(capCar.getTipo().equals("P") && capCar.getStatus().equals(0)) {
+				System.out.println("Entrou na soma");
 				caixa.setValorAtual(caixa.getValorAtual() + capCar.getValorTotal());
 				caixaMovimentacao.setTipo("C");
 			}
 			
-			else if(capCar.getTipo().equals("P")) {
-				System.out.println("2 Entrou na subtração");
-				if(capCar.getValorTotal() > caixa.getValorAtual()) {
-					throw new RuntimeException("Impossível liquidar a conta: Valor em caixa insuficiente! ");
-				}
-				caixa.setValorAtual(caixa.getValorAtual() - capCar.getValorTotal());
+			else if(capCar.getTipoCobranca().getTipo().equals("P") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() != null
+					&& capCar.getStatus().equals(1)) {
+				caixa.setValorAtual(caixa.getValorAtual() + capCar.getValorTotal());
+				//System.out.println("1 CapCar tipo: "+capCar.getTipo()+", cobranca tipo: "+capCar.getTipoCobranca().getTipo());
 				capCar.setStatus(0);
 				caixaMovimentacao.setTipo("C");
 			}
-			
-			else if(capCar.getTipo().equals("R") || capCar.getStatus().intValue() == 0) {
-				System.out.println("2-1 Entrou na subtração");
-				if(capCar.getValorTotal() > caixa.getValorAtual()) {
-					throw new RuntimeException("Impossível liquidar a conta: Valor em caixa insuficiente! ");
-				}
-				caixa.setValorAtual(caixa.getValorAtual() - capCar.getValorTotal());
-				caixaMovimentacao.setTipo("D");
+
+			else if(capCar.getTipoCobranca().getTipo().equals("V") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() != null
+					&& capCar.getStatus().equals(1)) {
+				caixa.setValorAtual(caixa.getValorAtual() + capCar.getValorTotal());
+				//System.out.println("2 CapCar tipo: "+capCar.getTipo()+", cobranca tipo: "+capCar.getTipoCobranca().getTipo());
+				capCar.setStatus(0);
+				caixaMovimentacao.setTipo("C");
 			}
-			
+			else if(capCar.getTipoCobranca().getTipo().equals("V") && capCar.getTipo().equals("P") && caixaImp.obterCaixaAberto() != null
+					&& capCar.getStatus().equals(1)) {
+				caixa.setValorAtual(caixa.getValorAtual() - capCar.getValorTotal());
+				//System.out.println("3 CapCar tipo: "+capCar.getTipo()+", cobranca tipo: "+capCar.getTipoCobranca().getTipo());
+				capCar.setStatus(0);
+				caixaMovimentacao.setTipo("D");
+				
+			}else if(capCar.getTipoCobranca().getTipo().equals("V") && capCar.getTipo().equals("P") && caixaImp.obterCaixaAberto() == null) {
+				//System.out.println("4 CapCar tipo: "+capCar.getTipo()+", cobranca tipo: "+capCar.getTipoCobranca().getTipo());
+				capCar.setStatus(1);
+			}
 			caixaMovimentacao.setValorMovimentacao(capCar.getValorTotal());
 			
 			em.getTransaction().begin();

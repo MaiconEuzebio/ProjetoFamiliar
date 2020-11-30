@@ -158,7 +158,7 @@ app.controller("contaRecebidaController", function ($scope, $routeParams, requis
 		$('#modalEstornar').modal('hide');	
 
     	//deletar
-    	requisicaoService.requisitarPOST("capCar/removerPorId", param, function(retorno){
+    	requisicaoService.requisitarPOST("capCar/estornarPorId", param, function(retorno){
     		if (!retorno.isValid) {
     			$scope.mensagemModal  = retorno.data.str1;
     			$('#modalAtencao').modal();

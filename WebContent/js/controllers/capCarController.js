@@ -292,7 +292,7 @@ app.controller("capCarController", function ($scope, $routeParams, requisicaoSer
     	$scope.mensagemRodape = "";
     	$scope.mensagemModal  = "";
     	
-    	
+    
     	if (!$scope.objetoSelecionado) {
             $scope.mensagemModal   = "É necessário selecionar um registro para esta operação!";
         	$('#modalAtencao').modal();

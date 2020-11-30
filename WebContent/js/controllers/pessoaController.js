@@ -709,6 +709,41 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 	 //////////////////////////////
 	//      FIM DA FUNÇÃO		//
    //////////////////////////////
+	
+	 $scope.pesquisaCep = function (valor) {
+	    	//Nova variável "cep" somente com dígitos.
+	    	var cep = "";
+	    	if (valor && valor!= null) {
+	    		cep = valor.replace(/\D/g, '');
+	    	}
+
+     //Verifica se campo cep possui valor informado.
+     if (cep != "") {
+	        	$scope.mensagemModal  = "";
+	        	$scope.mostrarAguarde = true;
+	        	
+ 			var urlParam = "https://viacep.com.br/ws/"+cep+"/json/";
+         	//Pesquisar Cep
+         	requisicaoService.requisitarGETExterno(urlParam, null, function(retorno) {
+				if (!retorno.isValid) {
+		    			$scope.mensagemModal  = "";
+		    			$scope.showModalAviso = true;
+		    			$scope.mostrarAguarde = false;
+		        		return;
+		    		}
+				if (retorno.data.erro) {
+		    			$scope.mostrarAguarde = false;
+		        		return;
+		    		}
+				var dadosCep = retorno.data;
+            	$scope.endereco.complemento	= dadosCep.complemento;
+            	$scope.endereco.bairro		= dadosCep.bairro;
+
+			});
+
+
+     }
+ }
 
     
 });

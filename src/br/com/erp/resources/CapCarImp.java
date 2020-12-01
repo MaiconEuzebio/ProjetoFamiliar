@@ -33,6 +33,7 @@ public class CapCarImp {
 		CaixaImp caixaImp = new CaixaImp();
 
 		try {
+			em.getTransaction().begin();
 			Caixa caixa = caixaImp.obterCaixaAberto();
 			
 			if(capCar.getStatus().intValue() == 0) {
@@ -428,18 +429,22 @@ public class CapCarImp {
 		CaixaImp caixaImp = new CaixaImp();
 		
 		try {
+			em.getTransaction().begin();
 			Caixa caixa = caixaImp.obterCaixaAberto();
 			CapCar capCar = em.find(CapCar.class, paramJson.getInt1());
-			em.getTransaction().begin();
-			if(capCar.getTipo().equals("R") && capCar.getStatus().intValue() == 0) {
+			
+			if(caixaImp.obterCaixaAberto() == null) {
+				throw new RuntimeException("Nenhum caixa esta aberto neste momento");
+			}
+			else if(capCar.getTipo().equals("R") && capCar.getStatus().intValue() == 0 && caixaImp.obterCaixaAberto() != null) {
 				if(caixa.getValorAtual() < capCar.getValorTotal()) {
 					throw new RuntimeException("Valor da conta superior ao valor total do caixa");
 				}
-			}else if(capCar.getTipo().equals("R") && capCar.getStatus().intValue() == 0) {
+			}else if(capCar.getTipo().equals("R") && capCar.getStatus().intValue() == 0 && caixaImp.obterCaixaAberto() != null) {
 				if(caixa.getValorAtual() >= capCar.getValorTotal()) {
 					gerarMovimentacaoEstorno(capCar);
 				}
-			}else if(capCar.getTipo().equals("P") && capCar.getStatus().intValue() == 0) {
+			}else if(capCar.getTipo().equals("P") && capCar.getStatus().intValue() == 0 && caixaImp.obterCaixaAberto() != null) {
 				gerarMovimentacaoEstorno(capCar);
 			}
 			

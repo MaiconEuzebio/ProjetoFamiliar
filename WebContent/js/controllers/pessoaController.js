@@ -1,75 +1,53 @@
-app.controller("pessoaController", function ($scope, requisicaoService, filterFilter, orderByFilter) {
+app.controller("pessoaController", function ($scope, requisicaoService, filterFilter, orderByFilter, $http) {
 	
-	$scope.vizualizarCadastro = false;				//VARIÁVEL vizualizarCadastro		INICIADA COMO false		
-	$scope.mostrarAguarde = false;					//VARIÁVEL mostrarAguarde			INICIADA COMO false
-	$scope.tela = "Pessoa"							//VARIÁVEL tela 					INICIADA COMO String 'Pessoa'
-	$scope.abaSelecionada = 'pessoa'				//VARIÁVEL abaSelecionada 			INICIADA COMO String 'pessoa'
+	$scope.vizualizarCadastro    = false;				//VARIÁVEL vizualizarCadastro		INICIADA COMO false		
+	$scope.mostrarAguarde 		 = false;					//VARIÁVEL mostrarAguarde			INICIADA COMO false
+	$scope.tela 				 = "Pessoa"							//VARIÁVEL tela 					INICIADA COMO String 'Pessoa'
+	$scope.abaSelecionada        = 'pessoa'				//VARIÁVEL abaSelecionada 			INICIADA COMO String 'pessoa'
 	$scope.descricaoNomeRzSocial = 'Nome';			//VARIÁVEL descricaoNomeRzSocial 	INICIADA COMO String 'Nome'
-	$scope.descricaoCnpjCpf = 'CPF';				//VARIÁVEL descricaoCnpjCpf 		INICIADA COMO String 'CPF'
-	$scope.tiposContato 		= 	[];				//LISTA tiposContato 				INICIADA
-	$scope.tiposEndereco 		= 	[];				//LISTA tiposEndereco 				INICIADA
-	$scope.pessoas              =	[];				//LISTA pessoas 					INICIADA
-	$scope.showModalConfirmacao = false;			//VARIÁVEL showModalConfirmacao 	INICIADA COMO false
-	$scope.showModalAviso       = false;			//VARIÁVEL showModalAviso  			INICIADA COMO false
-	$scope.mostrarAguarde       = false;			//VARIÁVEL mostrarAguarde  			INICIADA COMO false
-	$scope.visualizaCadastro 	= false;			//VARIÁVEL visualizaCadastro 		INICIADA COMO false
-	$scope.mensagemModal 	 	= '';				//VARIÁVEL mensagemModal 			INICIADA
-	$scope.mensagemRodape 	 	= '';				//VARIÁVEL mensagemRodape 			INICIADA
-	$scope.mostrarAguarde 		= true;				//VARIÁVEL mostrarAguarde 			INICIADA COMO true
-	$scope.campoOrdenacao 		= '-id';		//VARIÁVEL campoOrdenacao 			INICIADA COMO String 'descricao'
-	
-						
-						
-						
-	
+	$scope.descricaoCnpjCpf      = 'CPF';				//VARIÁVEL descricaoCnpjCpf 		INICIADA COMO String 'CPF'
+	$scope.tiposContato 		 = 	[];				//LISTA tiposContato 				INICIADA
+	$scope.tiposEndereco 		 = 	[];				//LISTA tiposEndereco 				INICIADA
+	$scope.pessoas               =	[];				//LISTA pessoas 					INICIADA
+	$scope.showModalConfirmacao  = false;			//VARIÁVEL showModalConfirmacao 	INICIADA COMO false
+	$scope.showModalAviso        = false;			//VARIÁVEL showModalAviso  			INICIADA COMO false
+	$scope.mostrarAguarde        = false;			//VARIÁVEL mostrarAguarde  			INICIADA COMO false
+	$scope.visualizaCadastro 	 = false;			//VARIÁVEL visualizaCadastro 		INICIADA COMO false
+	$scope.mensagemModal 	 	 = '';				//VARIÁVEL mensagemModal 			INICIADA
+	$scope.mensagemRodape 	 	 = '';				//VARIÁVEL mensagemRodape 			INICIADA
+	$scope.mostrarAguarde 		 = true;				//VARIÁVEL mostrarAguarde 			INICIADA COMO true
+	$scope.campoOrdenacao 		 = '-id';		//VARIÁVEL campoOrdenacao 			INICIADA COMO String 'descricao'
 	
 		atualizarTela();							//CHAMADA DA FUNÇÃO ATUALIZAR TELA ANTES DE TODO O SCRIPT
 	
-   
-   
-   
    	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    // VARIÁVEL voltar RECEBE UMA FUNÇÃO SEM PARÂMETRO QUE CONTÉM A VARIÁVEL visualizaCadastro INICIALMENTE true AGORA COMO false//
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     	$scope.voltar = function(){					
-    	$scope.visualizaCadastro 	= false;
+    	$scope.visualizaCadastro = false;
     }
   	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    // VARIÁVEL voltar RECEBE UMA FUNÇÃO SEM PARÂMETRO QUE CONTÉM A VARIÁVEL visualizaCadastro INICIALMENTE true AGORA COMO false//
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
     
-    
-    
-    
-    
-    
-    
-    
-    
-
     $scope.btnIncluir = function(){
-    	$scope.mensagemRodape = 		"";
-    	$scope.mensagemModal  =		 	"";
-    	$scope.mostrarAguarde = 		true;
-		$scope.endereco = 				{};
-		$scope.contato =				{};
-    	$scope.pessoa = 				{};
-    	$scope.pessoa.id = 				null;
-    	$scope.pessoa.nomeRzSocial = 	null;
-    	$scope.pessoa.cnpjCpf = 		null;
-    	$scope.pessoa.status = 			1;
-    	$scope.pessoa.contatos =		[];
-    	$scope.pessoa.enderecos =		[];
+    	$scope.mensagemRodape      = "";
+    	$scope.mensagemModal       =	"";
+    	$scope.mostrarAguarde      = true;
+		$scope.endereco 		   = {};
+		$scope.contato 			   = {};
+    	$scope.pessoa			   = {};
+    	$scope.pessoa.id 		   = null;
+    	$scope.pessoa.nomeRzSocial = null;
+    	$scope.pessoa.cnpjCpf 	   = null;
+    	$scope.pessoa.status       = 1;
+    	$scope.pessoa.contatos	   = [];
+    	$scope.pessoa.enderecos    = [];
     	
-    	$scope.mostrarAguarde = 		false;
-    	$scope.visualizaCadastro = 		true;
+    	$scope.mostrarAguarde      = false;
+    	$scope.visualizaCadastro   = true;
     }
-
-
-
-
-
 
     $scope.btnEditarPessoa = function(){
 		
@@ -93,20 +71,13 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
         			return;
     			}
 			
-					$scope.pessoa = retorno.data;
+					$scope.pessoa			 = retorno.data;
 	    			$scope.mostrarAguarde    = false;
 	        		$scope.visualizaCadastro = true;
 			});
 					
 	
    }
-
-
-
-
-
-
-
 
 	$scope.btnEditarEndereco = function(){
 			console.log('TESTE ENDERECO')
@@ -125,12 +96,6 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 				$('#modalEndereco').modal();
 	};
 	
-	
-	
-	
-	
-	
-	
 	$scope.btnEditarContato = function(){
 			console.log('TESTE CONTATO')
 				$scope.mensagemRodape = "";
@@ -148,22 +113,6 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 				$('#modalContato').modal();
 	};
 	
-	
-	
-	
-
-    
-
-
-
-
-
-
-	
-    
-    
-
-    
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//VARIÁVEL RECEBE UMA FUNÇÃO VAZIA. VARIÁVEL POSIÇÃO DO VETOR, RECEBE INDEX DA POSIÇÃO DA LISTA DE ENDEREÇOS DE PESSOA//
  	// SPLICE DÁ UM CORTE EM LISTA DE ENDEREÇOS DA PESSOA (NA POSIÇÃO VARIÁVEL POSIÇÃO DO VETOR, 1 VEZ)					  //  
@@ -174,8 +123,6 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 		$scope.pessoa.enderecos.splice(posicaoDoElementoNoArray,1);
 	};
     
-   
-	
 	$scope.apagarContato = function(){
      	var posicaoDoElementoNoArray = $scope.pessoa.contatos.indexOf($scope.objetoSelecionadoContato);
 		$scope.pessoa.contatos.splice(posicaoDoElementoNoArray,1);
@@ -186,28 +133,13 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
  	// SPLICE DÁ UM CORTE EM LISTA DE ENDEREÇOS DA PESSOA (NA POSIÇÃO VARIÁVEL POSIÇÃO DO VETOR, 1 VEZ)					  //  
    	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
      /////////////////////////////////////////////////////////////////////////////////
 	// FUNÇÃO VAZIA QUE TEM COMO PARÂMETRO $(#nomeDoModal) O MÉTODO .modal('hide');//
    /////////////////////////////////////////////////////////////////////////////////
     
-    
     $scope.fecharModalEndereco = function(){
     	$('#modalEndereco').modal('hide');
     }
-    
-    
     
      $scope.fecharModalContato = function(){
     	$('#modalContato').modal('hide');
@@ -217,17 +149,6 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 	// FUNÇÃO VAZIA QUE TEM COMO PARÂMETRO $(#nomeDoModal) O MÉTODO .modal('hide');//
    /////////////////////////////////////////////////////////////////////////////////
   
-
-
-
-
-
-
-
-
-
-
-
 
    ////////////////////////////////////////////////////////////////////////////
   //         FUNÇÃO ESPECIFICA QUE ABRE O MODAL DE EXCLUSÃO DE PESSOA       //
@@ -289,14 +210,6 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 	//      FIM DA FUNÇÃO		//
    //////////////////////////////
 
-
-
-
-
-
-
-
-
    ////////////////////////////////////////////////////////////////////////////
   //         FUNÇÃO ESPECIFICA QUE ABRE O MODAL DE EXCLUSÃO DE ENDERECO     //
  ////////////////////////////////////////////////////////////////////////////
@@ -336,12 +249,6 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
      //////////////////////////////
 	//      FIM DA FUNÇÃO		//
    //////////////////////////////
-
-
-
-
-
-
 
    ////////////////////////////////////////////////////////////////////////////
   //         FUNÇÃO ESPECIFICA QUE ABRE O MODAL DE EXCLUSÃO DE CONTATO      //
@@ -384,23 +291,6 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 	//      FIM DA FUNÇÃO		//
    //////////////////////////////
 
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
      //////////////////////////////////////////////////////////////////
 	//           			FUNÇÃO SALVAR PESSOA           			//
    //////////////////////////////////////////////////////////////////
@@ -432,17 +322,6 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 	//      FIM DA FUNÇÃO		//
    ////////////////////////////// 
     
-    
- 
-    
-   
-
-
-
-
-
-
-
    
      //////////////////////////////////////////////////////////////////
 	//           			FUNÇÃO ATUALIZAR TELA          			//
@@ -470,14 +349,6 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 	//      FIM DA FUNÇÃO		//
    ////////////////////////////// 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
 	requisicaoService.requisitarGET("tipoEndereco/obterTodosAtivos", function(retorno) {
     		if (!retorno.isValid) {
     			$scope.mensagemModal  = retorno.msg;
@@ -489,10 +360,6 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 				$scope.pesquisar();
 				$scope.mostrarAguarde = false;
 		});
-		
-		
-		
-		
 		
 		requisicaoService.requisitarGET("tipoContato/obterTodosAtivos", function(retorno) {
     		if (!retorno.isValid) {
@@ -506,8 +373,6 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 				$scope.mostrarAguarde = false;
 		});
 		
-	
-	
 	 ///////////////////////////////////////////////////////////////////////////////////
 	//		FUNÇÃO PARA ORDENAR OS CAMPOS CONFORME OS CRITÉRIOS DE ORDENAÇÃO		 //
    ///////////////////////////////////////////////////////////////////////////////////	
@@ -517,7 +382,6 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 	 //////////////////////////////
 	//      FIM DA FUNÇÃO		//
    ////////////////////////////// 
-		
 		
 		
 	 ///////////////////////////////////////////////////////////////////////////////////
@@ -562,15 +426,6 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 	//      FIM DA FUNÇÃO		//
    //////////////////////////////
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	 ///////////////////////////////////////////////////////////////////////////
 	//		FUNÇÃO PARA MUDAR O TIPO DA PESSOA PARA FISICA OU JURIDICA		 //
    ///////////////////////////////////////////////////////////////////////////	
@@ -587,12 +442,6 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
      //////////////////////////////
 	//      FIM DA FUNÇÃO		//
    ////////////////////////////// 
-	
-	
-	
-	
-	
-	
 	
 	
    	 ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -614,10 +463,6 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 	//      FIM DA FUNÇÃO		//
    ////////////////////////////// 
   
-
-
-
-
 
 
    ////////////////////////////////////////////////////////////////////////////
@@ -644,12 +489,35 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
  ///////////////////////////////////////////////////
 	$scope.btnSalvarEndereco = function(endereco){
 		$scope.mensagemRodape = "";
+		
+    	if (!endereco.cep){
+    		$scope.mensagemRodape = "É necessário o preenchimento do campo CEP!";
+    		document.getElementById("eCep").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
+    	
     	if (!endereco.rua){
     		$scope.mensagemRodape = "É necessário o preenchimento do campo Rua!";
     		document.getElementById("eRua").focus();
     		$scope.mostrarAguarde = false;
     		return;
         }
+    	
+    	if (!endereco.bairro){
+    		$scope.mensagemRodape = "É necessário o preenchimento do campo Bairro!";
+    		document.getElementById("eBairro").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
+    	
+    	if (!endereco.numero){
+    		$scope.mensagemRodape = "É necessário o preenchimento do campo Numero!";
+    		document.getElementById("eNumero").focus();
+    		$scope.mostrarAguarde = false;
+    		return;
+        }
+    	
     	if($scope.objetoSelecionadoEndereco){
     		var posicao = $scope.pessoa.enderecos.indexOf($scope.objetoSelecionadoEndereco);
     		$scope.pessoa.enderecos[posicao] = endereco;
@@ -661,11 +529,6 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 	 //////////////////////////////
 	//      FIM DA FUNÇÃO		//
    ////////////////////////////// 
-
-
-
-
-
 
    ////////////////////////////////////////////////////////////////////////////
   //         FUNÇÃO ESPECIFICA QUE ABRE O MODAL DE INCLUSÃO DE CONTATO      //
@@ -720,17 +583,12 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
      //Verifica se campo cep possui valor informado.
      if (cep != "") {
 	        	$scope.mensagemModal  = "";
-	        	$scope.mostrarAguarde = true;
+	        	$scope.mostrarAguarde = false;
 	        	
  			var urlParam = "https://viacep.com.br/ws/"+cep+"/json/";
          	//Pesquisar Cep
          	requisicaoService.requisitarGETExterno(urlParam, null, function(retorno) {
-				if (!retorno.isValid) {
-		    			$scope.mensagemModal  = "";
-		    			$scope.showModalAviso = true;
-		    			$scope.mostrarAguarde = false;
-		        		return;
-		    		}
+
 				if (retorno.data.erro) {
 		    			$scope.mostrarAguarde = false;
 		        		return;
@@ -738,10 +596,9 @@ app.controller("pessoaController", function ($scope, requisicaoService, filterFi
 				var dadosCep = retorno.data;
             	$scope.endereco.complemento	= dadosCep.complemento;
             	$scope.endereco.bairro		= dadosCep.bairro;
+            	$scope.endereco.rua         = dadosCep.logradouro;
 
 			});
-
-
      }
  }
 

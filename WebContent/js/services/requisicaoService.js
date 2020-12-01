@@ -21,7 +21,7 @@ app.service('requisicaoService', ['$http', function ($http) {
 	/* requisitarGETExterno */
 	this.requisitarGETExterno = function (pURL, param, callback) {
     	$http.get( pURL ).then(function(data){
-			callback({isValid: true, data:retorno.data}) 
+			callback({isValid: true, data:data.data}) 
 		}).catch(function(){
 			callback({isValid: false, msg: "Erro ao requisitar servidor!"})
 		});           

@@ -40,35 +40,34 @@ public class CapCarImp {
 				this.gerarMovimentacao(capCar);
 			}
 			if((capCar.getId() == null) && (capCar.getTipoCobranca().getTipo().equals("V") && capCar.getTipo().equals("P") && caixaImp.obterCaixaAberto() == null)) {
-				em.getTransaction().begin();
+				//em.getTransaction().begin();
 				capCar.setStatus(1);
 				em.persist(capCar);
 				em.merge(capCar);
-				em.getTransaction().commit();
+				//em.getTransaction().commit();
 				throw new RuntimeException("Nenhum caixa em aberto!");
 			}
 			if((capCar.getId() == null) && (capCar.getTipoCobranca().getTipo().equals("V") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() == null)) {
-				em.getTransaction().begin();
+				//em.getTransaction().begin();
 				capCar.setStatus(1);
 				em.persist(capCar);
 				em.merge(capCar);
-				em.getTransaction().commit();
+				//em.getTransaction().commit();
 				throw new RuntimeException("Nenhum caixa em aberto!");
 			}
 			if((capCar.getId() == null) && (capCar.getTipoCobranca().getTipo().equals("P") && capCar.getTipo().equals("P") && caixaImp.obterCaixaAberto() == null)) {
-				em.getTransaction().begin();
+				
 				capCar.setStatus(1);
 				em.persist(capCar);
 				em.merge(capCar);
-				em.getTransaction().commit();	
+				
 				
 			}
 			if ((capCar.getId() == null) && (capCar.getTipoCobranca().getTipo().equals("P") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() != null)) {
-				em.getTransaction().begin();
 				capCar.setStatus(1);
 				em.persist(capCar);
 				em.merge(capCar);
-				em.getTransaction().commit();
+				
 			
 			} else {
 				
@@ -444,7 +443,10 @@ public class CapCarImp {
 				if(caixa.getValorAtual() >= capCar.getValorTotal()) {
 					gerarMovimentacaoEstorno(capCar);
 				}
-			}else if(capCar.getTipo().equals("P") && capCar.getStatus().intValue() == 0 && caixaImp.obterCaixaAberto() != null) {
+			}else if(capCar.getTipo().equals("P") && capCar.getStatus().intValue() == 0) {
+				if(caixaImp.obterCaixaAberto() == null) {
+					throw new RuntimeException("Nenhum caixa esta aberto neste momento");
+				}
 				gerarMovimentacaoEstorno(capCar);
 			}
 			

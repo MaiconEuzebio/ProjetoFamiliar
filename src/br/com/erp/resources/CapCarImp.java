@@ -19,6 +19,7 @@ import br.com.erp.model.CaixaMovimentacao;
 import br.com.erp.model.CapCar;
 import br.com.erp.model.TipoCobranca;
 import br.com.erp.util.UnidadePersistencia;
+import oracle.net.aso.e;
 
 @Path("capCar")
 public class CapCarImp {
@@ -33,41 +34,40 @@ public class CapCarImp {
 		CaixaImp caixaImp = new CaixaImp();
 
 		try {
+			em.getTransaction().begin();
 			Caixa caixa = caixaImp.obterCaixaAberto();
 			
 			if(capCar.getStatus().intValue() == 0) {
 				this.gerarMovimentacao(capCar);
 			}
 			if((capCar.getId() == null) && (capCar.getTipoCobranca().getTipo().equals("V") && capCar.getTipo().equals("P") && caixaImp.obterCaixaAberto() == null)) {
-				em.getTransaction().begin();
+				
 				capCar.setStatus(1);
 				em.persist(capCar);
 				em.merge(capCar);
-				em.getTransaction().commit();
+				
 				throw new RuntimeException("Nenhum caixa em aberto!");
 			}
 			if((capCar.getId() == null) && (capCar.getTipoCobranca().getTipo().equals("V") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() == null)) {
-				em.getTransaction().begin();
+				
 				capCar.setStatus(1);
 				em.persist(capCar);
 				em.merge(capCar);
-				em.getTransaction().commit();
 				throw new RuntimeException("Nenhum caixa em aberto!");
 			}
 			if((capCar.getId() == null) && (capCar.getTipoCobranca().getTipo().equals("P") && capCar.getTipo().equals("P") && caixaImp.obterCaixaAberto() == null)) {
-				em.getTransaction().begin();
+				
 				capCar.setStatus(1);
 				em.persist(capCar);
 				em.merge(capCar);
-				em.getTransaction().commit();	
+				
 				
 			}
 			if ((capCar.getId() == null) && (capCar.getTipoCobranca().getTipo().equals("P") && capCar.getTipo().equals("R") && caixaImp.obterCaixaAberto() != null)) {
-				em.getTransaction().begin();
 				capCar.setStatus(1);
 				em.persist(capCar);
 				em.merge(capCar);
-				em.getTransaction().commit();
+				
 			
 			} else {
 				
@@ -428,19 +428,26 @@ public class CapCarImp {
 		CaixaImp caixaImp = new CaixaImp();
 		
 		try {
+			em.getTransaction().begin();
 			Caixa caixa = caixaImp.obterCaixaAberto();
 			CapCar capCar = em.find(CapCar.class, paramJson.getInt1());
-			em.getTransaction().begin();
-			if(capCar.getTipo().equals("R") && capCar.getStatus().intValue() == 0) {
+			
+			if(caixaImp.obterCaixaAberto() == null) {
+				throw new RuntimeException("Nenhum caixa esta aberto neste momento");
+			}
+			else if(capCar.getTipo().equals("R") && capCar.getStatus().intValue() == 0 && caixaImp.obterCaixaAberto() != null) {
 				if(caixa.getValorAtual() < capCar.getValorTotal()) {
 					throw new RuntimeException("Valor da conta superior ao valor total do caixa");
 				}
-			}else if(capCar.getTipo().equals("R") && capCar.getStatus().intValue() == 0) {
-				if(caixa.getValorAtual() >= capCar.getValorTotal()) {
-					gerarMovimentacaoEstorno(capCar);
-				}
-			}else if(capCar.getTipo().equals("P") && capCar.getStatus().intValue() == 0) {
-				gerarMovimentacaoEstorno(capCar);
+					caixa.setValorAtual(caixa.getValorAtual() - capCar.getValorTotal());
+					em.merge(caixa);
+			}
+			else if(capCar.getTipo().equals("P") && capCar.getStatus().intValue() == 0 && caixaImp.obterCaixaAberto() != null) {
+				caixa.setValorAtual(caixa.getValorAtual() + capCar.getValorTotal());
+				em.merge(caixa);
+				
+
+				
 			}
 			
 			em.remove(capCar);

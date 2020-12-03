@@ -182,7 +182,7 @@ public class CapCarImp {
 				caixa.setValorAtual(caixa.getValorAtual() - capCar.getValorTotal());
 			}
 			
-			else if(capCar.getStatus().intValue() == 0 && capCar.getTipo().equals("P")) {
+			else  {
 				caixaMovimentacao.setTipo("C");
 				caixa.setValorAtual(caixa.getValorAtual() + capCar.getValorTotal());
 			}
@@ -439,17 +439,16 @@ public class CapCarImp {
 				if(caixa.getValorAtual() < capCar.getValorTotal()) {
 					throw new RuntimeException("Valor da conta superior ao valor total do caixa");
 				}
-					System.out.println(capCar.getTipo()+" | "+capCar.getStatus());
 					caixa.setValorAtual(caixa.getValorAtual() - capCar.getValorTotal());
 					em.merge(caixa);
 			}
 			else if(capCar.getTipo().equals("P") && capCar.getStatus().intValue() == 0 && caixaImp.obterCaixaAberto() != null) {
-				
-				System.out.println("Teste2");
 				caixa.setValorAtual(caixa.getValorAtual() + capCar.getValorTotal());
 				em.merge(caixa);
+				
+
+				
 			}
-			
 			
 			em.remove(capCar);
 			em.getTransaction().commit();
@@ -466,4 +465,5 @@ public class CapCarImp {
 	}
 	
 	
+
 }

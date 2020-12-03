@@ -88,7 +88,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
         $scope.pedidoPagamento.valorTotal   = null;
         $scope.pedidoPagamento.tipoCobranca = null;
     	$scope.pedidoPagamento.observacao   = null;
-    	//$scope.pedidoPagamento.status     = 0;
+    	//$scope.pedidoPagamento.status     = 1;
     	$('#modalFinanceiro').modal();
     	
     	$scope.mostrarAguarde    = false;
@@ -383,6 +383,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	
 		$('#modalItem').modal('hide');
 		$scope.atualizarValorPedido();
+		
 
     }  
 
@@ -410,7 +411,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     		return;
         }
     	
-    	if (ppedidoPagamento.valorTotal > $scope.pedido.valorTotal){
+    	if (ppedidoPagamento.valorTotal > $scope.pedido.valorLiquido){
     		$scope.mensagemRodape = "Valor maior que total do pedido";
     		document.getElementById("cValorTotal").focus();
     		$scope.mostrarAguarde = false;
@@ -425,7 +426,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	}
 		$('#modalFinanceiro').modal('hide');
 		$scope.atualizarValorPagamento();
-		$scope.atualizarValorPagamentoPrazo();
 
     }
     
@@ -586,11 +586,10 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     }
     
     $scope.atualizarValorPagamento =  function(){
-    	$scope.pedidoPagamento.valorTotal = 0;
+   		$scope.pedidoPagamento.valorTotal = 0;
     	for (i in $scope.pedido.pagamentos){
     		$scope.pedidoPagamento.valorTotal += parseFloat($scope.pedido.pagamentos[i].valor);
     	}
-    	$scope.pedidoPagamento.valorTotal = $scope.pedidoPagamento.valorTotal;
     }
     
     $scope.atualizarValorPagamentoPrazo =  function(){
@@ -598,11 +597,6 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	for (i in $scope.pedido.pagamentosPrazo){
     		$scope.pedidoPagamentoPrazo.valorTotal += parseFloat($scope.pedido.pagamentosPrazo[i].valor)
     	}
-    	$scope.pedidoPagamentoPrazo.valorTotal = $scope.pedidoPagamentoPrazo.valorTotal;
-    }
-    
-    $scope.calcular = function(){
-    	$scope.soma = ($scope.pedidoPagamento)
     }
 
     $scope.fecharModalItem = function(){

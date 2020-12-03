@@ -144,10 +144,11 @@ app.controller("contaPagaController", function ($scope, $routeParams, requisicao
 		var param = {
 			int1: $scope.objetoSelecionado.id
 		}
+		$('#modalEstornar').modal('hide');
 			
 
     	//deletar
-    	requisicaoService.requisitarPOST("capCar/removerPorId", param, function(retorno){
+    	requisicaoService.requisitarPOST("capCar/estornarPorId", param, function(retorno){
     		if (!retorno.isValid) {
     			$scope.mensagemModal  = retorno.data.str1;
     			$('#modalAtencao').modal();
@@ -158,7 +159,7 @@ app.controller("contaPagaController", function ($scope, $routeParams, requisicao
 			
     		$scope.mostrarAguarde       = false;
     		$scope.showModalConfirmacao = false;
-			$('#modalEstornar').modal('hide');
+			//$('#modalEstornar').modal('hide');
     		atualizarTela();
     	});
     }

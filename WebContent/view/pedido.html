@@ -420,7 +420,7 @@
 									
 								</table>
 						    <span class="pull-right">
-								<label>Total: {{pedidoPagamento.valorTotal}}</label>
+								<label> Total: {{pedidoPagamento.valorTotal}} </label>
 						    </span>	
 							</div>
 						</div>
@@ -559,7 +559,7 @@
 					<div class="col-md-2">
 						<div class="form-group">
 							<label>Valor Total</label> <input id="cValorTotal" type="text"
-								class="form-control" ng-model="pedidoItem.valor" maxlength="10"
+								class="form-control" ng-model="pedidoItem.valorTotal" ng-change="atualizarValorItem()" maxlength="10"
 								mask-maiusculas autofocus readonly>
 						</div>
 					</div>
@@ -615,7 +615,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>Valor Total</label> <input id="cValor" type="text"
-								class="form-control" ng-model="pedidoPagamento.valor" ng-change="atualizarValorPagamento()" ng-change="calcular" maxlength="10"
+								class="form-control" ng-model="pedidoPagamento.valor" ng-change="atualizarValorPagamento()" maxlength="10"
 								mask-maiusculas autofocus>
 						</div>
 					</div>
@@ -671,7 +671,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>Valor Total</label> <input id="cValor" type="text"
-								class="form-control" ng-model="pedidoPagamentoPrazo.valor" ng-change="atualizarValorPagamentoPrazo()" ng-change="calcular" maxlength="10"
+								class="form-control" ng-model="pedidoPagamentoPrazo.valor" ng-change="atualizarValorPagamentoPrazo()" maxlength="10"
 								mask-maiusculas autofocus>
 						</div>
 					</div>

@@ -182,7 +182,7 @@ public class CapCarImp {
 				caixa.setValorAtual(caixa.getValorAtual() - capCar.getValorTotal());
 			}
 			
-			else if(capCar.getStatus().intValue() == 0 && capCar.getTipo().equals("P")) {
+			else  {
 				caixaMovimentacao.setTipo("C");
 				caixa.setValorAtual(caixa.getValorAtual() + capCar.getValorTotal());
 			}

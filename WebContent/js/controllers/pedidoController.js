@@ -69,7 +69,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     	$scope.pedidoItem.valorUnitario = null;
     	$scope.pedidoItem.acrescimo     = 0;
     	$scope.pedidoItem.desconto      = 0;
-    	$scope.pedidoItem.valorTotal    = 0;
+    	$scope.pedidoItem.valorTotal    = null;
     	$scope.pedidoItem.observacao    = null;
     	$('#modalItem').modal();
     	
@@ -511,6 +511,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     }
     
     $scope.atualizarValorItem = function(){
+    	$scope.pedidoItem.valorTotal = 0;
 
     		if($scope.pedidoItem.acrescimo != 0||$scope.pedidoItem.desconto == 0){
 	

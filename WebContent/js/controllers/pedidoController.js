@@ -89,6 +89,8 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
         $scope.pedidoPagamento.tipoCobranca = null;
     	$scope.pedidoPagamento.observacao   = null;
     	//$scope.pedidoPagamento.status     = 1;
+   	 $scope.atualizarValorPagamento();
+
     	$('#modalFinanceiro').modal();
     	
     	$scope.mostrarAguarde    = false;
@@ -411,7 +413,7 @@ app.controller("pedidoController", function ($scope, requisicaoService, filterFi
     		return;
         }
     	
-    	if (ppedidoPagamento.valorTotal > $scope.pedido.valorLiquido){
+    	if (ppedidoPagamento.valorTotal > $scope.pedido.valorTotal){
     		$scope.mensagemRodape = "Valor maior que total do pedido";
     		document.getElementById("cValorTotal").focus();
     		$scope.mostrarAguarde = false;

@@ -36,22 +36,24 @@
 		<body>
 				<!-- IDIOMAS -->
 					<ul class="nav navbar-top-links navbar-right">
-						<div class="div-internacionalizacao">
-							<div class="col-md-3">
-			      				<div ng-class="idiomaSelecionado('portugues')">
-				      				<img src="img/Brazil.png" ng-click="atualizarIdioma('portugues')">
+						<div class="col-md-10">
+							<div class="div-internacionalizacao">
+								<div class="col-md-4">
+			      					<div ng-class="idiomaSelecionado('portugues')">
+				      					<img src="img/Brazil.png" ng-click="atualizarIdioma('portugues')">
+				      				</div>
 				      			</div>
-				      		</div>
-				      		<div class="col-md-3">
-				      			<div ng-class="idiomaSelecionado('espanhol')">
-				      				<img src="img/Spain.png" ng-click="atualizarIdioma('espanhol')">
+				      			<div class="col-md-4">
+				      				<div ng-class="idiomaSelecionado('espanhol')">
+				      					<img src="img/Spain.png" ng-click="atualizarIdioma('espanhol')">
+				      				</div>
 				      			</div>
-				      		</div>
-				      		<div class="col-md-3">
-				      			<div ng-class="idiomaSelecionado('ingles')">
-				      				<img src="img/USA.png" ng-click="atualizarIdioma('ingles')">
-				      			</div>
-				      		</div>	
+				      			<div class="col-md-4">
+				      				<div ng-class="idiomaSelecionado('ingles')">
+				      					<img src="img/USA.png" ng-click="atualizarIdioma('ingles')">
+				      				</div>
+				      			</div>	
+			      			</div>
 			      		</div>
 					</ul>
 	<nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -279,12 +281,12 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 	<script src="js/app.js"></script>
     <script src="js/dirPagination.js"></script>
+    
 	<!-- DECLARAÇÃO DOS CONTROLLERS -->
 	
 	<script src="js/controllers/pedidoFechadoController.js"></script>
 	<script src="js/controllers/contaRecebidaController.js"></script>
 	<script src="js/controllers/contaPagaController.js"></script>
-	<script src="js/funcoes/funcoes.js"></script>
 	<script src="js/controllers/capCarController.js"></script>
 	<script src="js/controllers/produtoController.js"></script>
 	<script src="js/controllers/produtoController.js"></script>
@@ -302,7 +304,17 @@
     <script src="js/controllers/categoriaController.js"></script>
     <script src="js/controllers/caixaController.js"></script>
     <script src="js/controllers/pedidoController.js"></script>    
+	
+	<!-- DECLARAÇÃO DOS SERVICES -->
+	
 	<script src="js/services/requisicaoService.js"></script>
+	
+	<!-- DECLARAÇÃO DAS FUNÇÕES -->
+	
+	<script src="js/funcoes/funcoes.js"></script>
+	
+	<!-- DECLARAÇÃO DAS CONFIGURAÇÕES -->
+	
 	<script src="js/config/routeConfig.js"></script>
 	<script src="lib/angular-messages.js"></script>
 	<script src="lib/angular-route.js"></script>
